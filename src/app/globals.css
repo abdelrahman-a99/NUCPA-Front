@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "NT Brick Sans";
+  src: url("/fonts/NTBrickSans.otf") format("opentype"),
+    url("/fonts/NTBrickSans.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: 247 249 252;
+  --card: 255 255 255;
+  --ink: 17 24 39;
+  --muted: 107 114 128;
+
+  --teal: 70 164 176;
+  --teal-bright: 56 177 192;
+  --ink2: 64 62 75;
+  --teal2: 78 167 182;
+  --red: 255 77 92;
+
+  --footer: 54 56 72;
+  --line: 226 232 240;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  scroll-padding-top: 100px;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.dot-bg {
+  background-image:
+    radial-gradient(rgba(56, 177, 192, .55) 2px, transparent 2px),
+    radial-gradient(rgba(56, 177, 192, .35) 2px, transparent 2px);
+  background-size: 80px 80px, 120px 120px;
+  background-position: 10px 20px, 60px 10px;
+}
+
+.bg-dots-about {
+  background-image: url('/assets/dots-about.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+}
+
+.bg-dots-contact {
+  background-image: url('/assets/dots-contact.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+}
+
+.pixel-outline {
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.08);
+}
+
+.container-max {
+  @apply mx-auto w-full max-w-7xl;
+}
+
+.container-md {
+  @apply mx-auto w-full max-w-4xl;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
