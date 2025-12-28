@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/cn";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -8,6 +8,27 @@ import { CARDS } from "@/lib/data";
 
 export default function Details() {
   const [active, setActive] = useState<typeof CARDS[number]["key"]>(CARDS[0].key);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const currentIndex = CARDS.findIndex((c) => c.key === active);
+    if (currentIndex !== -1) {
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+      const cardWidth = isMobile ? 180 : 220;
+      const gap = 32;
+      const padding = 16;
+
+      const scrollTarget = currentIndex * (cardWidth + gap);
+
+      container.scrollTo({
+        left: scrollTarget,
+        behavior: "smooth",
+      });
+    }
+  }, [active]);
 
   const handlePrev = () => {
     const currentIndex = CARDS.findIndex((c) => c.key === active);
@@ -29,25 +50,29 @@ export default function Details() {
           <p className="font-pixel text-[20px] text-red">COMPETITION OVERVIEW</p>
 
           {/* Cards Container */}
-          <div className="mt-5 flex gap-8 overflow-x-auto pb-1 scrollbar-hide">
+          <div
+            ref={containerRef}
+            className="mt-5 flex gap-8 overflow-x-auto pb-8 scrollbar-hide px-4 -mx-4 scroll-smooth"
+          >
             {CARDS.map((card) => {
               const isActive = card.key === active;
               return (
                 <button
                   key={card.key}
+                  data-active={isActive}
                   onClick={() => setActive(card.key)}
                   className={cn(
                     "relative flex flex-col rounded-xl2 shadow-soft p-8 transition-all duration-500 shrink-0",
                     "h-[450px] text-left",
                     isActive
-                      ? "w-[300px] sm:w-[420px] bg-teal justify-end"
+                      ? "w-[300px] sm:w-[500px] bg-teal justify-end"
                       : "w-[180px] sm:w-[220px] bg-teal2 justify-end hover:opacity-90"
                   )}
                 >
                   {/* Title */}
                   <div
                     className={cn(
-                      "font-pixel text-2xl uppercase leading-relaxed transition-all duration-500",
+                      "font-pixel text-2xl uppercase leading-relaxed transition-all duration-500 break-words",
                       isActive ? "mb-4 text-white" : "text-white/90"
                     )}
                   >
