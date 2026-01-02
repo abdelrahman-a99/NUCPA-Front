@@ -29,6 +29,17 @@ This repository contains the front-end code for the **Nile University Competitiv
     npm run dev
     ```
 
+#### Environment variables
+
+Create `.env.local` (or set these in Vercel):
+
+```bash
+NEXT_PUBLIC_NUCPA_API_BASE_URL=
+NUCPA_API_BASE_URL=
+```
+
+The browser uses `NEXT_PUBLIC_NUCPA_API_BASE_URL` for the Google-login popup, while Next.js server routes use `NUCPA_API_BASE_URL` to proxy requests securely.
+
 4.  **Open the site:**
     Visit [http://localhost:3000](http://localhost:3000) in your browser.
 

@@ -3,8 +3,10 @@
 import Image from "next/image";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import PixelButton from "@/components/ui/PixelButton";
 import { EVENT_DATE_ISO } from "@/lib/site";
+import { useGoogleLogin } from "@/hooks/useGoogleLogin";
 
 function pad2(n: number) {
   return n.toString().padStart(2, "0");
@@ -32,6 +34,15 @@ function useCountdown(targetISO: string) {
 
 export default function Hero() {
   const { days, hours, minutes, seconds } = useCountdown(EVENT_DATE_ISO);
+  const router = useRouter();
+
+  const handleLoginSuccess = useMemo(() => {
+    return () => router.push("/registration");
+  }, [router]);
+
+  const { login, isLoading } = useGoogleLogin({
+    onSuccess: handleLoginSuccess,
+  });
 
   return (
     <section id="home">
@@ -52,8 +63,8 @@ export default function Hero() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <PixelButton href="#home" variant="primary">
-                REGISTER NOW
+              <PixelButton onClick={() => login()} variant="primary">
+                {isLoading ? "OPENING..." : "REGISTER NOW"}
               </PixelButton>
               <PixelButton href="#about" variant="outline-red">
                 LEARN MORE
