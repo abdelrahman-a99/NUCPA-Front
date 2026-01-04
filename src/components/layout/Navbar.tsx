@@ -129,18 +129,11 @@ export default function Navbar() {
         {/* Sidebar content */}
         <div
           className={cn(
-            "absolute top-0 right-0 h-full w-[280px] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col p-6",
+            "absolute top-0 right-0 h-full w-[240px] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col p-6",
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
         >
-          <div className="flex items-center justify-between mb-10 shrink-0">
-            <Image
-              src="/assets/logo.png"
-              alt="NUCPA"
-              width={100}
-              height={50}
-              className="h-10 w-auto"
-            />
+          <div className="flex items-center justify-end mb-10 shrink-0">
             <button
               onClick={() => setIsMenuOpen(false)}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-line/20 text-ink hover:bg-line/40 transition-colors"
@@ -151,7 +144,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-col gap-2 items-end">
             {NAV_ITEMS.map((item) => {
               const href = isHome ? item.href : `/${item.href}`;
               const isActive = isHome && item.href === active;
@@ -161,7 +154,7 @@ export default function Navbar() {
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
                   className={cn(
-                    "text-lg font-pixel py-4 px-6 rounded-xl transition-all",
+                    "text-sm font-pixel py-3 px-6 rounded-xl transition-all w-full text-right",
                     isActive
                       ? "bg-teal text-white shadow-md"
                       : "text-ink hover:bg-bg/50 border border-transparent"
@@ -178,16 +171,16 @@ export default function Navbar() {
                   setIsMenuOpen(false);
                   handleLogout();
                 }}
-                className="mt-4 text-lg font-pixel py-4 px-6 rounded-xl bg-red text-white border border-transparent shadow-md hover:bg-red/90 transition-colors"
+                className="mt-4 text-sm font-pixel py-3 px-6 rounded-xl bg-red text-white border border-transparent shadow-md hover:bg-red/90 transition-colors w-full text-right"
               >
                 LOGOUT
               </button>
             )}
           </nav>
 
-          <div className="mt-auto pb-6 text-center shrink-0">
-            <div className="h-px w-12 bg-line mx-auto mb-6 opacity-50" />
-            <p className="text-muted text-[10px] font-pixel uppercase tracking-widest leading-relaxed">
+          <div className="mt-auto pb-6 text-right shrink-0">
+            <div className="h-px w-12 bg-line ml-auto mb-6 opacity-50" />
+            <p className="text-muted text-[9px] font-pixel uppercase tracking-widest leading-relaxed">
               Nile University<br />Coding Arena
             </p>
           </div>
