@@ -372,7 +372,7 @@ export default function RegistrationPage() {
     <div className="flex flex-col min-h-screen bg-bg">
       <Navbar />
       <main className="flex-grow bg-dots-about relative overflow-hidden">
-        <div className="container-md py-12 relative z-10 px-4">
+        <div className="container-lg py-12 relative z-10 px-4">
           <header className="text-center mb-10">
             <h1 className="font-pixel text-4xl sm:text-6xl text-teal-bright pixel-outline drop-shadow-sm">
               REGISTRATION
@@ -513,13 +513,13 @@ function TeamView({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {team.members.map((m, i) => (
             <div key={m.id} className="group relative rounded-2xl border border-line bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-teal/30">
-              <div className="absolute top-4 right-4 text-xs font-bold text-gray-200 group-hover:text-teal/20 pointer-events-none text-4xl font-pixel">
+              <div className="absolute top-4 right-4 text-xs font-bold text-teal/10 group-hover:text-teal/30 pointer-events-none text-4xl font-pixel">
                 0{i + 1}
               </div>
 
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xl font-bold text-ink truncate pr-2">{m.name}</p>
+                  <p className="font-pixel text-xl text-ink truncate pr-2 uppercase">{m.name}</p>
                   {m.nu_student && <span className="px-2 py-0.5 rounded-full bg-teal/10 text-teal text-[10px] font-bold uppercase tracking-wider border border-teal/20">NU Student</span>}
                 </div>
                 <p className="text-sm text-muted font-medium">{m.email}</p>
@@ -822,7 +822,7 @@ function InfoRow({
   return (
     <div className={compact ? "flex justify-between items-baseline gap-4 py-1" : "flex flex-col gap-1"}>
       <span className={`text-muted shrink-0 ${compact ? "text-[10px] font-pixel" : "text-[10px] font-pixel uppercase tracking-wide"}`}>{label}</span>
-      <span className={`text-ink truncate ${large ? "text-xl font-medium" : "text-sm font-semibold"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right ml-2" : ""}`}>
+      <span className={`text-ink truncate ${large ? "text-xl font-pixel" : "text-sm font-pixel uppercase"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right ml-2" : ""}`}>
         {value}
       </span>
     </div>
