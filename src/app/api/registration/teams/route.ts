@@ -5,6 +5,9 @@ const COOKIE_ACCESS = "nucpa_access";
 const COOKIE_REFRESH = "nucpa_refresh";
 
 function backendBase() {
+  if (process.env.NODE_ENV === "development") {
+    return "http://127.0.0.1:8000";
+  }
   return process.env.NUCPA_API_BASE_URL || process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
 }
 
@@ -54,9 +57,9 @@ async function forward(req: Request, method: string) {
 
     const body = await res.arrayBuffer();
     const out = new NextResponse(body, { status: res.status, headers: res.headers });
-    out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
+    out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
     if (tokens.refresh) {
-      out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
+      out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
     }
     return out;
   }

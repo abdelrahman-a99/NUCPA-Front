@@ -5,6 +5,9 @@ const COOKIE_ACCESS = "nucpa_access";
 const COOKIE_REFRESH = "nucpa_refresh";
 
 function backendBase() {
+  if (process.env.NODE_ENV === "development") {
+    return "http://127.0.0.1:8000";
+  }
   return process.env.NUCPA_API_BASE_URL || process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
 }
 
@@ -20,7 +23,7 @@ async function refreshAccess(refresh: string) {
   return data as { access: string; refresh?: string };
 }
 
-async function forward(method: string, id: string) {
+async function forward(req: Request, method: string, id: string) {
   const c = cookies();
   const access = c.get(COOKIE_ACCESS)?.value;
   const refresh = c.get(COOKIE_REFRESH)?.value;
@@ -28,10 +31,30 @@ async function forward(method: string, id: string) {
 
   const url = `${backendBase()}/registration/teams/${id}/`;
 
+  // Read body if needed
+  let reqBody: any = undefined;
+  let contentType: string | undefined = undefined;
+
+  if (method === "POST" || method === "PUT" || method === "PATCH") {
+    contentType = req.headers.get("content-type") || "";
+    if (contentType.includes("multipart/form-data")) {
+      reqBody = await req.formData();
+      // When skipping content-type for FormData, fetch adds the boundary automatically
+      contentType = undefined;
+    } else {
+      reqBody = await req.text();
+    }
+  }
+
   const makeRequest = async (accessToken?: string) => {
     const headers = new Headers();
     if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
-    return fetch(url, { method, headers });
+    if (contentType) headers.set("Content-Type", contentType);
+
+    const options: RequestInit = { method, headers };
+    if (reqBody) options.body = reqBody;
+
+    return fetch(url, options);
   };
 
   let res = await makeRequest(access);
@@ -42,9 +65,9 @@ async function forward(method: string, id: string) {
     res = await makeRequest(tokens.access);
     const body = await res.arrayBuffer();
     const out = new NextResponse(body, { status: res.status, headers: res.headers });
-    out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
+    out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
     if (tokens.refresh) {
-      out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
+      out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
     }
     return out;
   }
@@ -53,6 +76,21 @@ async function forward(method: string, id: string) {
   return new NextResponse(body, { status: res.status, headers: res.headers });
 }
 
-export async function GET(_req: Request, ctx: { params: { id: string } }) {
-  return forward("GET", ctx.params.id);
+export async function GET(req: Request, ctx: { params: { id: string } }) {
+  return forward(req, "GET", ctx.params.id);
+}
+
+export async function PUT(req: Request, ctx: { params: { id: string } }) {
+  return forward(req, "PUT", ctx.params.id);
+}
+
+export async function PATCH(req: Request, ctx: { params: { id: string } }) {
+  return forward(req, "PATCH", ctx.params.id);
+}
+
+export async function DELETE(req: Request, ctx: { params: { id: string } }) {
+  console.log(`[Proxy] DELETE request for team ${ctx.params.id}`);
+  const res = await forward(req, "DELETE", ctx.params.id);
+  console.log(`[Proxy] DELETE response status: ${res.status}`);
+  return res;
 }
