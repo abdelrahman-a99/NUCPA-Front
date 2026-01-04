@@ -78,7 +78,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }
 
   function handleMessage(event: MessageEvent) {
-    if (event.data?.type === "NUCPA_AUTH_SUCCESS") {
+    if (event.data?.type === "NUCPA_AUTH_SUCCESS" || event.data?.type === "NUCPA_AUTH") {
       console.log("[useGoogleLogin] Received success signal via postMessage.");
       handleSuccess();
     }
