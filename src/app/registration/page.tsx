@@ -450,7 +450,7 @@ export default function RegistrationPage() {
                     RETRY
                   </PixelButton>
                   <PixelButton onClick={logout} variant="ghost" size="sm">
-                    LOGOUT
+                    LOGOUT SESSION
                   </PixelButton>
                 </div>
               </div>
