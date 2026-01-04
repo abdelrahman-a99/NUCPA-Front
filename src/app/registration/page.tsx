@@ -62,9 +62,11 @@ type MemberDraft = {
   email: string;
   phone_number: string;
   university: string;
+  university_other: string;
   national_id: string;
   birth_year: string;
   id_document: File | null;
+  existing_id_url?: string;
 };
 
 type TeamDetails = {
@@ -106,6 +108,7 @@ export default function RegistrationPage() {
       email: "",
       phone_number: "",
       university: "NU",
+      university_other: "",
       national_id: "",
       birth_year: "",
       id_document: null,
@@ -116,11 +119,14 @@ export default function RegistrationPage() {
       email: "",
       phone_number: "",
       university: "NU",
+      university_other: "",
       national_id: "",
       birth_year: "",
       id_document: null,
     },
   ]);
+
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   /* eslint-disable-next-line react-hooks/exhaustive-deps */
   const handleSuccess = useMemo(() => () => checkTeam(), []);
@@ -130,16 +136,12 @@ export default function RegistrationPage() {
   });
 
   async function checkTeam() {
-    console.log("[Registration] checkTeam started");
     setError(null);
     setPhase("checking");
     try {
-      console.log("[Registration] Fetching teams...");
       const res = await fetch("/api/registration/teams", { method: "GET" });
-      console.log("[Registration] Response status:", res.status);
 
       if (res.status === 401) {
-        console.log("[Registration] User not authenticated (401)");
         setPhase("idle");
         return;
       }
@@ -148,7 +150,6 @@ export default function RegistrationPage() {
         throw new Error(text || `Failed to check team (${res.status})`);
       }
       const list = (await res.json()) as Array<{ id: number }>;
-      console.log("[Registration] Teams found:", list.length);
 
       if (list.length > 0) {
         const id = list[0].id;
@@ -164,7 +165,6 @@ export default function RegistrationPage() {
         setPhase("noTeam");
       }
     } catch (e: any) {
-      console.error("[Registration] checkTeam Error:", e);
       setError(e?.message || "Something went wrong.");
       setPhase("error");
     }
@@ -179,41 +179,89 @@ export default function RegistrationPage() {
   }, []);
 
 
+  function validateForm() {
+    const errors: Record<string, string> = {};
+
+    if (!teamName.trim()) {
+      errors["team_name"] = "Team name is required.";
+    }
+
+    members.forEach((m, i) => {
+      const prefix = `member${i}_`;
+      if (!m.name.trim()) errors[`${prefix}name`] = "Full name is required.";
+      else if (m.name.trim().length < 3) errors[`${prefix}name`] = "Name is too short.";
+
+      if (!m.email.trim()) errors[`${prefix}email`] = "Email is required.";
+      else if (!/\S+@\S+\.\S+/.test(m.email)) errors[`${prefix}email`] = "Invalid email format.";
+
+      if (!m.phone_number.trim()) errors[`${prefix}phone_number`] = "Phone number is required.";
+      else if (m.phone_number.trim().length < 10) errors[`${prefix}phone_number`] = "Phone number is too short.";
+
+      if (!m.nationality.trim()) errors[`${prefix}nationality`] = "Nationality is required.";
+
+      if (m.university === "OTHER" && !m.university_other.trim()) {
+        errors[`${prefix}university_other`] = "Please specify your university.";
+      }
+
+      if (!m.national_id.trim()) {
+        errors[`${prefix}national_id`] = "National ID / Passport is required.";
+      } else {
+        if (m.nationality === "EG") {
+          if (!/^\d{14}$/.test(m.national_id)) {
+            errors[`${prefix}national_id`] = "Egyptian National ID must be 14 digits.";
+          }
+        } else if (m.national_id.length < 6) {
+          errors[`${prefix}national_id`] = "Passport number is too short.";
+        }
+      }
+
+      const birthYearNum = parseInt(m.birth_year);
+      if (!m.birth_year) {
+        errors[`${prefix}birth_year`] = "Birth year is required.";
+      } else if (isNaN(birthYearNum) || birthYearNum < 1999 || birthYearNum > 2009) {
+        errors[`${prefix}birth_year`] = "Birth year must be 1999–2009.";
+      }
+
+      if (phase !== "editing" && !m.id_document) {
+        errors[`${prefix}id_document`] = "ID document is required.";
+      } else if (phase === "editing" && !m.id_document && !m.existing_id_url) {
+        errors[`${prefix}id_document`] = "ID document is required.";
+      }
+    });
+
+    if (members[0].national_id && members[1].national_id && members[0].national_id === members[1].national_id) {
+      errors["member1_national_id"] = "Members must have different National IDs.";
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
   async function submitRegistration() {
     setError(null);
+    setFieldErrors({});
 
-    // Minimal client-side validation (backend is source of truth).
-    if (!teamName.trim()) return setError("Team name is required.");
-    if (!members[0].name.trim() || !members[1].name.trim()) return setError("Both member names are required.");
-    if (!members[0].national_id.trim() || !members[1].national_id.trim()) return setError("Both National IDs are required.");
-    if (members[0].national_id.trim() === members[1].national_id.trim()) return setError("Members must have different National IDs.");
-    if (!members[0].id_document || !members[1].id_document) {
-      // If editing, we might not have files.
-      if (phase !== "editing") return setError("Both ID documents are required.");
-    }
+    if (!validateForm()) return;
 
     setPhase("checking");
 
     try {
       const fd = new FormData();
       fd.append("team_name", teamName.trim());
-      // Admin handles payment_status; users default to false.
 
-      // Backend expects `members` as a JSON string.
       const membersJson = members.map((m) => ({
         name: m.name.trim(),
         nationality: m.nationality.trim() || "EG",
         email: m.email.trim(),
         phone_number: m.phone_number.trim(),
         university: m.university,
+        university_other: m.university === "OTHER" ? m.university_other.trim() : null,
         national_id: m.national_id.trim(),
         birth_year: Number(m.birth_year),
-        // nu_student is set automatically by backend when university === "NU"
       }));
 
       fd.append("members", JSON.stringify(membersJson));
 
-      // Backend expects files under keys like: members[0][id_document]
       if (members[0].id_document) {
         fd.append("members[0][id_document]", members[0].id_document);
       }
@@ -226,8 +274,7 @@ export default function RegistrationPage() {
 
       if (phase === "editing" && team) {
         url = `/api/registration/teams/${team.id}`;
-        method = "PUT"; // or PATCH depending on your backend, but standard is usually PUT for updates in this app context? 
-        // Backend 'update' usually supports PUT/PATCH.
+        method = "PUT";
       }
 
       const res = await fetch(url, { method, body: fd });
@@ -237,13 +284,35 @@ export default function RegistrationPage() {
         return;
       }
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || `Registration failed (${res.status})`);
+        const data = await res.json().catch(() => ({}));
+        if (typeof data === 'object' && data !== null) {
+          // Flatten nested errors from backend
+          const newErrors: Record<string, string> = {};
+          if (data.team_name) newErrors["team_name"] = Array.isArray(data.team_name) ? data.team_name[0] : data.team_name;
+          if (data.members && Array.isArray(data.members)) {
+            data.members.forEach((mErr: any, i: number) => {
+              if (typeof mErr === 'object') {
+                Object.keys(mErr).forEach(key => {
+                  newErrors[`member${i}_${key}`] = Array.isArray(mErr[key]) ? mErr[key][0] : mErr[key];
+                });
+              } else if (typeof mErr === 'string') {
+                newErrors[`member${i}_national_id`] = mErr; // fallback
+              }
+            });
+          }
+          if (data.error) setError(data.error);
+          if (Object.keys(newErrors).length > 0) {
+            setFieldErrors(newErrors);
+            setPhase(phase === "editing" ? "editing" : "noTeam");
+            return;
+          }
+        }
+        throw new Error(data.error || data.detail || `Registration failed (${res.status})`);
       }
       await checkTeam();
     } catch (e: any) {
       setError(e?.message || "Registration failed.");
-      setPhase("error");
+      setPhase(phase === "editing" ? "editing" : "noTeam");
     }
   }
 
@@ -263,8 +332,8 @@ export default function RegistrationPage() {
       // Reset form
       setTeamName("");
       setMembers([
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", national_id: "", birth_year: "", id_document: null },
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", national_id: "", birth_year: "", id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", university_other: "", national_id: "", birth_year: "", id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", university_other: "", national_id: "", birth_year: "", id_document: null },
       ]);
     } catch (e: any) {
       setError(e?.message || "Failed to cancel team");
@@ -281,9 +350,11 @@ export default function RegistrationPage() {
       email: m.email,
       phone_number: m.phone_number,
       university: m.university,
+      university_other: (m as any).university_other || "",
       national_id: m.national_id,
       birth_year: String(m.birth_year),
-      id_document: null
+      id_document: null,
+      existing_id_url: m.id_document
     })));
     setPhase("editing");
   }
@@ -364,6 +435,7 @@ export default function RegistrationPage() {
               setTeamName={setTeamName}
               members={members}
               setMembers={setMembers}
+              fieldErrors={fieldErrors}
               onSubmit={submitRegistration}
               onLogout={logout}
               onCancel={phase === "editing" ? () => setPhase("hasTeam") : undefined}
@@ -463,7 +535,7 @@ function TeamView({
                   <InfoRow label="Nationality" value={m.nationality} compact />
                   <InfoRow label="Birth Year" value={String(m.birth_year)} compact />
                 </div>
-                <InfoRow label="University" value={m.university} compact />
+                <InfoRow label="University" value={m.university === "OTHER" ? (m as any).university_other : m.university} compact />
 
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
@@ -493,6 +565,7 @@ function RegistrationForm({
   setTeamName,
   members,
   setMembers,
+  fieldErrors,
   onSubmit,
   onLogout,
   onCancel,
@@ -502,6 +575,7 @@ function RegistrationForm({
   setTeamName: (v: string) => void;
   members: MemberDraft[];
   setMembers: (v: MemberDraft[]) => void;
+  fieldErrors: Record<string, string>;
   onSubmit: () => void;
   onLogout: () => void;
   onCancel?: () => void;
@@ -532,13 +606,14 @@ function RegistrationForm({
       </div>
 
       <div className="mb-10 max-w-lg">
-        <label className="text-sm font-bold text-ink uppercase tracking-wider block mb-2">Team Name</label>
-        <input
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-          className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-medium"
-          placeholder="e.g. The Bug Slayers"
-        />
+        <Field label="Team Name" error={fieldErrors["team_name"]}>
+          <input
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
+            className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-medium"
+            placeholder="e.g. The Bug Slayers"
+          />
+        </Field>
       </div>
 
       <div className="space-y-12">
@@ -547,6 +622,18 @@ function RegistrationForm({
           <MemberForm
             value={members[0]}
             onChange={(next) => setMembers([next, members[1]])}
+            errors={{
+              name: fieldErrors["member0_name"],
+              email: fieldErrors["member0_email"],
+              phone_number: fieldErrors["member0_phone_number"],
+              nationality: fieldErrors["member0_nationality"],
+              university: fieldErrors["member0_university"],
+              university_other: fieldErrors["member0_university_other"],
+              national_id: fieldErrors["member0_national_id"],
+              birth_year: fieldErrors["member0_birth_year"],
+              id_document: fieldErrors["member0_id_document"],
+            }}
+            isEditing={isEditing}
           />
         </div>
 
@@ -555,6 +642,18 @@ function RegistrationForm({
           <MemberForm
             value={members[1]}
             onChange={(next) => setMembers([members[0], next])}
+            errors={{
+              name: fieldErrors["member1_name"],
+              email: fieldErrors["member1_email"],
+              phone_number: fieldErrors["member1_phone_number"],
+              nationality: fieldErrors["member1_nationality"],
+              university: fieldErrors["member1_university"],
+              university_other: fieldErrors["member1_university_other"],
+              national_id: fieldErrors["member1_national_id"],
+              birth_year: fieldErrors["member1_birth_year"],
+              id_document: fieldErrors["member1_id_document"],
+            }}
+            isEditing={isEditing}
           />
         </div>
       </div>
@@ -571,10 +670,20 @@ function RegistrationForm({
   );
 }
 
-function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: MemberDraft) => void }) {
+function MemberForm({
+  value,
+  onChange,
+  errors,
+  isEditing,
+}: {
+  value: MemberDraft;
+  onChange: (v: MemberDraft) => void;
+  errors: Record<string, string | undefined>;
+  isEditing?: boolean;
+}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-      <Field label="Full Name">
+      <Field label="Full Name" error={errors.name}>
         <input
           value={value.name}
           onChange={(e) => onChange({ ...value, name: e.target.value })}
@@ -583,7 +692,7 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
         />
       </Field>
 
-      <Field label="Email Address">
+      <Field label="Email Address" error={errors.email}>
         <input
           value={value.email}
           onChange={(e) => onChange({ ...value, email: e.target.value })}
@@ -593,7 +702,7 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
         />
       </Field>
 
-      <Field label="Phone number">
+      <Field label="Phone number" error={errors.phone_number}>
         <input
           value={value.phone_number}
           onChange={(e) => onChange({ ...value, phone_number: e.target.value })}
@@ -602,7 +711,7 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
         />
       </Field>
 
-      <Field label="Nationality">
+      <Field label="Nationality" error={errors.nationality}>
         <input
           value={value.nationality}
           onChange={(e) => onChange({ ...value, nationality: e.target.value.toUpperCase() })}
@@ -612,7 +721,7 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
         />
       </Field>
 
-      <Field label="University">
+      <Field label="University" error={errors.university}>
         <select
           value={value.university}
           onChange={(e) => onChange({ ...value, university: e.target.value })}
@@ -626,16 +735,27 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
         </select>
       </Field>
 
-      <Field label="National ID / Passport">
+      {value.university === "OTHER" && (
+        <Field label="University Name" error={errors.university_other}>
+          <input
+            value={value.university_other}
+            onChange={(e) => onChange({ ...value, university_other: e.target.value })}
+            className="input-modern"
+            placeholder="Official university name"
+          />
+        </Field>
+      )}
+
+      <Field label="National ID / Passport" error={errors.national_id}>
         <input
           value={value.national_id}
           onChange={(e) => onChange({ ...value, national_id: e.target.value })}
           className="input-modern"
-          placeholder="14-digit ID"
+          placeholder={value.nationality === "EG" ? "14-digit ID" : "Passport number"}
         />
       </Field>
 
-      <Field label="Birth Year (1999–2009)">
+      <Field label="Birth Year (1999–2009)" error={errors.birth_year}>
         <input
           value={value.birth_year}
           onChange={(e) => onChange({ ...value, birth_year: e.target.value })}
@@ -645,7 +765,7 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
         />
       </Field>
 
-      <Field label="ID Document">
+      <Field label="ID Document" error={errors.id_document}>
         <div className="relative">
           <input
             type="file"
@@ -654,20 +774,39 @@ function MemberForm({ value, onChange }: { value: MemberDraft; onChange: (v: Mem
             className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
           />
         </div>
-        {value.id_document && (
+        {value.id_document ? (
           <p className="mt-1 text-xs text-teal">Attached: {value.id_document.name}</p>
-        )}
+        ) : isEditing && value.existing_id_url ? (
+          <div className="mt-1 flex items-center gap-2">
+            <p className="text-xs text-muted">Currently:</p>
+            <a
+              href={value.existing_id_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-teal hover:underline font-bold"
+            >
+              View existing document ↗
+            </a>
+          </div>
+        ) : null}
       </Field>
     </div>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children, error }: { label: string; children: React.ReactNode; error?: string }) {
   return (
-    <label className="flex flex-col gap-1.5">
-      <span className="text-xs font-bold text-muted uppercase tracking-wider ml-1">{label}</span>
-      {children}
-    </label>
+    <div className="flex flex-col gap-1.5 w-full">
+      <label className="flex flex-col gap-1.5">
+        <span className="text-xs font-bold text-muted uppercase tracking-wider ml-1">{label}</span>
+        {children}
+      </label>
+      {error && (
+        <span className="text-[10px] font-bold text-red ml-1 animate-in fade-in slide-in-from-top-1">
+          {error}
+        </span>
+      )}
+    </div>
   );
 }
 
