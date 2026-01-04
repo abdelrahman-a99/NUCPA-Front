@@ -16,19 +16,23 @@ export async function POST(req: Request) {
 
     const res = NextResponse.json({ ok: true });
 
-    // Store tokens as HttpOnly cookies (best practice: prevents JS access/XSS token theft)
+    // Store tokens as HttpOnly cookies (persistent for 7 days)
+    const MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+
     res.cookies.set(COOKIE_ACCESS, access, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
+      maxAge: MAX_AGE,
     });
 
     res.cookies.set(COOKIE_REFRESH, refresh, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
+      maxAge: MAX_AGE,
     });
 
     return res;

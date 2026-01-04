@@ -7,21 +7,28 @@ export default function PixelButton({
   href,
   onClick,
   variant = "primary",
+  size = "default",
   className,
 }: {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
+  size?: "default" | "sm";
   variant?: Variant;
   className?: string;
 }) {
   const base =
-    "inline-flex items-center justify-center font-bold text-[20px] px-12 py-4 rounded-full transition shadow-soft";
+    "inline-flex items-center justify-center font-bold rounded-full transition shadow-soft";
+
+  const sizes = {
+    default: "text-[20px] px-12 py-4",
+    sm: "text-sm px-6 py-2.5",
+  };
 
   const styles: Record<Variant, string> = {
     primary: "bg-teal text-white hover:opacity-90",
     "outline-red":
-      "bg-transparent text-red border-4 border-red hover:bg-red hover:text-white shadow-none",
+      "bg-transparent text-red border-2 border-red hover:bg-red hover:text-white shadow-none",
     ghost: "bg-transparent text-ink hover:bg-white border border-line shadow-none",
   };
 
@@ -30,7 +37,7 @@ export default function PixelButton({
     <Comp
       href={href}
       onClick={onClick}
-      className={cn(base, styles[variant], className)}
+      className={cn(base, sizes[size], styles[variant], className)}
     >
       {children}
     </Comp>
