@@ -23,13 +23,13 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-8 opacity-80">
-            <a href="#" aria-label="Facebook" className="hover:opacity-100">
+            <a href="https://www.facebook.com/profile.php?id=61585629425649" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:opacity-100">
               <img src="/assets/icon-facebook.svg" alt="" className="h-8 w-8" />
             </a>
-            <a href="#" aria-label="LinkedIn" className="hover:opacity-100">
+            <a href="https://www.linkedin.com/company/nu-icpc/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-100">
               <img src="/assets/icon-linkedin.svg" alt="" className="h-8 w-8" />
             </a>
-            <a href="#" aria-label="Instagram" className="hover:opacity-100">
+            <a href="https://www.instagram.com/nucpacompetition/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:opacity-100">
               <img src="/assets/icon-instagram.svg" alt="" className="h-8 w-8" />
             </a>
           </div>
