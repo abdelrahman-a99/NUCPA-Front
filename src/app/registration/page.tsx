@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import PixelButton from "@/components/ui/PixelButton";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
 
@@ -91,7 +90,6 @@ type TeamDetails = {
 
 
 export default function RegistrationPage() {
-  const params = useSearchParams();
 
   const [phase, setPhase] = useState<
     "idle" | "checking" | "hasTeam" | "noTeam" | "editing" | "error"
@@ -100,7 +98,6 @@ export default function RegistrationPage() {
   const [team, setTeam] = useState<TeamDetails | null>(null);
 
   const [teamName, setTeamName] = useState("");
-  // paymentStatus is now admin-controlled only.
 
   const [members, setMembers] = useState<MemberDraft[]>(() => [
     {
