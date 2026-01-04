@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import PixelButton from "@/components/ui/PixelButton";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 type UniversityChoice = { value: string; label: string };
 
@@ -367,97 +369,97 @@ export default function RegistrationPage() {
   }
 
   return (
-    <main className="min-h-screen bg-bg relative overflow-hidden">
-      {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-bright/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-red/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
-
-      <div className="container-md py-12 relative z-10 px-4">
-        <header className="text-center mb-10">
-          <h1 className="font-pixel text-4xl sm:text-6xl text-teal-bright pixel-outline drop-shadow-sm">
-            REGISTRATION
-          </h1>
-          <div className="h-1 w-24 bg-teal-bright mx-auto mt-4 rounded-full opacity-60"></div>
-        </header>
+    <div className="flex flex-col min-h-screen bg-bg">
+      <Navbar />
+      <main className="flex-grow bg-dots-about relative overflow-hidden">
+        <div className="container-md py-12 relative z-10 px-4">
+          <header className="text-center mb-10">
+            <h1 className="font-pixel text-4xl sm:text-6xl text-teal-bright pixel-outline drop-shadow-sm">
+              REGISTRATION
+            </h1>
+            <div className="h-1 w-24 bg-teal-bright mx-auto mt-4 rounded-full opacity-60"></div>
+          </header>
 
 
-        {(error || googleError) && (
-          <div className="mb-8 rounded-2xl border border-red/20 bg-red/5 p-4 text-sm text-red font-semibold text-center animate-pulse">
-            {error || googleError}
+          {(error || googleError) && (
+            <div className="mb-8 rounded-2xl border border-red/20 bg-red/5 p-4 text-sm text-red font-semibold text-center animate-pulse">
+              {error || googleError}
+            </div>
+          )}
+
+          <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-8 sm:p-12">
+            {(phase === "idle") && (
+              <div className="flex flex-col items-center gap-8 text-center py-8">
+                <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
+                  {/* Simple icon or graphic could go here */}
+                  <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: '3s' }} />
+                </div>
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Challenger!</h2>
+                  <p className="text-muted max-w-md mx-auto font-medium">
+                    To assume your position in the arena, please authenticate with your Google account.
+                  </p>
+                </div>
+
+                <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
+                  <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
+                    {isGoogleLoading ? "CONNECTING..." : "LOGIN WITH GOOGLE"}
+                  </PixelButton>
+                  <PixelButton href="/" variant="ghost" size="sm">
+                    RETURN HOME
+                  </PixelButton>
+                </div>
+              </div>
+            )}
+
+            {phase === "checking" && (
+              <div className="flex flex-col items-center justify-center py-20 gap-4">
+                <div className="w-16 h-16 border-4 border-teal-bright border-t-transparent rounded-full animate-spin"></div>
+                <p className="text-ink font-pixel animate-pulse">Retrieving Data...</p>
+              </div>
+            )}
+
+            {phase === "hasTeam" && team && (
+              <TeamView
+                team={team}
+                onLogout={logout}
+                onEdit={startEditing}
+                onDelete={deleteTeam}
+              />
+            )}
+
+            {(phase === "noTeam" || phase === "editing") && (
+              <RegistrationForm
+                isEditing={phase === "editing"}
+                teamName={teamName}
+                setTeamName={setTeamName}
+                members={members}
+                setMembers={setMembers}
+                fieldErrors={fieldErrors}
+                onSubmit={submitRegistration}
+                onLogout={logout}
+                onCancel={phase === "editing" ? () => setPhase("hasTeam") : undefined}
+              />
+            )}
+
+            {phase === "error" && (
+              <div className="text-center py-12">
+                <p className="font-pixel text-red font-bold text-lg mb-6">Something went wrong.</p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <PixelButton onClick={checkTeam} variant="primary" size="sm">
+                    RETRY
+                  </PixelButton>
+                  <PixelButton onClick={logout} variant="ghost" size="sm">
+                    LOGOUT
+                  </PixelButton>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-
-        <div className="rounded-[2.5rem] border border-line/60 bg-white/80 backdrop-blur-xl p-8 sm:p-12 shadow-soft transition-all duration-300 hover:shadow-lg">
-          {(phase === "idle") && (
-            <div className="flex flex-col items-center gap-8 text-center py-8">
-              <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
-                {/* Simple icon or graphic could go here */}
-                <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: '3s' }} />
-              </div>
-              <div className="space-y-2">
-                <h2 className="text-2xl font-bold text-ink">Welcome, Challenger!</h2>
-                <p className="text-muted max-w-md mx-auto">
-                  To assume your position in the arena, please authenticate with your Google account.
-                </p>
-              </div>
-
-              <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
-                <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
-                  {isGoogleLoading ? "CONNECTING..." : "LOGIN WITH GOOGLE"}
-                </PixelButton>
-                <PixelButton href="/" variant="ghost" size="sm">
-                  RETURN HOME
-                </PixelButton>
-              </div>
-            </div>
-          )}
-
-          {phase === "checking" && (
-            <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <div className="w-16 h-16 border-4 border-teal-bright border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-ink font-semibold animate-pulse">Retrieving Data...</p>
-            </div>
-          )}
-
-          {phase === "hasTeam" && team && (
-            <TeamView
-              team={team}
-              onLogout={logout}
-              onEdit={startEditing}
-              onDelete={deleteTeam}
-            />
-          )}
-
-          {(phase === "noTeam" || phase === "editing") && (
-            <RegistrationForm
-              isEditing={phase === "editing"}
-              teamName={teamName}
-              setTeamName={setTeamName}
-              members={members}
-              setMembers={setMembers}
-              fieldErrors={fieldErrors}
-              onSubmit={submitRegistration}
-              onLogout={logout}
-              onCancel={phase === "editing" ? () => setPhase("hasTeam") : undefined}
-            />
-          )}
-
-          {phase === "error" && (
-            <div className="text-center py-12">
-              <p className="text-red font-bold text-lg mb-6">Something went wrong.</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <PixelButton onClick={checkTeam} variant="primary" size="sm">
-                  RETRY
-                </PixelButton>
-                <PixelButton onClick={logout} variant="ghost" size="sm">
-                  LOGOUT
-                </PixelButton>
-              </div>
-            </div>
-          )}
         </div>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
@@ -520,10 +522,10 @@ function TeamView({
 
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="font-bold text-lg text-ink truncate pr-2">{m.name}</p>
+                  <p className="font-pixel text-lg text-ink truncate pr-2 uppercase">{m.name}</p>
                   {m.nu_student && <span className="px-2 py-0.5 rounded-full bg-teal/10 text-teal text-[10px] font-bold uppercase tracking-wider border border-teal/20">NU Student</span>}
                 </div>
-                <p className="text-sm text-muted">{m.email}</p>
+                <p className="text-sm text-muted font-medium">{m.email}</p>
               </div>
 
               <div className="space-y-3 pt-4 border-t border-line/50">
@@ -610,7 +612,7 @@ function RegistrationForm({
           <input
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
-            className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-medium"
+            className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-pixel text-sm"
             placeholder="e.g. The Bug Slayers"
           />
         </Field>
@@ -798,11 +800,11 @@ function Field({ label, children, error }: { label: string; children: React.Reac
   return (
     <div className="flex flex-col gap-1.5 w-full">
       <label className="flex flex-col gap-1.5">
-        <span className="text-xs font-bold text-muted uppercase tracking-wider ml-1">{label}</span>
+        <span className="text-xs font-pixel text-muted uppercase tracking-wider ml-1">{label}</span>
         {children}
       </label>
       {error && (
-        <span className="text-[10px] font-bold text-red ml-1 animate-in fade-in slide-in-from-top-1">
+        <span className="text-[10px] font-pixel text-red ml-1 animate-in fade-in slide-in-from-top-1">
           {error}
         </span>
       )}
@@ -825,8 +827,8 @@ function InfoRow({
 }) {
   return (
     <div className={compact ? "flex justify-between items-baseline gap-4 py-1" : "flex flex-col gap-1"}>
-      <span className={`text-muted ${compact ? "text-xs" : "text-xs font-bold uppercase tracking-wide"}`}>{label}</span>
-      <span className={`text-ink font-medium ${large ? "text-xl" : "text-sm"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right" : ""}`}>
+      <span className={`text-muted ${compact ? "text-[10px] font-pixel" : "text-[10px] font-pixel uppercase tracking-wide"}`}>{label}</span>
+      <span className={`text-ink ${large ? "text-xl font-pixel" : "text-sm font-pixel uppercase"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right" : ""}`}>
         {value}
       </span>
     </div>
