@@ -113,9 +113,26 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-[100] bg-white animate-in fade-in slide-in-from-top-4 duration-300 flex flex-col p-6 overflow-y-auto">
+      {/* Mobile Menu Sidebar */}
+      <div
+        className={cn(
+          "fixed inset-0 z-[100] transition-opacity duration-300 md:hidden",
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+      >
+        {/* Backdrop overlay */}
+        <div
+          className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+          onClick={() => setIsMenuOpen(false)}
+        />
+
+        {/* Sidebar content */}
+        <div
+          className={cn(
+            "absolute top-0 right-0 h-full w-[280px] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col p-6",
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
           <div className="flex items-center justify-between mb-10 shrink-0">
             <Image
               src="/assets/logo.png"
@@ -126,7 +143,7 @@ export default function Navbar() {
             />
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-line/20 text-ink"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-line/20 text-ink hover:bg-line/40 transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -134,7 +151,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="flex flex-col gap-3">
+          <nav className="flex flex-col gap-2">
             {NAV_ITEMS.map((item) => {
               const href = isHome ? item.href : `/${item.href}`;
               const isActive = isHome && item.href === active;
@@ -144,10 +161,10 @@ export default function Navbar() {
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
                   className={cn(
-                    "text-xl font-pixel py-4 px-6 rounded-2xl transition-all text-center",
+                    "text-lg font-pixel py-4 px-6 rounded-xl transition-all",
                     isActive
-                      ? "bg-teal text-white shadow-lg"
-                      : "text-ink bg-bg/50 border border-transparent"
+                      ? "bg-teal text-white shadow-md"
+                      : "text-ink hover:bg-bg/50 border border-transparent"
                   )}
                 >
                   {item.label}
@@ -161,18 +178,21 @@ export default function Navbar() {
                   setIsMenuOpen(false);
                   handleLogout();
                 }}
-                className="mt-2 text-xl font-pixel py-4 px-6 rounded-2xl bg-red text-white border border-transparent text-center shadow-lg"
+                className="mt-4 text-lg font-pixel py-4 px-6 rounded-xl bg-red text-white border border-transparent shadow-md hover:bg-red/90 transition-colors"
               >
                 LOGOUT
               </button>
             )}
           </nav>
 
-          <div className="mt-12 mb-8 text-center shrink-0">
-            <p className="text-muted text-[10px] font-pixel uppercase tracking-widest">Nile University Coding Arena</p>
+          <div className="mt-auto pb-6 text-center shrink-0">
+            <div className="h-px w-12 bg-line mx-auto mb-6 opacity-50" />
+            <p className="text-muted text-[10px] font-pixel uppercase tracking-widest leading-relaxed">
+              Nile University<br />Coding Arena
+            </p>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
