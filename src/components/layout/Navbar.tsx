@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 
 export default function Navbar() {
   const [active, setActive] = useState<string>("#home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -103,14 +104,75 @@ export default function Navbar() {
               LOGOUT
             </button>
           )}
-          <a
-            href="#contact"
-            className="text-[11px] px-3 py-2 rounded-full bg-white border border-line"
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="text-[11px] px-4 py-2 rounded-full bg-white border border-line font-bold uppercase tracking-wider"
           >
             MENU
-          </a>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md animate-in fade-in duration-300 flex flex-col p-6">
+          <div className="flex items-center justify-between mb-12">
+            <Image
+              src="/assets/logo.png"
+              alt="NUCPA"
+              width={100}
+              height={50}
+              className="h-12 w-auto"
+            />
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-line/20 text-ink"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <nav className="flex flex-col gap-4">
+            {NAV_ITEMS.map((item) => {
+              const href = isHome ? item.href : `/${item.href}`;
+              const isActive = isHome && item.href === active;
+              return (
+                <a
+                  key={item.href}
+                  href={href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={cn(
+                    "text-2xl font-pixel py-4 px-6 rounded-2xl transition-all",
+                    isActive
+                      ? "bg-teal text-white shadow-lg translate-x-2"
+                      : "text-ink hover:bg-white border border-transparent hover:border-line"
+                  )}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+
+            {!isHome && pathname.startsWith("/registration") && (
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  handleLogout();
+                }}
+                className="mt-4 text-2xl font-pixel py-4 px-6 rounded-2xl bg-red/10 text-red border border-red/20 text-left"
+              >
+                LOGOUT
+              </button>
+            )}
+          </nav>
+
+          <div className="mt-auto pb-8 text-center">
+            <p className="text-muted text-xs font-pixel uppercase tracking-widest">Nile University Coding Arena</p>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

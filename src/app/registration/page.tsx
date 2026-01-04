@@ -387,7 +387,7 @@ export default function RegistrationPage() {
             </div>
           )}
 
-          <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-8 sm:p-12">
+          <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-5 sm:p-12">
             {(phase === "idle") && (
               <div className="flex flex-col items-center gap-8 text-center py-8">
                 <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
@@ -519,7 +519,7 @@ function TeamView({
 
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="font-pixel text-xl text-ink truncate pr-2 uppercase">{m.name}</p>
+                  <p className="font-pixel text-lg sm:text-xl text-ink truncate pr-2 uppercase">{m.name}</p>
                   {m.nu_student && <span className="px-2 py-0.5 rounded-full bg-teal/10 text-teal text-[10px] font-bold uppercase tracking-wider border border-teal/20">NU Student</span>}
                 </div>
                 <p className="text-sm text-muted font-medium">{m.email}</p>
@@ -822,7 +822,7 @@ function InfoRow({
   return (
     <div className={compact ? "flex justify-between items-baseline gap-4 py-1" : "flex flex-col gap-1"}>
       <span className={`text-muted shrink-0 ${compact ? "text-[10px] font-pixel" : "text-[10px] font-pixel uppercase tracking-wide"}`}>{label}</span>
-      <span className={`text-ink truncate ${large ? "text-xl font-pixel" : "text-sm font-pixel uppercase"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right ml-2" : ""}`}>
+      <span className={`text-ink truncate ${large ? "text-lg sm:text-xl font-pixel" : "text-sm font-pixel uppercase"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right ml-2" : ""}`}>
         {value}
       </span>
     </div>
