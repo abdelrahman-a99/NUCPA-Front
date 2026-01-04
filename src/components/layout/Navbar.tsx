@@ -115,14 +115,14 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md animate-in fade-in duration-300 flex flex-col p-6">
-          <div className="flex items-center justify-between mb-12">
+        <div className="fixed inset-0 z-[100] bg-white animate-in fade-in slide-in-from-top-4 duration-300 flex flex-col p-6 overflow-y-auto">
+          <div className="flex items-center justify-between mb-10 shrink-0">
             <Image
               src="/assets/logo.png"
               alt="NUCPA"
               width={100}
               height={50}
-              className="h-12 w-auto"
+              className="h-10 w-auto"
             />
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -134,7 +134,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-3">
             {NAV_ITEMS.map((item) => {
               const href = isHome ? item.href : `/${item.href}`;
               const isActive = isHome && item.href === active;
@@ -144,10 +144,10 @@ export default function Navbar() {
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
                   className={cn(
-                    "text-2xl font-pixel py-4 px-6 rounded-2xl transition-all",
+                    "text-xl font-pixel py-4 px-6 rounded-2xl transition-all text-center",
                     isActive
-                      ? "bg-teal text-white shadow-lg translate-x-2"
-                      : "text-ink hover:bg-white border border-transparent hover:border-line"
+                      ? "bg-teal text-white shadow-lg"
+                      : "text-ink bg-bg/50 border border-transparent"
                   )}
                 >
                   {item.label}
@@ -161,15 +161,15 @@ export default function Navbar() {
                   setIsMenuOpen(false);
                   handleLogout();
                 }}
-                className="mt-4 text-2xl font-pixel py-4 px-6 rounded-2xl bg-red/10 text-red border border-red/20 text-left"
+                className="mt-2 text-xl font-pixel py-4 px-6 rounded-2xl bg-red text-white border border-transparent text-center shadow-lg"
               >
                 LOGOUT
               </button>
             )}
           </nav>
 
-          <div className="mt-auto pb-8 text-center">
-            <p className="text-muted text-xs font-pixel uppercase tracking-widest">Nile University Coding Arena</p>
+          <div className="mt-12 mb-8 text-center shrink-0">
+            <p className="text-muted text-[10px] font-pixel uppercase tracking-widest">Nile University Coding Arena</p>
           </div>
         </div>
       )}
