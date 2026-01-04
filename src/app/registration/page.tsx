@@ -478,7 +478,7 @@ function TeamView({
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-line pb-6 mb-8">
         <div>
-          <h2 className="font-pixel text-3xl text-ink2 mb-2">YOUR TEAM</h2>
+          <h2 className="font-pixel text-2xl sm:text-3xl text-ink2 mb-2">YOUR TEAM</h2>
           <div className="flex items-center gap-3 text-sm text-muted">
             <span className="inline-block w-2 h-2 rounded-full bg-teal-bright"></span>
             Manage your roster and status.
@@ -490,9 +490,6 @@ function TeamView({
           </PixelButton>
           <PixelButton onClick={onDelete} variant="outline-red" size="sm">
             DELETE TEAM
-          </PixelButton>
-          <PixelButton onClick={onLogout} variant="ghost" size="sm">
-            LOGOUT
           </PixelButton>
         </div>
       </div>
@@ -522,7 +519,7 @@ function TeamView({
 
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="font-pixel text-lg text-ink truncate pr-2 uppercase">{m.name}</p>
+                  <p className="text-xl font-bold text-ink truncate pr-2">{m.name}</p>
                   {m.nu_student && <span className="px-2 py-0.5 rounded-full bg-teal/10 text-teal text-[10px] font-bold uppercase tracking-wider border border-teal/20">NU Student</span>}
                 </div>
                 <p className="text-sm text-muted font-medium">{m.email}</p>
@@ -601,9 +598,6 @@ function RegistrationForm({
               CANCEL
             </PixelButton>
           )}
-          <PixelButton onClick={onLogout} variant="ghost" size="sm">
-            LOGOUT
-          </PixelButton>
         </div>
       </div>
 
@@ -827,8 +821,8 @@ function InfoRow({
 }) {
   return (
     <div className={compact ? "flex justify-between items-baseline gap-4 py-1" : "flex flex-col gap-1"}>
-      <span className={`text-muted ${compact ? "text-[10px] font-pixel" : "text-[10px] font-pixel uppercase tracking-wide"}`}>{label}</span>
-      <span className={`text-ink ${large ? "text-xl font-pixel" : "text-sm font-pixel uppercase"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right" : ""}`}>
+      <span className={`text-muted shrink-0 ${compact ? "text-[10px] font-pixel" : "text-[10px] font-pixel uppercase tracking-wide"}`}>{label}</span>
+      <span className={`text-ink truncate ${large ? "text-xl font-medium" : "text-sm font-semibold"} ${highlight ? "text-teal font-bold" : ""} ${compact ? "text-right ml-2" : ""}`}>
         {value}
       </span>
     </div>
