@@ -196,6 +196,7 @@ export default function RegistrationPage() {
       const prefix = `member${i}_`;
       if (!m.name.trim()) errors[`${prefix}name`] = "Full name is required.";
       else if (m.name.trim().length < 7) errors[`${prefix}name`] = "Full name must be at least 7 characters.";
+      else if (!/^[a-zA-Z\s]+$/.test(m.name.trim())) errors[`${prefix}name`] = "Full name must only contain letters and spaces.";
 
       if (!m.email.trim()) errors[`${prefix}email`] = "Email is required.";
       else if (!/\S+@\S+\.\S+/.test(m.email)) errors[`${prefix}email`] = "Invalid email format.";
@@ -205,7 +206,7 @@ export default function RegistrationPage() {
       } else if (!/^\d+$/.test(m.phone_number.trim())) {
         errors[`${prefix}phone_number`] = "Phone number must contain only numbers.";
       } else if (m.phone_number.trim().length < 10) {
-        errors[`${prefix}phone_number`] = "Phone number is too short.";
+        errors[`${prefix}phone_number`] = "Phone number must be at least 10 digits.";
       }
 
       if (!m.nationality.trim()) errors[`${prefix}nationality`] = "Nationality is required.";
@@ -233,7 +234,10 @@ export default function RegistrationPage() {
         errors[`${prefix}birth_year`] = "Birth year must be 1999–2009.";
       }
 
-      if (phase !== "editing" && !m.id_document) {
+      // File Size Check (5MB)
+      if (m.id_document && m.id_document.size > 5 * 1024 * 1024) {
+        errors[`${prefix}id_document`] = "File too large. Max size is 5MB.";
+      } else if (phase !== "editing" && !m.id_document) {
         errors[`${prefix}id_document`] = "ID document is required.";
       } else if (phase === "editing" && !m.id_document && !m.existing_id_url) {
         errors[`${prefix}id_document`] = "ID document is required.";
