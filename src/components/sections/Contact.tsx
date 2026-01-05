@@ -1,6 +1,64 @@
 "use client";
 
+import { useState } from "react";
+
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/registration/contact/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setStatus("error");
+      setErrorMessage(err.message || "Something went wrong. Please try again.");
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name.toLowerCase().replace("your ", "")]: value }));
+  };
+
+  // Map placeholders to formData keys
+  const getBindingValue = (placeholder: string) => {
+    const key = placeholder.toLowerCase().replace("your ", "").replace("telephone number", "phone");
+    return (formData as any)[key] || "";
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string) => {
+    setFormData(prev => ({ ...prev, [key]: e.target.value }));
+  };
+
   return (
     <section id="contact" className="bg-dots-contact">
       <div className="container-md py-16">
@@ -11,30 +69,40 @@ export default function Contact() {
             Let&apos;s Connect/Talk/??
           </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Wait to integrate with the backend");
-            }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <input
+                required
+                name="name"
+                value={formData.name}
+                onChange={(e) => handleInputChange(e, 'name')}
                 className="w-full rounded-full border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40"
                 placeholder="Your Name"
               />
               <input
+                required
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={(e) => handleInputChange(e, 'email')}
                 className="w-full rounded-full border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40"
                 placeholder="Your Email"
-                type="email"
               />
               <input
+                required
+                name="phone"
+                value={formData.phone}
+                onChange={(e) => handleInputChange(e, 'phone')}
                 className="w-full rounded-full border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40"
                 placeholder="Your Telephone Number"
               />
             </div>
 
             <textarea
+              required
+              name="message"
+              value={formData.message}
+              onChange={(e) => handleInputChange(e, 'message')}
               className="w-full min-h-[140px] rounded-xl border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40 resize-none"
               placeholder="Your Message"
             />
@@ -42,10 +110,33 @@ export default function Contact() {
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="w-full rounded-full bg-teal text-white py-4 text-[16px] font-semibold shadow-soft hover:opacity-95"
+                disabled={status === "loading"}
+                className={`w-full rounded-full bg-teal text-white py-4 text-[16px] font-semibold shadow-soft hover:opacity-95 transition-all flex items-center justify-center gap-2 ${status === "loading" ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
               >
-                SEND
+                {status === "loading" ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    SENDING...
+                  </>
+                ) : (
+                  "SEND"
+                )}
               </button>
+
+              {status === "success" && (
+                <p className="mt-4 text-center font-pixel text-teal text-sm animate-in fade-in slide-in-from-top-2">
+                  ✓ Message sent successfully!
+                </p>
+              )}
+              {status === "error" && (
+                <p className="mt-4 text-center font-pixel text-red text-sm animate-in fade-in slide-in-from-top-2">
+                  ❌ {errorMessage}
+                </p>
+              )}
             </div>
           </form>
         </div>
