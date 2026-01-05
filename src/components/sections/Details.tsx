@@ -17,7 +17,7 @@ export default function Details() {
     const currentIndex = CARDS.findIndex((c) => c.key === active);
     if (currentIndex !== -1) {
       const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-      const cardWidth = isMobile ? 180 : 220;
+      const cardWidth = isMobile ? 160 : 220;
       const gap = 32;
       const padding = 16;
 
@@ -47,7 +47,7 @@ export default function Details() {
       <div className="container-max py-16">
         <SectionHeader title="DETAILS" />
         <div className="mt-10">
-          <p className="font-pixel text-[20px] text-red">COMPETITION OVERVIEW</p>
+          <p className="font-pixel text-[14px] lg:text-[20px] px-4 lg:px-0 text-red">COMPETITION OVERVIEW</p>
 
           {/* Cards Container */}
           <div
@@ -63,17 +63,17 @@ export default function Details() {
                   onClick={() => setActive(card.key)}
                   className={cn(
                     "relative flex flex-col transition-all duration-500 shrink-0",
-                    "text-left p-8 rounded-xl2 shadow-soft",
+                    "text-left p-4 sm:p-8 rounded-xl2 shadow-soft",
                     isActive
-                      ? "w-[300px] sm:w-[500px] bg-teal justify-end min-h-[450px] h-auto"
-                      : "w-[180px] sm:w-[220px] bg-teal2 justify-end h-[450px] hover:opacity-90"
+                      ? "w-[280px] sm:w-[500px] bg-teal justify-end min-h-[400px] sm:min-h-[450px] h-auto"
+                      : "w-[160px] sm:w-[220px] bg-teal2 justify-end h-[400px] sm:h-[450px] hover:opacity-90"
                   )}
                 >
                   {/* Title */}
                   <div
                     className={cn(
-                      "font-pixel text-2xl uppercase leading-relaxed transition-all duration-500 break-words",
-                      isActive ? "mb-4 text-white" : "text-white/90"
+                      "font-pixel text-md sm:text-2xl uppercase leading-relaxed transition-all duration-500 break-words",
+                      isActive ? "mb-0 lg:mb-4 text-white" : "text-white/90"
                     )}
                   >
                     {card.title}
@@ -88,7 +88,7 @@ export default function Details() {
                         : "opacity-0 invisible h-0"
                     )}
                   >
-                    <p className="text-[18px] font-semibold text-ink leading-relaxed font-sans">
+                    <p className="text-sm sm:text-[18px] font-semibold text-ink leading-relaxed font-sans">
                       {card.body}
                     </p>
                   </div>
@@ -97,13 +97,13 @@ export default function Details() {
             })}
           </div>
 
-          <p className="mt-4 text-lg text-ink2 font-semibold">
+          <p className="px-4 lg:px-0 mt-0 lg:mt-4 text-sm lg:text-lg text-ink2 font-semibold">
             Answers to common questions regarding
             <br />
             competition details
           </p>
 
-          <div className="mt-4 flex gap-3">
+          <div className="px-4 lg:px-0 mt-2 lg:mt-4 flex gap-3">
             <button
               onClick={handlePrev}
               className="h-8 w-8 rounded-full bg-red text-white grid place-items-center hover:bg-red/90 transition"

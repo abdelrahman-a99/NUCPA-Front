@@ -21,7 +21,7 @@ export default function PixelButton({
     "inline-flex items-center justify-center font-bold rounded-full transition shadow-soft";
 
   const sizes = {
-    default: "text-[20px] px-12 py-4",
+    default: "text-sm lg:text-[20px] px-6 lg:px-12 py-2.5 lg:py-4",
     sm: "text-sm px-6 py-2.5",
   };
 

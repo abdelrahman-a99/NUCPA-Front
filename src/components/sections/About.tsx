@@ -35,24 +35,24 @@ export default function About() {
           subtitle="NUCPA, Nile University Competitive Programming Arena, is the largest student-led national programming competition for Students in Egypt."
         />
 
-        <div className="mt-4 flex items-center justify-center gap-6 sm:gap-12">
-          <span className="px-8 py-1.5 rounded-full bg-red text-white font-semibold text-[16px] shadow-sm">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-6 sm:gap-12">
+          <span className="px-8 sm:px-8 py-1.5 rounded-full bg-red text-white font-semibold text-sm sm:text-[16px] shadow-sm">
             2025
           </span>
-          <span className="text-[16px] font-semibold tracking-wide text-ink">
+          <span className="text-sm sm:text-[16px] font-semibold tracking-wide text-ink">
             COMING SOON
           </span>
         </div>
 
         <div className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           {/* Gallery Slider */}
-          <div className="lg:col-span-2 relative px-10 sm:px-12">
+          <div className="lg:col-span-2 relative px-8 sm:px-12">
             <button
               onClick={prevSlide}
               aria-label="Previous Slide"
-              className="absolute left-0 top-1/2 -translate-y-1/2 text-ink hover:text-teal transition z-10"
+              className="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 text-ink hover:text-teal transition z-10"
             >
-              <ChevronLeft size={40} strokeWidth={3} />
+              <ChevronLeft size={32} className="sm:w-10 sm:h-10" strokeWidth={3} />
             </button>
 
             <div className="relative bg-white border border-line rounded-xl2 shadow-soft overflow-hidden group aspect-video">
@@ -72,22 +72,22 @@ export default function About() {
             <button
               onClick={nextSlide}
               aria-label="Next Slide"
-              className="absolute right-0 top-1/2 -translate-y-1/2 text-ink hover:text-teal transition z-10"
+              className="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 text-ink hover:text-teal transition z-10"
             >
-              <ChevronRight size={40} strokeWidth={3} />
+              <ChevronRight size={32} className="sm:w-10 sm:h-10" strokeWidth={3} />
             </button>
           </div>
 
           {/* Stats */}
-          <div className="pl-0 lg:pl-8">
-            <div className="space-y-12">
+          <div className="pl-0 lg:pl-8 mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:space-y-12">
               {STATS.map((s) => (
-                <div key={s.label} className="flex items-center gap-6 group">
-                  <div className="text-teal transition-transform group-hover:scale-110 duration-300">
-                    <s.Icon className={s.iconClass} strokeWidth={2.5} />
+                <div key={s.label} className="flex items-center lg:justify-start gap-4 sm:gap-6 group bg-white/40 p-4 rounded-2xl border border-line/20 lg:bg-transparent lg:p-0 lg:border-none">
+                  <div className="text-teal transition-transform group-hover:scale-110 duration-300 shrink-0">
+                    <s.Icon className={`${s.iconClass} w-8 h-8 sm:w-8 sm:h-8 md:w-16 md:h-16`} strokeWidth={2.5} />
                   </div>
                   <div>
-                    <div className="font-pixel text-xl sm:text-2xl text-teal">
+                    <div className="font-pixel text-md sm:text-2xl text-teal">
                       {s.value} <span className="text-teal">{s.label}</span>
                     </div>
                   </div>
@@ -99,14 +99,14 @@ export default function About() {
 
         {/* Sponsors */}
         <div className="mt-14 overflow-hidden">
-          <h3 className="text-center font-pixel text-4xl mb-8">OUR SPONSORS</h3>
+          <h3 className="text-center font-pixel text-2xl sm:text-4xl mb-8">OUR SPONSORS</h3>
 
           <div className="relative w-full pb-2">
-            <div className="flex w-max animate-scroll gap-6">
+            <div className="flex w-max animate-scroll gap-4 sm:gap-6">
               {Array.from({ length: 12 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-40 w-64 shrink-0 bg-white border border-line rounded-xl2 shadow-soft"
+                  className="h-24 sm:h-40 w-40 sm:w-64 shrink-0 bg-white border border-line rounded-xl2 shadow-soft"
                 />
               ))}
             </div>

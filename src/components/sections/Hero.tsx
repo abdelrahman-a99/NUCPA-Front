@@ -47,22 +47,22 @@ export default function Hero() {
   return (
     <section id="home">
       <div className="container-max">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center text-center lg:text-left mt-4 lg:mt-0">
           <div>
             <h1 className="font-pixel text-4xl lg:text-7xl text-teal-bright pixel-outline">
               JOIN THE
             </h1>
-            <h1 className="font-pixel text-4xl lg:text-7xl pt-6 text-teal-bright pixel-outline">
+            <h1 className="font-pixel text-4xl lg:text-7xl pt-4 lg:pt-6 text-teal-bright pixel-outline">
               CODING ARENA
             </h1>
 
-            <p className="mt-4 text-lg font-semibold tracking-widest max-w-md">
+            <p className="mt-4 text-base lg:text-lg font-semibold tracking-widest max-w-md mx-auto lg:mx-0">
               Egypt&apos;s largest student-led
               <br />
               problem-solving competition
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-4">
+            <div className="mt-4 lg:mt-6 flex flex-nowrap lg:flex-wrap justify-center lg:justify-start gap-4">
               <PixelButton onClick={() => login()} variant="primary">
                 {isLoading ? "OPENING..." : "REGISTER NOW"}
               </PixelButton>
@@ -72,20 +72,20 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-center lg:justify-end mt-4 lg:mt-0">
             <Image
               src="/assets/Dots_Octopus.png"
               alt="Hero character - Octopus with laptop"
               width={480}
               height={480}
-              className="w-[300px] sm:w-[380px] lg:w-[480px] h-auto select-none"
+              className="w-[240px] sm:w-[380px] lg:w-[480px] h-auto select-none"
               priority
             />
           </div>
         </div>
 
         <div className="text-center">
-          <p className="text-xs sm:text-xl font-semibold">
+          <p className="text-sm sm:text-xl font-semibold">
             NUCPA will take place on{" "}
             <span className="font-bold">FEBRUARY 13TH 2026</span>
           </p>
@@ -106,10 +106,10 @@ function TimeBox({ value, label }: { value: number; label: string }) {
   const display = label === "hours" || label === "min" || label === "sec" ? pad2(value) : String(value);
   return (
     <div className="text-center">
-      <div className="font-pixel text-4xl sm:text-7xl text-ink2 tracking-wider">
+      <div className="font-pixel text-3xl sm:text-7xl text-ink2 tracking-wider">
         {display}
       </div>
-      <div className="mt-2 text-sm text-muted">{label}</div>
+      <div className="mt-1 text-xs sm:text-sm text-muted">{label}</div>
     </div>
   );
 }

@@ -110,18 +110,18 @@ export default function Contact() {
         <h2 className="text-center font-pixel text-2xl sm:text-3xl">CONTACT US</h2>
 
         <div className="mt-10 bg-white border border-line rounded-xl2 shadow-soft p-6 sm:p-8">
-          <div className="font-pixel text-[18px] mb-6 text-muted">
-            Let&apos;s Connect/Talk/??
+          <div className="font-pixel text-[14px] lg:text-[18px] mb-6 text-muted">
+            Let&apos;s Connect/Talk?
           </div>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+            <div className="space-y-2 lg:space-y-4">
               <input
                 required
                 name="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange(e, 'name')}
-                className="w-full rounded-full border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40"
+                className="w-full rounded-full border border-line px-6 sm:px-8 py-3 sm:py-4 outline-none focus:ring-2 focus:ring-teal/40"
                 placeholder="Your Name"
               />
               <input
@@ -130,7 +130,7 @@ export default function Contact() {
                 name="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange(e, 'email')}
-                className="w-full rounded-full border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40"
+                className="w-full rounded-full border border-line px-6 sm:px-8 py-3 sm:py-4 outline-none focus:ring-2 focus:ring-teal/40"
                 placeholder="Your Email"
               />
               <input
@@ -138,7 +138,7 @@ export default function Contact() {
                 name="phone"
                 value={formData.phone}
                 onChange={(e) => handleInputChange(e, 'phone')}
-                className="w-full rounded-full border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40"
+                className="w-full rounded-full border border-line px-6 sm:px-8 py-3 sm:py-4 outline-none focus:ring-2 focus:ring-teal/40"
                 placeholder="Your Telephone Number"
               />
             </div>
@@ -148,7 +148,7 @@ export default function Contact() {
               name="message"
               value={formData.message}
               onChange={(e) => handleInputChange(e, 'message')}
-              className="w-full min-h-[140px] rounded-xl border border-line px-8 py-4 outline-none focus:ring-2 focus:ring-teal/40 resize-none"
+              className="w-full min-h-[140px] rounded-xl border border-line px-6 sm:px-8 py-3 sm:py-4 outline-none focus:ring-2 focus:ring-teal/40 resize-none"
               placeholder="Your Message"
             />
 
