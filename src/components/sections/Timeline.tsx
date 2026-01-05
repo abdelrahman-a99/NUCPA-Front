@@ -2,7 +2,12 @@ import { cn } from "@/lib/cn";
 import { TIMELINE_ITEMS } from "@/lib/data";
 
 export default function Timeline() {
-  const currentDate = new Date("2025-12-25");
+  const currentDate = new Date();
+
+  const n = TIMELINE_ITEMS.length;
+  // Center of first dot: 1/(2n), Center of last dot: (2n-1)/(2n). Width = (n-1)/n. LeftOffset = 1/(2n).
+  const leftOffset = `${(1 / (2 * n)) * 100}%`;
+  const lineWidth = `${((n - 1) / n) * 100}%`;
 
   return (
     <section className="bg-bg">
@@ -11,12 +16,15 @@ export default function Timeline() {
 
         <div className="mt-16 sm:mt-24 relative">
           {/* Horizontal Line (Desktop) */}
-          <div className="hidden sm:block absolute top-1/2 left-[12.5%] w-[75%] h-[2px] bg-line -translate-y-1/2" />
+          <div
+            className="hidden sm:block absolute top-1/2 h-[2px] bg-line -translate-y-1/2"
+            style={{ left: leftOffset, width: lineWidth }}
+          />
 
           {/* Vertical Line (Mobile) */}
           <div className="block sm:hidden absolute left-[11px] top-0 bottom-0 w-[2px] bg-line" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-0">
+          <div className="grid grid-cols-1 sm:grid-cols-6 gap-8 sm:gap-0">
             {TIMELINE_ITEMS.map((it, idx) => {
               const cleanDate = it.date.replace(/(st|nd|rd|th),/g, ",");
               const itemDate = new Date(cleanDate);
