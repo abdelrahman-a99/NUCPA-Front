@@ -40,7 +40,12 @@ export default function Contact() {
     } catch (err: any) {
       console.error("Submission error:", err);
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong. Please try again.");
+
+      let msg = err.message || "Something went wrong. Please try again.";
+      if (msg.includes("Failed to fetch") && typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+        msg = "Connectivity issue: Please ensure NEXT_PUBLIC_API_URL is correctly set in Vercel.";
+      }
+      setErrorMessage(msg);
     }
   };
 
