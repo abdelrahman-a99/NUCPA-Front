@@ -42,12 +42,12 @@ export default function Contact() {
       console.error("Submission error:", err);
       setStatus("error");
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
       const targetUrl = `${apiUrl}/registration/contact/`;
       let msg = err.message || "Something went wrong. Please try again.";
 
       if (msg.includes("Failed to fetch")) {
-        msg = `Connectivity issue: Cannot reach ${targetUrl}. Check Vercel environment variables.`;
+        msg = `Connectivity issue: Cannot reach ${targetUrl}. Please ensure your backend is online and CORS is enabled.`;
       }
       setErrorMessage(msg);
     }
