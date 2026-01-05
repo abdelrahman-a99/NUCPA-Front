@@ -186,18 +186,27 @@ export default function RegistrationPage() {
 
     if (!teamName.trim()) {
       errors["team_name"] = "Team name is required.";
+    } else if (teamName.length > 40) {
+      errors["team_name"] = "Team name cannot exceed 40 characters.";
+    } else if (!/^[A-Za-z]/.test(teamName.trim())) {
+      errors["team_name"] = "Team name must start with a letter (A-Z).";
     }
 
     members.forEach((m, i) => {
       const prefix = `member${i}_`;
       if (!m.name.trim()) errors[`${prefix}name`] = "Full name is required.";
-      else if (m.name.trim().length < 3) errors[`${prefix}name`] = "Name is too short.";
+      else if (m.name.trim().length < 7) errors[`${prefix}name`] = "Full name must be at least 7 characters.";
 
       if (!m.email.trim()) errors[`${prefix}email`] = "Email is required.";
       else if (!/\S+@\S+\.\S+/.test(m.email)) errors[`${prefix}email`] = "Invalid email format.";
 
-      if (!m.phone_number.trim()) errors[`${prefix}phone_number`] = "Phone number is required.";
-      else if (m.phone_number.trim().length < 10) errors[`${prefix}phone_number`] = "Phone number is too short.";
+      if (!m.phone_number.trim()) {
+        errors[`${prefix}phone_number`] = "Phone number is required.";
+      } else if (!/^\d+$/.test(m.phone_number.trim())) {
+        errors[`${prefix}phone_number`] = "Phone number must contain only numbers.";
+      } else if (m.phone_number.trim().length < 10) {
+        errors[`${prefix}phone_number`] = "Phone number is too short.";
+      }
 
       if (!m.nationality.trim()) errors[`${prefix}nationality`] = "Nationality is required.";
 

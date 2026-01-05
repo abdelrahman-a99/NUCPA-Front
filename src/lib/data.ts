@@ -22,7 +22,7 @@ export const CARDS = [
   {
     key: "prizes",
     title: "WHAT ARE THE PRIZES?",
-    body: "A 30,000 EGP prize pool for the top 5 teams, gifts for the next 5 teams, and special awards for NU teams (all team must be from NU) and teen teams (all members must be 18 years old or younger by February 1st 2026).",
+    body: "The NUCPA Championship features a 10,000 EGP prize for the 1st place team. The total prize pool is 30,000 EGP for the top 5 teams, with gifts for the next 5 teams, and special awards for NU student teams and teen teams.",
     tone: "teal2",
   },
   {
@@ -76,10 +76,12 @@ export const CARDS = [
 ] as const;
 
 export const TIMELINE_ITEMS = [
-  { title: "Applications Open", date: "December 24th, 2025" },
-  { title: "Applications Close", date: "December 27th, 2025" },
-  { title: "Payment Deadline", date: "December 28th, 2025" },
-  { title: "Competition Day", date: "December 29th, 2025" },
+  { title: "Applications Open", date: "January 6th, 2026" },
+  { title: "Applications Close", date: "February 10th, 2026" },
+  { title: "First Stage (Online)", date: "February 13th, 2026" },
+  { title: "Qualified Teams", date: "February 25th, 2026" },
+  { title: "Payment Deadline", date: "April 1st, 2026" },
+  { title: "Final Stage (Offline)", date: "April 17th, 2026" },
 ] as const;
 
 export const AWARD_TABS = [
