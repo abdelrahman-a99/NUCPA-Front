@@ -146,6 +146,8 @@ type MemberDraft = {
   national_id: string;
   birth_date: string; // YYYY-MM-DD
   nu_id: string;
+  codeforces_handle?: string;
+  vjudge_handle?: string;
   id_document: File | null;
   nu_id_document: File | null;
   existing_id_url?: string;
@@ -173,6 +175,8 @@ type TeamDetails = {
     year: number;
     nu_student: boolean;
     nu_id?: string;
+    codeforces_handle?: string;
+    vjudge_handle?: string;
     id_document?: string;
     nu_id_document?: string;
   }>;
@@ -203,6 +207,8 @@ export default function RegistrationPage() {
       national_id: "",
       birth_date: "",
       nu_id: "",
+      codeforces_handle: "",
+      vjudge_handle: "",
       id_document: null,
       nu_id_document: null,
     },
@@ -218,6 +224,8 @@ export default function RegistrationPage() {
       national_id: "",
       birth_date: "",
       nu_id: "",
+      codeforces_handle: "",
+      vjudge_handle: "",
       id_document: null,
       nu_id_document: null,
     },
@@ -389,6 +397,8 @@ export default function RegistrationPage() {
         national_id: m.national_id.trim(),
         birth_date: m.birth_date,
         nu_id: m.university === "NU" ? m.nu_id.trim() : null,
+        codeforces_handle: m.codeforces_handle?.trim() || null,
+        vjudge_handle: m.vjudge_handle?.trim() || null,
       }));
 
       fd.append("members", JSON.stringify(membersJson));
@@ -493,6 +503,8 @@ export default function RegistrationPage() {
       national_id: m.national_id,
       birth_date: m.birth_date || "",
       nu_id: m.nu_id || "",
+      codeforces_handle: m.codeforces_handle || "",
+      vjudge_handle: m.vjudge_handle || "",
       id_document: null,
       nu_id_document: null,
       existing_id_url: m.id_document,
@@ -625,9 +637,11 @@ function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          <PixelButton onClick={onEdit} variant="primary" size="sm">
-            EDIT TEAM
-          </PixelButton>
+          {!team.payment_status && (
+            <PixelButton onClick={onEdit} variant="primary" size="sm">
+              EDIT TEAM
+            </PixelButton>
+          )}
           <PixelButton onClick={onDelete} variant="outline-red" size="sm">
             DELETE TEAM
           </PixelButton>
@@ -684,6 +698,11 @@ function TeamView({
                 <div className="flex flex-col gap-1">
                   <InfoRow label="University" value={m.university === "OTHER" ? (m.university_other || "Other") : m.university} compact />
                   {m.nu_student && m.nu_id && <InfoRow label="NU ID" value={m.nu_id} compact />}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 border-t border-line/30 pt-2">
+                  <InfoRow label="CF Handle" value={m.codeforces_handle || "N/A"} compact />
+                  <InfoRow label="VJ Handle" value={m.vjudge_handle || "N/A"} compact />
                 </div>
 
                 {m.id_document && (
@@ -793,6 +812,8 @@ function RegistrationForm({
               national_id: fieldErrors["member0_national_id"],
               birth_date: fieldErrors["member0_birth_date"],
               nu_id: fieldErrors["member0_nu_id"],
+              codeforces_handle: fieldErrors["member0_codeforces_handle"],
+              vjudge_handle: fieldErrors["member0_vjudge_handle"],
               id_document: fieldErrors["member0_id_document"],
               nu_id_document: fieldErrors["member0_nu_id_document"],
             }}
@@ -817,6 +838,8 @@ function RegistrationForm({
               national_id: fieldErrors["member1_national_id"],
               birth_date: fieldErrors["member1_birth_date"],
               nu_id: fieldErrors["member1_nu_id"],
+              codeforces_handle: fieldErrors["member1_codeforces_handle"],
+              vjudge_handle: fieldErrors["member1_vjudge_handle"],
               id_document: fieldErrors["member1_id_document"],
               nu_id_document: fieldErrors["member1_nu_id_document"],
             }}
@@ -870,11 +893,63 @@ function MemberForm({
       </Field>
 
       <Field label="Phone number" error={errors.phone_number}>
+        <div className="flex gap-2">
+          <select
+            className="w-24 input-modern bg-transparent px-2"
+            value={value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20"}
+            onChange={(e) => {
+              const code = e.target.value;
+              const rest = value.phone_number.split(' ').slice(1).join(' ');
+              onChange({ ...value, phone_number: `${code} ${rest}`.trim() });
+            }}
+          >
+            <option value="+20">+20 (EG)</option>
+            <option value="+966">+966 (SA)</option>
+            <option value="+971">+971 (AE)</option>
+            <option value="+965">+965 (KW)</option>
+            <option value="+974">+974 (QA)</option>
+            <option value="+973">+973 (BH)</option>
+            <option value="+962">+962 (JO)</option>
+            <option value="+961">+961 (LB)</option>
+            <option value="+963">+963 (SY)</option>
+            <option value="+964">+964 (IQ)</option>
+            <option value="+212">+212 (MA)</option>
+            <option value="+213">+213 (DZ)</option>
+            <option value="+216">+216 (TN)</option>
+            <option value="+218">+218 (LY)</option>
+            <option value="+249">+249 (SD)</option>
+            <option value="+967">+967 (YE)</option>
+            <option value="+968">+968 (OM)</option>
+            <option value="+1">+1 (US/CA)</option>
+            <option value="+44">+44 (UK)</option>
+          </select>
+          <input
+            value={value.phone_number.includes(' ') ? value.phone_number.split(' ').slice(1).join(' ') : value.phone_number}
+            onChange={(e) => {
+              const code = value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20";
+              onChange({ ...value, phone_number: `${code} ${e.target.value.replace(/\D/g, '')}` });
+            }}
+            className="flex-grow input-modern"
+            placeholder="1xx xxx xxxx"
+          />
+        </div>
+      </Field>
+
+      <Field label="Codeforces Handle (Optional)" error={errors.codeforces_handle}>
         <input
-          value={value.phone_number}
-          onChange={(e) => onChange({ ...value, phone_number: e.target.value })}
+          value={value.codeforces_handle}
+          onChange={(e) => onChange({ ...value, codeforces_handle: e.target.value })}
           className="input-modern"
-          placeholder="+20 1xx xxx xxxx"
+          placeholder="e.g. tourist"
+        />
+      </Field>
+
+      <Field label="Vjudge Handle (Optional)" error={errors.vjudge_handle}>
+        <input
+          value={value.vjudge_handle}
+          onChange={(e) => onChange({ ...value, vjudge_handle: e.target.value })}
+          className="input-modern"
+          placeholder="e.g. vjudge_user"
         />
       </Field>
 
