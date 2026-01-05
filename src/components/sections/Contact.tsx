@@ -41,9 +41,12 @@ export default function Contact() {
       console.error("Submission error:", err);
       setStatus("error");
 
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const targetUrl = `${apiUrl}/registration/contact/`;
       let msg = err.message || "Something went wrong. Please try again.";
-      if (msg.includes("Failed to fetch") && typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-        msg = "Connectivity issue: Please ensure NEXT_PUBLIC_API_URL is correctly set in Vercel.";
+
+      if (msg.includes("Failed to fetch")) {
+        msg = `Connectivity issue: Cannot reach ${targetUrl}. Check Vercel environment variables.`;
       }
       setErrorMessage(msg);
     }
