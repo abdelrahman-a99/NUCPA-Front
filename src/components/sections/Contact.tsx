@@ -17,6 +17,29 @@ export default function Contact() {
     setStatus("loading");
     setErrorMessage("");
 
+    // 1. Validation Logic
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    const phoneRegex = /^[0-9]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    if (!nameRegex.test(formData.name)) {
+      setErrorMessage("Full name must only contain letters and spaces.");
+      setStatus("error");
+      return;
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage("Only Gmail addresses (@gmail.com) are allowed.");
+      setStatus("error");
+      return;
+    }
+
+    if (!phoneRegex.test(formData.phone)) {
+      setErrorMessage("Phone number must contain only numbers.");
+      setStatus("error");
+      return;
+    }
+
     try {
       const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
       const response = await fetch(`${apiUrl}/registration/contact/`, {
@@ -30,7 +53,10 @@ export default function Contact() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to send message");
+        // Handle DRF serializer errors
+        const errorKey = Object.keys(data)[0];
+        const errorVal = Array.isArray(data[errorKey]) ? data[errorKey][0] : data[errorKey];
+        throw new Error(errorVal || "Failed to send message");
       }
 
       setStatus("success");
