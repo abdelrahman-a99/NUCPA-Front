@@ -28,7 +28,7 @@ const UNIVERSITY_CHOICES: UniversityChoice[] = [
   { value: "DAMIETTA", label: "Damietta University" },
   { value: "DERAYA_UNIVERSITY", label: "Deraya University" },
   { value: "EL_SHOROUK_ACADEMY", label: "El Shorouk Academy" },
-  { value: "FAYOUM_UNIVERSITY", label: "Fayoum University" },
+  { value: "FAYOUM_UNIVERSITY", label: "FAYOM University" },
   { value: "FUTURE_UNIVERSITY", label: "Future University" },
   { value: "GERMAN_UNIVERSITY_IN_CAIRO", label: "German University in Cairo" },
   { value: "HELWAN", label: "Helwan University" },
@@ -58,17 +58,31 @@ const UNIVERSITY_CHOICES: UniversityChoice[] = [
   { value: "OTHER", label: "Other (University not listed)" },
 ];
 
+const YEAR_CHOICES = [
+  { value: "FRESHMAN", label: "Freshman" },
+  { value: "SOPHOMORE", label: "Sophomore" },
+  { value: "JUNIOR", label: "Junior" },
+  { value: "SENIOR1", label: "Senior 1" },
+  { value: "SENIOR2", label: "Senior 2" },
+  { value: "TEENS", label: "Teens / High School" },
+];
+
 type MemberDraft = {
   name: string;
   nationality: string; // Country code (EG, SA, US, ...)
   email: string;
   phone_number: string;
   university: string;
+  major: string;
+  year_of_study: string;
   university_other: string;
   national_id: string;
   birth_year: string;
+  nu_id: string;
   id_document: File | null;
+  nu_id_document: File | null;
   existing_id_url?: string;
+  existing_nu_id_url?: string;
 };
 
 type TeamDetails = {
@@ -84,10 +98,15 @@ type TeamDetails = {
     email: string;
     phone_number: string;
     university: string;
+    major?: string;
+    year_of_study?: string;
+    university_other?: string;
     national_id: string;
     birth_year: number;
     nu_student: boolean;
+    nu_id?: string;
     id_document?: string;
+    nu_id_document?: string;
   }>;
 };
 
@@ -110,10 +129,14 @@ export default function RegistrationPage() {
       email: "",
       phone_number: "",
       university: "NU",
+      major: "",
+      year_of_study: "FRESHMAN",
       university_other: "",
       national_id: "",
       birth_year: "",
+      nu_id: "",
       id_document: null,
+      nu_id_document: null,
     },
     {
       name: "",
@@ -121,10 +144,14 @@ export default function RegistrationPage() {
       email: "",
       phone_number: "",
       university: "NU",
+      major: "",
+      year_of_study: "FRESHMAN",
       university_other: "",
       national_id: "",
       birth_year: "",
+      nu_id: "",
       id_document: null,
+      nu_id_document: null,
     },
   ]);
 
@@ -188,8 +215,8 @@ export default function RegistrationPage() {
       errors["team_name"] = "Team name is required.";
     } else if (teamName.length > 40) {
       errors["team_name"] = "Team name cannot exceed 40 characters.";
-    } else if (!/^[A-Za-z]/.test(teamName.trim())) {
-      errors["team_name"] = "Team name must start with a letter (A-Z).";
+    } else if (!/^[A-Za-z0-9]/.test(teamName.trim())) {
+      errors["team_name"] = "Team name must start with a letter or number.";
     }
 
     members.forEach((m, i) => {
@@ -200,6 +227,7 @@ export default function RegistrationPage() {
 
       if (!m.email.trim()) errors[`${prefix}email`] = "Email is required.";
       else if (!/\S+@\S+\.\S+/.test(m.email)) errors[`${prefix}email`] = "Invalid email format.";
+      else if (!m.email.toLowerCase().endsWith("@gmail.com")) errors[`${prefix}email`] = "Only Gmail addresses are allowed.";
 
       if (!m.phone_number.trim()) {
         errors[`${prefix}phone_number`] = "Phone number is required.";
@@ -242,6 +270,20 @@ export default function RegistrationPage() {
       } else if (phase === "editing" && !m.id_document && !m.existing_id_url) {
         errors[`${prefix}id_document`] = "ID document is required.";
       }
+
+      // NU Student Validation
+      if (m.university === "NU") {
+        if (!m.nu_id.trim()) {
+          errors[`${prefix}nu_id`] = "NU ID is required.";
+        }
+        if (m.nu_id_document && m.nu_id_document.size > 5 * 1024 * 1024) {
+          errors[`${prefix}nu_id_document`] = "File too large. Max size is 5MB.";
+        } else if (phase !== "editing" && !m.nu_id_document) {
+          errors[`${prefix}nu_id_document`] = "NU Student ID is required.";
+        } else if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) {
+          errors[`${prefix}nu_id_document`] = "NU Student ID is required.";
+        }
+      }
     });
 
     if (members[0].national_id && members[1].national_id && members[0].national_id === members[1].national_id) {
@@ -270,9 +312,12 @@ export default function RegistrationPage() {
         email: m.email.trim(),
         phone_number: m.phone_number.trim(),
         university: m.university,
+        major: m.major.trim(),
+        year_of_study: m.year_of_study,
         university_other: m.university === "OTHER" ? m.university_other.trim() : null,
         national_id: m.national_id.trim(),
         birth_year: Number(m.birth_year),
+        nu_id: m.university === "NU" ? m.nu_id.trim() : null,
       }));
 
       fd.append("members", JSON.stringify(membersJson));
@@ -282,6 +327,12 @@ export default function RegistrationPage() {
       }
       if (members[1].id_document) {
         fd.append("members[1][id_document]", members[1].id_document);
+      }
+      if (members[0].nu_id_document) {
+        fd.append("members[0][nu_id_document]", members[0].nu_id_document);
+      }
+      if (members[1].nu_id_document) {
+        fd.append("members[1][nu_id_document]", members[1].nu_id_document);
       }
 
       let url = "/api/registration/teams";
@@ -347,8 +398,8 @@ export default function RegistrationPage() {
       // Reset form
       setTeamName("");
       setMembers([
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", university_other: "", national_id: "", birth_year: "", id_document: null },
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", university_other: "", national_id: "", birth_year: "", id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_year: "", nu_id: "", id_document: null, nu_id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_year: "", nu_id: "", id_document: null, nu_id_document: null },
       ]);
     } catch (e: any) {
       setError(e?.message || "Failed to cancel team");
@@ -365,11 +416,16 @@ export default function RegistrationPage() {
       email: m.email,
       phone_number: m.phone_number,
       university: m.university,
-      university_other: (m as any).university_other || "",
+      major: m.major || "",
+      year_of_study: m.year_of_study || "FRESHMAN",
+      university_other: m.university_other || "",
       national_id: m.national_id,
       birth_year: String(m.birth_year),
+      nu_id: m.nu_id || "",
       id_document: null,
-      existing_id_url: m.id_document
+      nu_id_document: null,
+      existing_id_url: m.id_document,
+      existing_nu_id_url: m.nu_id_document
     })));
     setPhase("editing");
   }
@@ -547,7 +603,14 @@ function TeamView({
                   <InfoRow label="Nationality" value={m.nationality} compact />
                   <InfoRow label="Birth Year" value={String(m.birth_year)} compact />
                 </div>
-                <InfoRow label="University" value={m.university === "OTHER" ? (m as any).university_other : m.university} compact />
+                <div className="grid grid-cols-2 gap-4">
+                  <InfoRow label="Major" value={m.major || "N/A"} compact />
+                  <InfoRow label="Year" value={m.year_of_study || "N/A"} compact />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <InfoRow label="University" value={m.university === "OTHER" ? (m.university_other || "Other") : m.university} compact />
+                  {m.nu_student && m.nu_id && <InfoRow label="NU ID" value={m.nu_id} compact />}
+                </div>
 
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
@@ -558,7 +621,20 @@ function TeamView({
                       rel="noopener noreferrer"
                       className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
                     >
-                      View Document ↗
+                      View ID ↗
+                    </a>
+                  </div>
+                )}
+                {m.nu_id_document && (
+                  <div className="flex justify-between items-center py-1 border-t border-line/30">
+                    <span className="text-xs text-muted">NU ID Document</span>
+                    <a
+                      href={m.nu_id_document}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
+                    >
+                      View NU ID ↗
                     </a>
                   </div>
                 )}
@@ -637,10 +713,14 @@ function RegistrationForm({
               phone_number: fieldErrors["member0_phone_number"],
               nationality: fieldErrors["member0_nationality"],
               university: fieldErrors["member0_university"],
+              major: fieldErrors["member0_major"],
+              year_of_study: fieldErrors["member0_year_of_study"],
               university_other: fieldErrors["member0_university_other"],
               national_id: fieldErrors["member0_national_id"],
               birth_year: fieldErrors["member0_birth_year"],
+              nu_id: fieldErrors["member0_nu_id"],
               id_document: fieldErrors["member0_id_document"],
+              nu_id_document: fieldErrors["member0_nu_id_document"],
             }}
             isEditing={isEditing}
           />
@@ -657,10 +737,14 @@ function RegistrationForm({
               phone_number: fieldErrors["member1_phone_number"],
               nationality: fieldErrors["member1_nationality"],
               university: fieldErrors["member1_university"],
+              major: fieldErrors["member1_major"],
+              year_of_study: fieldErrors["member1_year_of_study"],
               university_other: fieldErrors["member1_university_other"],
               national_id: fieldErrors["member1_national_id"],
               birth_year: fieldErrors["member1_birth_year"],
+              nu_id: fieldErrors["member1_nu_id"],
               id_document: fieldErrors["member1_id_document"],
+              nu_id_document: fieldErrors["member1_nu_id_document"],
             }}
             isEditing={isEditing}
           />
@@ -736,9 +820,32 @@ function MemberForm({
           onChange={(e) => onChange({ ...value, university: e.target.value })}
           className="input-modern bg-transparent"
         >
-          {UNIVERSITY_CHOICES.map((u) => (
+          {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
             <option key={u.value} value={u.value}>
               {u.label}
+            </option>
+          ))}
+        </select>
+      </Field>
+
+      <Field label="Major" error={errors.major}>
+        <input
+          value={value.major}
+          onChange={(e) => onChange({ ...value, major: e.target.value })}
+          className="input-modern"
+          placeholder="e.g. Computer Science"
+        />
+      </Field>
+
+      <Field label="Year of Study" error={errors.year_of_study}>
+        <select
+          value={value.year_of_study}
+          onChange={(e) => onChange({ ...value, year_of_study: e.target.value })}
+          className="input-modern bg-transparent"
+        >
+          {YEAR_CHOICES.map((y: { value: string; label: string }) => (
+            <option key={y.value} value={y.value}>
+              {y.label}
             </option>
           ))}
         </select>
@@ -773,6 +880,45 @@ function MemberForm({
           maxLength={4}
         />
       </Field>
+
+      {value.university === "NU" && (
+        <>
+          <Field label="NU Student ID" error={errors.nu_id}>
+            <input
+              value={value.nu_id}
+              onChange={(e) => onChange({ ...value, nu_id: e.target.value })}
+              className="input-modern"
+              placeholder="e.g. 202100xxx"
+            />
+          </Field>
+
+          <Field label="NU ID Document" error={errors.nu_id_document}>
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*,application/pdf"
+                onChange={(e) => onChange({ ...value, nu_id_document: e.target.files?.[0] || null })}
+                className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
+              />
+            </div>
+            {value.nu_id_document ? (
+              <p className="mt-1 text-xs text-teal">Attached: {value.nu_id_document.name}</p>
+            ) : isEditing && value.existing_nu_id_url ? (
+              <div className="mt-1 flex items-center gap-2">
+                <p className="text-xs text-muted">Currently:</p>
+                <a
+                  href={value.existing_nu_id_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-teal hover:underline font-bold"
+                >
+                  View existing NU ID ↗
+                </a>
+              </div>
+            ) : null}
+          </Field>
+        </>
+      )}
 
       <Field label="ID Document" error={errors.id_document}>
         <div className="relative">
