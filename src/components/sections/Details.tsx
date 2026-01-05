@@ -62,11 +62,11 @@ export default function Details() {
                   data-active={isActive}
                   onClick={() => setActive(card.key)}
                   className={cn(
-                    "relative flex flex-col rounded-xl2 shadow-soft p-8 transition-all duration-500 shrink-0",
-                    "h-[450px] text-left",
+                    "relative flex flex-col transition-all duration-500 shrink-0",
+                    "text-left p-8 rounded-xl2 shadow-soft",
                     isActive
-                      ? "w-[300px] sm:w-[500px] bg-teal justify-end"
-                      : "w-[180px] sm:w-[220px] bg-teal2 justify-end hover:opacity-90"
+                      ? "w-[300px] sm:w-[500px] bg-teal justify-end min-h-[450px] h-auto"
+                      : "w-[180px] sm:w-[220px] bg-teal2 justify-end h-[450px] hover:opacity-90"
                   )}
                 >
                   {/* Title */}
@@ -84,7 +84,7 @@ export default function Details() {
                     className={cn(
                       "transition-opacity duration-300 overflow-hidden pr-2",
                       isActive
-                        ? "opacity-100 visible h-auto"
+                        ? "opacity-100 visible h-auto mt-4"
                         : "opacity-0 invisible h-0"
                     )}
                   >

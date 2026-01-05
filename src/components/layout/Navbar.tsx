@@ -52,7 +52,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-bg/90 backdrop-blur border-b border-line">
+    <header className="sticky top-0 z-50 bg-white border-b border-line">
       <div className="container-max h-24 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-3">
           {/* Logo */}
@@ -78,7 +78,7 @@ export default function Navbar() {
                   "px-6 lg:px-8 py-2 rounded-full transition border text-center min-w-max",
                   isActive
                     ? "bg-teal text-white border-transparent shadow-soft"
-                    : "bg-transparent text-ink border-transparent hover:bg-white hover:border-line"
+                    : "bg-bg/40 text-ink border-transparent hover:bg-white hover:border-line"
                 )}
               >
                 {item.label}
@@ -157,7 +157,7 @@ export default function Navbar() {
                     "text-sm font-pixel py-3 px-6 rounded-xl transition-all w-full text-right",
                     isActive
                       ? "bg-teal text-white shadow-md"
-                      : "text-ink hover:bg-bg/50 border border-transparent"
+                      : "text-ink bg-bg/50 hover:bg-bg/80 border border-line/40"
                   )}
                 >
                   {item.label}
