@@ -28,7 +28,7 @@ const UNIVERSITY_CHOICES: UniversityChoice[] = [
   { value: "DAMIETTA", label: "Damietta University" },
   { value: "DERAYA_UNIVERSITY", label: "Deraya University" },
   { value: "EL_SHOROUK_ACADEMY", label: "El Shorouk Academy" },
-  { value: "FAYOUM_UNIVERSITY", label: "Fayoum University" },
+  { value: "FAYOUM_UNIVERSITY", label: "FAYOM University" },
   { value: "FUTURE_UNIVERSITY", label: "Future University" },
   { value: "GERMAN_UNIVERSITY_IN_CAIRO", label: "German University in Cairo" },
   { value: "HELWAN", label: "Helwan University" },
@@ -58,17 +58,100 @@ const UNIVERSITY_CHOICES: UniversityChoice[] = [
   { value: "OTHER", label: "Other (University not listed)" },
 ];
 
+const COUNTRIES = [
+  { value: "AF", label: "Afghanistan" }, { value: "AL", label: "Albania" }, { value: "DZ", label: "Algeria" },
+  { value: "AD", label: "Andorra" }, { value: "AO", label: "Angola" }, { value: "AG", label: "Antigua and Barbuda" },
+  { value: "AR", label: "Argentina" }, { value: "AM", label: "Armenia" }, { value: "AU", label: "Australia" },
+  { value: "AT", label: "Austria" }, { value: "AZ", label: "Azerbaijan" }, { value: "BS", label: "Bahamas" },
+  { value: "BH", label: "Bahrain" }, { value: "BD", label: "Bangladesh" }, { value: "BB", label: "Barbados" },
+  { value: "BY", label: "Belarus" }, { value: "BE", label: "Belgium" }, { value: "BZ", label: "Belize" },
+  { value: "BJ", label: "Benin" }, { value: "BT", label: "Bhutan" }, { value: "BO", label: "Bolivia" },
+  { value: "BA", label: "Bosnia and Herzegovina" }, { value: "BW", label: "Botswana" }, { value: "BR", label: "Brazil" },
+  { value: "BN", label: "Brunei" }, { value: "BG", label: "Bulgaria" }, { value: "BF", label: "Burkina Faso" },
+  { value: "BI", label: "Burundi" }, { value: "KH", label: "Cambodia" }, { value: "CM", label: "Cameroon" },
+  { value: "CA", label: "Canada" }, { value: "CV", label: "Cape Verde" }, { value: "CF", label: "Central African Republic" },
+  { value: "TD", label: "Chad" }, { value: "CL", label: "Chile" }, { value: "CN", label: "China" },
+  { value: "CO", label: "Colombia" }, { value: "KM", label: "Comoros" }, { value: "CG", label: "Congo" },
+  { value: "CR", label: "Costa Rica" }, { value: "HR", label: "Croatia" }, { value: "CU", label: "Cuba" },
+  { value: "CY", label: "Cyprus" }, { value: "CZ", label: "Czech Republic" }, { value: "DK", label: "Denmark" },
+  { value: "DJ", label: "Djibouti" }, { value: "DM", label: "Dominica" }, { value: "DO", label: "Dominican Republic" },
+  { value: "EC", label: "Ecuador" }, { value: "EG", label: "Egypt" }, { value: "SV", label: "El Salvador" },
+  { value: "GQ", label: "Equatorial Guinea" }, { value: "ER", label: "Eritrea" }, { value: "EE", label: "Estonia" },
+  { value: "ET", label: "Ethiopia" }, { value: "FJ", label: "Fiji" }, { value: "FI", label: "Finland" },
+  { value: "FR", label: "France" }, { value: "GA", label: "Gabon" }, { value: "GM", label: "Gambia" },
+  { value: "GE", label: "Georgia" }, { value: "DE", label: "Germany" }, { value: "GH", label: "Ghana" },
+  { value: "GR", label: "Greece" }, { value: "GD", label: "Grenada" }, { value: "GT", label: "Guatemala" },
+  { value: "GN", label: "Guinea" }, { value: "GW", label: "Guinea-Bissau" }, { value: "GY", label: "Guyana" },
+  { value: "HT", label: "Haiti" }, { value: "HN", label: "Honduras" }, { value: "HU", label: "Hungary" },
+  { value: "IS", label: "Iceland" }, { value: "IN", label: "India" }, { value: "ID", label: "Indonesia" },
+  { value: "IR", label: "Iran" }, { value: "IQ", label: "Iraq" }, { value: "IE", label: "Ireland" },
+  { value: "IL", label: "Israel" }, { value: "IT", label: "Italy" }, { value: "JM", label: "Jamaica" },
+  { value: "JP", label: "Japan" }, { value: "JO", label: "Jordan" }, { value: "KZ", label: "Kazakhstan" },
+  { value: "KE", label: "Kenya" }, { value: "KI", label: "Kiribati" }, { value: "KP", label: "North Korea" },
+  { value: "KR", label: "South Korea" }, { value: "KW", label: "Kuwait" }, { value: "KG", label: "Kyrgyzstan" },
+  { value: "LA", label: "Laos" }, { value: "LV", label: "Latvia" }, { value: "LB", label: "Lebanon" },
+  { value: "LS", label: "Lesotho" }, { value: "LR", label: "Liberia" }, { value: "LY", label: "Libya" },
+  { value: "LI", label: "Liechtenstein" }, { value: "LT", label: "Lithuania" }, { value: "LU", label: "Luxembourg" },
+  { value: "MK", label: "Macedonia" }, { value: "MG", label: "Madagascar" }, { value: "MW", label: "Malawi" },
+  { value: "MY", label: "Malaysia" }, { value: "MV", label: "Maldives" }, { value: "ML", label: "Mali" },
+  { value: "MT", label: "Malta" }, { value: "MH", label: "Marshall Islands" }, { value: "MR", label: "Mauritania" },
+  { value: "MU", label: "Mauritius" }, { value: "MX", label: "Mexico" }, { value: "FM", label: "Micronesia" },
+  { value: "MD", label: "Moldova" }, { value: "MC", label: "Monaco" }, { value: "MN", label: "Mongolia" },
+  { value: "ME", label: "Montenegro" }, { value: "MA", label: "Morocco" }, { value: "MZ", label: "Mozambique" },
+  { value: "MM", label: "Myanmar" }, { value: "NA", label: "Namibia" }, { value: "NR", label: "Nauru" },
+  { value: "NP", label: "Nepal" }, { value: "NL", label: "Netherlands" }, { value: "NZ", label: "New Zealand" },
+  { value: "NI", label: "Nicaragua" }, { value: "NE", label: "Niger" }, { value: "NG", label: "Nigeria" },
+  { value: "NO", label: "Norway" }, { value: "OM", label: "Oman" }, { value: "PK", label: "Pakistan" },
+  { value: "PW", label: "Palau" }, { value: "PA", label: "Panama" }, { value: "PG", label: "Papua New Guinea" },
+  { value: "PY", label: "Paraguay" }, { value: "PE", label: "Peru" }, { value: "PH", label: "Philippines" },
+  { value: "PL", label: "Poland" }, { value: "PT", label: "Portugal" }, { value: "QA", label: "Qatar" },
+  { value: "RO", label: "Romania" }, { value: "RU", label: "Russia" }, { value: "RW", label: "Rwanda" },
+  { value: "KN", label: "Saint Kitts and Nevis" }, { value: "LC", label: "Saint Lucia" }, { value: "VC", label: "Saint Vincent and the Grenadines" },
+  { value: "WS", label: "Samoa" }, { value: "SM", label: "San Marino" }, { value: "ST", label: "Sao Tome and Principe" },
+  { value: "SA", label: "Saudi Arabia" }, { value: "SN", label: "Senegal" }, { value: "RS", label: "Serbia" },
+  { value: "SC", label: "Seychelles" }, { value: "SL", label: "Sierra Leone" }, { value: "SG", label: "Singapore" },
+  { value: "SK", label: "Slovakia" }, { value: "SI", label: "Slovenia" }, { value: "SB", label: "Solomon Islands" },
+  { value: "SO", label: "Somalia" }, { value: "ZA", label: "South Africa" }, { value: "SS", label: "South Sudan" },
+  { value: "ES", label: "Spain" }, { value: "LK", label: "Sri Lanka" }, { value: "SD", label: "Sudan" },
+  { value: "SR", label: "Suriname" }, { value: "SZ", label: "Swaziland" }, { value: "SE", label: "Sweden" },
+  { value: "CH", label: "Switzerland" }, { value: "SY", label: "Syria" }, { value: "TW", label: "Taiwan" },
+  { value: "TJ", label: "Tajikistan" }, { value: "TZ", label: "Tanzania" }, { value: "TH", label: "Thailand" },
+  { value: "TL", label: "Timor-Leste" }, { value: "TG", label: "Togo" }, { value: "TO", label: "Tonga" },
+  { value: "TT", label: "Trinidad and Tobago" }, { value: "TN", label: "Tunisia" }, { value: "TR", label: "Turkey" },
+  { value: "TM", label: "Turkmenistan" }, { value: "TV", label: "Tuvalu" }, { value: "UG", label: "Uganda" },
+  { value: "UA", label: "Ukraine" }, { value: "AE", label: "United Arab Emirates" }, { value: "GB", label: "United Kingdom" },
+  { value: "US", label: "United States" }, { value: "UY", label: "Uruguay" }, { value: "UZ", label: "Uzbekistan" },
+  { value: "VU", label: "Vanuatu" }, { value: "VE", label: "Venezuela" }, { value: "VN", label: "Vietnam" },
+  { value: "YE", label: "Yemen" }, { value: "ZM", label: "Zambia" }, { value: "ZW", label: "Zimbabwe" }
+];
+
+const YEAR_CHOICES = [
+  { value: "FRESHMAN", label: "Freshman" },
+  { value: "SOPHOMORE", label: "Sophomore" },
+  { value: "JUNIOR", label: "Junior" },
+  { value: "SENIOR1", label: "Senior 1" },
+  { value: "SENIOR2", label: "Senior 2" },
+  { value: "TEENS", label: "Teens / High School" },
+];
+
 type MemberDraft = {
   name: string;
   nationality: string; // Country code (EG, SA, US, ...)
   email: string;
   phone_number: string;
   university: string;
+  major: string;
+  year_of_study: string;
   university_other: string;
   national_id: string;
-  birth_year: string;
+  birth_date: string; // YYYY-MM-DD
+  nu_id: string;
+  codeforces_handle?: string;
+  vjudge_handle?: string;
   id_document: File | null;
+  nu_id_document: File | null;
   existing_id_url?: string;
+  existing_nu_id_url?: string;
 };
 
 type TeamDetails = {
@@ -84,10 +167,18 @@ type TeamDetails = {
     email: string;
     phone_number: string;
     university: string;
+    major?: string;
+    year_of_study?: string;
+    university_other?: string;
     national_id: string;
-    birth_year: number;
+    birth_date: string;
+    year: number;
     nu_student: boolean;
+    nu_id?: string;
+    codeforces_handle?: string;
+    vjudge_handle?: string;
     id_document?: string;
+    nu_id_document?: string;
   }>;
 };
 
@@ -110,10 +201,16 @@ export default function RegistrationPage() {
       email: "",
       phone_number: "",
       university: "NU",
+      major: "",
+      year_of_study: "FRESHMAN",
       university_other: "",
       national_id: "",
-      birth_year: "",
+      birth_date: "",
+      nu_id: "",
+      codeforces_handle: "",
+      vjudge_handle: "",
       id_document: null,
+      nu_id_document: null,
     },
     {
       name: "",
@@ -121,10 +218,16 @@ export default function RegistrationPage() {
       email: "",
       phone_number: "",
       university: "NU",
+      major: "",
+      year_of_study: "FRESHMAN",
       university_other: "",
       national_id: "",
-      birth_year: "",
+      birth_date: "",
+      nu_id: "",
+      codeforces_handle: "",
+      vjudge_handle: "",
       id_document: null,
+      nu_id_document: null,
     },
   ]);
 
@@ -188,8 +291,8 @@ export default function RegistrationPage() {
       errors["team_name"] = "Team name is required.";
     } else if (teamName.length > 40) {
       errors["team_name"] = "Team name cannot exceed 40 characters.";
-    } else if (!/^[A-Za-z]/.test(teamName.trim())) {
-      errors["team_name"] = "Team name must start with a letter (A-Z).";
+    } else if (!/^[A-Za-z0-9]/.test(teamName.trim())) {
+      errors["team_name"] = "Team name must start with a letter or number.";
     }
 
     members.forEach((m, i) => {
@@ -200,6 +303,7 @@ export default function RegistrationPage() {
 
       if (!m.email.trim()) errors[`${prefix}email`] = "Email is required.";
       else if (!/\S+@\S+\.\S+/.test(m.email)) errors[`${prefix}email`] = "Invalid email format.";
+      else if (!m.email.toLowerCase().endsWith("@gmail.com")) errors[`${prefix}email`] = "Only Gmail addresses are allowed.";
 
       if (!m.phone_number.trim()) {
         errors[`${prefix}phone_number`] = "Phone number is required.";
@@ -227,11 +331,14 @@ export default function RegistrationPage() {
         }
       }
 
-      const birthYearNum = parseInt(m.birth_year);
-      if (!m.birth_year) {
-        errors[`${prefix}birth_year`] = "Birth year is required.";
-      } else if (isNaN(birthYearNum) || birthYearNum < 1999 || birthYearNum > 2009) {
-        errors[`${prefix}birth_year`] = "Birth year must be 1999–2009.";
+      if (!m.birth_date) {
+        errors[`${prefix}birth_date`] = "Birth date is required.";
+      } else {
+        const bDate = new Date(m.birth_date);
+        const bYear = bDate.getFullYear();
+        if (isNaN(bYear) || bYear < 1999 || bYear > 2009) {
+          errors[`${prefix}birth_date`] = "Birth year must be 1999–2009.";
+        }
       }
 
       // File Size Check (5MB)
@@ -241,6 +348,20 @@ export default function RegistrationPage() {
         errors[`${prefix}id_document`] = "ID document is required.";
       } else if (phase === "editing" && !m.id_document && !m.existing_id_url) {
         errors[`${prefix}id_document`] = "ID document is required.";
+      }
+
+      // NU Student Validation
+      if (m.university === "NU") {
+        if (!m.nu_id.trim()) {
+          errors[`${prefix}nu_id`] = "NU ID is required.";
+        }
+        if (m.nu_id_document && m.nu_id_document.size > 5 * 1024 * 1024) {
+          errors[`${prefix}nu_id_document`] = "File too large. Max size is 5MB.";
+        } else if (phase !== "editing" && !m.nu_id_document) {
+          errors[`${prefix}nu_id_document`] = "NU Student ID is required.";
+        } else if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) {
+          errors[`${prefix}nu_id_document`] = "NU Student ID is required.";
+        }
       }
     });
 
@@ -270,9 +391,14 @@ export default function RegistrationPage() {
         email: m.email.trim(),
         phone_number: m.phone_number.trim(),
         university: m.university,
+        major: m.major.trim(),
+        year_of_study: m.year_of_study,
         university_other: m.university === "OTHER" ? m.university_other.trim() : null,
         national_id: m.national_id.trim(),
-        birth_year: Number(m.birth_year),
+        birth_date: m.birth_date,
+        nu_id: m.university === "NU" ? m.nu_id.trim() : null,
+        codeforces_handle: m.codeforces_handle?.trim() || null,
+        vjudge_handle: m.vjudge_handle?.trim() || null,
       }));
 
       fd.append("members", JSON.stringify(membersJson));
@@ -282,6 +408,12 @@ export default function RegistrationPage() {
       }
       if (members[1].id_document) {
         fd.append("members[1][id_document]", members[1].id_document);
+      }
+      if (members[0].nu_id_document) {
+        fd.append("members[0][nu_id_document]", members[0].nu_id_document);
+      }
+      if (members[1].nu_id_document) {
+        fd.append("members[1][nu_id_document]", members[1].nu_id_document);
       }
 
       let url = "/api/registration/teams";
@@ -347,8 +479,8 @@ export default function RegistrationPage() {
       // Reset form
       setTeamName("");
       setMembers([
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", university_other: "", national_id: "", birth_year: "", id_document: null },
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", university_other: "", national_id: "", birth_year: "", id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", id_document: null, nu_id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", id_document: null, nu_id_document: null },
       ]);
     } catch (e: any) {
       setError(e?.message || "Failed to cancel team");
@@ -365,11 +497,18 @@ export default function RegistrationPage() {
       email: m.email,
       phone_number: m.phone_number,
       university: m.university,
-      university_other: (m as any).university_other || "",
+      major: m.major || "",
+      year_of_study: m.year_of_study || "FRESHMAN",
+      university_other: m.university_other || "",
       national_id: m.national_id,
-      birth_year: String(m.birth_year),
+      birth_date: m.birth_date || "",
+      nu_id: m.nu_id || "",
+      codeforces_handle: m.codeforces_handle || "",
+      vjudge_handle: m.vjudge_handle || "",
       id_document: null,
-      existing_id_url: m.id_document
+      nu_id_document: null,
+      existing_id_url: m.id_document,
+      existing_nu_id_url: m.nu_id_document
     })));
     setPhase("editing");
   }
@@ -498,9 +637,11 @@ function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          <PixelButton onClick={onEdit} variant="primary" size="sm">
-            EDIT TEAM
-          </PixelButton>
+          {!team.payment_status && (
+            <PixelButton onClick={onEdit} variant="primary" size="sm">
+              EDIT TEAM
+            </PixelButton>
+          )}
           <PixelButton onClick={onDelete} variant="outline-red" size="sm">
             DELETE TEAM
           </PixelButton>
@@ -544,10 +685,25 @@ function TeamView({
                   <InfoRow label="National ID" value={m.national_id} compact />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <InfoRow label="Nationality" value={m.nationality} compact />
-                  <InfoRow label="Birth Year" value={String(m.birth_year)} compact />
+                  <InfoRow label="Nationality" value={COUNTRIES.find(c => c.value === m.nationality)?.label || m.nationality} compact />
+                  <InfoRow label="Birth Year" value={String(m.year)} compact />
                 </div>
-                <InfoRow label="University" value={m.university === "OTHER" ? (m as any).university_other : m.university} compact />
+                <div className="grid grid-cols-1 mb-2">
+                  <InfoRow label="Date of Birth" value={m.birth_date || "N/A"} compact />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <InfoRow label="Major" value={m.major || "N/A"} compact />
+                  <InfoRow label="Year" value={m.year_of_study || "N/A"} compact />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <InfoRow label="University" value={m.university === "OTHER" ? (m.university_other || "Other") : m.university} compact />
+                  {m.nu_student && m.nu_id && <InfoRow label="NU ID" value={m.nu_id} compact />}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 border-t border-line/30 pt-2">
+                  <InfoRow label="CF Handle" value={m.codeforces_handle || "N/A"} compact />
+                  <InfoRow label="VJ Handle" value={m.vjudge_handle || "N/A"} compact />
+                </div>
 
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
@@ -558,7 +714,20 @@ function TeamView({
                       rel="noopener noreferrer"
                       className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
                     >
-                      View Document ↗
+                      View ID ↗
+                    </a>
+                  </div>
+                )}
+                {m.nu_id_document && (
+                  <div className="flex justify-between items-center py-1 border-t border-line/30">
+                    <span className="text-xs text-muted">NU ID Document</span>
+                    <a
+                      href={m.nu_id_document}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
+                    >
+                      View NU ID ↗
                     </a>
                   </div>
                 )}
@@ -637,10 +806,16 @@ function RegistrationForm({
               phone_number: fieldErrors["member0_phone_number"],
               nationality: fieldErrors["member0_nationality"],
               university: fieldErrors["member0_university"],
+              major: fieldErrors["member0_major"],
+              year_of_study: fieldErrors["member0_year_of_study"],
               university_other: fieldErrors["member0_university_other"],
               national_id: fieldErrors["member0_national_id"],
-              birth_year: fieldErrors["member0_birth_year"],
+              birth_date: fieldErrors["member0_birth_date"],
+              nu_id: fieldErrors["member0_nu_id"],
+              codeforces_handle: fieldErrors["member0_codeforces_handle"],
+              vjudge_handle: fieldErrors["member0_vjudge_handle"],
               id_document: fieldErrors["member0_id_document"],
+              nu_id_document: fieldErrors["member0_nu_id_document"],
             }}
             isEditing={isEditing}
           />
@@ -657,10 +832,16 @@ function RegistrationForm({
               phone_number: fieldErrors["member1_phone_number"],
               nationality: fieldErrors["member1_nationality"],
               university: fieldErrors["member1_university"],
+              major: fieldErrors["member1_major"],
+              year_of_study: fieldErrors["member1_year_of_study"],
               university_other: fieldErrors["member1_university_other"],
               national_id: fieldErrors["member1_national_id"],
-              birth_year: fieldErrors["member1_birth_year"],
+              birth_date: fieldErrors["member1_birth_date"],
+              nu_id: fieldErrors["member1_nu_id"],
+              codeforces_handle: fieldErrors["member1_codeforces_handle"],
+              vjudge_handle: fieldErrors["member1_vjudge_handle"],
               id_document: fieldErrors["member1_id_document"],
+              nu_id_document: fieldErrors["member1_nu_id_document"],
             }}
             isEditing={isEditing}
           />
@@ -712,22 +893,78 @@ function MemberForm({
       </Field>
 
       <Field label="Phone number" error={errors.phone_number}>
+        <div className="flex gap-2">
+          <select
+            className="w-24 input-modern bg-transparent px-2"
+            value={value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20"}
+            onChange={(e) => {
+              const code = e.target.value;
+              const rest = value.phone_number.split(' ').slice(1).join(' ');
+              onChange({ ...value, phone_number: `${code} ${rest}`.trim() });
+            }}
+          >
+            <option value="+20">+20 (EG)</option>
+            <option value="+966">+966 (SA)</option>
+            <option value="+971">+971 (AE)</option>
+            <option value="+965">+965 (KW)</option>
+            <option value="+974">+974 (QA)</option>
+            <option value="+973">+973 (BH)</option>
+            <option value="+962">+962 (JO)</option>
+            <option value="+961">+961 (LB)</option>
+            <option value="+963">+963 (SY)</option>
+            <option value="+964">+964 (IQ)</option>
+            <option value="+212">+212 (MA)</option>
+            <option value="+213">+213 (DZ)</option>
+            <option value="+216">+216 (TN)</option>
+            <option value="+218">+218 (LY)</option>
+            <option value="+249">+249 (SD)</option>
+            <option value="+967">+967 (YE)</option>
+            <option value="+968">+968 (OM)</option>
+            <option value="+1">+1 (US/CA)</option>
+            <option value="+44">+44 (UK)</option>
+          </select>
+          <input
+            value={value.phone_number.includes(' ') ? value.phone_number.split(' ').slice(1).join(' ') : value.phone_number}
+            onChange={(e) => {
+              const code = value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20";
+              onChange({ ...value, phone_number: `${code} ${e.target.value.replace(/\D/g, '')}` });
+            }}
+            className="flex-grow input-modern"
+            placeholder="1xx xxx xxxx"
+          />
+        </div>
+      </Field>
+
+      <Field label="Codeforces Handle (Optional)" error={errors.codeforces_handle}>
         <input
-          value={value.phone_number}
-          onChange={(e) => onChange({ ...value, phone_number: e.target.value })}
+          value={value.codeforces_handle}
+          onChange={(e) => onChange({ ...value, codeforces_handle: e.target.value })}
           className="input-modern"
-          placeholder="+20 1xx xxx xxxx"
+          placeholder="e.g. tourist"
+        />
+      </Field>
+
+      <Field label="Vjudge Handle (Optional)" error={errors.vjudge_handle}>
+        <input
+          value={value.vjudge_handle}
+          onChange={(e) => onChange({ ...value, vjudge_handle: e.target.value })}
+          className="input-modern"
+          placeholder="e.g. vjudge_user"
         />
       </Field>
 
       <Field label="Nationality" error={errors.nationality}>
-        <input
+        <select
           value={value.nationality}
-          onChange={(e) => onChange({ ...value, nationality: e.target.value.toUpperCase() })}
-          className="input-modern uppercase"
-          placeholder="EG"
-          maxLength={2}
-        />
+          onChange={(e) => onChange({ ...value, nationality: e.target.value })}
+          className="input-modern bg-transparent"
+        >
+          {COUNTRIES.map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
+        </select>
       </Field>
 
       <Field label="University" error={errors.university}>
@@ -736,9 +973,32 @@ function MemberForm({
           onChange={(e) => onChange({ ...value, university: e.target.value })}
           className="input-modern bg-transparent"
         >
-          {UNIVERSITY_CHOICES.map((u) => (
+          {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
             <option key={u.value} value={u.value}>
               {u.label}
+            </option>
+          ))}
+        </select>
+      </Field>
+
+      <Field label="Major" error={errors.major}>
+        <input
+          value={value.major}
+          onChange={(e) => onChange({ ...value, major: e.target.value })}
+          className="input-modern"
+          placeholder="e.g. Computer Science"
+        />
+      </Field>
+
+      <Field label="Year of Study" error={errors.year_of_study}>
+        <select
+          value={value.year_of_study}
+          onChange={(e) => onChange({ ...value, year_of_study: e.target.value })}
+          className="input-modern bg-transparent"
+        >
+          {YEAR_CHOICES.map((y: { value: string; label: string }) => (
+            <option key={y.value} value={y.value}>
+              {y.label}
             </option>
           ))}
         </select>
@@ -764,15 +1024,55 @@ function MemberForm({
         />
       </Field>
 
-      <Field label="Birth Year (1999–2009)" error={errors.birth_year}>
+      <Field label="Date of Birth (1999–2009)" error={errors.birth_date}>
         <input
-          value={value.birth_year}
-          onChange={(e) => onChange({ ...value, birth_year: e.target.value })}
-          className="input-modern"
-          placeholder="YYYY"
-          maxLength={4}
+          type="date"
+          value={value.birth_date}
+          onChange={(e) => onChange({ ...value, birth_date: e.target.value })}
+          className="input-modern cursor-text"
+          min="1999-01-01"
+          max="2009-12-31"
         />
       </Field>
+
+      {value.university === "NU" && (
+        <>
+          <Field label="NU Student ID" error={errors.nu_id}>
+            <input
+              value={value.nu_id}
+              onChange={(e) => onChange({ ...value, nu_id: e.target.value })}
+              className="input-modern"
+              placeholder="e.g. 202100xxx"
+            />
+          </Field>
+
+          <Field label="NU ID Document" error={errors.nu_id_document}>
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*,application/pdf"
+                onChange={(e) => onChange({ ...value, nu_id_document: e.target.files?.[0] || null })}
+                className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
+              />
+            </div>
+            {value.nu_id_document ? (
+              <p className="mt-1 text-xs text-teal">Attached: {value.nu_id_document.name}</p>
+            ) : isEditing && value.existing_nu_id_url ? (
+              <div className="mt-1 flex items-center gap-2">
+                <p className="text-xs text-muted">Currently:</p>
+                <a
+                  href={value.existing_nu_id_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-teal hover:underline font-bold"
+                >
+                  View existing NU ID ↗
+                </a>
+              </div>
+            ) : null}
+          </Field>
+        </>
+      )}
 
       <Field label="ID Document" error={errors.id_document}>
         <div className="relative">
