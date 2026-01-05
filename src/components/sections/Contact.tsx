@@ -27,6 +27,11 @@ export default function Contact() {
       setStatus("error");
       return;
     }
+    if (formData.name.trim().length < 7) {
+      setErrorMessage("Full name must be at least 7 characters.");
+      setStatus("error");
+      return;
+    }
 
     if (!emailRegex.test(formData.email)) {
       setErrorMessage("Only Gmail addresses (@gmail.com) are allowed.");
@@ -36,6 +41,11 @@ export default function Contact() {
 
     if (!phoneRegex.test(formData.phone)) {
       setErrorMessage("Phone number must contain only numbers.");
+      setStatus("error");
+      return;
+    }
+    if (formData.phone.trim().length < 10) {
+      setErrorMessage("Phone number must be at least 10 digits.");
       setStatus("error");
       return;
     }
