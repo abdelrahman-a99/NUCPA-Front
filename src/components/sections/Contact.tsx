@@ -18,7 +18,8 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/registration/contact/`, {
+      const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
+      const response = await fetch(`${apiUrl}/registration/contact/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
