@@ -1,0 +1,129 @@
+import React from "react";
+import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
+import PixelButton from "@/components/ui/PixelButton";
+import InfoRow from "./InfoRow";
+
+export default function TeamView({
+  team,
+  onLogout,
+  onEdit,
+  onDelete
+}: {
+  team: TeamDetails;
+  onLogout: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  return (
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-line pb-6 mb-8">
+        <div>
+          <h2 className="font-pixel text-2xl sm:text-3xl text-ink2 mb-2">YOUR TEAM</h2>
+          <div className="flex items-center gap-3 text-sm text-muted">
+            <span className="inline-block w-2 h-2 rounded-full bg-teal-bright"></span>
+            Manage your roster and status.
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          {!team.payment_status && (
+            <PixelButton onClick={onEdit} variant="primary" size="sm">
+              EDIT TEAM
+            </PixelButton>
+          )}
+          <PixelButton onClick={onDelete} variant="outline-red" size="sm">
+            DELETE TEAM
+          </PixelButton>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
+        <InfoRow label="Team Name" value={team.team_name} large />
+        <InfoRow
+          label="Verification Status"
+          value={team.payment_status ? "Verified / Paid ✅" : "Pending Verif. ⏳"}
+          highlight={team.payment_status}
+        />
+        <InfoRow
+          label="Competition Status"
+          value={team.checked_in ? "ELIGIBLE TO COMPETE 🚀" : "Not yet eligible"}
+          highlight={team.checked_in}
+        />
+      </div>
+
+      <div>
+        <h3 className="font-pixel text-xl text-ink2 mb-6">TEAM MEMBERS</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {team.members.map((m, i) => (
+            <div key={m.id} className="group relative rounded-2xl border border-line bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-teal/30">
+              <div className="absolute top-4 right-4 text-xs font-bold text-teal/10 group-hover:text-teal/30 pointer-events-none text-4xl font-pixel">
+                0{i + 1}
+              </div>
+
+              <div className="mb-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="font-pixel text-lg sm:text-xl text-ink truncate pr-2 uppercase">{m.name}</p>
+                  {m.nu_student && <span className="px-2 py-0.5 rounded-full bg-teal/10 text-teal text-[10px] font-bold uppercase tracking-wider border border-teal/20">NU Student</span>}
+                </div>
+                <p className="text-sm text-muted font-medium">{m.email}</p>
+              </div>
+
+              <div className="space-y-3 pt-4 border-t border-line/50">
+                <div className="grid grid-cols-2 gap-4">
+                  <InfoRow label="Phone" value={m.phone_number} compact />
+                  <InfoRow label="National ID" value={m.national_id} compact />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <InfoRow label="Nationality" value={COUNTRIES.find(c => c.value === m.nationality)?.label || m.nationality} compact />
+                  <InfoRow label="Birth Year" value={String(m.year)} compact />
+                </div>
+                <div className="grid grid-cols-1 mb-2">
+                  <InfoRow label="Date of Birth" value={m.birth_date || "N/A"} compact />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <InfoRow label="Major" value={m.major || "N/A"} compact />
+                  <InfoRow label="Year" value={m.year_of_study || "N/A"} compact />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <InfoRow label="University" value={m.university === "OTHER" ? (m.university_other || "Other") : m.university} compact />
+                  {m.nu_student && m.nu_id && <InfoRow label="NU ID" value={m.nu_id} compact />}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 border-t border-line/30 pt-2">
+                  <InfoRow label="CF Handle" value={m.codeforces_handle || "N/A"} compact />
+                  <InfoRow label="VJ Handle" value={m.vjudge_handle || "N/A"} compact />
+                </div>
+
+                {m.id_document && (
+                  <div className="flex justify-between items-center py-1">
+                    <span className="text-xs text-muted">ID Document</span>
+                    <a
+                      href={m.id_document}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
+                    >
+                      View ID ↗
+                    </a>
+                  </div>
+                )}
+                {m.nu_id_document && (
+                  <div className="flex justify-between items-center py-1 border-t border-line/30">
+                    <span className="text-xs text-muted">NU ID Document</span>
+                    <a
+                      href={m.nu_id_document}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
+                    >
+                      View NU ID ↗
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
