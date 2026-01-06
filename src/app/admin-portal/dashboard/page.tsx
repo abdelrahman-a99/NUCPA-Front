@@ -12,6 +12,7 @@ import { cn } from "@/lib/cn";
 export default function AdminDashboardPage() {
     const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus } = useAdmin();
     const [search, setSearch] = useState("");
+    const [isExporting, setIsExporting] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -36,36 +37,33 @@ export default function AdminDashboardPage() {
     const paidTeams = teams.filter(t => t.payment_status).length;
     const readyTeams = teams.filter(t => t.checked_in).length;
 
-    // Export to CSV
-    const handleExportCSV = () => {
-        if (!teams.length) return;
+    // Export to CSV from Backend
+    const handleExportCSV = async () => {
+        try {
+            setIsExporting(true);
+            const res = await fetch("/api/registration/export-csv/");
 
-        const headers = [
-            "ID", "Team Name", "Payment Status", "Checked In", "Member Count",
-            "M1 Name", "M1 Email", "M1 Phone", "M1 National ID", "M1 University",
-            "M2 Name", "M2 Email", "M2 Phone", "M2 National ID", "M2 University"
-        ];
+            if (!res.ok) {
+                if (res.status === 403) alert("Permission Denied: Admins only.");
+                else alert("Failed to download CSV.");
+                return;
+            }
 
-        const rows = teams.map(t => {
-            const m1 = t.members[0] || {};
-            const m2 = t.members[1] || {};
-            return [
-                t.id, t.team_name, t.payment_status ? "PAID" : "PENDING", t.checked_in ? "READY" : "WAITING", t.member_count,
-                // Member 1
-                m1.name || "", m1.email || "", m1.phone_number || "", `"${m1.national_id || ""}"`, m1.university || "",
-                // Member 2
-                m2.name || "", m2.email || "", m2.phone_number || "", `"${m2.national_id || ""}"`, m2.university || ""
-            ].map(cell => `"${cell}"`).join(","); // Quote all cells to be safe
-        });
-
-        const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `nucpa_teams_export_${new Date().toISOString().slice(0, 10)}.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `nucpa_teams_export_${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (e) {
+            console.error(e);
+            alert("An error occurred while exporting.");
+        } finally {
+            setIsExporting(false);
+        }
     };
 
     if (isAdmin === null || (isLoading && teams.length === 0)) {
@@ -95,8 +93,8 @@ export default function AdminDashboardPage() {
                         </div>
 
                         <div className="flex gap-4">
-                            <PixelButton onClick={handleExportCSV} variant="ghost" size="sm" className="hidden md:flex">
-                                ⬇ EXPORT CSV
+                            <PixelButton onClick={handleExportCSV} variant="ghost" size="sm" className="hidden md:flex" disabled={isExporting}>
+                                {isExporting ? "⏳ DOWNLOADING..." : "⬇ EXPORT CSV"}
                             </PixelButton>
                         </div>
                     </div>
