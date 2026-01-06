@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const COOKIE_ACCESS = "nucpa_access";
-const COOKIE_REFRESH = "nucpa_refresh";
+const COOKIE_ACCESS = "nucpa_admin_access";
+const COOKIE_REFRESH = "nucpa_admin_refresh";
 
 function backendBase() {
     if (process.env.NODE_ENV === "development") {
@@ -50,9 +50,9 @@ export async function GET(req: Request) {
 
         const data = await res.json();
         const out = NextResponse.json(data);
-        out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
+        out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 60 * 20 });
         if (tokens.refresh) {
-            out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
+            out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 60 * 20 });
         }
         return out;
     }

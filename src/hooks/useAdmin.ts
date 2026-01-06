@@ -44,7 +44,7 @@ export function useAdmin() {
             const { access, refresh } = await res.json();
 
             // 2. Store tokens via frontend proxy API
-            const storeRes = await fetch("/api/auth/store", {
+            const storeRes = await fetch("/api/auth/store-admin", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ access, refresh }),
