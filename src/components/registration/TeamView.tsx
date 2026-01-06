@@ -2,6 +2,7 @@ import React from "react";
 import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
 import PixelButton from "@/components/ui/PixelButton";
 import InfoRow from "./InfoRow";
+import HandleBadge from "./HandleBadge";
 
 export default function TeamView({
   team,
@@ -89,8 +90,14 @@ export default function TeamView({
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 border-t border-line/30 pt-2">
-                  <InfoRow label="CF Handle" value={m.codeforces_handle || "N/A"} compact />
-                  <InfoRow label="VJ Handle" value={m.vjudge_handle || "N/A"} compact />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-muted font-bold uppercase tracking-wider">CF Handle</span>
+                    <HandleBadge info={m.codeforces_info} type="cf" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-muted font-bold uppercase tracking-wider">VJ Handle</span>
+                    <HandleBadge info={m.vjudge_info} type="vj" />
+                  </div>
                 </div>
 
                 {m.id_document && (
