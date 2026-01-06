@@ -70,7 +70,7 @@ export default function ConfirmModal({
                     <div className="flex flex-wrap items-center justify-center gap-4 w-full pt-4 mt-2">
                         <PixelButton
                             onClick={onCancel}
-                            variant="ghost"
+                            variant="primary"
                             size="sm"
                             className="min-w-[120px]"
                         >

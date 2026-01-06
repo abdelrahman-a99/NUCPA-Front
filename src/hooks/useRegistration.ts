@@ -122,7 +122,11 @@ export function useRegistration() {
         if (isNaN(bYear) || bYear < 1999 || bYear > 2009) return "Birth year must be 1999–2009.";
       }
       if (key === "id_document") {
-        if (m.id_document && m.id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+        if (m.id_document) {
+          if (m.id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+          const ext = m.id_document.name.split('.').pop()?.toLowerCase();
+          if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Invalid file type. Allowed: JPG, PNG, PDF.";
+        }
         if (phase !== "editing" && !m.id_document) return "ID document is required.";
         if (phase === "editing" && !m.id_document && !m.existing_id_url) return "ID document is required.";
       }
@@ -131,7 +135,11 @@ export function useRegistration() {
       }
       if (key === "nu_id_document") {
         if (m.university === "NU") {
-          if (m.nu_id_document && m.nu_id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+          if (m.nu_id_document) {
+            if (m.nu_id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+            const ext = m.nu_id_document.name.split('.').pop()?.toLowerCase();
+            if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Invalid file type. Allowed: JPG, PNG, PDF.";
+          }
           if (phase !== "editing" && !m.nu_id_document) return "NU Student ID is required.";
           if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID is required.";
         }
@@ -191,8 +199,8 @@ export function useRegistration() {
       fd.append("members", JSON.stringify(membersJson));
       if (members[0].id_document) fd.append("members[0][id_document]", members[0].id_document);
       if (members[1].id_document) fd.append("members[1][id_document]", members[1].id_document);
-      if (members[0].nu_id_document) fd.append("members[0][nu_id_document]", members[0].nu_id_document);
-      if (members[1].nu_id_document) fd.append("members[1][nu_id_document]", members[1].nu_id_document);
+      if (members[0].university === "NU" && members[0].nu_id_document) fd.append("members[0][nu_id_document]", members[0].nu_id_document);
+      if (members[1].university === "NU" && members[1].nu_id_document) fd.append("members[1][nu_id_document]", members[1].nu_id_document);
 
       let url = "/api/registration/teams";
       let method = "POST";
@@ -223,8 +231,15 @@ export function useRegistration() {
             });
           }
           if (data.error) setError(data.error);
+          if (data.detail) setError(data.detail);
+          if (data.non_field_errors) setError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors);
+
           if (Object.keys(newErrors).length > 0) {
             setFieldErrors(newErrors);
+            setPhase(phase === "editing" ? "editing" : "noTeam");
+            return;
+          }
+          if (error || data.error || data.detail || data.non_field_errors) {
             setPhase(phase === "editing" ? "editing" : "noTeam");
             return;
           }

@@ -120,7 +120,18 @@ export default function MemberForm({
       <Field label="University" error={errors.university}>
         <select
           value={value.university}
-          onChange={(e) => onChange({ ...value, university: e.target.value })}
+          onChange={(e) => {
+            const nextUni = e.target.value as UniversityChoice["value"];
+            const updates: Partial<MemberDraft> = { university: nextUni };
+            if (nextUni !== "NU") {
+              updates.nu_id = "";
+              updates.nu_id_document = null;
+            }
+            if (nextUni !== "OTHER") {
+              updates.university_other = "";
+            }
+            onChange({ ...value, ...updates });
+          }}
           onBlur={() => onBlurField("university")}
           className="input-modern bg-transparent"
         >
