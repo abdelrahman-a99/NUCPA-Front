@@ -17,9 +17,11 @@ export default function RegistrationPage() {
   } = useRegistration();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const isLoggedIn = phase === "idle" ? false : (["hasTeam", "noTeam", "editing"].includes(phase) ? true : undefined);
+
   return (
     <div className="flex flex-col min-h-screen bg-bg">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} onSignIn={startGoogleLogin} />
       <main className="flex-grow bg-dots-about relative overflow-hidden">
         <div className="container-lg py-12 relative z-10 px-4">
           <header className="text-center mb-10">

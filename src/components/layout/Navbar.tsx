@@ -7,7 +7,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
-export default function Navbar() {
+export default function Navbar({
+  isLoggedIn,
+  onSignIn,
+}: {
+  isLoggedIn?: boolean;
+  onSignIn?: () => void;
+}) {
   const [active, setActive] = useState<string>("#home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -86,23 +92,33 @@ export default function Navbar() {
               </Link>
             );
           })}
-          {!isHome && pathname.startsWith("/registration") && (
+          {!isHome && pathname.startsWith("/registration") && isLoggedIn !== undefined && (
             <button
-              onClick={handleLogout}
-              className="px-6 lg:px-8 py-2 rounded-full bg-red/10 text-red border border-red/20 font-bold hover:bg-red hover:text-white transition shadow-sm"
+              onClick={isLoggedIn ? handleLogout : onSignIn}
+              className={cn(
+                "px-6 lg:px-8 py-2 rounded-full font-bold transition shadow-sm border",
+                isLoggedIn
+                  ? "bg-red/10 text-red border-red/20 hover:bg-red hover:text-white"
+                  : "bg-teal text-white border-transparent hover:opacity-90 active:scale-95"
+              )}
             >
-              LOGOUT
+              {isLoggedIn ? "LOGOUT" : "SIGN IN"}
             </button>
           )}
         </nav>
 
         <div className="md:hidden flex items-center gap-3">
-          {!isHome && pathname.startsWith("/registration") && (
+          {!isHome && pathname.startsWith("/registration") && isLoggedIn !== undefined && (
             <button
-              onClick={handleLogout}
-              className="text-[11px] px-3 py-2 rounded-full bg-red text-white font-bold"
+              onClick={isLoggedIn ? handleLogout : onSignIn}
+              className={cn(
+                "text-[11px] px-4 py-2 rounded-full font-bold transition-all active:scale-95",
+                isLoggedIn
+                  ? "bg-red text-white"
+                  : "bg-teal text-white"
+              )}
             >
-              LOGOUT
+              {isLoggedIn ? "LOGOUT" : "SIGN IN"}
             </button>
           )}
           <button
@@ -166,15 +182,21 @@ export default function Navbar() {
               );
             })}
 
-            {!isHome && pathname.startsWith("/registration") && (
+            {!isHome && pathname.startsWith("/registration") && isLoggedIn !== undefined && (
               <button
                 onClick={() => {
                   setIsMenuOpen(false);
-                  handleLogout();
+                  if (isLoggedIn) handleLogout();
+                  else if (onSignIn) onSignIn();
                 }}
-                className="mt-4 text-sm font-pixel py-3 px-6 rounded-xl bg-red text-white border border-transparent shadow-md hover:bg-red/90 transition-colors w-full text-left"
+                className={cn(
+                  "mt-4 text-sm font-pixel py-3 px-6 rounded-xl border border-transparent shadow-md transition-all active:scale-[0.98] w-full text-left",
+                  isLoggedIn
+                    ? "bg-red text-white hover:bg-red/90"
+                    : "bg-teal text-white hover:bg-teal/90"
+                )}
               >
-                LOGOUT
+                {isLoggedIn ? "LOGOUT" : "SIGN IN"}
               </button>
             )}
           </nav>
