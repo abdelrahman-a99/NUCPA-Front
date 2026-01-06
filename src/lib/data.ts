@@ -175,3 +175,14 @@ export const ABOUT_GALLERY = [
   "/assets/about-gallery/10.jpg",
   "/assets/about-gallery/11.jpg",
 ];
+
+export const SPONSORS = [
+  "/assets/sponsers/Hayat.png",
+  "/assets/sponsers/IECC NUCPA Partner.png",
+  "/assets/sponsers/Infinity code.png",
+  "/assets/sponsers/Kimit Academy.png",
+  "/assets/sponsers/Lapboost.png",
+  "/assets/sponsers/Manara.png",
+  "/assets/sponsers/Oat Choco.png",
+  "/assets/sponsers/YES!.png",
+];
