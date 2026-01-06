@@ -1,5 +1,6 @@
 import React from "react";
 import { MemberDraft, COUNTRIES, UNIVERSITY_CHOICES, YEAR_CHOICES, UniversityChoice } from "@/lib/registration-data";
+import { PHONE_CODES } from "@/lib/phone-data";
 import Field from "./Field";
 
 export default function MemberForm({
@@ -39,47 +40,66 @@ export default function MemberForm({
       </Field>
 
       <Field label="Phone number" error={errors.phone_number}>
-        <div className="flex gap-2">
-          <select
-            className="w-24 input-modern bg-transparent px-2"
-            value={value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20"}
-            onChange={(e) => {
-              const code = e.target.value;
-              const rest = value.phone_number.split(' ').slice(1).join(' ');
-              onChange({ ...value, phone_number: `${code} ${rest}`.trim() });
-            }}
-          >
-            <option value="+20">+20 (EG)</option>
-            <option value="+966">+966 (SA)</option>
-            <option value="+971">+971 (AE)</option>
-            <option value="+965">+965 (KW)</option>
-            <option value="+974">+974 (QA)</option>
-            <option value="+973">+973 (BH)</option>
-            <option value="+962">+962 (JO)</option>
-            <option value="+961">+961 (LB)</option>
-            <option value="+963">+963 (SY)</option>
-            <option value="+964">+964 (IQ)</option>
-            <option value="+212">+212 (MA)</option>
-            <option value="+213">+213 (DZ)</option>
-            <option value="+216">+216 (TN)</option>
-            <option value="+218">+218 (LY)</option>
-            <option value="+249">+249 (SD)</option>
-            <option value="+967">+967 (YE)</option>
-            <option value="+968">+968 (OM)</option>
-            <option value="+1">+1 (US/CA)</option>
-            <option value="+44">+44 (UK)</option>
-          </select>
-          <input
-            value={value.phone_number.includes(' ') ? value.phone_number.split(' ').slice(1).join(' ') : value.phone_number}
-            onChange={(e) => {
-              const code = value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20";
-              onChange({ ...value, phone_number: `${code} ${e.target.value.replace(/\D/g, '')}` });
-            }}
-            onBlur={() => onBlurField("phone_number")}
-            className="flex-grow input-modern"
-            placeholder="01xx xxx xxxx"
-          />
-        </div>
+        {/* Helper to parse phone number */}
+        {(() => {
+          const raw = value.phone_number.trim();
+
+          // Sort by length desc so longer codes match first
+          // Use memo or static sort if performance matters, but for 200 items it's negligible here
+          const sortedCodes = [...PHONE_CODES].sort((a, b) => b.code.length - a.code.length);
+
+          let codeObj = sortedCodes.find(c => c.code === "+20"); // Default to Egypt
+          let local = "";
+
+          // Try to find a matching prefix
+          const matched = sortedCodes.find(c => raw.startsWith(c.code));
+          if (matched) {
+            codeObj = matched;
+            local = raw.slice(matched.code.length).trim();
+          } else if (raw.startsWith("+")) {
+            // Fallback: try to match just by code string if exact match fails
+            // (Though the list covers most, manual + entry might happen)
+          } else if (raw) {
+            local = raw;
+          }
+
+          const currentCode = codeObj ? codeObj.code : "+20";
+          const currentMask = codeObj ? codeObj.mask : "xxxxxxxxx";
+
+          return (
+            <div className="flex gap-2">
+              <select
+                className="w-32 input-modern bg-transparent px-2"
+                value={currentCode}
+                onChange={(e) => {
+                  const newCode = e.target.value;
+                  // Keep local part
+                  onChange({ ...value, phone_number: `${newCode}${local}` });
+                }}
+              >
+                {PHONE_CODES.map((c) => (
+                  <option key={c.country} value={c.code}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                value={local}
+                onChange={(e) => {
+                  let val = e.target.value.replace(/\D/g, '');
+                  const numericCode = currentCode.replace('+', '');
+                  if (val.startsWith(numericCode)) {
+                    val = val.slice(numericCode.length);
+                  }
+                  onChange({ ...value, phone_number: `${currentCode}${val}` });
+                }}
+                onBlur={() => onBlurField("phone_number")}
+                className="flex-grow input-modern"
+                placeholder={currentMask}
+              />
+            </div>
+          );
+        })()}
       </Field>
 
       <Field label="Codeforces Handle (Optional)" error={errors.codeforces_handle}>
