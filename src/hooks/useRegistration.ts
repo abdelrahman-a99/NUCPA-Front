@@ -239,7 +239,6 @@ export function useRegistration() {
   }
 
   async function deleteTeam() {
-    if (!window.confirm("Are you sure you want to delete your team? This will remove all your data and you will need to register again.")) return;
     if (!team) return;
     setPhase("checking");
     try {
