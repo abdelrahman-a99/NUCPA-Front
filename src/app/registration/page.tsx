@@ -1015,12 +1015,12 @@ function MemberForm({
         </Field>
       )}
 
-      <Field label="National ID / Passport" error={errors.national_id}>
+      <Field label={value.nationality === "EG" ? "National ID (14 digits)" : "Passport ID (Alphanumeric)"} error={errors.national_id}>
         <input
           value={value.national_id}
           onChange={(e) => onChange({ ...value, national_id: e.target.value })}
           className="input-modern"
-          placeholder={value.nationality === "EG" ? "14-digit ID" : "Passport number"}
+          placeholder={value.nationality === "EG" ? "299xxxxxxxxxxx" : "Passport number"}
         />
       </Field>
 
@@ -1037,12 +1037,12 @@ function MemberForm({
 
       {value.university === "NU" && (
         <>
-          <Field label="NU Student ID" error={errors.nu_id}>
+          <Field label="NU Student ID (Numbers only)" error={errors.nu_id}>
             <input
               value={value.nu_id}
-              onChange={(e) => onChange({ ...value, nu_id: e.target.value })}
+              onChange={(e) => onChange({ ...value, nu_id: e.target.value.replace(/\D/g, '') })}
               className="input-modern"
-              placeholder="e.g. 202100xxx"
+              placeholder="e.g. 202400xxx"
             />
           </Field>
 
