@@ -48,7 +48,7 @@ export default function RegistrationPage() {
                   <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
                     {isGoogleLoading ? "CONNECTING..." : "LOGIN WITH GOOGLE"}
                   </PixelButton>
-                  <PixelButton href="/" variant="ghost" size="sm">
+                  <PixelButton href="/" variant="outline-red" size="sm">
                     RETURN HOME
                   </PixelButton>
                 </div>
