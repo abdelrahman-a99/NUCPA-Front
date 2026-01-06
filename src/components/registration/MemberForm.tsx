@@ -33,7 +33,7 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, email: e.target.value })}
           onBlur={() => onBlurField("email")}
           className="input-modern"
-          placeholder="name@example.com"
+          placeholder="email@gmail.com"
           type="email"
         />
       </Field>
@@ -77,7 +77,7 @@ export default function MemberForm({
             }}
             onBlur={() => onBlurField("phone_number")}
             className="flex-grow input-modern"
-            placeholder="1xx xxx xxxx"
+            placeholder="01xx xxx xxxx"
           />
         </div>
       </Field>
@@ -169,7 +169,7 @@ export default function MemberForm({
         </Field>
       )}
 
-      <Field label={value.nationality === "EG" ? "National ID (14 digits)" : "Passport ID (Alphanumeric)"} error={errors.national_id}>
+      <Field label={value.nationality === "EG" ? "National ID" : "Passport ID"} error={errors.national_id}>
         <input
           value={value.national_id}
           onChange={(e) => onChange({ ...value, national_id: e.target.value })}
@@ -179,7 +179,7 @@ export default function MemberForm({
         />
       </Field>
 
-      <Field label="Date of Birth (1999–2009)" error={errors.birth_date}>
+      <Field label="Date of Birth" error={errors.birth_date}>
         <input
           type="date"
           value={value.birth_date}
@@ -193,13 +193,13 @@ export default function MemberForm({
 
       {value.university === "NU" && (
         <>
-          <Field label="NU Student ID (Numbers only)" error={errors.nu_id}>
+          <Field label="NU Student ID" error={errors.nu_id}>
             <input
               value={value.nu_id}
               onChange={(e) => onChange({ ...value, nu_id: e.target.value.replace(/\D/g, '') })}
               onBlur={() => onBlurField("nu_id")}
               className="input-modern"
-              placeholder="e.g. 202400xxx"
+              placeholder="e.g. 22100xxxx"
             />
           </Field>
 

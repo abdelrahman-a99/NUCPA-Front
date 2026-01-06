@@ -118,7 +118,7 @@ export default function RegistrationForm({
       </div>
 
       <div className="mt-12 flex flex-wrap gap-4 pt-6 border-t border-line justify-end">
-        <PixelButton href="/" variant="ghost" size="sm">
+        <PixelButton href="/" variant="outline-red" size="sm">
           DISCARD
         </PixelButton>
         <PixelButton onClick={onSubmit} variant="primary" size="sm">
