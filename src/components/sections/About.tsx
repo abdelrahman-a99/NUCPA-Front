@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { STATS, ABOUT_GALLERY } from "@/lib/data";
+import { STATS, ABOUT_GALLERY, SPONSORS } from "@/lib/data";
 
 export default function About() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -103,11 +103,20 @@ export default function About() {
 
           <div className="relative w-full pb-2">
             <div className="flex w-max animate-scroll gap-4 sm:gap-6">
-              {Array.from({ length: 12 }).map((_, i) => (
+              {[...SPONSORS, ...SPONSORS].map((src, i) => (
                 <div
                   key={i}
-                  className="h-24 sm:h-40 w-40 sm:w-64 shrink-0 bg-white border border-line rounded-xl2 shadow-soft"
-                />
+                  className="h-24 sm:h-40 w-40 sm:w-64 shrink-0 bg-white border border-line rounded-xl2 shadow-soft flex items-center justify-center p-4 sm:p-8"
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={src}
+                      alt="Sponsor Logo"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
               ))}
             </div>
           </div>

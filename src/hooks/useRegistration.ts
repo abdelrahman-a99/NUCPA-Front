@@ -106,8 +106,9 @@ export function useRegistration() {
         if (!m.national_id.trim()) return "National ID / Passport is required.";
         if (m.nationality === "EG") {
           if (!/^\d{14}$/.test(m.national_id)) return "Egyptian National ID must be 14 digits.";
-        } else if (m.national_id.length < 6) {
-          return "Passport number is too short.";
+        } else {
+          if (!/^[a-zA-Z0-9]+$/.test(m.national_id)) return "Passport ID must only contain letters and numbers.";
+          if (m.national_id.length < 6 || m.national_id.length > 15) return "Passport ID must be 6–15 characters.";
         }
         const otherIndex = index === 0 ? 1 : 0;
         if (m.national_id && currentMembers[otherIndex].national_id === m.national_id) {

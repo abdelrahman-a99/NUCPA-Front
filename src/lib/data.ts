@@ -165,7 +165,7 @@ export const PRIZES = {
 export const ABOUT_GALLERY = [
   "/assets/about-gallery/1.jpg",
   "/assets/about-gallery/2.jpg",
-  "/assets/about-gallery/3.jpg",
+  "/assets/about-gallery/3.jpeg",
   "/assets/about-gallery/4.jpg",
   "/assets/about-gallery/5.jpg",
   "/assets/about-gallery/6.jpg",
@@ -174,6 +174,15 @@ export const ABOUT_GALLERY = [
   "/assets/about-gallery/9.jpg",
   "/assets/about-gallery/10.jpg",
   "/assets/about-gallery/11.jpg",
-  "/assets/about-gallery/12.jpg",
-  "/assets/about-gallery/13.jpg",
+];
+
+export const SPONSORS = [
+  "/assets/sponsers/Hayat.png",
+  "/assets/sponsers/IECC NUCPA Partner.png",
+  "/assets/sponsers/Infinity code.png",
+  "/assets/sponsers/Kimit Academy.png",
+  "/assets/sponsers/Lapboost.png",
+  "/assets/sponsers/Manara.png",
+  "/assets/sponsers/Oat Choco.png",
+  "/assets/sponsers/YES!.png",
 ];
