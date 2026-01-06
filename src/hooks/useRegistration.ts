@@ -67,6 +67,33 @@ export function useRegistration() {
     checkTeam();
   }, []);
 
+  function checkMemberDuplication(fieldName: string, members: MemberDraft[], index: number): string | undefined {
+    const key = fieldName.split('_').pop();
+    const otherIdx = index === 0 ? 1 : 0;
+    const m = members[index];
+    const other = members[otherIdx];
+
+    const clean = (s: any) => (s || "").toString().trim().toLowerCase();
+
+    if (key === "name" && clean(m.name) && clean(m.name) === clean(other.name)) return "Members must have different names.";
+    if (key === "email" && clean(m.email) && clean(m.email) === clean(other.email)) return "Members must have different emails.";
+
+    if (key === "phone_number") {
+      const p1 = (m.phone_number || "").replace(/\D/g, '');
+      const p2 = (other.phone_number || "").replace(/\D/g, '');
+      if (p1 && p1 === p2) return "Members must have different phone numbers.";
+    }
+
+    if (key === "national_id" && clean(m.national_id) && clean(m.national_id) === clean(other.national_id)) return "Members must have different National IDs/Passports.";
+
+    if (key === "nu_id" && m.university === "NU" && clean(m.nu_id) && other.university === "NU" && clean(m.nu_id) === clean(other.nu_id)) return "Members must have different NU IDs.";
+
+    if (key === "codeforces_handle" && clean(m.codeforces_handle) && clean(m.codeforces_handle) === clean(other.codeforces_handle)) return "Members must have different Codeforces handles.";
+    if (key === "vjudge_handle" && clean(m.vjudge_handle) && clean(m.vjudge_handle) === clean(other.vjudge_handle)) return "Members must have different Vjudge handles.";
+
+    return undefined;
+  }
+
   function validateField(fieldName: string, value: any, currentMembers: MemberDraft[], currentTeamName: string): string | undefined {
     if (fieldName === "team_name") {
       if (!currentTeamName.trim()) return "Team name is required.";
@@ -81,6 +108,7 @@ export function useRegistration() {
       const key = memberMatch[2];
       const m = currentMembers[index];
 
+      // Standard validations
       if (key === "name") {
         if (!m.name.trim()) return "Full name is required.";
         if (m.name.trim().length < 7) return "Full name must be at least 7 characters.";
@@ -109,10 +137,6 @@ export function useRegistration() {
         } else {
           if (!/^[a-zA-Z0-9]+$/.test(m.national_id)) return "Passport ID must only contain letters and numbers.";
           if (m.national_id.length < 6 || m.national_id.length > 15) return "Passport ID must be 6–15 characters.";
-        }
-        const otherIndex = index === 0 ? 1 : 0;
-        if (m.national_id && currentMembers[otherIndex].national_id === m.national_id) {
-          return "Members must have different National IDs.";
         }
       }
       if (key === "birth_date") {
@@ -144,6 +168,10 @@ export function useRegistration() {
           if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID is required.";
         }
       }
+
+      // Check for duplication with the other member
+      const dupError = checkMemberDuplication(fieldName, currentMembers, index);
+      if (dupError) return dupError;
     }
     return undefined;
   }
