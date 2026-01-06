@@ -188,8 +188,10 @@ export function useRegistration() {
 
     members.forEach((_, i) => {
       [
-        "name", "email", "phone_number", "nationality", "university_other",
-        "national_id", "birth_date", "id_document", "nu_id", "nu_id_document"
+        "name", "email", "phone_number", "nationality", "university",
+        "major", "year_of_study", "university_other", "national_id",
+        "birth_date", "id_document", "nu_id", "nu_id_document",
+        "codeforces_handle", "vjudge_handle"
       ].forEach(key => {
         const fieldName = `member${i}_${key}`;
         const err = validateField(fieldName, null, members, teamName);
@@ -247,16 +249,24 @@ export function useRegistration() {
         if (typeof data === 'object' && data !== null) {
           const newErrors: Record<string, string> = {};
           if (data.team_name) newErrors["team_name"] = Array.isArray(data.team_name) ? data.team_name[0] : data.team_name;
-          if (data.members && Array.isArray(data.members)) {
-            data.members.forEach((mErr: any, i: number) => {
-              if (typeof mErr === 'object') {
-                Object.keys(mErr).forEach(key => {
-                  newErrors[`member${i}_${key}`] = Array.isArray(mErr[key]) ? mErr[key][0] : mErr[key];
+          if (data.members) {
+            if (Array.isArray(data.members)) {
+              if (data.members.length > 0 && typeof data.members[0] === 'string') {
+                // Global members-level error (e.g. cross-member duplication from backend)
+                setError(data.members[0]);
+              } else {
+                // Nested field-level errors per member
+                data.members.forEach((mErr: any, i: number) => {
+                  if (mErr && typeof mErr === 'object') {
+                    Object.keys(mErr).forEach(key => {
+                      newErrors[`member${i}_${key}`] = Array.isArray(mErr[key]) ? mErr[key][0] : mErr[key];
+                    });
+                  }
                 });
-              } else if (typeof mErr === 'string') {
-                newErrors[`member${i}_national_id`] = mErr;
               }
-            });
+            } else if (typeof data.members === 'string') {
+              setError(data.members);
+            }
           }
           if (data.error) setError(data.error);
           if (data.detail) setError(data.detail);
