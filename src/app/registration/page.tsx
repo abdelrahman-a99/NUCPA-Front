@@ -15,13 +15,17 @@ export default function RegistrationPage() {
     startGoogleLogin, isGoogleLoading, googleError, checkTeam, submitRegistration,
     deleteTeam, startEditing, logout, handleBlur
   } = useRegistration();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const isLoggedIn = phase === "idle" ? false : (["hasTeam", "noTeam", "editing"].includes(phase) ? true : undefined);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const isLoggedIn = phase !== "idle" && phase !== "checking" && phase !== "error";
 
   return (
     <div className="flex flex-col min-h-screen bg-bg">
-      <Navbar isLoggedIn={isLoggedIn} onSignIn={startGoogleLogin} />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        showAuthButton={true}
+        onSignIn={startGoogleLogin}
+      />
       <main className="flex-grow bg-dots-about relative overflow-hidden">
         <div className="container-lg py-12 relative z-10 px-4">
           <header className="text-center mb-10">

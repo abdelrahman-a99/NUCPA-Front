@@ -8,10 +8,12 @@ import { NAV_ITEMS } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 export default function Navbar({
-  isLoggedIn,
+  isLoggedIn = false,
+  showAuthButton = false,
   onSignIn,
 }: {
   isLoggedIn?: boolean;
+  showAuthButton?: boolean;
   onSignIn?: () => void;
 }) {
   const [active, setActive] = useState<string>("#home");
@@ -92,7 +94,7 @@ export default function Navbar({
               </Link>
             );
           })}
-          {!isHome && pathname.startsWith("/registration") && isLoggedIn !== undefined && (
+          {showAuthButton && (
             <button
               onClick={isLoggedIn ? handleLogout : onSignIn}
               className={cn(
@@ -108,7 +110,7 @@ export default function Navbar({
         </nav>
 
         <div className="md:hidden flex items-center gap-3">
-          {!isHome && pathname.startsWith("/registration") && isLoggedIn !== undefined && (
+          {showAuthButton && (
             <button
               onClick={isLoggedIn ? handleLogout : onSignIn}
               className={cn(
@@ -182,7 +184,7 @@ export default function Navbar({
               );
             })}
 
-            {!isHome && pathname.startsWith("/registration") && isLoggedIn !== undefined && (
+            {showAuthButton && (
               <button
                 onClick={() => {
                   setIsMenuOpen(false);
