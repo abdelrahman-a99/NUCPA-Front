@@ -19,7 +19,7 @@ export default function Contact() {
 
     // 1. Validation Logic
     const nameRegex = /^[a-zA-Z\s]+$/;
-    const phoneRegex = /^[0-9]+$/;
+    const phoneRegex = /^[0-9+\s]+$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
     if (!nameRegex.test(formData.name)) {
@@ -44,7 +44,7 @@ export default function Contact() {
       setStatus("error");
       return;
     }
-    if (formData.phone.trim().length < 10) {
+    if (formData.phone.trim().replace(/[\s+]/g, '').length < 10) {
       setErrorMessage("Phone number must be at least 10 digits.");
       setStatus("error");
       return;

@@ -307,10 +307,10 @@ export default function RegistrationPage() {
 
       if (!m.phone_number.trim()) {
         errors[`${prefix}phone_number`] = "Phone number is required.";
-      } else if (!/^\d+$/.test(m.phone_number.trim())) {
+      } else if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) {
         errors[`${prefix}phone_number`] = "Phone number must contain only numbers.";
-      } else if (m.phone_number.trim().length < 10) {
-        errors[`${prefix}phone_number`] = "Phone number must be at least 10 digits.";
+      } else if (m.phone_number.trim().replace(/[\s+]/g, '').length < 7) {
+        errors[`${prefix}phone_number`] = "Phone number is too short.";
       }
 
       if (!m.nationality.trim()) errors[`${prefix}nationality`] = "Nationality is required.";
