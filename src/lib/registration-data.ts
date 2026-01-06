@@ -150,6 +150,7 @@ export type TeamDetails = {
   team_name: string;
   payment_status: boolean;
   checked_in: boolean;
+  member_count?: number;
   created_at: string;
   members: Array<{
     id: number;
@@ -168,6 +169,16 @@ export type TeamDetails = {
     nu_id?: string;
     codeforces_handle?: string;
     vjudge_handle?: string;
+    codeforces_info?: {
+      handle: string;
+      rank: string;
+      rating: number;
+      profile_url: string;
+    } | null;
+    vjudge_info?: {
+      handle: string;
+      profile_url: string;
+    } | null;
     id_document?: string;
     nu_id_document?: string;
   }>;

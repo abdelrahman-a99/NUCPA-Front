@@ -16,8 +16,8 @@ export async function POST(req: Request) {
 
     const res = NextResponse.json({ ok: true });
 
-    // Store tokens as HttpOnly cookies (persistent for 7 days)
-    const MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+    // Store tokens as HttpOnly cookies (persistent for 20 minutes)
+    const MAX_AGE = 60 * 20; // 20 minutes
 
     res.cookies.set(COOKIE_ACCESS, access, {
       httpOnly: true,

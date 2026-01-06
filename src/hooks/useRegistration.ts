@@ -67,6 +67,34 @@ export function useRegistration() {
     checkTeam();
   }, []);
 
+  function checkMemberDuplication(fieldName: string, members: MemberDraft[], index: number): string | undefined {
+    const key = fieldName.split('_').pop();
+    const otherIdx = index === 0 ? 1 : 0;
+    const m = members[index];
+    const other = members[otherIdx];
+
+    const clean = (s: any) => (s || "").toString().trim().toLowerCase();
+    const cleanPhone = (p: any) => (p || "").toString().replace(/\D/g, '');
+
+    if (key === "name" && clean(m.name) && clean(m.name) === clean(other.name)) return "Duplicate name within team.";
+    if (key === "email" && clean(m.email) && clean(m.email) === clean(other.email)) return "Duplicate email within team.";
+
+    if (key === "phone_number") {
+      const p1 = cleanPhone(m.phone_number);
+      const p2 = cleanPhone(other.phone_number);
+      if (p1 && p1 === p2) return "Duplicate phone number within team.";
+    }
+
+    if (key === "national_id" && clean(m.national_id) && clean(m.national_id) === clean(other.national_id)) return "Duplicate National ID/Passport within team.";
+
+    if (key === "nu_id" && m.university === "NU" && other.university === "NU" && clean(m.nu_id) && clean(m.nu_id) === clean(other.nu_id)) return "Duplicate NU ID within team.";
+
+    if (key === "codeforces_handle" && clean(m.codeforces_handle) && clean(m.codeforces_handle) === clean(other.codeforces_handle)) return "Duplicate Codeforces handle within team.";
+    if (key === "vjudge_handle" && clean(m.vjudge_handle) && clean(m.vjudge_handle) === clean(other.vjudge_handle)) return "Duplicate Vjudge handle within team.";
+
+    return undefined;
+  }
+
   function validateField(fieldName: string, value: any, currentMembers: MemberDraft[], currentTeamName: string): string | undefined {
     if (fieldName === "team_name") {
       if (!currentTeamName.trim()) return "Team name is required.";
@@ -81,6 +109,7 @@ export function useRegistration() {
       const key = memberMatch[2];
       const m = currentMembers[index];
 
+      // Standard validations
       if (key === "name") {
         if (!m.name.trim()) return "Full name is required.";
         if (m.name.trim().length < 7) return "Full name must be at least 7 characters.";
@@ -92,9 +121,11 @@ export function useRegistration() {
         if (!m.email.toLowerCase().endsWith("@gmail.com")) return "Only Gmail addresses are allowed.";
       }
       if (key === "phone_number") {
-        if (!m.phone_number.trim()) return "Phone number is required.";
-        if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number must contain only numbers.";
-        if (m.phone_number.trim().replace(/[\s+]/g, '').length < 7) return "Phone number is too short.";
+        if (!m.phone_number.trim()) return "Phone number is required for contact.";
+        if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number should only contain digits and + sign.";
+        const digits = m.phone_number.trim().replace(/[\s+]/g, '');
+        if (digits.length < 7) return "Phone number is too short (min 7 digits).";
+        if (digits.length > 15) return "Phone number is too long. Do not repeat the country code.";
       }
       if (key === "nationality") {
         if (!m.nationality.trim()) return "Nationality is required.";
@@ -105,14 +136,10 @@ export function useRegistration() {
       if (key === "national_id") {
         if (!m.national_id.trim()) return "National ID / Passport is required.";
         if (m.nationality === "EG") {
-          if (!/^\d{14}$/.test(m.national_id)) return "Egyptian National ID must be 14 digits.";
+          if (!/^\d{14}$/.test(m.national_id.trim())) return "Egyptian National ID must be exactly 14 digits.";
         } else {
-          if (!/^[a-zA-Z0-9]+$/.test(m.national_id)) return "Passport ID must only contain letters and numbers.";
-          if (m.national_id.length < 6 || m.national_id.length > 15) return "Passport ID must be 6–15 characters.";
-        }
-        const otherIndex = index === 0 ? 1 : 0;
-        if (m.national_id && currentMembers[otherIndex].national_id === m.national_id) {
-          return "Members must have different National IDs.";
+          if (!/^[a-zA-Z0-9]+$/.test(m.national_id.trim())) return "Passport ID must only contain letters and numbers.";
+          if (m.national_id.trim().length < 6 || m.national_id.trim().length > 15) return "Passport ID must be 6–15 characters.";
         }
       }
       if (key === "birth_date") {
@@ -122,20 +149,35 @@ export function useRegistration() {
         if (isNaN(bYear) || bYear < 1999 || bYear > 2009) return "Birth year must be 1999–2009.";
       }
       if (key === "id_document") {
-        if (m.id_document && m.id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
-        if (phase !== "editing" && !m.id_document) return "ID document is required.";
-        if (phase === "editing" && !m.id_document && !m.existing_id_url) return "ID document is required.";
+        if (m.id_document) {
+          if (m.id_document.size > 5 * 1024 * 1024) return "ID format too large (Max 5MB).";
+          const ext = m.id_document.name.split('.').pop()?.toLowerCase();
+          if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported ID format. Use JPG, PNG, or PDF.";
+        }
+        if (phase !== "editing" && !m.id_document) return "Personal ID/Passport document is required.";
+        if (phase === "editing" && !m.id_document && !m.existing_id_url) return "Personal ID/Passport document is required.";
       }
       if (key === "nu_id") {
-        if (m.university === "NU" && !m.nu_id.trim()) return "NU ID is required.";
+        if (m.university === "NU") {
+          if (!m.nu_id.trim()) return "NU Student ID is required.";
+          if (!/^\d{9}$/.test(m.nu_id.trim())) return "NU Student ID must be exactly 9 digits.";
+        }
       }
       if (key === "nu_id_document") {
         if (m.university === "NU") {
-          if (m.nu_id_document && m.nu_id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
-          if (phase !== "editing" && !m.nu_id_document) return "NU Student ID is required.";
-          if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID is required.";
+          if (m.nu_id_document) {
+            if (m.nu_id_document.size > 5 * 1024 * 1024) return "NU ID document too large (Max 5MB).";
+            const ext = m.nu_id_document.name.split('.').pop()?.toLowerCase();
+            if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported NU ID format. Use JPG, PNG, or PDF.";
+          }
+          if (phase !== "editing" && !m.nu_id_document) return "NU Student ID document is required.";
+          if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID document is required.";
         }
       }
+
+      // Check for duplication with the other member
+      const dupError = checkMemberDuplication(fieldName, currentMembers, index);
+      if (dupError) return dupError;
     }
     return undefined;
   }
@@ -152,8 +194,10 @@ export function useRegistration() {
 
     members.forEach((_, i) => {
       [
-        "name", "email", "phone_number", "nationality", "university_other",
-        "national_id", "birth_date", "id_document", "nu_id", "nu_id_document"
+        "name", "email", "phone_number", "nationality", "university",
+        "major", "year_of_study", "university_other", "national_id",
+        "birth_date", "id_document", "nu_id", "nu_id_document",
+        "codeforces_handle", "vjudge_handle"
       ].forEach(key => {
         const fieldName = `member${i}_${key}`;
         const err = validateField(fieldName, null, members, teamName);
@@ -191,8 +235,8 @@ export function useRegistration() {
       fd.append("members", JSON.stringify(membersJson));
       if (members[0].id_document) fd.append("members[0][id_document]", members[0].id_document);
       if (members[1].id_document) fd.append("members[1][id_document]", members[1].id_document);
-      if (members[0].nu_id_document) fd.append("members[0][nu_id_document]", members[0].nu_id_document);
-      if (members[1].nu_id_document) fd.append("members[1][nu_id_document]", members[1].nu_id_document);
+      if (members[0].university === "NU" && members[0].nu_id_document) fd.append("members[0][nu_id_document]", members[0].nu_id_document);
+      if (members[1].university === "NU" && members[1].nu_id_document) fd.append("members[1][nu_id_document]", members[1].nu_id_document);
 
       let url = "/api/registration/teams";
       let method = "POST";
@@ -211,20 +255,35 @@ export function useRegistration() {
         if (typeof data === 'object' && data !== null) {
           const newErrors: Record<string, string> = {};
           if (data.team_name) newErrors["team_name"] = Array.isArray(data.team_name) ? data.team_name[0] : data.team_name;
-          if (data.members && Array.isArray(data.members)) {
-            data.members.forEach((mErr: any, i: number) => {
-              if (typeof mErr === 'object') {
-                Object.keys(mErr).forEach(key => {
-                  newErrors[`member${i}_${key}`] = Array.isArray(mErr[key]) ? mErr[key][0] : mErr[key];
+          if (data.members) {
+            if (Array.isArray(data.members)) {
+              if (data.members.length > 0 && typeof data.members[0] === 'string') {
+                // Global members-level error (e.g. cross-member duplication from backend)
+                setError(data.members[0]);
+              } else {
+                // Nested field-level errors per member
+                data.members.forEach((mErr: any, i: number) => {
+                  if (mErr && typeof mErr === 'object') {
+                    Object.keys(mErr).forEach(key => {
+                      newErrors[`member${i}_${key}`] = Array.isArray(mErr[key]) ? mErr[key][0] : mErr[key];
+                    });
+                  }
                 });
-              } else if (typeof mErr === 'string') {
-                newErrors[`member${i}_national_id`] = mErr;
               }
-            });
+            } else if (typeof data.members === 'string') {
+              setError(data.members);
+            }
           }
           if (data.error) setError(data.error);
+          if (data.detail) setError(data.detail);
+          if (data.non_field_errors) setError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors);
+
           if (Object.keys(newErrors).length > 0) {
-            setFieldErrors(newErrors);
+            setFieldErrors((prev) => ({ ...prev, ...newErrors }));
+            setPhase(phase === "editing" ? "editing" : "noTeam");
+            return;
+          }
+          if (error || data.error || data.detail || data.non_field_errors) {
             setPhase(phase === "editing" ? "editing" : "noTeam");
             return;
           }
@@ -239,7 +298,6 @@ export function useRegistration() {
   }
 
   async function deleteTeam() {
-    if (!window.confirm("Are you sure you want to delete your team? This will remove all your data and you will need to register again.")) return;
     if (!team) return;
     setPhase("checking");
     try {

@@ -22,7 +22,7 @@ export const CARDS = [
   {
     key: "prizes",
     title: "PRIZES & SPECIAL AWARDS",
-    body: "NUCPA 2026 offers a 30,000 EGP prize pool awarded to the top 5 teams, along with gifts for the next 5 teams. Additional special awards are dedicated to Nile University teams (all members from NU) and Teen teams, where all members are 18 years old or younger by February 1st, 2026.",
+    body: "NUCPA 2026 offers a 40,000 EGP prize pool awarded to the top 5 teams, along with gifts for the next 5 teams. Additional special awards are dedicated to Nile University teams (all members from NU) and Teen teams, where all members are 18 years old or younger by February 1st, 2026.",
     tone: "teal2",
   },
   {
@@ -94,33 +94,33 @@ export const AWARD_TABS = [
 export const PRIZES = {
   top10: [
     {
-      title: "1st PLACE PRIZE:",
-      caption: "Trophy Cup + 10k EGP",
+      title: "1st Place:",
+      caption: "Championship and 10,000 EGP in Cash",
       images: ["/assets/trophy.png", "/assets/MEDAL_GOLD.png"],
     },
     {
-      title: "2nd PLACE PRIZE:",
-      caption: "7.5k EGP",
+      title: "2nd Place:",
+      caption: "7,500 EGP in Cash",
       images: ["/assets/MEDAL_GOLD.png", "/assets/gift.png"],
     },
     {
-      title: "3rd PLACE PRIZE:",
-      caption: "5.5k EGP",
+      title: "3rd Place:",
+      caption: "7,500 EGP in Cash",
       images: ["/assets/MEDAL_GOLD.png", "/assets/gift.png"],
     },
     {
-      title: "4th PLACE PRIZE:",
-      caption: "4k EGP",
+      title: "4th Place:",
+      caption: "7,500 EGP in Cash",
       images: ["/assets/MEDAL_SILVER.png", "/assets/gift.png"],
     },
     {
-      title: "5th PLACE PRIZE:",
-      caption: "3k EGP",
+      title: "5th Place:",
+      caption: "7,500 EGP in Cash",
       images: ["/assets/MEDAL_SILVER.png", "/assets/gift.png"],
     },
     {
-      title: "6th - 10th PLACE:",
-      caption: "2 Gifts",
+      title: "6th - 10th Place:",
+      caption: "Gifts",
       images: ["/assets/MEDAL_BRONZE.png", "/assets/gift.png"],
     },
   ],

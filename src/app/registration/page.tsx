@@ -6,6 +6,8 @@ import PixelButton from "@/components/ui/PixelButton";
 import TeamView from "@/components/registration/TeamView";
 import RegistrationForm from "@/components/registration/RegistrationForm";
 import { useRegistration } from "@/hooks/useRegistration";
+import { useState } from "react";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 
 export default function RegistrationPage() {
   const {
@@ -14,9 +16,16 @@ export default function RegistrationPage() {
     deleteTeam, startEditing, logout, handleBlur
   } = useRegistration();
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const isLoggedIn = phase !== "idle" && phase !== "checking" && phase !== "error";
+
   return (
     <div className="flex flex-col min-h-screen bg-bg">
-      <Navbar />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        showAuthButton={true}
+        onSignIn={startGoogleLogin}
+      />
       <main className="flex-grow bg-dots-about relative overflow-hidden">
         <div className="container-lg py-12 relative z-10 px-4">
           <header className="text-center mb-10">
@@ -67,7 +76,7 @@ export default function RegistrationPage() {
                 team={team}
                 onLogout={logout}
                 onEdit={startEditing}
-                onDelete={deleteTeam}
+                onDelete={() => setIsDeleteModalOpen(true)}
               />
             )}
 
@@ -102,6 +111,21 @@ export default function RegistrationPage() {
           </div>
         </div>
       </main>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        title="DELETE TEAM?"
+        message="Are you sure you want to delete your team? This will remove all your data and you will need to register again."
+        onConfirm={() => {
+          setIsDeleteModalOpen(false);
+          deleteTeam();
+        }}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        confirmLabel="YES, DELETE"
+        cancelLabel="KEEP TEAM"
+        variant="danger"
+      />
+
       <Footer />
     </div>
   );
