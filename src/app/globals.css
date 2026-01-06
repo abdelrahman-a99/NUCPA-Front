@@ -17,6 +17,8 @@
   --ink: 17 24 39;
   --muted: 107 114 128;
 
+  --new-yellow: 247 245 241;
+
   --teal: 70 164 176;
   --teal-bright: 56 177 192;
   --ink2: 64 62 75;
@@ -37,7 +39,8 @@ html {
 }
 
 body {
-  background: rgb(var(--bg));
+  /* background: rgb(var(--bg)); */
+  background: rgb(var(--new-yellow));
   color: rgb(var(--ink));
 }
 

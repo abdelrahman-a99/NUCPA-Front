@@ -53,12 +53,12 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-line">
+    <header className="sticky top-0 z-50 bg-new-white border-b border-line">
       <div className="container-max h-20 md:h-24 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           {/* Logo */}
           <Image
-            src="/assets/logo.png"
+            src="/assets/logo_2.png"
             alt="NUCPA"
             width={120}
             height={64}
