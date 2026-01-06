@@ -74,22 +74,23 @@ export function useRegistration() {
     const other = members[otherIdx];
 
     const clean = (s: any) => (s || "").toString().trim().toLowerCase();
+    const cleanPhone = (p: any) => (p || "").toString().replace(/\D/g, '');
 
-    if (key === "name" && clean(m.name) && clean(m.name) === clean(other.name)) return "Members must have different names.";
-    if (key === "email" && clean(m.email) && clean(m.email) === clean(other.email)) return "Members must have different emails.";
+    if (key === "name" && clean(m.name) && clean(m.name) === clean(other.name)) return "Duplicate name within team.";
+    if (key === "email" && clean(m.email) && clean(m.email) === clean(other.email)) return "Duplicate email within team.";
 
     if (key === "phone_number") {
-      const p1 = (m.phone_number || "").replace(/\D/g, '');
-      const p2 = (other.phone_number || "").replace(/\D/g, '');
-      if (p1 && p1 === p2) return "Members must have different phone numbers.";
+      const p1 = cleanPhone(m.phone_number);
+      const p2 = cleanPhone(other.phone_number);
+      if (p1 && p1 === p2) return "Duplicate phone number within team.";
     }
 
-    if (key === "national_id" && clean(m.national_id) && clean(m.national_id) === clean(other.national_id)) return "Members must have different National IDs/Passports.";
+    if (key === "national_id" && clean(m.national_id) && clean(m.national_id) === clean(other.national_id)) return "Duplicate National ID/Passport within team.";
 
-    if (key === "nu_id" && m.university === "NU" && clean(m.nu_id) && other.university === "NU" && clean(m.nu_id) === clean(other.nu_id)) return "Members must have different NU IDs.";
+    if (key === "nu_id" && m.university === "NU" && other.university === "NU" && clean(m.nu_id) && clean(m.nu_id) === clean(other.nu_id)) return "Duplicate NU ID within team.";
 
-    if (key === "codeforces_handle" && clean(m.codeforces_handle) && clean(m.codeforces_handle) === clean(other.codeforces_handle)) return "Members must have different Codeforces handles.";
-    if (key === "vjudge_handle" && clean(m.vjudge_handle) && clean(m.vjudge_handle) === clean(other.vjudge_handle)) return "Members must have different Vjudge handles.";
+    if (key === "codeforces_handle" && clean(m.codeforces_handle) && clean(m.codeforces_handle) === clean(other.codeforces_handle)) return "Duplicate Codeforces handle within team.";
+    if (key === "vjudge_handle" && clean(m.vjudge_handle) && clean(m.vjudge_handle) === clean(other.vjudge_handle)) return "Duplicate Vjudge handle within team.";
 
     return undefined;
   }
@@ -120,9 +121,11 @@ export function useRegistration() {
         if (!m.email.toLowerCase().endsWith("@gmail.com")) return "Only Gmail addresses are allowed.";
       }
       if (key === "phone_number") {
-        if (!m.phone_number.trim()) return "Phone number is required.";
-        if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number must contain only numbers.";
-        if (m.phone_number.trim().replace(/[\s+]/g, '').length < 7) return "Phone number is too short.";
+        if (!m.phone_number.trim()) return "Phone number is required for contact.";
+        if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number should only contain digits and + sign.";
+        const digits = m.phone_number.trim().replace(/[\s+]/g, '');
+        if (digits.length < 7) return "Phone number is too short (min 7 digits).";
+        if (digits.length > 15) return "Phone number is too long (max 15 digits).";
       }
       if (key === "nationality") {
         if (!m.nationality.trim()) return "Nationality is required.";
@@ -133,10 +136,10 @@ export function useRegistration() {
       if (key === "national_id") {
         if (!m.national_id.trim()) return "National ID / Passport is required.";
         if (m.nationality === "EG") {
-          if (!/^\d{14}$/.test(m.national_id)) return "Egyptian National ID must be 14 digits.";
+          if (!/^\d{14}$/.test(m.national_id.trim())) return "Egyptian National ID must be exactly 14 digits.";
         } else {
-          if (!/^[a-zA-Z0-9]+$/.test(m.national_id)) return "Passport ID must only contain letters and numbers.";
-          if (m.national_id.length < 6 || m.national_id.length > 15) return "Passport ID must be 6–15 characters.";
+          if (!/^[a-zA-Z0-9]+$/.test(m.national_id.trim())) return "Passport ID must only contain letters and numbers.";
+          if (m.national_id.trim().length < 6 || m.national_id.trim().length > 15) return "Passport ID must be 6–15 characters.";
         }
       }
       if (key === "birth_date") {
@@ -147,25 +150,28 @@ export function useRegistration() {
       }
       if (key === "id_document") {
         if (m.id_document) {
-          if (m.id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+          if (m.id_document.size > 5 * 1024 * 1024) return "ID format too large (Max 5MB).";
           const ext = m.id_document.name.split('.').pop()?.toLowerCase();
-          if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Invalid file type. Allowed: JPG, PNG, PDF.";
+          if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported ID format. Use JPG, PNG, or PDF.";
         }
-        if (phase !== "editing" && !m.id_document) return "ID document is required.";
-        if (phase === "editing" && !m.id_document && !m.existing_id_url) return "ID document is required.";
+        if (phase !== "editing" && !m.id_document) return "Personal ID/Passport document is required.";
+        if (phase === "editing" && !m.id_document && !m.existing_id_url) return "Personal ID/Passport document is required.";
       }
       if (key === "nu_id") {
-        if (m.university === "NU" && !m.nu_id.trim()) return "NU ID is required.";
+        if (m.university === "NU") {
+          if (!m.nu_id.trim()) return "NU Student ID is required.";
+          if (!/^\d{9}$/.test(m.nu_id.trim())) return "NU Student ID must be exactly 9 digits.";
+        }
       }
       if (key === "nu_id_document") {
         if (m.university === "NU") {
           if (m.nu_id_document) {
-            if (m.nu_id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+            if (m.nu_id_document.size > 5 * 1024 * 1024) return "NU ID document too large (Max 5MB).";
             const ext = m.nu_id_document.name.split('.').pop()?.toLowerCase();
-            if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Invalid file type. Allowed: JPG, PNG, PDF.";
+            if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported NU ID format. Use JPG, PNG, or PDF.";
           }
-          if (phase !== "editing" && !m.nu_id_document) return "NU Student ID is required.";
-          if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID is required.";
+          if (phase !== "editing" && !m.nu_id_document) return "NU Student ID document is required.";
+          if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID document is required.";
         }
       }
 
@@ -273,7 +279,7 @@ export function useRegistration() {
           if (data.non_field_errors) setError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors);
 
           if (Object.keys(newErrors).length > 0) {
-            setFieldErrors(newErrors);
+            setFieldErrors((prev) => ({ ...prev, ...newErrors }));
             setPhase(phase === "editing" ? "editing" : "noTeam");
             return;
           }
