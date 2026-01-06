@@ -31,6 +31,43 @@ export default function AdminDashboardPage() {
         fetchTeams(search);
     };
 
+    // Calculate Stats
+    const totalTeams = teams.length;
+    const paidTeams = teams.filter(t => t.payment_status).length;
+    const readyTeams = teams.filter(t => t.checked_in).length;
+
+    // Export to CSV
+    const handleExportCSV = () => {
+        if (!teams.length) return;
+
+        const headers = [
+            "ID", "Team Name", "Payment Status", "Checked In", "Member Count",
+            "M1 Name", "M1 Email", "M1 Phone", "M1 National ID", "M1 University",
+            "M2 Name", "M2 Email", "M2 Phone", "M2 National ID", "M2 University"
+        ];
+
+        const rows = teams.map(t => {
+            const m1 = t.members[0] || {};
+            const m2 = t.members[1] || {};
+            return [
+                t.id, t.team_name, t.payment_status ? "PAID" : "PENDING", t.checked_in ? "READY" : "WAITING", t.member_count,
+                // Member 1
+                m1.name || "", m1.email || "", m1.phone_number || "", `"${m1.national_id || ""}"`, m1.university || "",
+                // Member 2
+                m2.name || "", m2.email || "", m2.phone_number || "", `"${m2.national_id || ""}"`, m2.university || ""
+            ].map(cell => `"${cell}"`).join(","); // Quote all cells to be safe
+        });
+
+        const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `nucpa_teams_export_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     if (isAdmin === null || (isLoading && teams.length === 0)) {
         return (
             <div className="min-h-screen flex flex-col bg-bg">
@@ -48,7 +85,7 @@ export default function AdminDashboardPage() {
             <Navbar />
             <main className="flex-grow py-12 px-4 sm:px-8">
                 <div className="container-max">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
                         <div>
                             <h1 className="font-pixel text-3xl sm:text-5xl text-ink2 mb-2">ADMIN CONSOLE</h1>
                             <p className="text-muted text-sm font-bold uppercase tracking-widest flex items-center gap-2">
@@ -57,6 +94,46 @@ export default function AdminDashboardPage() {
                             </p>
                         </div>
 
+                        <div className="flex gap-4">
+                            <PixelButton onClick={handleExportCSV} variant="ghost" size="sm" className="hidden md:flex">
+                                ⬇ EXPORT CSV
+                            </PixelButton>
+                        </div>
+                    </div>
+
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm flex items-center justify-between group hover:border-teal/30 transition-colors">
+                            <div>
+                                <p className="text-xs font-bold uppercase tracking-widest text-muted mb-1">Total Teams</p>
+                                <p className="font-pixel text-4xl text-ink">{totalTeams}</p>
+                            </div>
+                            <div className="w-12 h-12 rounded-full bg-bg flex items-center justify-center font-pixel text-xl text-muted group-hover:text-teal group-hover:bg-teal/10 transition-colors">
+                                👥
+                            </div>
+                        </div>
+                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm flex items-center justify-between group hover:border-teal/30 transition-colors">
+                            <div>
+                                <p className="text-xs font-bold uppercase tracking-widest text-muted mb-1">Paid & Verified</p>
+                                <p className="font-pixel text-4xl text-teal">{paidTeams}</p>
+                            </div>
+                            <div className="w-12 h-12 rounded-full bg-teal/10 flex items-center justify-center font-pixel text-xl text-teal">
+                                💰
+                            </div>
+                        </div>
+                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm flex items-center justify-between group hover:border-teal/30 transition-colors">
+                            <div>
+                                <p className="text-xs font-bold uppercase tracking-widest text-muted mb-1">Ready to Compete</p>
+                                <p className="font-pixel text-4xl text-purple-600">{readyTeams}</p>
+                            </div>
+                            <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center font-pixel text-xl text-purple-600">
+                                🚀
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+                        <h3 className="font-pixel text-xl text-ink2">TEAM LIST</h3>
                         <form onSubmit={handleSearch} className="flex gap-2 w-full md:w-auto">
                             <input
                                 type="text"
