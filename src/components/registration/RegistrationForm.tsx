@@ -62,59 +62,26 @@ export default function RegistrationForm({
       </div>
 
       <div className="space-y-12">
-        <div className="relative p-6 rounded-3xl border border-line/60 bg-white/50">
-          <div className="absolute -top-3 left-6 bg-white px-2 font-pixel text-lg text-teal-bright">MEMBER 01</div>
-          <MemberForm
-            value={members[0]}
-            onChange={(next) => setMembers([next, members[1]])}
-            errors={{
-              name: fieldErrors["member0_name"],
-              email: fieldErrors["member0_email"],
-              phone_number: fieldErrors["member0_phone_number"],
-              nationality: fieldErrors["member0_nationality"],
-              university: fieldErrors["member0_university"],
-              major: fieldErrors["member0_major"],
-              year_of_study: fieldErrors["member0_year_of_study"],
-              university_other: fieldErrors["member0_university_other"],
-              national_id: fieldErrors["member0_national_id"],
-              birth_date: fieldErrors["member0_birth_date"],
-              nu_id: fieldErrors["member0_nu_id"],
-              codeforces_handle: fieldErrors["member0_codeforces_handle"],
-              vjudge_handle: fieldErrors["member0_vjudge_handle"],
-              id_document: fieldErrors["member0_id_document"],
-              nu_id_document: fieldErrors["member0_nu_id_document"],
-            }}
-            isEditing={isEditing}
-            onBlurField={(sub) => onBlurField(`member0_${sub}`)}
-          />
-        </div>
-
-        <div className="relative p-6 rounded-3xl border border-line/60 bg-white/50">
-          <div className="absolute -top-3 left-6 bg-white px-2 font-pixel text-lg text-teal-bright">MEMBER 02</div>
-          <MemberForm
-            value={members[1]}
-            onChange={(next) => setMembers([members[0], next])}
-            errors={{
-              name: fieldErrors["member1_name"],
-              email: fieldErrors["member1_email"],
-              phone_number: fieldErrors["member1_phone_number"],
-              nationality: fieldErrors["member1_nationality"],
-              university: fieldErrors["member1_university"],
-              major: fieldErrors["member1_major"],
-              year_of_study: fieldErrors["member1_year_of_study"],
-              university_other: fieldErrors["member1_university_other"],
-              national_id: fieldErrors["member1_national_id"],
-              birth_date: fieldErrors["member1_birth_date"],
-              nu_id: fieldErrors["member1_nu_id"],
-              codeforces_handle: fieldErrors["member1_codeforces_handle"],
-              vjudge_handle: fieldErrors["member1_vjudge_handle"],
-              id_document: fieldErrors["member1_id_document"],
-              nu_id_document: fieldErrors["member1_nu_id_document"],
-            }}
-            isEditing={isEditing}
-            onBlurField={(sub) => onBlurField(`member1_${sub}`)}
-          />
-        </div>
+        {[0, 1].map((i) => (
+          <div key={i} className="relative p-6 rounded-3xl border border-line/60 bg-white/50">
+            <div className="absolute -top-3 left-6 bg-white px-2 font-pixel text-lg text-teal-bright">
+              MEMBER 0{i + 1}
+            </div>
+            <MemberForm
+              value={members[i]}
+              onChange={(next) => {
+                const newMembers = [...members];
+                newMembers[i] = next;
+                setMembers(newMembers);
+              }}
+              errors={Object.keys(fieldErrors)
+                .filter((k) => k.startsWith(`member${i}_`))
+                .reduce((acc, k) => ({ ...acc, [k.replace(`member${i}_`, "")]: fieldErrors[k] }), {})}
+              isEditing={isEditing}
+              onBlurField={(sub) => onBlurField(`member${i}_${sub}`)}
+            />
+          </div>
+        ))}
       </div>
 
       <div className="mt-12 flex flex-wrap gap-4 pt-6 border-t border-line justify-end">
