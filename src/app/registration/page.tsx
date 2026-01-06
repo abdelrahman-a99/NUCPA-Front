@@ -284,90 +284,116 @@ export default function RegistrationPage() {
   }, []);
 
 
+  function validateField(fieldName: string, value: any, currentMembers: MemberDraft[], currentTeamName: string): string | undefined {
+    // Basic fields
+    if (fieldName === "team_name") {
+      if (!currentTeamName.trim()) return "Team name is required.";
+      if (currentTeamName.length > 40) return "Team name cannot exceed 40 characters.";
+      if (!/^[A-Za-z0-9]/.test(currentTeamName.trim())) return "Team name must start with a letter or number.";
+      return undefined;
+    }
+
+    const memberMatch = fieldName.match(/^member(\d)_(.+)$/);
+    if (memberMatch) {
+      const index = parseInt(memberMatch[1]);
+      const key = memberMatch[2];
+      const m = currentMembers[index];
+
+      if (key === "name") {
+        if (!m.name.trim()) return "Full name is required.";
+        if (m.name.trim().length < 7) return "Full name must be at least 7 characters.";
+        if (!/^[a-zA-Z\s]+$/.test(m.name.trim())) return "Full name must only contain letters and spaces.";
+      }
+
+      if (key === "email") {
+        if (!m.email.trim()) return "Email is required.";
+        if (!/\S+@\S+\.\S+/.test(m.email)) return "Invalid email format.";
+        if (!m.email.toLowerCase().endsWith("@gmail.com")) return "Only Gmail addresses are allowed.";
+      }
+
+      if (key === "phone_number") {
+        if (!m.phone_number.trim()) return "Phone number is required.";
+        if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number must contain only numbers.";
+        if (m.phone_number.trim().replace(/[\s+]/g, '').length < 7) return "Phone number is too short.";
+      }
+
+      if (key === "nationality") {
+        if (!m.nationality.trim()) return "Nationality is required.";
+      }
+
+      if (key === "university_other") {
+        if (m.university === "OTHER" && !m.university_other.trim()) return "Please specify your university.";
+      }
+
+      if (key === "national_id") {
+        if (!m.national_id.trim()) return "National ID / Passport is required.";
+        if (m.nationality === "EG") {
+          if (!/^\d{14}$/.test(m.national_id)) return "Egyptian National ID must be 14 digits.";
+        } else if (m.national_id.length < 6) {
+          return "Passport number is too short.";
+        }
+        // Cross-check
+        const otherIndex = index === 0 ? 1 : 0;
+        if (m.national_id && currentMembers[otherIndex].national_id === m.national_id) {
+          return "Members must have different National IDs.";
+        }
+      }
+
+      if (key === "birth_date") {
+        if (!m.birth_date) return "Birth date is required.";
+        const bDate = new Date(m.birth_date);
+        const bYear = bDate.getFullYear();
+        if (isNaN(bYear) || bYear < 1999 || bYear > 2009) return "Birth year must be 1999–2009.";
+      }
+
+      if (key === "id_document") {
+        if (m.id_document && m.id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+        if (phase !== "editing" && !m.id_document) return "ID document is required.";
+        if (phase === "editing" && !m.id_document && !m.existing_id_url) return "ID document is required.";
+      }
+
+      if (key === "nu_id") {
+        if (m.university === "NU" && !m.nu_id.trim()) return "NU ID is required.";
+      }
+
+      if (key === "nu_id_document") {
+        if (m.university === "NU") {
+          if (m.nu_id_document && m.nu_id_document.size > 5 * 1024 * 1024) return "File too large. Max size is 5MB.";
+          if (phase !== "editing" && !m.nu_id_document) return "NU Student ID is required.";
+          if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID is required.";
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  function handleBlur(fieldName: string) {
+    const error = validateField(fieldName, null, members, teamName);
+    setFieldErrors(prev => ({
+      ...prev,
+      [fieldName]: error || ""
+    }));
+  }
+
   function validateForm() {
     const errors: Record<string, string> = {};
 
-    if (!teamName.trim()) {
-      errors["team_name"] = "Team name is required.";
-    } else if (teamName.length > 40) {
-      errors["team_name"] = "Team name cannot exceed 40 characters.";
-    } else if (!/^[A-Za-z0-9]/.test(teamName.trim())) {
-      errors["team_name"] = "Team name must start with a letter or number.";
-    }
+    // Validate Team Name
+    const tnErr = validateField("team_name", null, members, teamName);
+    if (tnErr) errors["team_name"] = tnErr;
 
-    members.forEach((m, i) => {
-      const prefix = `member${i}_`;
-      if (!m.name.trim()) errors[`${prefix}name`] = "Full name is required.";
-      else if (m.name.trim().length < 7) errors[`${prefix}name`] = "Full name must be at least 7 characters.";
-      else if (!/^[a-zA-Z\s]+$/.test(m.name.trim())) errors[`${prefix}name`] = "Full name must only contain letters and spaces.";
-
-      if (!m.email.trim()) errors[`${prefix}email`] = "Email is required.";
-      else if (!/\S+@\S+\.\S+/.test(m.email)) errors[`${prefix}email`] = "Invalid email format.";
-      else if (!m.email.toLowerCase().endsWith("@gmail.com")) errors[`${prefix}email`] = "Only Gmail addresses are allowed.";
-
-      if (!m.phone_number.trim()) {
-        errors[`${prefix}phone_number`] = "Phone number is required.";
-      } else if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) {
-        errors[`${prefix}phone_number`] = "Phone number must contain only numbers.";
-      } else if (m.phone_number.trim().replace(/[\s+]/g, '').length < 7) {
-        errors[`${prefix}phone_number`] = "Phone number is too short.";
-      }
-
-      if (!m.nationality.trim()) errors[`${prefix}nationality`] = "Nationality is required.";
-
-      if (m.university === "OTHER" && !m.university_other.trim()) {
-        errors[`${prefix}university_other`] = "Please specify your university.";
-      }
-
-      if (!m.national_id.trim()) {
-        errors[`${prefix}national_id`] = "National ID / Passport is required.";
-      } else {
-        if (m.nationality === "EG") {
-          if (!/^\d{14}$/.test(m.national_id)) {
-            errors[`${prefix}national_id`] = "Egyptian National ID must be 14 digits.";
-          }
-        } else if (m.national_id.length < 6) {
-          errors[`${prefix}national_id`] = "Passport number is too short.";
-        }
-      }
-
-      if (!m.birth_date) {
-        errors[`${prefix}birth_date`] = "Birth date is required.";
-      } else {
-        const bDate = new Date(m.birth_date);
-        const bYear = bDate.getFullYear();
-        if (isNaN(bYear) || bYear < 1999 || bYear > 2009) {
-          errors[`${prefix}birth_date`] = "Birth year must be 1999–2009.";
-        }
-      }
-
-      // File Size Check (5MB)
-      if (m.id_document && m.id_document.size > 5 * 1024 * 1024) {
-        errors[`${prefix}id_document`] = "File too large. Max size is 5MB.";
-      } else if (phase !== "editing" && !m.id_document) {
-        errors[`${prefix}id_document`] = "ID document is required.";
-      } else if (phase === "editing" && !m.id_document && !m.existing_id_url) {
-        errors[`${prefix}id_document`] = "ID document is required.";
-      }
-
-      // NU Student Validation
-      if (m.university === "NU") {
-        if (!m.nu_id.trim()) {
-          errors[`${prefix}nu_id`] = "NU ID is required.";
-        }
-        if (m.nu_id_document && m.nu_id_document.size > 5 * 1024 * 1024) {
-          errors[`${prefix}nu_id_document`] = "File too large. Max size is 5MB.";
-        } else if (phase !== "editing" && !m.nu_id_document) {
-          errors[`${prefix}nu_id_document`] = "NU Student ID is required.";
-        } else if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) {
-          errors[`${prefix}nu_id_document`] = "NU Student ID is required.";
-        }
-      }
+    // Validate Members
+    members.forEach((_, i) => {
+      [
+        "name", "email", "phone_number", "nationality", "university_other",
+        "national_id", "birth_date", "id_document", "nu_id", "nu_id_document"
+      ].forEach(key => {
+        const fieldName = `member${i}_${key}`;
+        const err = validateField(fieldName, null, members, teamName);
+        if (err) errors[fieldName] = err;
+      });
     });
-
-    if (members[0].national_id && members[1].national_id && members[0].national_id === members[1].national_id) {
-      errors["member1_national_id"] = "Members must have different National IDs.";
-    }
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
@@ -591,6 +617,7 @@ export default function RegistrationPage() {
                 onSubmit={submitRegistration}
                 onLogout={logout}
                 onCancel={phase === "editing" ? () => setPhase("hasTeam") : undefined}
+                onBlurField={handleBlur}
               />
             )}
 
@@ -750,6 +777,7 @@ function RegistrationForm({
   onSubmit,
   onLogout,
   onCancel,
+  onBlurField,
 }: {
   isEditing?: boolean;
   teamName: string;
@@ -760,6 +788,7 @@ function RegistrationForm({
   onSubmit: () => void;
   onLogout: () => void;
   onCancel?: () => void;
+  onBlurField: (name: string) => void;
 }) {
   return (
     <div className="animate-in fade-in zoom-in-95 duration-300">
@@ -788,6 +817,7 @@ function RegistrationForm({
           <input
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
+            onBlur={() => onBlurField("team_name")}
             className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-pixel text-sm"
             placeholder="e.g. The Bug Slayers"
           />
@@ -818,6 +848,7 @@ function RegistrationForm({
               nu_id_document: fieldErrors["member0_nu_id_document"],
             }}
             isEditing={isEditing}
+            onBlurField={(sub) => onBlurField(`member0_${sub}`)}
           />
         </div>
 
@@ -844,6 +875,7 @@ function RegistrationForm({
               nu_id_document: fieldErrors["member1_nu_id_document"],
             }}
             isEditing={isEditing}
+            onBlurField={(sub) => onBlurField(`member1_${sub}`)}
           />
         </div>
       </div>
@@ -865,11 +897,13 @@ function MemberForm({
   onChange,
   errors,
   isEditing,
+  onBlurField,
 }: {
   value: MemberDraft;
   onChange: (v: MemberDraft) => void;
   errors: Record<string, string | undefined>;
   isEditing?: boolean;
+  onBlurField: (name: string) => void;
 }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
@@ -877,6 +911,7 @@ function MemberForm({
         <input
           value={value.name}
           onChange={(e) => onChange({ ...value, name: e.target.value })}
+          onBlur={() => onBlurField("name")}
           className="input-modern"
           placeholder="e.g. Omar Ahmed"
         />
@@ -886,6 +921,7 @@ function MemberForm({
         <input
           value={value.email}
           onChange={(e) => onChange({ ...value, email: e.target.value })}
+          onBlur={() => onBlurField("email")}
           className="input-modern"
           placeholder="name@example.com"
           type="email"
@@ -929,6 +965,7 @@ function MemberForm({
               const code = value.phone_number.split(' ')[0].startsWith('+') ? value.phone_number.split(' ')[0] : "+20";
               onChange({ ...value, phone_number: `${code} ${e.target.value.replace(/\D/g, '')}` });
             }}
+            onBlur={() => onBlurField("phone_number")}
             className="flex-grow input-modern"
             placeholder="1xx xxx xxxx"
           />
@@ -939,6 +976,7 @@ function MemberForm({
         <input
           value={value.codeforces_handle}
           onChange={(e) => onChange({ ...value, codeforces_handle: e.target.value })}
+          onBlur={() => onBlurField("codeforces_handle")}
           className="input-modern"
           placeholder="e.g. tourist"
         />
@@ -948,6 +986,7 @@ function MemberForm({
         <input
           value={value.vjudge_handle}
           onChange={(e) => onChange({ ...value, vjudge_handle: e.target.value })}
+          onBlur={() => onBlurField("vjudge_handle")}
           className="input-modern"
           placeholder="e.g. vjudge_user"
         />
@@ -957,6 +996,7 @@ function MemberForm({
         <select
           value={value.nationality}
           onChange={(e) => onChange({ ...value, nationality: e.target.value })}
+          onBlur={() => onBlurField("nationality")}
           className="input-modern bg-transparent"
         >
           {COUNTRIES.map((c) => (
@@ -971,6 +1011,7 @@ function MemberForm({
         <select
           value={value.university}
           onChange={(e) => onChange({ ...value, university: e.target.value })}
+          onBlur={() => onBlurField("university")}
           className="input-modern bg-transparent"
         >
           {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
@@ -985,6 +1026,7 @@ function MemberForm({
         <input
           value={value.major}
           onChange={(e) => onChange({ ...value, major: e.target.value })}
+          onBlur={() => onBlurField("major")}
           className="input-modern"
           placeholder="e.g. Computer Science"
         />
@@ -994,6 +1036,7 @@ function MemberForm({
         <select
           value={value.year_of_study}
           onChange={(e) => onChange({ ...value, year_of_study: e.target.value })}
+          onBlur={() => onBlurField("year_of_study")}
           className="input-modern bg-transparent"
         >
           {YEAR_CHOICES.map((y: { value: string; label: string }) => (
@@ -1009,6 +1052,7 @@ function MemberForm({
           <input
             value={value.university_other}
             onChange={(e) => onChange({ ...value, university_other: e.target.value })}
+            onBlur={() => onBlurField("university_other")}
             className="input-modern"
             placeholder="Official university name"
           />
@@ -1019,6 +1063,7 @@ function MemberForm({
         <input
           value={value.national_id}
           onChange={(e) => onChange({ ...value, national_id: e.target.value })}
+          onBlur={() => onBlurField("national_id")}
           className="input-modern"
           placeholder={value.nationality === "EG" ? "299xxxxxxxxxxx" : "Passport number"}
         />
@@ -1029,6 +1074,7 @@ function MemberForm({
           type="date"
           value={value.birth_date}
           onChange={(e) => onChange({ ...value, birth_date: e.target.value })}
+          onBlur={() => onBlurField("birth_date")}
           className="input-modern cursor-text"
           min="1999-01-01"
           max="2009-12-31"
@@ -1041,6 +1087,7 @@ function MemberForm({
             <input
               value={value.nu_id}
               onChange={(e) => onChange({ ...value, nu_id: e.target.value.replace(/\D/g, '') })}
+              onBlur={() => onBlurField("nu_id")}
               className="input-modern"
               placeholder="e.g. 202400xxx"
             />
@@ -1052,6 +1099,7 @@ function MemberForm({
                 type="file"
                 accept="image/*,application/pdf"
                 onChange={(e) => onChange({ ...value, nu_id_document: e.target.files?.[0] || null })}
+                onBlur={() => onBlurField("nu_id_document")}
                 className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
               />
             </div>
@@ -1080,6 +1128,7 @@ function MemberForm({
             type="file"
             accept="image/*,application/pdf"
             onChange={(e) => onChange({ ...value, id_document: e.target.files?.[0] || null })}
+            onBlur={() => onBlurField("id_document")}
             className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
           />
         </div>
