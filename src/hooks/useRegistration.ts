@@ -125,7 +125,7 @@ export function useRegistration() {
         if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number should only contain digits and + sign.";
         const digits = m.phone_number.trim().replace(/[\s+]/g, '');
         if (digits.length < 7) return "Phone number is too short (min 7 digits).";
-        if (digits.length > 15) return "Phone number is too long (max 15 digits).";
+        if (digits.length > 15) return "Phone number is too long. Do not repeat the country code.";
       }
       if (key === "nationality") {
         if (!m.nationality.trim()) return "Nationality is required.";
