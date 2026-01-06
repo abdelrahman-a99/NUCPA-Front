@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/site";
 import { cn } from "@/lib/cn";
@@ -54,7 +55,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-line">
       <div className="container-max h-20 md:h-24 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           {/* Logo */}
           <Image
             src="/assets/logo.png"
@@ -64,25 +65,25 @@ export default function Navbar() {
             className="h-12 md:h-16 w-auto"
             priority
           />
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-[14px]">
           {NAV_ITEMS.map((item) => {
             const isActive = isHome && item.href === active;
             const href = isHome ? item.href : `/${item.href}`;
             return (
-              <a
+              <Link
                 key={item.href}
                 href={href}
                 className={cn(
                   "px-6 lg:px-8 py-2 rounded-full transition border text-center min-w-max",
                   isActive
                     ? "bg-teal text-white border-transparent shadow-soft"
-                    : "bg-bg/40 text-ink border-transparent hover:bg-white hover:border-line"
+                    : "bg-bg/40 text-ink border-transparent hover:bg-red hover:text-white hover:border-line"
                 )}
               >
                 {item.label}
-              </a>
+              </Link>
             );
           })}
           {!isHome && pathname.startsWith("/registration") && (
@@ -149,7 +150,7 @@ export default function Navbar() {
               const href = isHome ? item.href : `/${item.href}`;
               const isActive = isHome && item.href === active;
               return (
-                <a
+                <Link
                   key={item.href}
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
@@ -161,7 +162,7 @@ export default function Navbar() {
                   )}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
             })}
 

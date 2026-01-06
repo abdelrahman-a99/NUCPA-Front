@@ -1,25 +1,37 @@
+"use client";
+
 import { NAV_ITEMS } from "@/lib/site";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <footer className="bg-ink2 text-white">
       <div className="container-max py-10">
         <div className="flex flex-col items-center gap-3 lg:gap-2">
-          <Image
-            src="/assets/logo.png"
-            alt="NUCPA"
-            width={100}
-            height={48}
-            className="h-12 w-auto drop-shadow"
-          />
+          <Link href="/">
+            <Image
+              src="/assets/logo.png"
+              alt="NUCPA"
+              width={100}
+              height={48}
+              className="h-12 w-auto drop-shadow"
+            />
+          </Link>
 
           <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-20 text-[12px] lg:text-[16px] font-semibold opacity-80">
-            {NAV_ITEMS.map((item) => (
-              <a key={item.href} href={item.href} className="hover:opacity-100">
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const href = isHome ? item.href : `/${item.href}`;
+              return (
+                <Link key={item.href} href={href} className="hover:opacity-100">
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="flex items-center gap-8 opacity-80">

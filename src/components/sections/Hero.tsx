@@ -66,7 +66,7 @@ export default function Hero() {
               <PixelButton onClick={() => login()} variant="primary">
                 {isLoading ? "OPENING..." : "REGISTER NOW"}
               </PixelButton>
-              <PixelButton href="#about" variant="outline-red">
+              <PixelButton href="/#about" variant="outline-red">
                 LEARN MORE
               </PixelButton>
             </div>

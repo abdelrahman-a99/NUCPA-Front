@@ -101,12 +101,12 @@ export default function About() {
         <div className="mt-14 overflow-hidden">
           <h3 className="text-center font-pixel text-2xl sm:text-4xl mb-8">OUR SPONSORS</h3>
 
-          <div className="relative w-full pb-2">
+          <div className="relative w-full pb-2 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
             <div className="flex w-max animate-scroll gap-4 sm:gap-6">
               {[...SPONSORS, ...SPONSORS].map((src, i) => (
                 <div
                   key={i}
-                  className="h-24 sm:h-40 w-40 sm:w-64 shrink-0 bg-white border border-line rounded-xl2 shadow-soft flex items-center justify-center p-4 sm:p-8"
+                  className="h-24 sm:h-40 w-40 sm:w-64 shrink-0 bg-transparent flex items-center justify-center p-4 sm:p-8"
                 >
                   <div className="relative w-full h-full">
                     <Image
