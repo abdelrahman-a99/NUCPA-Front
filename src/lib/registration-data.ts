@@ -150,6 +150,7 @@ export type TeamDetails = {
   team_name: string;
   payment_status: boolean;
   checked_in: boolean;
+  member_count?: number;
   created_at: string;
   members: Array<{
     id: number;

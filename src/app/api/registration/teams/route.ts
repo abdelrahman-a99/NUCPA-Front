@@ -32,7 +32,9 @@ async function forward(req: Request, method: string) {
     return new NextResponse("Unauthenticated", { status: 401 });
   }
 
-  const url = `${backendBase()}/registration/teams/`;
+  const { searchParams } = new URL(req.url);
+  const queryString = searchParams.toString();
+  const url = `${backendBase()}/registration/teams/${queryString ? `?${queryString}` : ""}`;
 
   const makeRequest = async (accessToken?: string) => {
     const headers = new Headers();
