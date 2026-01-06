@@ -69,7 +69,9 @@ export function useAdmin() {
         setIsLoading(true);
         try {
             const query = search ? `?search=${encodeURIComponent(search)}` : "";
-            const res = await fetch(`/api/registration/teams/${query}`);
+            const res = await fetch(`/api/registration/teams/${query}`, {
+                headers: { "X-Admin-Access": "true" }
+            });
             if (!res.ok) throw new Error("Failed to fetch teams");
             const data = await res.json();
             setTeams(data);
@@ -84,7 +86,10 @@ export function useAdmin() {
         try {
             const res = await fetch(`/api/registration/teams/${teamId}/`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Admin-Access": "true"
+                },
                 body: JSON.stringify({ [field]: value }),
             });
             if (!res.ok) throw new Error(`Failed to update ${field}`);
@@ -104,6 +109,7 @@ export function useAdmin() {
         try {
             const res = await fetch(`/api/registration/teams/${teamId}/`, {
                 method: "DELETE",
+                headers: { "X-Admin-Access": "true" }
             });
             if (!res.ok) throw new Error("Failed to delete team");
 

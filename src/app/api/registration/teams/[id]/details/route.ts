@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const COOKIE_ACCESS = "nucpa_access";
-const COOKIE_REFRESH = "nucpa_refresh";
+const COOKIE_ACCESS_USER = "nucpa_access";
+const COOKIE_REFRESH_USER = "nucpa_refresh";
+const COOKIE_ACCESS_ADMIN = "nucpa_admin_access";
+const COOKIE_REFRESH_ADMIN = "nucpa_admin_refresh";
 
 function backendBase() {
     if (process.env.NODE_ENV === "development") {
@@ -24,6 +26,10 @@ async function refreshAccess(refresh: string) {
 }
 
 async function forward(req: Request, method: string, id: string) {
+    const useAdmin = req.headers.get("X-Admin-Access") === "true";
+    const COOKIE_ACCESS = useAdmin ? COOKIE_ACCESS_ADMIN : COOKIE_ACCESS_USER;
+    const COOKIE_REFRESH = useAdmin ? COOKIE_REFRESH_ADMIN : COOKIE_REFRESH_USER;
+
     const c = cookies();
     const access = c.get(COOKIE_ACCESS)?.value;
     const refresh = c.get(COOKIE_REFRESH)?.value;
@@ -45,9 +51,9 @@ async function forward(req: Request, method: string, id: string) {
         res = await makeRequest(tokens.access);
         const body = await res.arrayBuffer();
         const out = new NextResponse(body, { status: res.status, headers: res.headers });
-        out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
+        out.cookies.set(COOKIE_ACCESS, tokens.access, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 60 * 20 });
         if (tokens.refresh) {
-            out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" });
+            out.cookies.set(COOKIE_REFRESH, tokens.refresh, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 60 * 20 });
         }
         return out;
     }
