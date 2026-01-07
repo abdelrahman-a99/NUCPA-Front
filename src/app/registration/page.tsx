@@ -20,7 +20,7 @@ export default function RegistrationPage() {
   const isLoggedIn = phase !== "idle" && phase !== "checking" && phase !== "error";
 
   return (
-    <div className="flex flex-col min-h-screen bg-bg">
+    <div className="flex flex-col min-h-screen">
       <Navbar
         isLoggedIn={isLoggedIn}
         showAuthButton={true}
