@@ -9,12 +9,14 @@ export default function MemberForm({
   errors,
   isEditing,
   onBlurField,
+  index = 0,
 }: {
   value: MemberDraft;
   onChange: (v: MemberDraft) => void;
   errors: Record<string, string | undefined>;
   isEditing?: boolean;
   onBlurField: (name: string) => void;
+  index?: number;
 }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
@@ -24,7 +26,7 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, name: e.target.value })}
           onBlur={() => onBlurField("name")}
           className="input-modern"
-          placeholder="e.g. Omar Ahmed"
+          placeholder={index === 1 ? "e.g. Omar Ayman Morshedy" : "e.g. Adham Ahmed Hammoda"}
         />
       </Field>
 
@@ -34,7 +36,7 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, email: e.target.value })}
           onBlur={() => onBlurField("email")}
           className="input-modern"
-          placeholder="email@gmail.com"
+          placeholder={index === 1 ? "Morshedy@gmail.com" : "Hammoda@gmail.com"}
           type="email"
         />
       </Field>
@@ -108,7 +110,7 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, codeforces_handle: e.target.value })}
           onBlur={() => onBlurField("codeforces_handle")}
           className="input-modern"
-          placeholder="e.g. tourist"
+          placeholder={index === 1 ? "e.g. Morshedy_22" : "e.g. Adhoom"}
         />
       </Field>
 
@@ -118,7 +120,7 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, vjudge_handle: e.target.value })}
           onBlur={() => onBlurField("vjudge_handle")}
           className="input-modern"
-          placeholder="e.g. vjudge_user"
+          placeholder={index === 1 ? "e.g. Morshdy22" : "e.g. Adhoom"}
         />
       </Field>
 

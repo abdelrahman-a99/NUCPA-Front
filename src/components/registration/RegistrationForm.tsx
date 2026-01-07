@@ -77,7 +77,7 @@ export default function RegistrationForm({
             onChange={(e) => setTeamName(e.target.value)}
             onBlur={() => onBlurField("team_name")}
             className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-pixel text-sm"
-            placeholder="e.g. The Bug Slayers"
+            placeholder="e.g. 4aklna 8er2na ya 3mo samy"
           />
         </Field>
       </div>
@@ -89,6 +89,7 @@ export default function RegistrationForm({
               MEMBER 0{i + 1}
             </div>
             <MemberForm
+              index={i}
               value={members[i]}
               onChange={(next) => {
                 const newMembers = [...members];
