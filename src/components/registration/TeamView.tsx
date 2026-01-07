@@ -26,7 +26,7 @@ export default function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          {!team.payment_status && (
+          {team.application_status === 'PENDING' && (
             <PixelButton onClick={onEdit} variant="primary" size="sm">
               EDIT TEAM
             </PixelButton>
@@ -37,17 +37,29 @@ export default function TeamView({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
         <InfoRow label="Team Name" value={team.team_name} large />
+
         <InfoRow
-          label="Verification Status"
-          value={team.payment_status ? "Verified / Paid ✅" : "Pending Verif. ⏳"}
-          highlight={team.payment_status}
+          label="Application Status"
+          value={team.application_status || "PENDING"}
+          highlight={team.application_status === 'APPROVED'}
         />
+
         <InfoRow
-          label="Competition Status"
-          value={team.checked_in ? "ELIGIBLE TO COMPETE 🚀" : "Not yet eligible"}
-          highlight={team.checked_in}
+          label="1st Online Stage"
+          value={team.online_status === 'ELIGIBLE' ? "ELIGIBLE 🚀" : "Not Eligible"}
+          highlight={team.online_status === 'ELIGIBLE'}
+        />
+
+        <InfoRow
+          label="Onsite Stage"
+          value={
+            team.onsite_status === 'QUALIFIED_PAID' ? "QUALIFIED (PAID) 💰" :
+              team.onsite_status === 'QUALIFIED_PENDING' ? "QUALIFIED (PAYMENT PENDING)" :
+                "Not Qualified"
+          }
+          highlight={team.onsite_status === 'QUALIFIED_PAID'}
         />
       </div>
 

@@ -34,8 +34,8 @@ export default function AdminDashboardPage() {
 
     // Calculate Stats
     const totalTeams = teams.length;
-    const paidTeams = teams.filter(t => t.payment_status).length;
-    const readyTeams = teams.filter(t => t.checked_in).length;
+    const paidTeams = teams.filter(t => t.onsite_status === 'QUALIFIED_PAID').length;
+    const readyTeams = teams.filter(t => t.online_status === 'ELIGIBLE').length;
 
     // Export to CSV from Backend
     const handleExportCSV = async () => {
@@ -153,8 +153,8 @@ export default function AdminDashboardPage() {
                                     <tr className="bg-bg/50 border-b-2 border-line">
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted">Team</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted">Members</th>
-                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Payment</th>
-                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Eligible</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">App</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Status</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-right">Actions</th>
                                     </tr>
                                 </thead>
@@ -181,30 +181,27 @@ export default function AdminDashboardPage() {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
-                                                    <button
-                                                        onClick={() => updateTeamStatus(team.id, { payment_status: !team.payment_status })}
-                                                        className={cn(
-                                                            "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border-2 transition-all active:scale-90",
-                                                            team.payment_status
-                                                                ? "bg-teal/10 text-teal border-teal/20"
-                                                                : "bg-red/5 text-red border-red/10"
-                                                        )}
-                                                    >
-                                                        {team.payment_status ? "PAID" : "PENDING"}
-                                                    </button>
+                                                    <span className={cn(
+                                                        "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                                        team.application_status === 'APPROVED' ? "bg-teal/10 text-teal border-teal/20" :
+                                                            team.application_status === 'REJECTED' ? "bg-red/10 text-red border-red/20" :
+                                                                "bg-yellow-50 text-yellow-600 border-yellow-200"
+                                                    )}>
+                                                        {team.application_status || "PENDING"}
+                                                    </span>
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
-                                                    <button
-                                                        onClick={() => updateTeamStatus(team.id, { checked_in: !team.checked_in })}
-                                                        className={cn(
-                                                            "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border-2 transition-all active:scale-90",
-                                                            team.checked_in
-                                                                ? "bg-teal-bright text-white border-transparent shadow-soft"
-                                                                : "bg-bg text-muted border-line"
+                                                    <div className="flex flex-col gap-1 items-center">
+                                                        {team.online_status === 'ELIGIBLE' && (
+                                                            <span className="text-[10px] text-teal font-bold bg-teal/5 px-2 py-0.5 rounded border border-teal/10">ONLINE: READY</span>
                                                         )}
-                                                    >
-                                                        {team.checked_in ? "READY" : "WAITING"}
-                                                    </button>
+                                                        {team.onsite_status === 'QUALIFIED_PAID' && (
+                                                            <span className="text-[10px] text-purple-600 font-bold bg-purple-50 px-2 py-0.5 rounded border border-purple-100">ONSITE: PAID</span>
+                                                        )}
+                                                        {team.online_status !== 'ELIGIBLE' && (
+                                                            <span className="text-[10px] text-muted">-</span>
+                                                        )}
+                                                    </div>
                                                 </td>
                                                 <td className="px-6 py-6 text-right">
                                                     <div className="flex justify-end gap-2">

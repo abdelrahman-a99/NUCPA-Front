@@ -148,8 +148,6 @@ export type MemberDraft = {
 export type TeamDetails = {
   id: number;
   team_name: string;
-  payment_status: boolean;
-  checked_in: boolean;
   member_count?: number;
   created_at: string;
   members: Array<{

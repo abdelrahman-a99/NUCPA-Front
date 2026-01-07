@@ -44,13 +44,6 @@ export default function AdminTeamDetailPage() {
         }
     };
 
-    const handleToggleStatus = async (field: "payment_status" | "checked_in") => {
-        if (!team) return;
-        const success = await updateTeamStatus(Number(id), { [field]: !team[field] });
-        if (success) {
-            setTeam({ ...team, [field]: !team[field] });
-        }
-    };
 
     if (isAdmin === null || !team) {
         return (
@@ -149,15 +142,7 @@ export default function AdminTeamDetailPage() {
                                         SAVE CHANGES
                                     </PixelButton>
 
-                                    {/* Legacy Toggles (Keep visible for visual confirm or remove if not needed) */}
-                                    <div className="flex gap-2 mt-2 pt-2 border-t border-line/20">
-                                        <div className={cn("text-[9px] px-2 py-0.5 rounded border uppercase font-bold", team.payment_status ? "bg-teal/10 border-teal text-teal" : "bg-red-50 border-red-200 text-red-400")}>
-                                            {team.payment_status ? "Paid" : "Not Paid"}
-                                        </div>
-                                        <div className={cn("text-[9px] px-2 py-0.5 rounded border uppercase font-bold", team.checked_in ? "bg-teal/10 border-teal text-teal" : "bg-bg border-line text-muted")}>
-                                            {team.checked_in ? "Ready" : "Not Ready"}
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
