@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { MemberDraft, TeamDetails } from "@/lib/registration-data";
+import { PHONE_CODES } from "@/lib/phone-data";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
 
 export function useRegistration() {
@@ -142,10 +143,55 @@ export function useRegistration() {
       }
       if (key === "phone_number") {
         if (!m.phone_number.trim()) return "Phone number is required for contact.";
+
+        // Check valid chars
         if (!/^[0-9+\s]+$/.test(m.phone_number.trim())) return "Phone number should only contain digits and + sign.";
-        const digits = m.phone_number.trim().replace(/[\s+]/g, '');
-        if (digits.length < 7) return "Phone number is too short (min 7 digits).";
-        if (digits.length > 15) return "Phone number is too long. Do not repeat the country code.";
+
+        // Clean digits
+        const raw = m.phone_number.trim();
+        const cleanDigits = raw.replace(/[\s+]/g, '');
+
+        // Find country match to check strict length
+        // We import PHONE_CODES from the library
+        // Note: we need to ensure PHONE_CODES is available in scope or imported.
+        // It is not imported in this file yet, but it is in 'MemberForm'. 
+        // We should import it at the top of this file.
+        // Assuming imports are handled or I will add import in a separate step if needed?
+        // Wait, replace_file_content replaces a block. I need to make sure I import it.
+        // I'll add the logic here, and separately add the import if missing. 
+        // Actually, looking at the file content I read earlier, PHONE_CODES was NOT imported in useRegistration.ts
+        // I will add the logic here and then add the import in the next step or same step if I can ?
+        // I can't do two non-contiguous edits with replace_file_content.
+        // I will do this edit for logic, then another for import.
+
+        // Logic:
+        // 1. Identify country code
+        // 2. Get mask
+        // 3. Count expected digits
+
+        // We need PHONE_CODES. Let's assume it's imported as `import { PHONE_CODES } from "@/lib/phone-data";`
+
+        const sortedCodes = [...PHONE_CODES].sort((a, b) => b.code.length - a.code.length);
+        let matchedCode = sortedCodes.find(c => raw.startsWith(c.code));
+
+        // If user didn't type +, maybe they typed the number directly? 
+        // But our UI forces selection usually. 
+        // If raw starts with +, matches country.
+
+        if (matchedCode) {
+          const local = raw.slice(matchedCode.code.length).replace(/\D/g, '');
+          const mask = matchedCode.mask;
+          // Count x's and digits in mask
+          const expectedLen = mask.split('').filter(c => /[0-9x]/.test(c)).length;
+
+          if (local.length !== expectedLen) {
+            return `Phone number for ${matchedCode.label.split('(')[0].trim()} must be exactly ${expectedLen} digits.`;
+          }
+        } else {
+          // Fallback
+          if (cleanDigits.length < 7) return "Phone number is too short (min 7 digits).";
+          if (cleanDigits.length > 15) return "Phone number is too long.";
+        }
       }
       if (key === "nationality") {
         if (!m.nationality.trim()) return "Nationality is required.";
