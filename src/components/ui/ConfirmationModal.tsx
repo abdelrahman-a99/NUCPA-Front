@@ -78,9 +78,8 @@ export default function ConfirmationModal({
                                 onConfirm();
                             }
                         }}
-                        variant={isSuccess ? "primary" : "primary"}
+                        variant={isSuccess ? "primary" : "danger"}
                         size="sm"
-                        className={!isSuccess ? "bg-red-500 hover:bg-red-600 border-red-700 text-white" : ""}
                     >
                         {isSuccess ? "OK, GREAT!" : confirmText}
                     </PixelButton>
