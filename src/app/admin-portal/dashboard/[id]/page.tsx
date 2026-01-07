@@ -11,6 +11,7 @@ import InfoRow from "@/components/registration/InfoRow";
 import HandleBadge from "@/components/registration/HandleBadge";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
+import ConfirmationModal from "@/components/ui/ConfirmationModal";
 
 export default function AdminTeamDetailPage() {
     const { id } = useParams();
@@ -18,6 +19,10 @@ export default function AdminTeamDetailPage() {
     const [team, setTeam] = useState<TeamDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+
+    // Confirmation Modal State
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
         checkAdminStatus();
@@ -44,6 +49,22 @@ export default function AdminTeamDetailPage() {
         }
     }, [isAdmin, router, fetchTeamDetails]);
 
+    const handleConfirmSave = async () => {
+        if (!team) return;
+
+        setShowConfirmModal(false); // Close confirm
+
+        const success = await updateTeamStatus(Number(id), {
+            application_status: team.application_status,
+            online_status: team.online_status,
+            onsite_status: team.onsite_status,
+            rejection_note: team.rejection_note
+        });
+
+        if (success) {
+            setShowSuccessModal(true); // Show success
+        }
+    };
 
     if (isAdmin === null || !team) {
         return (
@@ -60,6 +81,28 @@ export default function AdminTeamDetailPage() {
     return (
         <div className="flex flex-col min-h-screen bg-bg">
             <Navbar />
+
+            {/* Confirmation Modal */}
+            <ConfirmationModal
+                isOpen={showConfirmModal}
+                onClose={() => setShowConfirmModal(false)}
+                onConfirm={handleConfirmSave}
+                title="Save Changes?"
+                message="Are you sure you want to update this team's status? This action might trigger automated emails."
+                confirmText="YES, SAVE CHANGES"
+                cancelText="NO, CANCEL"
+            />
+
+            {/* Success Modal */}
+            <ConfirmationModal
+                isOpen={showSuccessModal}
+                onClose={() => setShowSuccessModal(false)}
+                onConfirm={() => setShowSuccessModal(false)}
+                title="Details Updated"
+                message="The team status has been successfully updated."
+                isSuccess={true}
+            />
+
             <main className="flex-grow py-12 px-4 sm:px-8 bg-dots-about">
                 <div className="container-max">
                     <div className="mb-8">
@@ -144,15 +187,7 @@ export default function AdminTeamDetailPage() {
                                     </div>
 
                                     <PixelButton
-                                        onClick={async () => {
-                                            const success = await updateTeamStatus(Number(id), {
-                                                application_status: team.application_status,
-                                                online_status: team.online_status,
-                                                onsite_status: team.onsite_status,
-                                                rejection_note: team.rejection_note
-                                            });
-                                            if (success) alert("Status updated successfully!");
-                                        }}
+                                        onClick={() => setShowConfirmModal(true)}
                                         variant="primary"
                                         size="sm"
                                         className="mt-2 w-full justify-center"

@@ -95,6 +95,21 @@ export function useRegistration() {
     return undefined;
   }
 
+  async function checkAsyncValidation(field: string, value: string): Promise<string | undefined> {
+    if (!value) return undefined;
+    try {
+      const res = await fetch(`/api/registration/validate/?field=${field}&value=${encodeURIComponent(value)}`);
+      if (!res.ok) {
+        const data = await res.json();
+        return data.error || "Validation failed";
+      }
+      return undefined;
+    } catch (e) {
+      console.error(e);
+      return undefined; // If network fails, we'll let it slide until submit or retry? Better to be permissive on blur.
+    }
+  }
+
   function validateField(fieldName: string, value: any, currentMembers: MemberDraft[], currentTeamName: string): string | undefined {
     if (fieldName === "team_name") {
       if (!currentTeamName.trim()) return "Team name is required.";
@@ -111,9 +126,14 @@ export function useRegistration() {
 
       // Standard validations
       if (key === "name") {
-        if (!m.name.trim()) return "Full name is required.";
-        if (m.name.trim().length < 7) return "Full name must be at least 7 characters.";
-        if (!/^[a-zA-Z\s]+$/.test(m.name.trim())) return "Full name must only contain letters and spaces.";
+        const val = m.name.trim();
+        if (!val) return "Full name is required.";
+        if (val.length < 7) return "Full name must be at least 7 characters.";
+        if (!/^[a-zA-Z\s]+$/.test(val)) return "Full name must only contain letters and spaces.";
+
+        const parts = val.split(/\s+/);
+        if (parts.length < 3) return "Full name must be at least 3 words (First Middle Last).";
+        if (parts.some(p => p.length < 3)) return "Each word in the name must be at least 3 characters.";
       }
       if (key === "email") {
         if (!m.email.trim()) return "Email is required.";
@@ -182,9 +202,45 @@ export function useRegistration() {
     return undefined;
   }
 
-  function handleBlur(fieldName: string) {
-    const error = validateField(fieldName, null, members, teamName);
-    setFieldErrors(prev => ({ ...prev, [fieldName]: error || "" }));
+  async function handleBlur(fieldName: string) {
+    // 1. Run local sync validation first
+    const syncError = validateField(fieldName, null, members, teamName);
+    if (syncError) {
+      setFieldErrors(prev => ({ ...prev, [fieldName]: syncError }));
+      return;
+    }
+
+    // 2. If valid locally, run async helper check (uniqueness)
+    // Only for specific fields
+    let asyncError: string | undefined = undefined;
+
+    if (fieldName === "team_name") {
+      asyncError = await checkAsyncValidation("team_name", teamName);
+    } else {
+      const memberMatch = fieldName.match(/^member(\d)_(.+)$/);
+      if (memberMatch) {
+        const index = parseInt(memberMatch[1]);
+        const key = memberMatch[2];
+        const val = members[index][key as keyof MemberDraft];
+
+        if (typeof val === "string") {
+          if (["phone_number", "national_id", "nu_id", "email"].includes(key)) {
+            asyncError = await checkAsyncValidation(key, val);
+          }
+        }
+      }
+    }
+
+    if (asyncError) {
+      setFieldErrors(prev => ({ ...prev, [fieldName]: asyncError || "" }));
+    } else {
+      // Clear error if both pass
+      setFieldErrors(prev => {
+        const next = { ...prev };
+        delete next[fieldName];
+        return next;
+      });
+    }
   }
 
   function validateForm() {
