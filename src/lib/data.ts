@@ -40,7 +40,7 @@ export const CARDS = [
   {
     key: "location",
     title: "CONTEST TIME & LOCATION",
-    body: "The online qualification round will be held remotely on February 14, 2026, at 8:15 PM. The onsite final round will take place on Friday, April 17, 2026, at Nile University Campus, 26th of July Corridor, First Al Sheikh Zayed, Giza Governorate, Egypt. The event runs all day from 9:00 AM to 9:00 PM in fully equipped labs and halls.",
+    body: "The online qualification round will be held remotely on February 14, 2026, at 8:35 PM. The onsite final round will take place on Friday, April 17, 2026, at Nile University Campus, 26th of July Corridor, First Al Sheikh Zayed, Giza Governorate, Egypt. The event runs all day from 9:00 AM to 9:00 PM in fully equipped labs and halls.",
     tone: "teal2",
   },
   {
@@ -106,7 +106,7 @@ export const PRIZES = {
     {
       title: "3rd Place:",
       caption: "5,500 EGP Cash Prize",
-      images: ["/assets/MEDAL_GOLD.png", "/assets/gift.png"],
+      images: ["/assets/MEDAL_SILVER.png", "/assets/gift.png"],
     },
     {
       title: "4th Place:",
