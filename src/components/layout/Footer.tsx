@@ -19,7 +19,7 @@ export default function Footer() {
               alt="NUCPA"
               width={100}
               height={48}
-              className="h-12 w-auto drop-shadow"
+              className="h-16 w-auto drop-shadow"
             />
           </Link>
 

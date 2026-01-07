@@ -22,7 +22,7 @@ export default function Awards() {
   };
 
   return (
-    <section className="bg-bg">
+    <section>
       <div className="container-max py-16">
         <p className="font-pixel text-[14px] lg:text-[20px] text-red px-4 lg:px-0">COMPETITION AWARDS</p>
 

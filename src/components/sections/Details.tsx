@@ -43,7 +43,7 @@ export default function Details() {
   };
 
   return (
-    <section id="details" className="bg-bg">
+    <section id="details">
       <div className="container-max py-16">
         <SectionHeader title="DETAILS" />
         <div className="mt-10">

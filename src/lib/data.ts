@@ -10,7 +10,7 @@ export const CARDS = [
   {
     key: "format",
     title: "CONTEST FORMAT & JUDGING",
-    body: "NUCPA 2026 is held in two stages. The online qualification round takes place on Thursday, February 13th, 2026, and is free to participate. Teams are ranked by the number of solved problems, then by penalty time (minute of last accepted submission plus 10 minutes for each wrong attempt before acceptance). Qualified teams advance to the onsite final round on Friday, April 17th, 2026, which follows the same ICPC-style judging rules.",
+    body: "NUCPA 2026 is held in two stages. The online qualification round takes place on Saturday, February 14th, 2026, and is free to participate. Teams are ranked by the number of solved problems, then by penalty time (minute of last accepted submission plus 10 minutes for each wrong attempt before acceptance). Qualified teams advance to the onsite final round on Friday, April 17th, 2026, which follows the same judging rules.",
     tone: "teal",
   },
   {
@@ -21,26 +21,26 @@ export const CARDS = [
   },
   {
     key: "prizes",
-    title: "PRIZES & SPECIAL AWARDS",
-    body: "NUCPA 2026 offers a 40,000 EGP prize pool awarded to the top 5 teams, along with gifts for the next 5 teams. Additional special awards are dedicated to Nile University teams (all members from NU) and Teen teams, where all members are 18 years old or younger by February 1st, 2026.",
+    title: "ONSITE CONTEST PRIZES & SPECIAL AWARDS",
+    body: "NUCPA 2026 offers a 30,000 EGP prize pool awarded to the top 5 teams, along with gifts for the next 5 teams. Additional special awards are dedicated to Nile University teams (all members from NU) and Teen teams, where all members are 18 years old or younger by February 1st, 2026.",
     tone: "teal2",
   },
   {
     key: "registration",
     title: "REGISTRATION, FEES & MERCHANDISE",
-    body: "Registration closes on Monday, February 10th, 2026, via the official link. The online round is completely free for all registered teams. The onsite final round requires a minimal non-refundable participation fee per team to ensure seriousness; payment details will be shared after qualification. T-shirts and merchandise will be available for purchase after Stage 1.",
+    body: "Registration closes on Tuesday, February 10th, 2026, via the official link. The online round is completely free for all registered teams. The onsite final round requires a minimal non-refundable participation fee per team to ensure seriousness; payment details will be shared after qualification. T-shirts and merchandise will be available for purchase after Stage 1.",
     tone: "teal2",
   },
   {
     key: "changes",
     title: "TEAM CHANGES POLICY",
-    body: "Teams can be edited or canceled through the website before the registration deadline. Once the online round begins, no team changes will be allowed under any circumstances.",
+    body: "Before the registration deadline, teams can be edited or canceled through the website. After a team is verified, edits are no longer allowed; any changes require canceling the team and submitting a new application (before the deadline). Once the online round begins, no team edits or cancellations will be permitted under any circumstances.",
     tone: "teal2",
   },
   {
     key: "location",
-    title: "CONTEST LOCATION",
-    body: "The online qualification round is held remotely. The onsite final round takes place at Nile University Campus, 26th of July Corridor, First Al Sheikh Zayed, Giza Governorate, Egypt, in fully equipped labs and halls.",
+    title: "CONTEST TIME & LOCATION",
+    body: "The online qualification round will be held remotely on February 14, 2026, at 8:15 PM. The onsite final round will take place on Friday, April 17, 2026, at Nile University Campus, 26th of July Corridor, First Al Sheikh Zayed, Giza Governorate, Egypt. The event runs all day from 9:00 AM to 9:00 PM in fully equipped labs and halls.",
     tone: "teal2",
   },
   {
@@ -76,16 +76,16 @@ export const CARDS = [
 ] as const;
 
 export const TIMELINE_ITEMS = [
-  { title: "Applications Open", date: "January 6th, 2026" },
+  { title: "Applications Open", date: "January 8th, 2026" },
   { title: "Applications Close", date: "February 10th, 2026" },
-  { title: "First Stage (Online)", date: "February 13th, 2026" },
+  { title: "First Stage (Online)", date: "February 14th, 2026" },
   { title: "Qualified Teams", date: "February 25th, 2026" },
   { title: "Payment Deadline", date: "April 1st, 2026" },
   { title: "Final Stage (Offline)", date: "April 17th, 2026" },
 ] as const;
 
 export const AWARD_TABS = [
-  { key: "top10", label: "Top 10 Overall Teams" },
+  { key: "top10", label: "Top 10 Teams" },
   { key: "nu", label: "NU Student Awards" },
   { key: "hs", label: "High School Awards" },
   { key: "first", label: "First Solve Awards" },
@@ -120,7 +120,7 @@ export const PRIZES = {
     },
     {
       title: "6th - 10th Place:",
-      caption: "Gifts",
+      caption: "Gift",
       images: ["/assets/MEDAL_BRONZE.png", "/assets/gift.png"],
     },
   ],

@@ -70,7 +70,7 @@ export default function Navbar({
             alt="NUCPA"
             width={120}
             height={64}
-            className="h-12 md:h-16 w-auto"
+            className="h-16 md:h-20 w-auto"
             priority
           />
         </Link>
