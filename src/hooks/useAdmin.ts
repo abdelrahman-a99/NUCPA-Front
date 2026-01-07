@@ -65,7 +65,18 @@ export function useAdmin() {
         }
     };
 
-    const fetchTeams = useCallback(async (search?: string, filters?: { application_status?: string, online_status?: string, onsite_status?: string }) => {
+    const fetchTeams = useCallback(async (
+        search?: string,
+        filters?: {
+            application_status?: string,
+            online_status?: string,
+            onsite_status?: string,
+            university?: string,
+            has_foreigners?: boolean,
+            is_nu_team?: boolean,
+            ordering?: string
+        }
+    ) => {
         setIsLoading(true);
         try {
             const params = new URLSearchParams();
@@ -73,6 +84,11 @@ export function useAdmin() {
             if (filters?.application_status) params.append("application_status", filters.application_status);
             if (filters?.online_status) params.append("online_status", filters.online_status);
             if (filters?.onsite_status) params.append("onsite_status", filters.onsite_status);
+
+            if (filters?.university) params.append("university", filters.university);
+            if (filters?.has_foreigners) params.append("has_foreigners", "true");
+            if (filters?.is_nu_team) params.append("is_nu_team", "true");
+            if (filters?.ordering) params.append("ordering", filters.ordering);
 
             const query = params.toString() ? `?${params.toString()}` : "";
             const res = await fetch(`/api/registration/teams/${query}`, {

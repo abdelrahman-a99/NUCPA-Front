@@ -19,6 +19,12 @@ export default function AdminDashboardPage() {
     const [onlineStatus, setOnlineStatus] = useState("");
     const [onsiteStatus, setOnsiteStatus] = useState("");
 
+    // Advanced Filters
+    const [ordering, setOrdering] = useState("-created_at");
+    const [university, setUniversity] = useState("");
+    const [hasForeigners, setHasForeigners] = useState(false);
+    const [isNUTeam, setIsNUTeam] = useState(false);
+
     const router = useRouter();
 
     useEffect(() => {
@@ -38,7 +44,11 @@ export default function AdminDashboardPage() {
         fetchTeams(search, {
             application_status: appStatus || undefined,
             online_status: onlineStatus || undefined,
-            onsite_status: onsiteStatus || undefined
+            onsite_status: onsiteStatus || undefined,
+            university: university || undefined,
+            has_foreigners: hasForeigners || undefined,
+            is_nu_team: isNUTeam || undefined,
+            ordering
         });
     };
 
@@ -48,11 +58,15 @@ export default function AdminDashboardPage() {
             fetchTeams(search, {
                 application_status: appStatus || undefined,
                 online_status: onlineStatus || undefined,
-                onsite_status: onsiteStatus || undefined
+                onsite_status: onsiteStatus || undefined,
+                university: university || undefined,
+                has_foreigners: hasForeigners || undefined,
+                is_nu_team: isNUTeam || undefined,
+                ordering
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appStatus, onlineStatus, onsiteStatus]);
+    }, [appStatus, onlineStatus, onsiteStatus, university, hasForeigners, isNUTeam, ordering]);
 
     // Calculate Stats
     const totalTeams = teams.length;
@@ -173,6 +187,19 @@ export default function AdminDashboardPage() {
                         <div className="flex flex-wrap gap-4 p-4 bg-white/50 border border-line rounded-xl items-center">
                             <span className="text-xs font-bold uppercase text-muted tracking-widest">FILTERS:</span>
 
+                            {/* Sort Order */}
+                            <select
+                                value={ordering}
+                                onChange={(e) => setOrdering(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                                title="Sort Order"
+                            >
+                                <option value="-created_at">📅 Newest First</option>
+                                <option value="created_at">📅 Oldest First</option>
+                                <option value="team_name">🅰️ Name (A-Z)</option>
+                                <option value="-team_name">🅰️ Name (Z-A)</option>
+                            </select>
+
                             <select
                                 value={appStatus}
                                 onChange={(e) => setAppStatus(e.target.value)}
@@ -205,9 +232,54 @@ export default function AdminDashboardPage() {
                                 <option value="QUALIFIED_PAID">QUALIFIED (PAID)</option>
                             </select>
 
-                            {(appStatus || onlineStatus || onsiteStatus) && (
+                            <select
+                                value={university}
+                                onChange={(e) => setUniversity(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer max-w-[200px]"
+                            >
+                                <option value="">All Universities</option>
+                                <option value="NU">Nile University</option>
+                                <option value="AUC">AUC</option>
+                                <option value="GUC">GUC</option>
+                                <option value="Cairo University">Cairo University</option>
+                                <option value="Ain Shams University">Ain Shams University</option>
+                                <option value="Alexandria University">Alexandria University</option>
+                                <option value="Helwan University">Helwan University</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+
+                            {/* Toggles */}
+                            <label className="flex items-center gap-2 px-3 py-2 rounded-lg border border-line bg-white cursor-pointer select-none hover:border-teal/50 transition-colors">
+                                <input
+                                    type="checkbox"
+                                    checked={hasForeigners}
+                                    onChange={(e) => setHasForeigners(e.target.checked)}
+                                    className="w-4 h-4 text-teal rounded border-gray-300 focus:ring-teal"
+                                />
+                                <span className="text-sm font-bold text-ink2">🌍 Has Foreigners</span>
+                            </label>
+
+                            <label className="flex items-center gap-2 px-3 py-2 rounded-lg border border-line bg-white cursor-pointer select-none hover:border-teal/50 transition-colors">
+                                <input
+                                    type="checkbox"
+                                    checked={isNUTeam}
+                                    onChange={(e) => setIsNUTeam(e.target.checked)}
+                                    className="w-4 h-4 text-teal rounded border-gray-300 focus:ring-teal"
+                                />
+                                <span className="text-sm font-bold text-ink2">🏫 NU Teams</span>
+                            </label>
+
+                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam) && (
                                 <button
-                                    onClick={() => { setAppStatus(""); setOnlineStatus(""); setOnsiteStatus(""); }}
+                                    onClick={() => {
+                                        setAppStatus("");
+                                        setOnlineStatus("");
+                                        setOnsiteStatus("");
+                                        setUniversity("");
+                                        setHasForeigners(false);
+                                        setIsNUTeam(false);
+                                        setOrdering("-created_at");
+                                    }}
                                     className="text-xs text-red-500 font-bold hover:underline ml-auto"
                                 >
                                     CLEAR FILTERS
