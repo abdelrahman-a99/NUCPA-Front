@@ -86,8 +86,9 @@ export default function Hero() {
 
         <div className="text-center">
           <p className="text-sm sm:text-xl font-semibold">
-            NUCPA will take place on{" "}
-            <span className="font-bold">FEBRUARY 13TH 2026</span>
+            Get ready for the NUCPA 2026 First Stage Online — happening on{" "}
+            <span className="font-bold">FEBRUARY 14TH</span>
+            , at 8:15 PM!
           </p>
 
           <div className="mt-4 flex items-center justify-center gap-8 sm:gap-24">
