@@ -141,27 +141,13 @@ export default function TeamView({
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
                     <span className="text-xs text-muted">ID Document</span>
-                    <a
-                      href={m.id_document}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
-                    >
-                      View ID ↗
-                    </a>
+                    <DocumentButton url={m.id_document} label="View ID ↗" />
                   </div>
                 )}
                 {m.nu_id_document && (
                   <div className="flex justify-between items-center py-1 border-t border-line/30">
                     <span className="text-xs text-muted">NU ID Document</span>
-                    <a
-                      href={m.nu_id_document}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
-                    >
-                      View NU ID ↗
-                    </a>
+                    <DocumentButton url={m.nu_id_document} label="View NU ID ↗" />
                   </div>
                 )}
               </div>
@@ -170,5 +156,45 @@ export default function TeamView({
         </div>
       </div>
     </div>
+  );
+}
+
+function DocumentButton({ url, label }: { url: string | null, label: string }) {
+  const [loading, setLoading] = React.useState(false);
+
+  const handleView = async () => {
+    if (!url) return;
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const headers: HeadersInit = token ? { "Authorization": `Bearer ${token}` } : {};
+
+      const res = await fetch(url, { headers });
+      if (!res.ok) throw new Error("Failed to load document");
+
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, "_blank");
+
+      // Cleanup
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    } catch (e) {
+      console.error(e);
+      alert("Could not load document.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!url) return null;
+
+  return (
+    <button
+      onClick={handleView}
+      disabled={loading}
+      className="text-xs text-teal hover:underline font-bold flex items-center gap-1 disabled:opacity-50"
+    >
+      {loading ? "OPENING..." : label}
+    </button>
   );
 }

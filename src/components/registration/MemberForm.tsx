@@ -249,14 +249,7 @@ export default function MemberForm({
             ) : isEditing && value.existing_nu_id_url ? (
               <div className="mt-1 flex items-center gap-2">
                 <p className="text-xs text-muted">Currently:</p>
-                <a
-                  href={value.existing_nu_id_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-teal hover:underline font-bold"
-                >
-                  View existing NU ID ↗
-                </a>
+                <DocumentButton url={value.existing_nu_id_url} label="View existing NU ID ↗" />
               </div>
             ) : null}
           </Field>
@@ -278,17 +271,49 @@ export default function MemberForm({
         ) : isEditing && value.existing_id_url ? (
           <div className="mt-1 flex items-center gap-2">
             <p className="text-xs text-muted">Currently:</p>
-            <a
-              href={value.existing_id_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-teal hover:underline font-bold"
-            >
-              View existing document ↗
-            </a>
+            <DocumentButton url={value.existing_id_url} label="View existing document ↗" />
           </div>
         ) : null}
       </Field>
     </div>
+  );
+}
+
+function DocumentButton({ url, label }: { url: string | null | undefined, label: string }) {
+  const [loading, setLoading] = React.useState(false);
+
+  const handleView = async () => {
+    if (!url) return;
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const headers: HeadersInit = token ? { "Authorization": `Bearer ${token}` } : {};
+
+      const res = await fetch(url, { headers });
+      if (!res.ok) throw new Error("Failed to load document");
+
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, "_blank");
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    } catch (e) {
+      console.error(e);
+      alert("Could not load document.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!url) return null;
+
+  return (
+    <button
+      onClick={(e) => { e.preventDefault(); handleView(); }}
+      disabled={loading}
+      className="text-xs text-teal hover:underline font-bold disabled:opacity-50"
+    >
+      {loading ? "OPENING..." : label}
+    </button>
   );
 }
