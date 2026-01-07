@@ -15,6 +15,9 @@ export default {
         muted: "rgb(var(--muted) / <alpha-value>)",
         teal: "rgb(var(--teal) / <alpha-value>)",
         "teal-bright": "rgb(var(--teal-bright) / <alpha-value>)",
+
+        "new-yellow": "rgb(var(--new-yellow) / <alpha-value>)",
+
         ink2: "rgb(var(--ink2) / <alpha-value>)",
         teal2: "rgb(var(--teal2) / <alpha-value>)",
         red: "rgb(var(--red) / <alpha-value>)",

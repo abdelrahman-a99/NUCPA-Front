@@ -95,27 +95,27 @@ export const PRIZES = {
   top10: [
     {
       title: "1st Place:",
-      caption: "Championship and 10,000 EGP in Cash",
+      caption: "Championship and 10,000 EGP Cash Prize",
       images: ["/assets/trophy.png", "/assets/MEDAL_GOLD.png"],
     },
     {
       title: "2nd Place:",
-      caption: "7,500 EGP in Cash",
+      caption: "7,500 EGP Cash Prize",
       images: ["/assets/MEDAL_GOLD.png", "/assets/gift.png"],
     },
     {
       title: "3rd Place:",
-      caption: "7,500 EGP in Cash",
+      caption: "5,500 EGP Cash Prize",
       images: ["/assets/MEDAL_GOLD.png", "/assets/gift.png"],
     },
     {
       title: "4th Place:",
-      caption: "7,500 EGP in Cash",
+      caption: "4,000 EGP Cash Prize",
       images: ["/assets/MEDAL_SILVER.png", "/assets/gift.png"],
     },
     {
       title: "5th Place:",
-      caption: "7,500 EGP in Cash",
+      caption: "3,000 EGP Cash Prize",
       images: ["/assets/MEDAL_SILVER.png", "/assets/gift.png"],
     },
     {

@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-3 lg:gap-2">
           <Link href="/">
             <Image
-              src="/assets/logo.png"
+              src="/assets/logo_2.png"
               alt="NUCPA"
               width={100}
               height={48}
