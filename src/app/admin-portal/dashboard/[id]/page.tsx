@@ -33,7 +33,9 @@ export default function AdminTeamDetailPage() {
 
     const fetchTeamDetails = async () => {
         try {
-            const res = await fetch(`/api/registration/teams/${id}/details/`);
+            const res = await fetch(`/api/registration/teams/${id}/details/`, {
+                headers: { "X-Admin-Access": "true" }
+            });
             if (!res.ok) throw new Error("Failed to fetch team details");
             const data = await res.json();
             setTeam(data);
