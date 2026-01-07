@@ -50,7 +50,7 @@ export default function TeamView({
               </p>
               <div className="bg-white/50 p-3 rounded-lg border border-red-100/50">
                 <p className="text-red-900 font-medium whitespace-pre-wrap text-sm">
-                  "{team.rejection_note}"
+                  &quot;{team.rejection_note || "No details provided."}&quot;
                 </p>
               </div>
             </div>

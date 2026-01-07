@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAdmin } from "@/hooks/useAdmin";
 import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
@@ -23,15 +23,7 @@ export default function AdminTeamDetailPage() {
         checkAdminStatus();
     }, [checkAdminStatus]);
 
-    useEffect(() => {
-        if (isAdmin === false) {
-            router.push("/admin-portal/login");
-        } else if (isAdmin === true) {
-            fetchTeamDetails();
-        }
-    }, [isAdmin, router]);
-
-    const fetchTeamDetails = async () => {
+    const fetchTeamDetails = useCallback(async () => {
         try {
             const res = await fetch(`/api/registration/teams/${id}/details/`, {
                 headers: { "X-Admin-Access": "true" }
@@ -42,7 +34,15 @@ export default function AdminTeamDetailPage() {
         } catch (e: any) {
             setError(e.message);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        if (isAdmin === false) {
+            router.push("/admin-portal/login");
+        } else if (isAdmin === true) {
+            fetchTeamDetails();
+        }
+    }, [isAdmin, router, fetchTeamDetails]);
 
 
     if (isAdmin === null || !team) {
