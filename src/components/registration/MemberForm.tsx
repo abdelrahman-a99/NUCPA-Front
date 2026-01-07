@@ -218,7 +218,7 @@ export default function MemberForm({
           onBlur={() => onBlurField("birth_date")}
           className="input-modern cursor-text"
           min="1999-01-01"
-          max="2009-12-31"
+          max="2011-12-31"
         />
       </Field>
 
