@@ -26,7 +26,7 @@ export default function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          {team.application_status === 'PENDING' && (
+          {(team.application_status === 'PENDING' || team.application_status === 'REJECTED') && (
             <PixelButton onClick={onEdit} variant="primary" size="sm">
               EDIT TEAM
             </PixelButton>
