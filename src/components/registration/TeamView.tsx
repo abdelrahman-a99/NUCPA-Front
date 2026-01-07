@@ -26,7 +26,7 @@ export default function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          {!team.payment_status && (
+          {(team.application_status === 'PENDING' || team.application_status === 'REJECTED') && (
             <PixelButton onClick={onEdit} variant="primary" size="sm">
               EDIT TEAM
             </PixelButton>
@@ -37,17 +37,55 @@ export default function TeamView({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
+      {/* Rejection Alert */}
+      {team.application_status === 'REJECTED' && team.rejection_note && (
+        <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-2xl animate-in slide-in-from-top-4 fade-in duration-500 shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="p-2 bg-red-100 rounded-full text-xl">🚨</div>
+            <div>
+              <h3 className="text-red-800 font-pixel text-lg uppercase mb-1">Application Returned</h3>
+              <p className="text-red-700 text-sm font-bold leading-relaxed mb-2">
+                Please review the note below and edit your team details.
+                <span className="block text-[10px] opacity-75 mt-1">Status will reset to PENDING automatically after you save changes.</span>
+              </p>
+              <div className="bg-white/50 p-3 rounded-lg border border-red-100/50">
+                <p className="text-red-900 font-medium whitespace-pre-wrap text-sm">
+                  &quot;{team.rejection_note || "No details provided."}&quot;
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <PixelButton onClick={onEdit} variant="primary" size="sm" className="bg-red-600 hover:bg-red-700 border-red-800 text-white">
+              FIX ISSUES NOW
+            </PixelButton>
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
         <InfoRow label="Team Name" value={team.team_name} large />
+
         <InfoRow
-          label="Verification Status"
-          value={team.payment_status ? "Verified / Paid ✅" : "Pending Verif. ⏳"}
-          highlight={team.payment_status}
+          label="Application Status"
+          value={team.application_status || "PENDING"}
+          highlight={team.application_status === 'APPROVED'}
         />
+
         <InfoRow
-          label="Competition Status"
-          value={team.checked_in ? "ELIGIBLE TO COMPETE 🚀" : "Not yet eligible"}
-          highlight={team.checked_in}
+          label="1st Online Stage"
+          value={team.online_status === 'ELIGIBLE' ? "ELIGIBLE 🚀" : "Not Eligible"}
+          highlight={team.online_status === 'ELIGIBLE'}
+        />
+
+        <InfoRow
+          label="Onsite Stage"
+          value={
+            team.onsite_status === 'QUALIFIED_PAID' ? "QUALIFIED (PAID) 💰" :
+              team.onsite_status === 'QUALIFIED_PENDING' ? "QUALIFIED (PAYMENT PENDING)" :
+                "Not Qualified"
+          }
+          highlight={team.onsite_status === 'QUALIFIED_PAID'}
         />
       </div>
 
@@ -103,27 +141,13 @@ export default function TeamView({
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
                     <span className="text-xs text-muted">ID Document</span>
-                    <a
-                      href={m.id_document}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
-                    >
-                      View ID ↗
-                    </a>
+                    <DocumentButton url={m.id_document} label="View ID ↗" />
                   </div>
                 )}
                 {m.nu_id_document && (
                   <div className="flex justify-between items-center py-1 border-t border-line/30">
                     <span className="text-xs text-muted">NU ID Document</span>
-                    <a
-                      href={m.nu_id_document}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-teal hover:underline font-bold flex items-center gap-1"
-                    >
-                      View NU ID ↗
-                    </a>
+                    <DocumentButton url={m.nu_id_document} label="View NU ID ↗" />
                   </div>
                 )}
               </div>
@@ -132,5 +156,45 @@ export default function TeamView({
         </div>
       </div>
     </div>
+  );
+}
+
+function DocumentButton({ url, label }: { url: string | null, label: string }) {
+  const [loading, setLoading] = React.useState(false);
+
+  const handleView = async () => {
+    if (!url) return;
+    setLoading(true);
+    try {
+      // Use our BFF proxy which handles the cookies & auth
+      const proxyUrl = `/api/registration/documents?url=${encodeURIComponent(url)}`;
+
+      const res = await fetch(proxyUrl);
+      if (!res.ok) throw new Error("Failed to load document");
+
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, "_blank");
+
+      // Cleanup
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    } catch (e) {
+      console.error(e);
+      alert("Could not load document.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!url) return null;
+
+  return (
+    <button
+      onClick={handleView}
+      disabled={loading}
+      className="text-xs text-teal hover:underline font-bold flex items-center gap-1 disabled:opacity-50"
+    >
+      {loading ? "OPENING..." : label}
+    </button>
   );
 }

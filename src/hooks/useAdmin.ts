@@ -82,7 +82,7 @@ export function useAdmin() {
         }
     }, []);
 
-    const updateTeamStatus = async (teamId: number, field: "payment_status" | "checked_in", value: boolean) => {
+    const updateTeamStatus = async (teamId: number, updates: Record<string, any>) => {
         try {
             const res = await fetch(`/api/registration/teams/${teamId}/`, {
                 method: "PATCH",
@@ -90,12 +90,12 @@ export function useAdmin() {
                     "Content-Type": "application/json",
                     "X-Admin-Access": "true"
                 },
-                body: JSON.stringify({ [field]: value }),
+                body: JSON.stringify(updates),
             });
-            if (!res.ok) throw new Error(`Failed to update ${field}`);
+            if (!res.ok) throw new Error("Failed to update team");
 
-            // Update local state
-            setTeams(prev => prev.map(t => t.id === teamId ? { ...t, [field]: value } : t));
+            // Update local state by merging updates
+            setTeams(prev => prev.map(t => t.id === teamId ? { ...t, ...updates } : t));
             return true;
         } catch (e: any) {
             setError(e.message);

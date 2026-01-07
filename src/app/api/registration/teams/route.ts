@@ -42,16 +42,30 @@ async function forward(req: Request, method: string) {
   const queryString = searchParams.toString();
   const url = `${backendBase()}/registration/teams/${queryString ? `?${queryString}` : ""}`;
 
+  // Read body if needed
+  let reqBody: any = undefined;
+  let contentType: string | undefined = undefined;
+
+  if (method === "POST" || method === "PUT" || method === "PATCH") {
+    contentType = req.headers.get("content-type") || "";
+    if (contentType.includes("multipart/form-data")) {
+      reqBody = await req.formData();
+      // When skipping content-type for FormData, fetch adds the boundary automatically
+      contentType = undefined;
+    } else {
+      reqBody = await req.text();
+    }
+  }
+
   const makeRequest = async (accessToken?: string) => {
     const headers = new Headers();
     if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
+    if (contentType) headers.set("Content-Type", contentType);
 
-    if (method === "POST") {
-      const form = await req.formData();
-      return fetch(url, { method, headers, body: form });
-    }
+    const options: RequestInit = { method, headers };
+    if (reqBody) options.body = reqBody;
 
-    return fetch(url, { method, headers });
+    return fetch(url, options);
   };
 
   let res = await makeRequest(access);

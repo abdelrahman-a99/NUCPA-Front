@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAdmin } from "@/hooks/useAdmin";
 import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
@@ -23,15 +23,7 @@ export default function AdminTeamDetailPage() {
         checkAdminStatus();
     }, [checkAdminStatus]);
 
-    useEffect(() => {
-        if (isAdmin === false) {
-            router.push("/admin-portal/login");
-        } else if (isAdmin === true) {
-            fetchTeamDetails();
-        }
-    }, [isAdmin, router]);
-
-    const fetchTeamDetails = async () => {
+    const fetchTeamDetails = useCallback(async () => {
         try {
             const res = await fetch(`/api/registration/teams/${id}/details/`, {
                 headers: { "X-Admin-Access": "true" }
@@ -42,15 +34,16 @@ export default function AdminTeamDetailPage() {
         } catch (e: any) {
             setError(e.message);
         }
-    };
+    }, [id]);
 
-    const handleToggleStatus = async (field: "payment_status" | "checked_in") => {
-        if (!team) return;
-        const success = await updateTeamStatus(Number(id), field, !team[field]);
-        if (success) {
-            setTeam({ ...team, [field]: !team[field] });
+    useEffect(() => {
+        if (isAdmin === false) {
+            router.push("/admin-portal/login");
+        } else if (isAdmin === true) {
+            fetchTeamDetails();
         }
-    };
+    }, [isAdmin, router, fetchTeamDetails]);
+
 
     if (isAdmin === null || !team) {
         return (
@@ -80,21 +73,95 @@ export default function AdminTeamDetailPage() {
                                 <h1 className="font-pixel text-3xl sm:text-4xl text-ink2 mb-2 uppercase">{team.team_name}</h1>
                                 <p className="text-muted text-[10px] font-bold tracking-widest uppercase">Team UID: {id}</p>
                             </div>
-                            <div className="flex gap-3">
-                                <PixelButton
-                                    onClick={() => handleToggleStatus("payment_status")}
-                                    variant={team.payment_status ? "primary" : "outline-red"}
-                                    size="sm"
-                                >
-                                    {team.payment_status ? "REVOKE PAYMENT" : "VERIFY PAYMENT"}
-                                </PixelButton>
-                                <PixelButton
-                                    onClick={() => handleToggleStatus("checked_in")}
-                                    variant={team.checked_in ? "primary" : "outline-red"}
-                                    size="sm"
-                                >
-                                    {team.checked_in ? "UN-ELIGIBLE" : "MARK READY"}
-                                </PixelButton>
+
+                            {/* STATUS CONTROL PANEL */}
+                            <div className="flex flex-col gap-3 bg-white p-4 rounded-xl border-2 border-line/30 shadow-sm min-w-[300px]">
+                                <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-1">Status Workflow</h3>
+
+                                <div className="grid grid-cols-1 gap-3">
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Application</label>
+                                        <select
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                            value={team.application_status || "PENDING"}
+                                            onChange={(e) => {
+                                                const val = e.target.value as any;
+                                                // Reset rejection note if not rejected
+                                                if (val !== 'REJECTED') {
+                                                    setTeam({ ...team, application_status: val, rejection_note: "" });
+                                                } else {
+                                                    setTeam({ ...team, application_status: val });
+                                                }
+                                            }}
+                                        >
+                                            <option value="PENDING">Pending Review</option>
+                                            <option value="APPROVED">Approved (Eligible)</option>
+                                            <option value="REJECTED">Rejected</option>
+                                        </select>
+                                    </div>
+
+                                    {team.application_status === 'REJECTED' && (
+                                        <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-top-2">
+                                            <label className="text-[10px] font-bold text-red-500 uppercase">Rejection Note</label>
+                                            <textarea
+                                                className="px-3 py-2 bg-red-50 border-2 border-red-100 rounded-xl text-xs font-bold text-red-800 focus:outline-none focus:border-red-300 focus:ring-4 focus:ring-red-100 transition-all resize-none h-24 placeholder:text-red-300"
+                                                placeholder="Explain why..."
+                                                value={team.rejection_note || ""}
+                                                onChange={(e) => setTeam({ ...team, rejection_note: e.target.value })}
+                                            />
+                                        </div>
+                                    )}
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Online Stage</label>
+                                        <select
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                            value={team.online_status || "NOT_ELIGIBLE"}
+                                            onChange={(e) => {
+                                                const val = e.target.value as any;
+                                                setTeam({ ...team, online_status: val });
+                                            }}
+                                        >
+                                            <option value="NOT_ELIGIBLE">Not Eligible</option>
+                                            <option value="ELIGIBLE">Eligible</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Onsite Stage</label>
+                                        <select
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                            value={team.onsite_status || "NOT_QUALIFIED"}
+                                            onChange={(e) => {
+                                                const val = e.target.value as any;
+                                                setTeam({ ...team, onsite_status: val });
+                                            }}
+                                        >
+                                            <option value="NOT_QUALIFIED">Not Qualified</option>
+                                            <option value="QUALIFIED_PENDING">Qualified (Pending Payment)</option>
+                                            <option value="QUALIFIED_PAID">Qualified (Paid)</option>
+                                        </select>
+                                    </div>
+
+                                    <PixelButton
+                                        onClick={async () => {
+                                            const success = await updateTeamStatus(Number(id), {
+                                                application_status: team.application_status,
+                                                online_status: team.online_status,
+                                                onsite_status: team.onsite_status,
+                                                rejection_note: team.rejection_note
+                                            });
+                                            if (success) alert("Status updated successfully!");
+                                        }}
+                                        variant="primary"
+                                        size="sm"
+                                        className="mt-2 w-full justify-center"
+                                    >
+                                        SAVE CHANGES
+                                    </PixelButton>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -140,23 +207,9 @@ export default function AdminTeamDetailPage() {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 mt-6 border-t border-line/30">
-                                        <a
-                                            href={m.id_document}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase"
-                                        >
-                                            📄 National ID/Passport ↗
-                                        </a>
+                                        <DocumentButton url={m.id_document || null} label="📄 National ID/Passport" />
                                         {m.nu_student && m.nu_id_document && (
-                                            <a
-                                                href={m.nu_id_document}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase"
-                                            >
-                                                🎓 NU Student ID ↗
-                                            </a>
+                                            <DocumentButton url={m.nu_id_document || null} label="🎓 NU Student ID" />
                                         )}
                                     </div>
                                 </div>
@@ -167,5 +220,47 @@ export default function AdminTeamDetailPage() {
             </main>
             <Footer />
         </div>
+    );
+}
+
+function DocumentButton({ url, label }: { url: string | null, label: string }) {
+    const [loading, setLoading] = useState(false);
+
+    const handleView = async () => {
+        if (!url) return;
+        setLoading(true);
+        try {
+            // Use BFF proxy with Admin Access header
+            const proxyUrl = `/api/registration/documents?url=${encodeURIComponent(url)}`;
+
+            const res = await fetch(proxyUrl, {
+                headers: { "X-Admin-Access": "true" }
+            });
+
+            if (!res.ok) throw new Error("Failed to load document");
+
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl, "_blank");
+
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+        } catch (e) {
+            console.error(e);
+            alert("Could not load document.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (!url) return null;
+
+    return (
+        <button
+            onClick={handleView}
+            disabled={loading}
+            className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase disabled:opacity-50"
+        >
+            {loading ? "OPENING..." : `${label} ↗`}
+        </button>
     );
 }

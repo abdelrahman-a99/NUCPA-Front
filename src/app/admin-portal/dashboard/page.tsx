@@ -34,8 +34,8 @@ export default function AdminDashboardPage() {
 
     // Calculate Stats
     const totalTeams = teams.length;
-    const paidTeams = teams.filter(t => t.payment_status).length;
-    const readyTeams = teams.filter(t => t.checked_in).length;
+    const paidTeams = teams.filter(t => t.onsite_status === 'QUALIFIED_PAID').length;
+    const readyTeams = teams.filter(t => t.online_status === 'ELIGIBLE').length;
 
     // Export to CSV from Backend
     const handleExportCSV = async () => {
@@ -138,7 +138,7 @@ export default function AdminDashboardPage() {
                                 placeholder="Search teams or members..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="px-6 py-3 rounded-full bg-white border border-line focus:border-teal outline-none transition-all w-full md:w-80 font-medium text-sm shadow-sm"
+                                className="px-6 py-3 rounded-xl bg-white border-2 border-line focus:border-teal focus:ring-4 focus:ring-teal/10 outline-none transition-all w-full md:w-80 font-bold text-sm text-ink placeholder:text-muted/50 shadow-sm"
                             />
                             <PixelButton type="submit" variant="primary" size="sm" className="shrink-0">
                                 SEARCH
@@ -153,15 +153,16 @@ export default function AdminDashboardPage() {
                                     <tr className="bg-bg/50 border-b-2 border-line">
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted">Team</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted">Members</th>
-                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Payment</th>
-                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Eligible</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">App</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Online</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Onsite</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-line/50">
                                     {teams.length === 0 ? (
                                         <tr>
-                                            <td colSpan={5} className="px-6 py-20 text-center text-muted font-pixel text-sm">
+                                            <td colSpan={6} className="px-6 py-20 text-center text-muted font-pixel text-sm">
                                                 NO TEAMS FOUND IN THE ARENA
                                             </td>
                                         </tr>
@@ -181,30 +182,33 @@ export default function AdminDashboardPage() {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
-                                                    <button
-                                                        onClick={() => updateTeamStatus(team.id, "payment_status", !team.payment_status)}
-                                                        className={cn(
-                                                            "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border-2 transition-all active:scale-90",
-                                                            team.payment_status
-                                                                ? "bg-teal/10 text-teal border-teal/20"
-                                                                : "bg-red/5 text-red border-red/10"
-                                                        )}
-                                                    >
-                                                        {team.payment_status ? "PAID" : "PENDING"}
-                                                    </button>
+                                                    <span className={cn(
+                                                        "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                                        team.application_status === 'APPROVED' ? "bg-teal/10 text-teal border-teal/20" :
+                                                            team.application_status === 'REJECTED' ? "bg-red/10 text-red border-red/20" :
+                                                                "bg-yellow-50 text-yellow-600 border-yellow-200"
+                                                    )}>
+                                                        {team.application_status || "PENDING"}
+                                                    </span>
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
-                                                    <button
-                                                        onClick={() => updateTeamStatus(team.id, "checked_in", !team.checked_in)}
-                                                        className={cn(
-                                                            "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border-2 transition-all active:scale-90",
-                                                            team.checked_in
-                                                                ? "bg-teal-bright text-white border-transparent shadow-soft"
-                                                                : "bg-bg text-muted border-line"
-                                                        )}
-                                                    >
-                                                        {team.checked_in ? "READY" : "WAITING"}
-                                                    </button>
+                                                    <span className={cn(
+                                                        "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                                        team.online_status === 'ELIGIBLE' ? "bg-purple-50 text-purple-600 border-purple-100" : "bg-gray-100 text-gray-400 border-gray-200"
+                                                    )}>
+                                                        {team.online_status === 'ELIGIBLE' ? 'ELIGIBLE' : 'NOT ELIGIBLE'}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-6 text-center">
+                                                    <span className={cn(
+                                                        "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                                        team.onsite_status === 'QUALIFIED_PAID' ? "bg-green-50 text-green-600 border-green-200" :
+                                                            team.onsite_status === 'QUALIFIED_PENDING' ? "bg-orange-50 text-orange-600 border-orange-200" :
+                                                                "bg-gray-100 text-gray-400 border-gray-200"
+                                                    )}>
+                                                        {team.onsite_status === 'QUALIFIED_PAID' ? 'PAID' :
+                                                            team.onsite_status === 'QUALIFIED_PENDING' ? 'PENDING' : 'NOT QUALIFIED'}
+                                                    </span>
                                                 </td>
                                                 <td className="px-6 py-6 text-right">
                                                     <div className="flex justify-end gap-2">

@@ -148,8 +148,6 @@ export type MemberDraft = {
 export type TeamDetails = {
   id: number;
   team_name: string;
-  payment_status: boolean;
-  checked_in: boolean;
   member_count?: number;
   created_at: string;
   members: Array<{
@@ -182,4 +180,8 @@ export type TeamDetails = {
     id_document?: string;
     nu_id_document?: string;
   }>;
+  application_status: "PENDING" | "APPROVED" | "REJECTED";
+  online_status: "NOT_ELIGIBLE" | "ELIGIBLE";
+  onsite_status: "NOT_QUALIFIED" | "QUALIFIED_PENDING" | "QUALIFIED_PAID";
+  rejection_note?: string;
 };

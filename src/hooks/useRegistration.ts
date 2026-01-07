@@ -146,7 +146,7 @@ export function useRegistration() {
         if (!m.birth_date) return "Birth date is required.";
         const bDate = new Date(m.birth_date);
         const bYear = bDate.getFullYear();
-        if (isNaN(bYear) || bYear < 1999 || bYear > 2009) return "Birth year must be 1999–2009.";
+        if (isNaN(bYear) || bYear < 1999 || bYear > 2011) return "Birth year must be 1999–2011.";
       }
       if (key === "id_document") {
         if (m.id_document) {
@@ -217,6 +217,9 @@ export function useRegistration() {
     try {
       const fd = new FormData();
       fd.append("team_name", teamName.trim());
+      // Consent
+      fd.append("data_sharing_consent", dataSharingConsent.toString());
+
       const membersJson = members.map((m) => ({
         name: m.name.trim(),
         nationality: m.nationality.trim() || "EG",
@@ -336,9 +339,13 @@ export function useRegistration() {
     setError(null);
   }
 
+  const [dataSharingConsent, setDataSharingConsent] = useState(false);
+  const [rulesAccepted, setRulesAccepted] = useState(false);
+
   return {
     phase, setPhase, error, team, teamName, setTeamName, members, setMembers, fieldErrors,
     startGoogleLogin, isGoogleLoading, googleError, checkTeam, submitRegistration,
-    deleteTeam, startEditing, logout, handleBlur
+    deleteTeam, startEditing, logout, handleBlur,
+    dataSharingConsent, setDataSharingConsent, rulesAccepted, setRulesAccepted
   };
 }
