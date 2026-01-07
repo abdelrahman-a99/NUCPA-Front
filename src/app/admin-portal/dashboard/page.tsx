@@ -13,6 +13,12 @@ export default function AdminDashboardPage() {
     const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus } = useAdmin();
     const [search, setSearch] = useState("");
     const [isExporting, setIsExporting] = useState(false);
+
+    // Filter State
+    const [appStatus, setAppStatus] = useState("");
+    const [onlineStatus, setOnlineStatus] = useState("");
+    const [onsiteStatus, setOnsiteStatus] = useState("");
+
     const router = useRouter();
 
     useEffect(() => {
@@ -27,10 +33,26 @@ export default function AdminDashboardPage() {
         }
     }, [isAdmin, router, fetchTeams]);
 
-    const handleSearch = (e: React.FormEvent) => {
-        e.preventDefault();
-        fetchTeams(search);
+    const handleSearch = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        fetchTeams(search, {
+            application_status: appStatus || undefined,
+            online_status: onlineStatus || undefined,
+            onsite_status: onsiteStatus || undefined
+        });
     };
+
+    // Trigger search when filters change
+    useEffect(() => {
+        if (isAdmin) {
+            fetchTeams(search, {
+                application_status: appStatus || undefined,
+                online_status: onlineStatus || undefined,
+                onsite_status: onsiteStatus || undefined
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [appStatus, onlineStatus, onsiteStatus]);
 
     // Calculate Stats
     const totalTeams = teams.length;
@@ -130,20 +152,68 @@ export default function AdminDashboardPage() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-                        <h3 className="font-pixel text-xl text-ink2">TEAM LIST</h3>
-                        <form onSubmit={handleSearch} className="flex gap-2 w-full md:w-auto">
-                            <input
-                                type="text"
-                                placeholder="Search teams or members..."
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="px-6 py-3 rounded-xl bg-white border-2 border-line focus:border-teal focus:ring-4 focus:ring-teal/10 outline-none transition-all w-full md:w-80 font-bold text-sm text-ink placeholder:text-muted/50 shadow-sm"
-                            />
-                            <PixelButton type="submit" variant="primary" size="sm" className="shrink-0">
-                                SEARCH
-                            </PixelButton>
-                        </form>
+                    <div className="flex flex-col gap-4 mb-6">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <h3 className="font-pixel text-xl text-ink2">TEAM LIST</h3>
+                            <form onSubmit={handleSearch} className="flex gap-2 w-full md:w-auto">
+                                <input
+                                    type="text"
+                                    placeholder="Search teams or members..."
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    className="px-6 py-3 rounded-xl bg-white border-2 border-line focus:border-teal focus:ring-4 focus:ring-teal/10 outline-none transition-all w-full md:w-80 font-bold text-sm text-ink placeholder:text-muted/50 shadow-sm"
+                                />
+                                <PixelButton type="submit" variant="primary" size="sm" className="shrink-0">
+                                    SEARCH
+                                </PixelButton>
+                            </form>
+                        </div>
+
+                        {/* Filters Row */}
+                        <div className="flex flex-wrap gap-4 p-4 bg-white/50 border border-line rounded-xl items-center">
+                            <span className="text-xs font-bold uppercase text-muted tracking-widest">FILTERS:</span>
+
+                            <select
+                                value={appStatus}
+                                onChange={(e) => setAppStatus(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">ALL STATUSES</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="APPROVED">APPROVED</option>
+                                <option value="REJECTED">REJECTED</option>
+                            </select>
+
+                            <select
+                                value={onlineStatus}
+                                onChange={(e) => setOnlineStatus(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">ALL ONLINE ELIGIBILITY</option>
+                                <option value="ELIGIBLE">ELIGIBLE</option>
+                                <option value="NOT_ELIGIBLE">NOT ELIGIBLE</option>
+                            </select>
+
+                            <select
+                                value={onsiteStatus}
+                                onChange={(e) => setOnsiteStatus(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">ALL ONSITE STATUS</option>
+                                <option value="NOT_QUALIFIED">NOT QUALIFIED</option>
+                                <option value="QUALIFIED_PENDING">QUALIFIED (PENDING)</option>
+                                <option value="QUALIFIED_PAID">QUALIFIED (PAID)</option>
+                            </select>
+
+                            {(appStatus || onlineStatus || onsiteStatus) && (
+                                <button
+                                    onClick={() => { setAppStatus(""); setOnlineStatus(""); setOnsiteStatus(""); }}
+                                    className="text-xs text-red-500 font-bold hover:underline ml-auto"
+                                >
+                                    CLEAR FILTERS
+                                </button>
+                            )}
+                        </div>
                     </div>
 
                     <div className="bg-white border-2 border-line rounded-[2rem] shadow-xl overflow-hidden">

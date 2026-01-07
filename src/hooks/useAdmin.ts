@@ -65,10 +65,16 @@ export function useAdmin() {
         }
     };
 
-    const fetchTeams = useCallback(async (search?: string) => {
+    const fetchTeams = useCallback(async (search?: string, filters?: { application_status?: string, online_status?: string, onsite_status?: string }) => {
         setIsLoading(true);
         try {
-            const query = search ? `?search=${encodeURIComponent(search)}` : "";
+            const params = new URLSearchParams();
+            if (search) params.append("search", search);
+            if (filters?.application_status) params.append("application_status", filters.application_status);
+            if (filters?.online_status) params.append("online_status", filters.online_status);
+            if (filters?.onsite_status) params.append("onsite_status", filters.onsite_status);
+
+            const query = params.toString() ? `?${params.toString()}` : "";
             const res = await fetch(`/api/registration/teams/${query}`, {
                 headers: { "X-Admin-Access": "true" }
             });
