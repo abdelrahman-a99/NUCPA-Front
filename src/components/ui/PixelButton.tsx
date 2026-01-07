@@ -35,7 +35,7 @@ export default function PixelButton({
     "outline-red":
       "bg-transparent text-red border-2 border-red hover:bg-red hover:text-white shadow-none",
     ghost: "bg-transparent text-ink hover:bg-white border border-line shadow-none",
-    danger: "bg-red-500 text-white hover:bg-red-600 border-2 border-red-700 hover:opacity-90",
+    danger: "bg-red text-white hover:bg-red/90 border-2 border-red hover:opacity-90",
   };
 
   const Comp: any = href ? "a" : "button";
