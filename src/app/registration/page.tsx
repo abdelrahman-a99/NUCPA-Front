@@ -13,7 +13,8 @@ export default function RegistrationPage() {
   const {
     phase, setPhase, error, team, teamName, setTeamName, members, setMembers, fieldErrors,
     startGoogleLogin, isGoogleLoading, googleError, checkTeam, submitRegistration,
-    deleteTeam, startEditing, logout, handleBlur
+    deleteTeam, startEditing, logout, handleBlur,
+    dataSharingConsent, setDataSharingConsent, rulesAccepted, setRulesAccepted
   } = useRegistration();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -92,6 +93,10 @@ export default function RegistrationPage() {
                 onLogout={logout}
                 onCancel={phase === "editing" ? () => setPhase("hasTeam") : undefined}
                 onBlurField={handleBlur}
+                rulesAccepted={rulesAccepted}
+                setRulesAccepted={setRulesAccepted}
+                dataSharingConsent={dataSharingConsent}
+                setDataSharingConsent={setDataSharingConsent}
               />
             )}
 
