@@ -86,7 +86,12 @@ export default function AdminTeamDetailPage() {
                                             value={team.application_status || "PENDING"}
                                             onChange={(e) => {
                                                 const val = e.target.value as any;
-                                                setTeam({ ...team, application_status: val });
+                                                // Reset rejection note if not rejected
+                                                if (val !== 'REJECTED') {
+                                                    setTeam({ ...team, application_status: val, rejection_note: "" });
+                                                } else {
+                                                    setTeam({ ...team, application_status: val });
+                                                }
                                             }}
                                         >
                                             <option value="PENDING">Pending Review</option>
@@ -94,6 +99,18 @@ export default function AdminTeamDetailPage() {
                                             <option value="REJECTED">Rejected</option>
                                         </select>
                                     </div>
+
+                                    {team.application_status === 'REJECTED' && (
+                                        <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-top-2">
+                                            <label className="text-[10px] font-bold text-red-500 uppercase">Rejection Note</label>
+                                            <textarea
+                                                className="px-2 py-1 bg-red-50 border-2 border-red-100 rounded-lg text-xs font-bold text-red-700 focus:outline-none focus:border-red-300 resize-none h-20"
+                                                placeholder="Explain why..."
+                                                value={team.rejection_note || ""}
+                                                onChange={(e) => setTeam({ ...team, rejection_note: e.target.value })}
+                                            />
+                                        </div>
+                                    )}
 
                                     <div className="flex flex-col gap-1">
                                         <label className="text-[10px] font-bold text-ink2 uppercase">Online Stage</label>
@@ -131,7 +148,8 @@ export default function AdminTeamDetailPage() {
                                             const success = await updateTeamStatus(Number(id), {
                                                 application_status: team.application_status,
                                                 online_status: team.online_status,
-                                                onsite_status: team.onsite_status
+                                                onsite_status: team.onsite_status,
+                                                rejection_note: team.rejection_note
                                             });
                                             if (success) alert("Status updated successfully!");
                                         }}

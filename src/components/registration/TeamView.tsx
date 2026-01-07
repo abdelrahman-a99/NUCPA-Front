@@ -37,6 +37,32 @@ export default function TeamView({
         </div>
       </div>
 
+      {/* Rejection Alert */}
+      {team.application_status === 'REJECTED' && team.rejection_note && (
+        <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-2xl animate-in slide-in-from-top-4 fade-in duration-500 shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="p-2 bg-red-100 rounded-full text-xl">🚨</div>
+            <div>
+              <h3 className="text-red-800 font-pixel text-lg uppercase mb-1">Application Returned</h3>
+              <p className="text-red-700 text-sm font-bold leading-relaxed mb-2">
+                Please review the note below and edit your team details.
+                <span className="block text-[10px] opacity-75 mt-1">Status will reset to PENDING automatically after you save changes.</span>
+              </p>
+              <div className="bg-white/50 p-3 rounded-lg border border-red-100/50">
+                <p className="text-red-900 font-medium whitespace-pre-wrap text-sm">
+                  "{team.rejection_note}"
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <PixelButton onClick={onEdit} variant="primary" size="sm" className="bg-red-600 hover:bg-red-700 border-red-800 text-white">
+              FIX ISSUES NOW
+            </PixelButton>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
         <InfoRow label="Team Name" value={team.team_name} large />
 
