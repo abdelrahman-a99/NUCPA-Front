@@ -61,7 +61,7 @@ export const PHONE_CODES = [
     { code: "+1-809", country: "DO", label: "Dominican Republic (+1-809)", mask: "xxxxxxxxx" },
     { code: "+670", country: "TL", label: "East Timor (+670)", mask: "xxxxxxxxx" },
     { code: "+593", country: "EC", label: "Ecuador (+593)", mask: "9xxxxxxxx" },
-    { code: "+20", country: "EG", label: "Egypt (+20)", mask: "10xxxxxxx" },
+    { code: "+20", country: "EG", label: "Egypt (+20)", mask: "xxxxxxxxxx" },
     { code: "+503", country: "SV", label: "El Salvador (+503)", mask: "xxxxxxxxx" },
     { code: "+240", country: "GQ", label: "Equatorial Guinea (+240)", mask: "xxxxxxxxx" },
     { code: "+291", country: "ER", label: "Eritrea (+291)", mask: "xxxxxxxxx" },
