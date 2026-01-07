@@ -166,10 +166,10 @@ function DocumentButton({ url, label }: { url: string | null, label: string }) {
     if (!url) return;
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
-      const headers: HeadersInit = token ? { "Authorization": `Bearer ${token}` } : {};
+      // Use our BFF proxy which handles the cookies & auth
+      const proxyUrl = `/api/registration/documents?url=${encodeURIComponent(url)}`;
 
-      const res = await fetch(url, { headers });
+      const res = await fetch(proxyUrl);
       if (!res.ok) throw new Error("Failed to load document");
 
       const blob = await res.blob();
