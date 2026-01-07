@@ -46,7 +46,7 @@ export default function AdminTeamDetailPage() {
 
     const handleToggleStatus = async (field: "payment_status" | "checked_in") => {
         if (!team) return;
-        const success = await updateTeamStatus(Number(id), field, !team[field]);
+        const success = await updateTeamStatus(Number(id), { [field]: !team[field] });
         if (success) {
             setTeam({ ...team, [field]: !team[field] });
         }
@@ -80,21 +80,85 @@ export default function AdminTeamDetailPage() {
                                 <h1 className="font-pixel text-3xl sm:text-4xl text-ink2 mb-2 uppercase">{team.team_name}</h1>
                                 <p className="text-muted text-[10px] font-bold tracking-widest uppercase">Team UID: {id}</p>
                             </div>
-                            <div className="flex gap-3">
-                                <PixelButton
-                                    onClick={() => handleToggleStatus("payment_status")}
-                                    variant={team.payment_status ? "primary" : "outline-red"}
-                                    size="sm"
-                                >
-                                    {team.payment_status ? "REVOKE PAYMENT" : "VERIFY PAYMENT"}
-                                </PixelButton>
-                                <PixelButton
-                                    onClick={() => handleToggleStatus("checked_in")}
-                                    variant={team.checked_in ? "primary" : "outline-red"}
-                                    size="sm"
-                                >
-                                    {team.checked_in ? "UN-ELIGIBLE" : "MARK READY"}
-                                </PixelButton>
+
+                            {/* STATUS CONTROL PANEL */}
+                            <div className="flex flex-col gap-3 bg-white p-4 rounded-xl border-2 border-line/30 shadow-sm min-w-[300px]">
+                                <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-1">Status Workflow</h3>
+
+                                <div className="grid grid-cols-1 gap-3">
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Application</label>
+                                        <select
+                                            className="px-2 py-1 bg-bg border-2 border-line rounded-lg text-xs font-bold focus:outline-none focus:border-teal"
+                                            value={team.application_status || "PENDING"}
+                                            onChange={(e) => {
+                                                const val = e.target.value as any;
+                                                setTeam({ ...team, application_status: val });
+                                            }}
+                                        >
+                                            <option value="PENDING">Pending Review</option>
+                                            <option value="APPROVED">Approved (Eligible)</option>
+                                            <option value="REJECTED">Rejected</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Online Stage</label>
+                                        <select
+                                            className="px-2 py-1 bg-bg border-2 border-line rounded-lg text-xs font-bold focus:outline-none focus:border-teal"
+                                            value={team.online_status || "NOT_ELIGIBLE"}
+                                            onChange={(e) => {
+                                                const val = e.target.value as any;
+                                                setTeam({ ...team, online_status: val });
+                                            }}
+                                        >
+                                            <option value="NOT_ELIGIBLE">Not Eligible</option>
+                                            <option value="ELIGIBLE">Eligible</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Onsite Stage</label>
+                                        <select
+                                            className="px-2 py-1 bg-bg border-2 border-line rounded-lg text-xs font-bold focus:outline-none focus:border-teal"
+                                            value={team.onsite_status || "NOT_QUALIFIED"}
+                                            onChange={(e) => {
+                                                const val = e.target.value as any;
+                                                setTeam({ ...team, onsite_status: val });
+                                            }}
+                                        >
+                                            <option value="NOT_QUALIFIED">Not Qualified</option>
+                                            <option value="QUALIFIED_PENDING">Qualified (Pending Payment)</option>
+                                            <option value="QUALIFIED_PAID">Qualified (Paid)</option>
+                                        </select>
+                                    </div>
+
+                                    <PixelButton
+                                        onClick={async () => {
+                                            const success = await updateTeamStatus(Number(id), {
+                                                application_status: team.application_status,
+                                                online_status: team.online_status,
+                                                onsite_status: team.onsite_status
+                                            });
+                                            if (success) alert("Status updated successfully!");
+                                        }}
+                                        variant="primary"
+                                        size="sm"
+                                        className="mt-2 w-full justify-center"
+                                    >
+                                        SAVE CHANGES
+                                    </PixelButton>
+
+                                    {/* Legacy Toggles (Keep visible for visual confirm or remove if not needed) */}
+                                    <div className="flex gap-2 mt-2 pt-2 border-t border-line/20">
+                                        <div className={cn("text-[9px] px-2 py-0.5 rounded border uppercase font-bold", team.payment_status ? "bg-teal/10 border-teal text-teal" : "bg-red-50 border-red-200 text-red-400")}>
+                                            {team.payment_status ? "Paid" : "Not Paid"}
+                                        </div>
+                                        <div className={cn("text-[9px] px-2 py-0.5 rounded border uppercase font-bold", team.checked_in ? "bg-teal/10 border-teal text-teal" : "bg-bg border-line text-muted")}>
+                                            {team.checked_in ? "Ready" : "Not Ready"}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
