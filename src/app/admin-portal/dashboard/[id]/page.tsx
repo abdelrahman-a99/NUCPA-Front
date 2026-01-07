@@ -82,7 +82,7 @@ export default function AdminTeamDetailPage() {
                                     <div className="flex flex-col gap-1">
                                         <label className="text-[10px] font-bold text-ink2 uppercase">Application</label>
                                         <select
-                                            className="px-2 py-1 bg-bg border-2 border-line rounded-lg text-xs font-bold focus:outline-none focus:border-teal"
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
                                             value={team.application_status || "PENDING"}
                                             onChange={(e) => {
                                                 const val = e.target.value as any;
@@ -104,7 +104,7 @@ export default function AdminTeamDetailPage() {
                                         <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-top-2">
                                             <label className="text-[10px] font-bold text-red-500 uppercase">Rejection Note</label>
                                             <textarea
-                                                className="px-2 py-1 bg-red-50 border-2 border-red-100 rounded-lg text-xs font-bold text-red-700 focus:outline-none focus:border-red-300 resize-none h-20"
+                                                className="px-3 py-2 bg-red-50 border-2 border-red-100 rounded-xl text-xs font-bold text-red-800 focus:outline-none focus:border-red-300 focus:ring-4 focus:ring-red-100 transition-all resize-none h-24 placeholder:text-red-300"
                                                 placeholder="Explain why..."
                                                 value={team.rejection_note || ""}
                                                 onChange={(e) => setTeam({ ...team, rejection_note: e.target.value })}
@@ -115,7 +115,7 @@ export default function AdminTeamDetailPage() {
                                     <div className="flex flex-col gap-1">
                                         <label className="text-[10px] font-bold text-ink2 uppercase">Online Stage</label>
                                         <select
-                                            className="px-2 py-1 bg-bg border-2 border-line rounded-lg text-xs font-bold focus:outline-none focus:border-teal"
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
                                             value={team.online_status || "NOT_ELIGIBLE"}
                                             onChange={(e) => {
                                                 const val = e.target.value as any;
@@ -130,7 +130,7 @@ export default function AdminTeamDetailPage() {
                                     <div className="flex flex-col gap-1">
                                         <label className="text-[10px] font-bold text-ink2 uppercase">Onsite Stage</label>
                                         <select
-                                            className="px-2 py-1 bg-bg border-2 border-line rounded-lg text-xs font-bold focus:outline-none focus:border-teal"
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
                                             value={team.onsite_status || "NOT_QUALIFIED"}
                                             onChange={(e) => {
                                                 const val = e.target.value as any;

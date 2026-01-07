@@ -138,7 +138,7 @@ export default function AdminDashboardPage() {
                                 placeholder="Search teams or members..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="px-6 py-3 rounded-full bg-white border border-line focus:border-teal outline-none transition-all w-full md:w-80 font-medium text-sm shadow-sm"
+                                className="px-6 py-3 rounded-xl bg-white border-2 border-line focus:border-teal focus:ring-4 focus:ring-teal/10 outline-none transition-all w-full md:w-80 font-bold text-sm text-ink placeholder:text-muted/50 shadow-sm"
                             />
                             <PixelButton type="submit" variant="primary" size="sm" className="shrink-0">
                                 SEARCH
