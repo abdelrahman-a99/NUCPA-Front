@@ -207,23 +207,9 @@ export default function AdminTeamDetailPage() {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 mt-6 border-t border-line/30">
-                                        <a
-                                            href={m.id_document}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase"
-                                        >
-                                            📄 National ID/Passport ↗
-                                        </a>
+                                        <DocumentButton url={m.id_document} label="📄 National ID/Passport" />
                                         {m.nu_student && m.nu_id_document && (
-                                            <a
-                                                href={m.nu_id_document}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase"
-                                            >
-                                                🎓 NU Student ID ↗
-                                            </a>
+                                            <DocumentButton url={m.nu_id_document} label="🎓 NU Student ID" />
                                         )}
                                     </div>
                                 </div>
@@ -234,5 +220,47 @@ export default function AdminTeamDetailPage() {
             </main>
             <Footer />
         </div>
+    );
+}
+
+function DocumentButton({ url, label }: { url: string | null, label: string }) {
+    const [loading, setLoading] = useState(false);
+
+    const handleView = async () => {
+        if (!url) return;
+        setLoading(true);
+        try {
+            // Use BFF proxy with Admin Access header
+            const proxyUrl = `/api/registration/documents?url=${encodeURIComponent(url)}`;
+
+            const res = await fetch(proxyUrl, {
+                headers: { "X-Admin-Access": "true" }
+            });
+
+            if (!res.ok) throw new Error("Failed to load document");
+
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl, "_blank");
+
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+        } catch (e) {
+            console.error(e);
+            alert("Could not load document.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (!url) return null;
+
+    return (
+        <button
+            onClick={handleView}
+            disabled={loading}
+            className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase disabled:opacity-50"
+        >
+            {loading ? "OPENING..." : `${label} ↗`}
+        </button>
     );
 }
