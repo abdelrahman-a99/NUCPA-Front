@@ -207,9 +207,9 @@ export default function AdminTeamDetailPage() {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 mt-6 border-t border-line/30">
-                                        <DocumentButton url={m.id_document} label="📄 National ID/Passport" />
+                                        <DocumentButton url={m.id_document || null} label="📄 National ID/Passport" />
                                         {m.nu_student && m.nu_id_document && (
-                                            <DocumentButton url={m.nu_id_document} label="🎓 NU Student ID" />
+                                            <DocumentButton url={m.nu_id_document || null} label="🎓 NU Student ID" />
                                         )}
                                     </div>
                                 </div>
