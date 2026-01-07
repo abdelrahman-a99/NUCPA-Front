@@ -182,7 +182,7 @@ export default function AdminDashboardPage() {
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
                                                     <button
-                                                        onClick={() => updateTeamStatus(team.id, "payment_status", !team.payment_status)}
+                                                        onClick={() => updateTeamStatus(team.id, { payment_status: !team.payment_status })}
                                                         className={cn(
                                                             "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border-2 transition-all active:scale-90",
                                                             team.payment_status
@@ -195,7 +195,7 @@ export default function AdminDashboardPage() {
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
                                                     <button
-                                                        onClick={() => updateTeamStatus(team.id, "checked_in", !team.checked_in)}
+                                                        onClick={() => updateTeamStatus(team.id, { checked_in: !team.checked_in })}
                                                         className={cn(
                                                             "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border-2 transition-all active:scale-90",
                                                             team.checked_in
