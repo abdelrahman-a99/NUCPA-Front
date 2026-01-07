@@ -154,14 +154,15 @@ export default function AdminDashboardPage() {
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted">Team</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted">Members</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">App</th>
-                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Status</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Online</th>
+                                        <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Onsite</th>
                                         <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-line/50">
                                     {teams.length === 0 ? (
                                         <tr>
-                                            <td colSpan={5} className="px-6 py-20 text-center text-muted font-pixel text-sm">
+                                            <td colSpan={6} className="px-6 py-20 text-center text-muted font-pixel text-sm">
                                                 NO TEAMS FOUND IN THE ARENA
                                             </td>
                                         </tr>
@@ -191,17 +192,23 @@ export default function AdminDashboardPage() {
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-6 text-center">
-                                                    <div className="flex flex-col gap-1 items-center">
-                                                        {team.online_status === 'ELIGIBLE' && (
-                                                            <span className="text-[10px] text-teal font-bold bg-teal/5 px-2 py-0.5 rounded border border-teal/10">ONLINE: READY</span>
-                                                        )}
-                                                        {team.onsite_status === 'QUALIFIED_PAID' && (
-                                                            <span className="text-[10px] text-purple-600 font-bold bg-purple-50 px-2 py-0.5 rounded border border-purple-100">ONSITE: PAID</span>
-                                                        )}
-                                                        {team.online_status !== 'ELIGIBLE' && (
-                                                            <span className="text-[10px] text-muted">-</span>
-                                                        )}
-                                                    </div>
+                                                    <span className={cn(
+                                                        "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                                        team.online_status === 'ELIGIBLE' ? "bg-purple-50 text-purple-600 border-purple-100" : "bg-gray-100 text-gray-400 border-gray-200"
+                                                    )}>
+                                                        {team.online_status === 'ELIGIBLE' ? 'ELIGIBLE' : 'NOT ELIGIBLE'}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-6 text-center">
+                                                    <span className={cn(
+                                                        "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                                        team.onsite_status === 'QUALIFIED_PAID' ? "bg-green-50 text-green-600 border-green-200" :
+                                                            team.onsite_status === 'QUALIFIED_PENDING' ? "bg-orange-50 text-orange-600 border-orange-200" :
+                                                                "bg-gray-100 text-gray-400 border-gray-200"
+                                                    )}>
+                                                        {team.onsite_status === 'QUALIFIED_PAID' ? 'PAID' :
+                                                            team.onsite_status === 'QUALIFIED_PENDING' ? 'PENDING' : 'NOT QUALIFIED'}
+                                                    </span>
                                                 </td>
                                                 <td className="px-6 py-6 text-right">
                                                     <div className="flex justify-end gap-2">
