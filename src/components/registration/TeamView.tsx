@@ -3,7 +3,6 @@ import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
 import PixelButton from "@/components/ui/PixelButton";
 import InfoRow from "./InfoRow";
 import HandleBadge from "./HandleBadge";
-import DocumentButton from "@/components/ui/DocumentButton";
 
 export default function TeamView({
   team,
@@ -152,13 +151,13 @@ export default function TeamView({
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
                     <span className="text-xs text-muted">ID Document</span>
-                    <DocumentButton url={m.id_document} label="View ID ↗" className="text-xs text-teal hover:underline font-bold flex items-center gap-1 disabled:opacity-50" />
+                    <DocumentButton url={m.id_document} label="View ID ↗" />
                   </div>
                 )}
                 {m.nu_id_document && (
                   <div className="flex justify-between items-center py-1 border-t border-line/30">
                     <span className="text-xs text-muted">NU ID Document</span>
-                    <DocumentButton url={m.nu_id_document} label="View NU ID ↗" className="text-xs text-teal hover:underline font-bold flex items-center gap-1 disabled:opacity-50" />
+                    <DocumentButton url={m.nu_id_document} label="View NU ID ↗" />
                   </div>
                 )}
               </div>
@@ -170,4 +169,42 @@ export default function TeamView({
   );
 }
 
+function DocumentButton({ url, label }: { url: string | null, label: string }) {
+  const [loading, setLoading] = React.useState(false);
 
+  const handleView = async () => {
+    if (!url) return;
+    setLoading(true);
+    try {
+      // Use our BFF proxy which handles the cookies & auth
+      const proxyUrl = `/api/registration/documents?url=${encodeURIComponent(url)}`;
+
+      const res = await fetch(proxyUrl);
+      if (!res.ok) throw new Error("Failed to load document");
+
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, "_blank");
+
+      // Cleanup
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    } catch (e) {
+      console.error(e);
+      alert("Could not load document.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!url) return null;
+
+  return (
+    <button
+      onClick={handleView}
+      disabled={loading}
+      className="text-xs text-teal hover:underline font-bold flex items-center gap-1 disabled:opacity-50"
+    >
+      {loading ? "OPENING..." : label}
+    </button>
+  );
+}

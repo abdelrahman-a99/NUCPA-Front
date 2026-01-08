@@ -2,7 +2,6 @@ import React from "react";
 import { MemberDraft, COUNTRIES, UNIVERSITY_CHOICES, YEAR_CHOICES, MAJOR_CHOICES, UniversityChoice } from "@/lib/registration-data";
 import { PHONE_CODES } from "@/lib/phone-data";
 import Field from "./Field";
-import DocumentButton from "@/components/ui/DocumentButton";
 
 const SORTED_PHONE_CODES = [...PHONE_CODES].sort((a, b) => b.code.length - a.code.length);
 
@@ -329,4 +328,41 @@ export default function MemberForm({
   );
 }
 
+function DocumentButton({ url, label }: { url: string | null | undefined, label: string }) {
+  const [loading, setLoading] = React.useState(false);
 
+  const handleView = async () => {
+    if (!url) return;
+    setLoading(true);
+    try {
+      // Use our BFF proxy which handles the cookies & auth
+      const proxyUrl = `/api/registration/documents?url=${encodeURIComponent(url)}`;
+
+      const res = await fetch(proxyUrl);
+      if (!res.ok) throw new Error("Failed to load document");
+
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, "_blank");
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    } catch (e) {
+      console.error(e);
+      alert("Could not load document.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!url) return null;
+
+  return (
+    <button
+      onClick={(e) => { e.preventDefault(); handleView(); }}
+      disabled={loading}
+      className="text-xs text-teal hover:underline font-bold disabled:opacity-50"
+    >
+      {loading ? "OPENING..." : label}
+    </button>
+  );
+}
