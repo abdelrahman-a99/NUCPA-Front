@@ -26,7 +26,8 @@ async function refreshAccess(refresh: string) {
 }
 
 async function forward(req: Request, method: string) {
-  const { searchParams } = new URL(req.url);
+  // Use a fallback base for parsing in case req.url is relative
+  const { searchParams } = new URL(req.url, "http://localhost");
   const useAdmin = req.headers.get("X-Admin-Access") === "true" || searchParams.get("admin_mode") === "true";
   console.log(`[Proxy] Debug Team Access: UseAdmin=${useAdmin}`);
   const COOKIE_ACCESS = useAdmin ? COOKIE_ACCESS_ADMIN : COOKIE_ACCESS_USER;
@@ -41,7 +42,8 @@ async function forward(req: Request, method: string) {
   }
 
 
-  const queryString = searchParams.toString();
+  const { searchParams: paramsAgain } = new URL(req.url, "http://localhost");
+  const queryString = paramsAgain.toString();
   const url = `${backendBase()}/registration/teams/${queryString ? `?${queryString}` : ""}`;
 
   // Read body if needed

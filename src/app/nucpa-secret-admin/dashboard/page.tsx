@@ -10,7 +10,7 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 export default function AdminDashboardPage() {
-    const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus } = useAdmin();
+    const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus, error } = useAdmin();
     const [search, setSearch] = useState("");
     const [isExporting, setIsExporting] = useState(false);
 
@@ -134,6 +134,12 @@ export default function AdminDashboardPage() {
                             </PixelButton>
                         </div>
                     </div>
+
+                    {error && (
+                        <div className="bg-red/10 border-2 border-red text-red p-4 rounded-xl mb-6 font-bold text-sm">
+                            ⚠️ SYSTEM ERROR: {error}
+                        </div>
+                    )}
 
                     {/* Stats Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
