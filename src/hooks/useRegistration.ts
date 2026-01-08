@@ -113,9 +113,11 @@ export function useRegistration() {
 
   function validateField(fieldName: string, value: any, currentMembers: MemberDraft[], currentTeamName: string): string | undefined {
     if (fieldName === "team_name") {
-      if (!currentTeamName.trim()) return "Team name is required.";
-      if (currentTeamName.length > 40) return "Team name cannot exceed 40 characters.";
-      if (!/^[A-Za-z0-9]/.test(currentTeamName.trim())) return "Team name must start with a letter or number.";
+      const trimmed = currentTeamName.trim();
+      if (!trimmed) return "Team name is required.";
+      if (trimmed.length < 3) return "Team name must be at least 3 characters.";
+      if (trimmed.length > 40) return "Team name cannot exceed 40 characters.";
+      if (!/^[A-Za-z0-9]/.test(trimmed)) return "Team name must start with a letter or number.";
       return undefined;
     }
 
@@ -129,12 +131,14 @@ export function useRegistration() {
       if (key === "name") {
         const val = m.name.trim();
         if (!val) return "Full name is required.";
-        if (val.length < 7) return "Full name must be at least 7 characters.";
+        if (val.length > 100) return "Full name cannot exceed 100 characters.";
         if (!/^[a-zA-Z\s]+$/.test(val)) return "Full name must only contain letters and spaces.";
 
         const parts = val.split(/\s+/);
         if (parts.length < 3) return "Full name must be at least 3 words (First Middle Last).";
         if (parts.some(p => p.length < 3)) return "Each word in the name must be at least 3 characters.";
+        // Min 9 chars (3 words x 3 chars + 2 spaces = 11, but floor at 9)
+        if (val.length < 9) return "Full name must be at least 9 characters.";
       }
       if (key === "email") {
         if (!m.email.trim()) return "Email is required.";
@@ -197,7 +201,48 @@ export function useRegistration() {
         if (!m.nationality.trim()) return "Nationality is required.";
       }
       if (key === "university_other") {
-        if (m.university === "OTHER" && !m.university_other.trim()) return "Please specify your university.";
+        if (m.university === "OTHER") {
+          const val = m.university_other.trim();
+          if (!val) return "Please specify your university.";
+          if (val.length < 3) return "University name must be at least 3 characters.";
+          if (val.length > 100) return "University name cannot exceed 100 characters.";
+        }
+      }
+      if (key === "major") {
+        const val = m.major?.trim() || "";
+        if (!val) return "Major/Field of study is required.";
+        if (val.length < 2) return "Major must be at least 2 characters.";
+        if (val.length > 100) return "Major cannot exceed 100 characters.";
+      }
+      if (key === "university") {
+        // TEENS cross-validation
+        if (m.university === "TEENS" && m.year_of_study !== "TEENS") {
+          return "Year of study must be 'Teens' when university is 'Teens / High School'.";
+        }
+      }
+      if (key === "year_of_study") {
+        // TEENS cross-validation
+        if (m.year_of_study === "TEENS" && m.university !== "TEENS") {
+          return "University must be 'Teens / High School' when year of study is 'Teens'.";
+        }
+      }
+      if (key === "codeforces_handle") {
+        const val = m.codeforces_handle?.trim() || "";
+        if (val) {
+          if (/ /.test(val)) return "Codeforces handle cannot contain spaces.";
+          if (!/^[a-zA-Z0-9_]+$/.test(val)) return "Codeforces handle can only contain letters, numbers, and underscores.";
+          if (val.length < 3) return "Codeforces handle must be at least 3 characters.";
+          if (val.length > 24) return "Codeforces handle cannot exceed 24 characters.";
+        }
+      }
+      if (key === "vjudge_handle") {
+        const val = m.vjudge_handle?.trim() || "";
+        if (val) {
+          if (/ /.test(val)) return "Vjudge handle cannot contain spaces.";
+          if (!/^[a-zA-Z0-9_]+$/.test(val)) return "Vjudge handle can only contain letters, numbers, and underscores.";
+          if (val.length < 3) return "Vjudge handle must be at least 3 characters.";
+          if (val.length > 24) return "Vjudge handle cannot exceed 24 characters.";
+        }
       }
       if (key === "national_id") {
         if (!m.national_id.trim()) return "National ID / Passport is required.";
@@ -216,7 +261,8 @@ export function useRegistration() {
       }
       if (key === "id_document") {
         if (m.id_document) {
-          if (m.id_document.size > 5 * 1024 * 1024) return "ID format too large (Max 5MB).";
+          if (m.id_document.size < 10 * 1024) return "File is too small (min 10KB). Please upload a readable document.";
+          if (m.id_document.size > 5 * 1024 * 1024) return "ID document too large (Max 5MB).";
           const ext = m.id_document.name.split('.').pop()?.toLowerCase();
           if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported ID format. Use JPG, PNG, or PDF.";
         }
@@ -232,6 +278,7 @@ export function useRegistration() {
       if (key === "nu_id_document") {
         if (m.university === "NU") {
           if (m.nu_id_document) {
+            if (m.nu_id_document.size < 10 * 1024) return "File is too small (min 10KB). Please upload a readable document.";
             if (m.nu_id_document.size > 5 * 1024 * 1024) return "NU ID document too large (Max 5MB).";
             const ext = m.nu_id_document.name.split('.').pop()?.toLowerCase();
             if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported NU ID format. Use JPG, PNG, or PDF.";

@@ -125,6 +125,20 @@ export const YEAR_CHOICES = [
   { value: "TEENS", label: "Teens / High School" },
 ];
 
+export const MAJOR_CHOICES = [
+  { value: "", label: "Select Major" },
+  { value: "CS", label: "Computer Science" },
+  { value: "SE", label: "Software Engineering" },
+  { value: "IT", label: "Information Technology" },
+  { value: "CE", label: "Computer Engineering" },
+  { value: "EE", label: "Electrical Engineering" },
+  { value: "ME", label: "Mechanical Engineering" },
+  { value: "MATH", label: "Mathematics" },
+  { value: "PHYSICS", label: "Physics" },
+  { value: "BUSINESS", label: "Business / Management" },
+  { value: "OTHER", label: "Other" },
+];
+
 export type MemberDraft = {
   name: string;
   nationality: string;

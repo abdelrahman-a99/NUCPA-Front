@@ -1,5 +1,5 @@
 import React from "react";
-import { MemberDraft, COUNTRIES, UNIVERSITY_CHOICES, YEAR_CHOICES, UniversityChoice } from "@/lib/registration-data";
+import { MemberDraft, COUNTRIES, UNIVERSITY_CHOICES, YEAR_CHOICES, MAJOR_CHOICES, UniversityChoice } from "@/lib/registration-data";
 import { PHONE_CODES } from "@/lib/phone-data";
 import Field from "./Field";
 
@@ -153,6 +153,13 @@ export default function MemberForm({
             if (nextUni !== "OTHER") {
               updates.university_other = "";
             }
+            // Auto-sync TEENS: if university becomes TEENS, set year_of_study to TEENS
+            if (nextUni === "TEENS") {
+              updates.year_of_study = "TEENS";
+            } else if (value.year_of_study === "TEENS") {
+              // If leaving TEENS university, reset year
+              updates.year_of_study = "FRESHMAN";
+            }
             onChange({ ...value, ...updates });
           }}
           onBlur={() => onBlurField("university")}
@@ -167,19 +174,55 @@ export default function MemberForm({
       </Field>
 
       <Field label="Major" error={errors.major}>
-        <input
-          value={value.major}
-          onChange={(e) => onChange({ ...value, major: e.target.value })}
-          onBlur={() => onBlurField("major")}
-          className="input-modern"
-          placeholder="e.g. Computer Science"
-        />
+        {/* Show dropdown for predefined majors, or text input if 'OTHER' selected */}
+        {value.major === "OTHER" ? (
+          <input
+            value={value.major}
+            onChange={(e) => onChange({ ...value, major: e.target.value })}
+            onBlur={() => onBlurField("major")}
+            className="input-modern"
+            placeholder="Specify your major"
+          />
+        ) : (
+          <select
+            value={MAJOR_CHOICES.find(m => m.value === value.major || m.label === value.major)?.value || value.major}
+            onChange={(e) => {
+              const selected = e.target.value;
+              // If OTHER, we store 'OTHER' and user might type custom
+              // Otherwise store the label for readability
+              const choice = MAJOR_CHOICES.find(m => m.value === selected);
+              onChange({ ...value, major: choice?.label || selected });
+            }}
+            onBlur={() => onBlurField("major")}
+            className="input-modern bg-transparent"
+          >
+            {MAJOR_CHOICES.map((m) => (
+              <option key={m.value} value={m.value}>
+                {m.label}
+              </option>
+            ))}
+          </select>
+        )}
       </Field>
 
       <Field label="Year of Study" error={errors.year_of_study}>
         <select
           value={value.year_of_study}
-          onChange={(e) => onChange({ ...value, year_of_study: e.target.value })}
+          onChange={(e) => {
+            const nextYear = e.target.value;
+            const updates: Partial<MemberDraft> = { year_of_study: nextYear };
+            // Auto-sync TEENS: if year becomes TEENS, set university to TEENS
+            if (nextYear === "TEENS") {
+              updates.university = "TEENS";
+              updates.nu_id = "";
+              updates.nu_id_document = null;
+              updates.university_other = "";
+            } else if (value.university === "TEENS") {
+              // If leaving TEENS year, reset university
+              updates.university = "NU";
+            }
+            onChange({ ...value, ...updates });
+          }}
           onBlur={() => onBlurField("year_of_study")}
           className="input-modern bg-transparent"
         >
