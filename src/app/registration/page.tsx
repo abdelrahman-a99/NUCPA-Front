@@ -7,7 +7,7 @@ import TeamView from "@/components/registration/TeamView";
 import RegistrationForm from "@/components/registration/RegistrationForm";
 import { useRegistration } from "@/hooks/useRegistration";
 import { useState } from "react";
-import ConfirmModal from "@/components/ui/ConfirmModal";
+import ConfirmationModal from "@/components/ui/ConfirmationModal";
 
 export default function RegistrationPage() {
   const {
@@ -117,18 +117,17 @@ export default function RegistrationPage() {
         </div>
       </main>
 
-      <ConfirmModal
+      <ConfirmationModal
         isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
         title="DELETE TEAM?"
         message="Are you sure you want to delete your team? This will remove all your data and you will need to register again."
         onConfirm={() => {
           setIsDeleteModalOpen(false);
           deleteTeam();
         }}
-        onCancel={() => setIsDeleteModalOpen(false)}
-        confirmLabel="YES, DELETE"
-        cancelLabel="KEEP TEAM"
-        variant="danger"
+        confirmText="YES, DELETE"
+        cancelText="KEEP TEAM"
       />
 
       <Footer />
