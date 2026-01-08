@@ -90,6 +90,9 @@ export function useAdmin() {
             if (filters?.is_nu_team) params.append("is_nu_team", "true");
             if (filters?.ordering) params.append("ordering", filters.ordering);
 
+            // Add robust admin flag for proxy
+            params.append("admin_mode", "true");
+
             const query = params.toString() ? `?${params.toString()}` : "";
             const res = await fetch(`/api/registration/teams/${query}`, {
                 headers: { "X-Admin-Access": "true" }

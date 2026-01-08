@@ -26,7 +26,9 @@ async function refreshAccess(refresh: string) {
 }
 
 async function forward(req: Request, method: string) {
-  const useAdmin = req.headers.get("X-Admin-Access") === "true";
+  const { searchParams } = new URL(req.url);
+  const useAdmin = req.headers.get("X-Admin-Access") === "true" || searchParams.get("admin_mode") === "true";
+  console.log(`[Proxy] Debug Team Access: UseAdmin=${useAdmin}`);
   const COOKIE_ACCESS = useAdmin ? COOKIE_ACCESS_ADMIN : COOKIE_ACCESS_USER;
   const COOKIE_REFRESH = useAdmin ? COOKIE_REFRESH_ADMIN : COOKIE_REFRESH_USER;
 
@@ -38,7 +40,7 @@ async function forward(req: Request, method: string) {
     return new NextResponse("Unauthenticated", { status: 401 });
   }
 
-  const { searchParams } = new URL(req.url);
+
   const queryString = searchParams.toString();
   const url = `${backendBase()}/registration/teams/${queryString ? `?${queryString}` : ""}`;
 
