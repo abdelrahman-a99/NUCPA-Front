@@ -402,6 +402,28 @@ export function useRegistration() {
         setError("Your session expired. Please login again.");
         return;
       }
+
+      // Handle rate limiting (429)
+      if (res.status === 429) {
+        const data = await res.json().catch(() => ({}));
+        const waitTime = data.detail?.match(/(\d+)\s*seconds/)?.[1];
+        if (waitTime) {
+          const minutes = Math.ceil(parseInt(waitTime) / 60);
+          setError(`⏳ Too many registration attempts. Please wait ${minutes} minute(s) and try again.`);
+        } else {
+          setError("⏳ Too many registration attempts. Please wait a few minutes and try again.");
+        }
+        setPhase(phase === "editing" ? "editing" : "noTeam");
+        return;
+      }
+
+      // Handle server errors (500)
+      if (res.status >= 500) {
+        setError("🔧 Server error. Our team has been notified. Please try again in a few minutes.");
+        setPhase(phase === "editing" ? "editing" : "noTeam");
+        return;
+      }
+
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         if (typeof data === 'object' && data !== null) {
@@ -426,9 +448,25 @@ export function useRegistration() {
               setError(data.members);
             }
           }
-          if (data.error) setError(data.error);
-          if (data.detail) setError(data.detail);
-          if (data.non_field_errors) setError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors);
+
+          // Handle specific error fields with friendly messages
+          if (data.error) {
+            setError(data.error);
+          } else if (data.detail) {
+            // Make "detail" messages more user-friendly
+            const detail = data.detail;
+            if (detail.includes("throttled")) {
+              setError("⏳ Too many requests. Please wait a moment and try again.");
+            } else if (detail.includes("not found")) {
+              setError("❌ Resource not found. Please refresh the page.");
+            } else if (detail.includes("permission")) {
+              setError("🔒 You don't have permission to perform this action.");
+            } else {
+              setError(detail);
+            }
+          } else if (data.non_field_errors) {
+            setError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors);
+          }
 
           if (Object.keys(newErrors).length > 0) {
             setFieldErrors((prev) => ({ ...prev, ...newErrors }));
@@ -440,7 +478,7 @@ export function useRegistration() {
             return;
           }
         }
-        throw new Error(data.error || data.detail || `Registration failed (${res.status})`);
+        throw new Error(data.error || data.detail || `Registration failed. Please check your data and try again.`);
       }
       await checkTeam();
     } catch (e: any) {
