@@ -140,38 +140,30 @@ export default function MemberForm({
         </select>
       </Field>
 
-      <Field label="University (Searchable)" error={errors.university}>
-        <input
-          list={`universities-${index}`}
-          value={UNIVERSITY_CHOICES.find((u) => u.value === value.university)?.label || ""}
+      <Field label="University" error={errors.university}>
+        <select
+          value={value.university}
           onChange={(e) => {
-            const label = e.target.value;
-            const found = UNIVERSITY_CHOICES.find((u) => u.label === label);
-            if (found) {
-              const nextUni = found.value as UniversityChoice["value"];
-              const updates: Partial<MemberDraft> = { university: nextUni };
-              if (nextUni !== "NU") {
-                updates.nu_id = "";
-                updates.nu_id_document = null;
-              }
-              if (nextUni !== "OTHER") {
-                updates.university_other = "";
-              }
-              onChange({ ...value, ...updates });
-            } else {
-              // Allows deleting text or typing partially
-              // we don't force a value until a match is found
+            const nextUni = e.target.value as UniversityChoice["value"];
+            const updates: Partial<MemberDraft> = { university: nextUni };
+            if (nextUni !== "NU") {
+              updates.nu_id = "";
+              updates.nu_id_document = null;
             }
+            if (nextUni !== "OTHER") {
+              updates.university_other = "";
+            }
+            onChange({ ...value, ...updates });
           }}
           onBlur={() => onBlurField("university")}
-          className="input-modern bg-transparent overflow-ellipsis"
-          placeholder="Type to search university..."
-        />
-        <datalist id={`universities-${index}`}>
+          className="input-modern bg-transparent"
+        >
           {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
-            <option key={u.value} value={u.label} />
+            <option key={u.value} value={u.value}>
+              {u.label}
+            </option>
           ))}
-        </datalist>
+        </select>
       </Field>
 
       <Field label="Major" error={errors.major}>
