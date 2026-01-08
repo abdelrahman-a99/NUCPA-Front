@@ -432,6 +432,8 @@ export function useRegistration() {
       id_document: null, nu_id_document: null, existing_id_url: m.id_document, existing_nu_id_url: m.nu_id_document
     })));
     setPhase("editing");
+    setDataSharingConsent(team.data_sharing_consent || false);
+    setRulesAccepted(true); // Pre-accept rules if they already have a team being edited
   }
 
   async function logout() {

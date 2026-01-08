@@ -71,13 +71,17 @@ export default function TeamView({
         <InfoRow
           label="Application Status"
           value={team.application_status || "PENDING"}
-          highlight={team.application_status === 'APPROVED'}
+          variant={
+            team.application_status === 'APPROVED' ? 'success' :
+              team.application_status === 'REJECTED' ? 'error' :
+                'warning'
+          }
         />
 
         <InfoRow
           label="1st Online Stage"
           value={team.online_status === 'ELIGIBLE' ? "ELIGIBLE 🚀" : "Not Eligible"}
-          highlight={team.online_status === 'ELIGIBLE'}
+          variant={team.online_status === 'ELIGIBLE' ? 'success' : 'info'}
         />
 
         <InfoRow
@@ -87,7 +91,11 @@ export default function TeamView({
               team.onsite_status === 'QUALIFIED_PENDING' ? "QUALIFIED (PAYMENT PENDING)" :
                 "Not Qualified"
           }
-          highlight={team.onsite_status === 'QUALIFIED_PAID'}
+          variant={
+            team.onsite_status === 'QUALIFIED_PAID' ? 'success' :
+              team.onsite_status === 'QUALIFIED_PENDING' ? 'warning' :
+                'info'
+          }
         />
       </div>
 

@@ -3,6 +3,8 @@ import { MemberDraft, COUNTRIES, UNIVERSITY_CHOICES, YEAR_CHOICES, UniversityCho
 import { PHONE_CODES } from "@/lib/phone-data";
 import Field from "./Field";
 
+const SORTED_PHONE_CODES = [...PHONE_CODES].sort((a, b) => b.code.length - a.code.length);
+
 export default function MemberForm({
   value,
   onChange,
@@ -46,9 +48,8 @@ export default function MemberForm({
         {(() => {
           const raw = value.phone_number.trim();
 
-          // Sort by length desc so longer codes match first
-          // Use memo or static sort if performance matters, but for 200 items it's negligible here
-          const sortedCodes = [...PHONE_CODES].sort((a, b) => b.code.length - a.code.length);
+          // Use pre-sorted codes for better performance
+          const sortedCodes = SORTED_PHONE_CODES;
 
           let codeObj = sortedCodes.find(c => c.code === "+20"); // Default to Egypt
           let local = "";
@@ -139,30 +140,38 @@ export default function MemberForm({
         </select>
       </Field>
 
-      <Field label="University" error={errors.university}>
-        <select
-          value={value.university}
+      <Field label="University (Searchable)" error={errors.university}>
+        <input
+          list={`universities-${index}`}
+          value={UNIVERSITY_CHOICES.find((u) => u.value === value.university)?.label || ""}
           onChange={(e) => {
-            const nextUni = e.target.value as UniversityChoice["value"];
-            const updates: Partial<MemberDraft> = { university: nextUni };
-            if (nextUni !== "NU") {
-              updates.nu_id = "";
-              updates.nu_id_document = null;
+            const label = e.target.value;
+            const found = UNIVERSITY_CHOICES.find((u) => u.label === label);
+            if (found) {
+              const nextUni = found.value as UniversityChoice["value"];
+              const updates: Partial<MemberDraft> = { university: nextUni };
+              if (nextUni !== "NU") {
+                updates.nu_id = "";
+                updates.nu_id_document = null;
+              }
+              if (nextUni !== "OTHER") {
+                updates.university_other = "";
+              }
+              onChange({ ...value, ...updates });
+            } else {
+              // Allows deleting text or typing partially
+              // we don't force a value until a match is found
             }
-            if (nextUni !== "OTHER") {
-              updates.university_other = "";
-            }
-            onChange({ ...value, ...updates });
           }}
           onBlur={() => onBlurField("university")}
-          className="input-modern bg-transparent"
-        >
+          className="input-modern bg-transparent overflow-ellipsis"
+          placeholder="Type to search university..."
+        />
+        <datalist id={`universities-${index}`}>
           {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
-            <option key={u.value} value={u.value}>
-              {u.label}
-            </option>
+            <option key={u.value} value={u.label} />
           ))}
-        </select>
+        </datalist>
       </Field>
 
       <Field label="Major" error={errors.major}>
@@ -222,6 +231,9 @@ export default function MemberForm({
           min="1999-01-01"
           max="2011-12-31"
         />
+        <p className="mt-1 text-[10px] text-muted font-medium italic">
+          Must be born between 1999 and 2011 (Ages 14-26)
+        </p>
       </Field>
 
       {value.university === "NU" && (

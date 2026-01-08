@@ -184,4 +184,5 @@ export type TeamDetails = {
   online_status: "NOT_ELIGIBLE" | "ELIGIBLE";
   onsite_status: "NOT_QUALIFIED" | "QUALIFIED_PENDING" | "QUALIFIED_PAID";
   rejection_note?: string;
+  data_sharing_consent?: boolean;
 };
