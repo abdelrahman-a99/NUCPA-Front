@@ -111,6 +111,54 @@ export function useRegistration() {
     }
   }
 
+  async function verifyCodeforcesHandle(handle: string): Promise<string | undefined> {
+    if (!handle || handle.trim().length < 3) return undefined;
+    const cleanHandle = handle.trim();
+
+    try {
+      const res = await fetch(`https://codeforces.com/api/user.info?handles=${cleanHandle}`);
+      const data = await res.json();
+
+      if (data.status === "OK") {
+        return undefined; // Handle exists
+      } else {
+        return `Codeforces handle "${cleanHandle}" not found. Please check spelling.`;
+      }
+    } catch (e) {
+      console.error("CF API error:", e);
+      return undefined; // Don't block on API errors
+    }
+  }
+
+  async function validateImageDimensions(file: File): Promise<string | undefined> {
+    // Only validate image files (skip PDFs)
+    const ext = file.name.split('.').pop()?.toLowerCase();
+    if (!ext || !['jpg', 'jpeg', 'png'].includes(ext)) {
+      return undefined; // Skip dimension check for PDFs
+    }
+
+    return new Promise((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        if (img.width < 300 || img.height < 300) {
+          resolve(`Image too small (${img.width}x${img.height}). Minimum 300x300 pixels for readable ID.`);
+        } else {
+          resolve(undefined);
+        }
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(undefined); // Don't block on image load errors
+      };
+
+      img.src = url;
+    });
+  }
+
   function validateField(fieldName: string, value: any, currentMembers: MemberDraft[], currentTeamName: string): string | undefined {
     if (fieldName === "team_name") {
       const trimmed = currentTeamName.trim();
@@ -319,6 +367,18 @@ export function useRegistration() {
         if (typeof val === "string") {
           if (["phone_number", "national_id", "nu_id", "email"].includes(key)) {
             asyncError = await checkAsyncValidation(key, val);
+          }
+          // Real-time Codeforces handle verification
+          if (key === "codeforces_handle" && val.trim()) {
+            asyncError = await verifyCodeforcesHandle(val);
+          }
+        }
+
+        // Image dimension validation for documents
+        if (key === "id_document" || key === "nu_id_document") {
+          const file = members[index][key as keyof MemberDraft] as File | null;
+          if (file) {
+            asyncError = await validateImageDimensions(file);
           }
         }
       }
