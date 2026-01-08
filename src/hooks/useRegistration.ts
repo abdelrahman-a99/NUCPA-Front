@@ -139,7 +139,7 @@ export function useRegistration() {
       if (key === "email") {
         if (!m.email.trim()) return "Email is required.";
         if (!/\S+@\S+\.\S+/.test(m.email)) return "Invalid email format.";
-        if (!m.email.toLowerCase().endsWith("@gmail.com")) return "Only Gmail addresses are allowed.";
+        // All valid email domains are now accepted
       }
       if (key === "phone_number") {
         if (!m.phone_number.trim()) return "Phone number is required for contact.";

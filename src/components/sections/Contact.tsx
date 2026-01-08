@@ -20,7 +20,8 @@ export default function Contact() {
     // 1. Validation Logic
     const nameRegex = /^[a-zA-Z\s]+$/;
     const phoneRegex = /^[0-9+\s]+$/;
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    // Accept all valid email domains (not just Gmail)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!nameRegex.test(formData.name)) {
       setErrorMessage("Full name must only contain letters and spaces.");
@@ -34,7 +35,7 @@ export default function Contact() {
     }
 
     if (!emailRegex.test(formData.email)) {
-      setErrorMessage("Only Gmail addresses (@gmail.com) are allowed.");
+      setErrorMessage("Please enter a valid email address.");
       setStatus("error");
       return;
     }

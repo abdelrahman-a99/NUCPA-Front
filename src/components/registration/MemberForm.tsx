@@ -36,7 +36,7 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, email: e.target.value })}
           onBlur={() => onBlurField("email")}
           className="input-modern"
-          placeholder={index === 1 ? "Morshedy@gmail.com" : "Hammoda@gmail.com"}
+          placeholder={index === 1 ? "ahmed@example.com" : "sara@university.edu"}
           type="email"
         />
       </Field>
