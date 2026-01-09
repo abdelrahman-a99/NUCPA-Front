@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 function getBackendBaseUrl() {
-    return process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
+    return process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
 }
 
 export default function GoogleCallbackPage() {

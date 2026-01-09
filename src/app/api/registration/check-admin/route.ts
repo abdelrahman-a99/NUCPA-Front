@@ -8,7 +8,7 @@ function backendBase() {
     if (process.env.NODE_ENV === "development") {
         return "http://127.0.0.1:8000";
     }
-    return process.env.NUCPA_API_BASE_URL || process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
+    return process.env.NUCPA_API_BASE_URL || process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
 }
 
 async function refreshAccess(refresh: string) {

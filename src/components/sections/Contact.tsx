@@ -52,7 +52,7 @@ export default function Contact() {
     }
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
+      const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
       const response = await fetch(`${apiUrl}/registration/contact/`, {
         method: "POST",
         headers: {
@@ -79,7 +79,7 @@ export default function Contact() {
       console.error("Submission error:", err);
       setStatus("error");
 
-      const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "https://nucpa-regestration-production.up.railway.app";
+      const apiUrl = process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
       const targetUrl = `${apiUrl}/registration/contact/`;
       let msg = err.message || "Something went wrong. Please try again.";
 
