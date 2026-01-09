@@ -19,20 +19,20 @@ export default function TeamView({
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-line pb-6 mb-8">
         <div>
-          <h2 className="font-pixel text-2xl sm:text-3xl text-ink2 mb-2">YOUR TEAM</h2>
+          <h2 className="font-pixel text-2xl sm:text-3xl text-ink2 mb-2">TEAM REGISTRATION</h2>
           <div className="flex items-center gap-3 text-sm text-muted">
             <span className="inline-block w-2 h-2 rounded-full bg-teal-bright"></span>
-            Manage your roster and status.
+            Registration details and current status.
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
           {(team.application_status === 'PENDING' || team.application_status === 'REJECTED') && (
             <>
               <PixelButton onClick={onEdit} variant="primary" size="sm">
-                EDIT TEAM
+                EDIT REGISTRATION
               </PixelButton>
               <PixelButton onClick={onDelete} variant="outline-red" size="sm">
-                DELETE TEAM
+                WITHDRAW TEAM
               </PixelButton>
             </>
           )}
@@ -45,10 +45,10 @@ export default function TeamView({
           <div className="flex items-start gap-4">
             <div className="p-2 bg-red-100 rounded-full text-xl">🚨</div>
             <div>
-              <h3 className="text-red-800 font-pixel text-lg uppercase mb-1">Application Returned</h3>
+              <h3 className="text-red-800 font-pixel text-lg uppercase mb-1">REGISTRATION RETURNED</h3>
               <p className="text-red-700 text-sm font-bold leading-relaxed mb-2">
-                Please review the note below and edit your team details.
-                <span className="block text-[10px] opacity-75 mt-1">Status will reset to PENDING automatically after you save changes.</span>
+                Please review the note below and update the submitted information.
+                <span className="block text-[10px] opacity-75 mt-1">Upon resubmission, the registration status will be set to PENDING REVIEW.</span>
               </p>
               <div className="bg-white/50 p-3 rounded-lg border border-red-100/50">
                 <p className="text-red-900 font-medium whitespace-pre-wrap text-sm">
@@ -59,7 +59,7 @@ export default function TeamView({
           </div>
           <div className="mt-4 flex justify-end">
             <PixelButton onClick={onEdit} variant="primary" size="sm" className="bg-red-600 hover:bg-red-700 border-red-800 text-white">
-              FIX ISSUES NOW
+              EDIT REGISTRATION
             </PixelButton>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function TeamView({
         <InfoRow label="Team Name" value={team.team_name} large />
 
         <InfoRow
-          label="Application Status"
+          label="Registration Status"
           value={team.application_status || "PENDING"}
           variant={
             team.application_status === 'APPROVED' ? 'success' :
@@ -79,13 +79,13 @@ export default function TeamView({
         />
 
         <InfoRow
-          label="1st Online Stage"
+          label="Online Qualification"
           value={team.online_status === 'ELIGIBLE' ? "ELIGIBLE 🚀" : "Not Eligible"}
           variant={team.online_status === 'ELIGIBLE' ? 'success' : 'info'}
         />
 
         <InfoRow
-          label="Onsite Stage"
+          label="Onsite Qualification"
           value={
             team.onsite_status === 'QUALIFIED_PAID' ? "QUALIFIED (PAID) 💰" :
               team.onsite_status === 'QUALIFIED_PENDING' ? "QUALIFIED (PAYMENT PENDING)" :
@@ -100,7 +100,7 @@ export default function TeamView({
       </div>
 
       <div>
-        <h3 className="font-pixel text-xl text-ink2 mb-6">TEAM MEMBERS</h3>
+        <h3 className="font-pixel text-xl text-ink2 mb-6">TEAM ROSTER</h3>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {team.members.map((m, i) => (
             <div key={m.id} className="group relative rounded-2xl border border-line bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-teal/30">

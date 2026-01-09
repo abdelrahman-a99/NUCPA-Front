@@ -20,7 +20,7 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
 
                 {/* Header */}
                 <div className="bg-teal p-6 flex justify-between items-center border-b-4 border-teal-dark">
-                    <h2 className="font-pixel text-2xl text-white tracking-wide">COMPETITION RULES</h2>
+                    <h2 className="font-pixel text-2xl text-white tracking-wide">CONTEST RULES & CONSENT</h2>
                     <button
                         onClick={onClose}
                         className="text-white/80 hover:text-white transition-colors font-bold text-xl"
@@ -35,14 +35,14 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
                     {/* Section 1: Rules */}
                     <div className="mb-8">
                         <h3 className="font-pixel text-lg text-ink2 mb-4 uppercase border-b-2 border-line/50 pb-2 inline-block">
-                            1. Competition Rules Consent
+                            1. Contest Rules Acknowledgment
                         </h3>
                         <div className="bg-bg/50 p-4 rounded-xl border-2 border-line/30 mb-4 text-sm font-medium text-muted leading-relaxed">
                             <p className="mb-2">
-                                By submitting this application, I confirm that I have read, understood, and agree to comply with the NUCPA and ICPC competition rules and format.
+                                By submitting this registration, I confirm that I have read and understood the NUCPA and ICPC contest rules and agree to comply with them.
                             </p>
                             <p>
-                                I acknowledge that failure to adhere to these rules may result in disqualification or actions determined by the organizing committee.
+                                Violation of these rules may result in disqualification or other actions at the discretion of the organizing committee.
                             </p>
                         </div>
 
@@ -54,7 +54,7 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
                                 className="mt-1 w-5 h-5 rounded border-2 border-line text-teal focus:ring-teal cursor-pointer accent-teal checkbox-pixel"
                             />
                             <span className="text-sm font-bold text-ink">
-                                I agree to the NUCPA & ICPC competition rules. <span className="text-red-500">*</span>
+                                I acknowledge and accept the NUCPA & ICPC contest rules. * <span className="text-red-500">*</span>
                             </span>
                         </label>
                     </div>
@@ -62,14 +62,14 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
                     {/* Section 2: Data Sharing */}
                     <div className="mb-8">
                         <h3 className="font-pixel text-lg text-ink2 mb-4 uppercase border-b-2 border-line/50 pb-2 inline-block">
-                            2. Data Sharing Consent
+                            2. Optional Data Sharing Consent
                         </h3>
                         <div className="bg-bg/50 p-4 rounded-xl border-2 border-line/30 mb-4 text-sm font-medium text-muted leading-relaxed">
                             <p className="mb-2">
-                                By selecting this option, I consent to sharing my provided information with NUCPA and ICPC sponsors and partners for the purpose of potential internships, training opportunities, and job offers.
+                                By enabling this option, I consent to sharing my registration information with NUCPA and official partners for recruitment, internship, or training opportunities.
                             </p>
                             <p>
-                                I understand that choosing not to agree will not affect my participation in the competition.
+                                Declining this option does not affect contest eligibility or participation.
                             </p>
                         </div>
 
@@ -81,7 +81,7 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
                                 className="mt-1 w-5 h-5 rounded border-2 border-line text-teal focus:ring-teal cursor-pointer accent-teal checkbox-pixel"
                             />
                             <span className="text-sm font-bold text-ink">
-                                I agree to share my data with sponsors and partners for career opportunities.
+                                I consent to optional data sharing with official partners.
                             </span>
                         </label>
                     </div>
@@ -104,7 +104,7 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
                         disabled={!rulesAgreed}
                         className={!rulesAgreed ? "opacity-50 cursor-not-allowed" : ""}
                     >
-                        CONFIRM & PROCEED
+                        ACCEPT & CONTINUE
                     </PixelButton>
                 </div>
             </div>

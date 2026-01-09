@@ -22,46 +22,41 @@ export default function MemberForm({
 }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-      <Field label="Full Name" error={errors.name}>
+      <Field label="Contestant Name" error={errors.name}>
         <input
           value={value.name}
           onChange={(e) => onChange({ ...value, name: e.target.value })}
           onBlur={() => onBlurField("name")}
           className="input-modern"
-          placeholder={index === 1 ? "e.g. Omar Ayman Morshedy" : "e.g. Adham Ahmed Hammoda"}
+          placeholder={index === 1 ? "Omar Ayman Morshedy" : "Adham Ahmed Hammoda"}
         />
       </Field>
 
-      <Field label="Email Address" error={errors.email}>
+      <Field label="Email" error={errors.email}>
         <input
           value={value.email}
           onChange={(e) => onChange({ ...value, email: e.target.value })}
           onBlur={() => onBlurField("email")}
           className="input-modern"
-          placeholder={index === 1 ? "ahmed@example.com" : "sara@university.edu"}
+          placeholder={index === 1 ? "Morshedy@example.com" : "Hammoda@example.com"}
           type="email"
         />
       </Field>
 
-      <Field label="Phone number" error={errors.phone_number}>
+      <Field label="Phone" error={errors.phone_number}>
         {/* Helper to parse phone number */}
         {(() => {
           const raw = value.phone_number.trim();
 
-          // Use pre-sorted codes for better performance
           const sortedCodes = SORTED_PHONE_CODES;
-
           let codeObj = sortedCodes.find(c => c.code === "+20"); // Default to Egypt
           let local = "";
 
-          // Try to find a matching prefix
           const matched = sortedCodes.find(c => raw.startsWith(c.code));
           if (matched) {
             codeObj = matched;
             local = raw.slice(matched.code.length).trim();
           } else if (raw.startsWith("+")) {
-            // Fallback: try to match just by code string if exact match fails
-            // (Though the list covers most, manual + entry might happen)
           } else if (raw) {
             local = raw;
           }
@@ -105,27 +100,27 @@ export default function MemberForm({
         })()}
       </Field>
 
-      <Field label="Codeforces Handle (Optional)" error={errors.codeforces_handle}>
+      <Field label="CF Handle (Optional)" error={errors.codeforces_handle}>
         <input
           value={value.codeforces_handle}
           onChange={(e) => onChange({ ...value, codeforces_handle: e.target.value })}
           onBlur={() => onBlurField("codeforces_handle")}
           className="input-modern"
-          placeholder={index === 1 ? "e.g. Morshedy_22" : "e.g. Adhoom"}
+          placeholder={index === 1 ? "Morshedy_22" : "Adhoom"}
         />
       </Field>
 
-      <Field label="Vjudge Handle (Optional)" error={errors.vjudge_handle}>
+      <Field label="VJudge Handle (Optional)" error={errors.vjudge_handle}>
         <input
           value={value.vjudge_handle}
           onChange={(e) => onChange({ ...value, vjudge_handle: e.target.value })}
           onBlur={() => onBlurField("vjudge_handle")}
           className="input-modern"
-          placeholder={index === 1 ? "e.g. Morshdy22" : "e.g. Adhoom"}
+          placeholder={index === 1 ? "Morshdy22" : "Adhoom"}
         />
       </Field>
 
-      <Field label="Nationality" error={errors.nationality}>
+      <Field label="Country" error={errors.nationality}>
         <select
           value={value.nationality}
           onChange={(e) => onChange({ ...value, nationality: e.target.value })}
@@ -153,7 +148,6 @@ export default function MemberForm({
             if (nextUni !== "OTHER") {
               updates.university_other = "";
             }
-            // Auto-sync TEENS: if university becomes TEENS, set year_of_study to TEENS
             if (nextUni === "TEENS") {
               updates.year_of_study = "TEENS";
             } else if (value.year_of_study === "TEENS") {
@@ -173,7 +167,7 @@ export default function MemberForm({
         </select>
       </Field>
 
-      <Field label="Major" error={errors.major}>
+      <Field label="Major / Track" error={errors.major}>
         {/* Show dropdown for predefined majors, or text input if 'OTHER' selected */}
         {value.major === "OTHER" ? (
           <input
@@ -181,15 +175,13 @@ export default function MemberForm({
             onChange={(e) => onChange({ ...value, major: e.target.value })}
             onBlur={() => onBlurField("major")}
             className="input-modern"
-            placeholder="Specify your major"
+            placeholder="CS, CE, AI"
           />
         ) : (
           <select
             value={MAJOR_CHOICES.find(m => m.value === value.major || m.label === value.major)?.value || value.major}
             onChange={(e) => {
               const selected = e.target.value;
-              // If OTHER, we store 'OTHER' and user might type custom
-              // Otherwise store the label for readability
               const choice = MAJOR_CHOICES.find(m => m.value === selected);
               onChange({ ...value, major: choice?.label || selected });
             }}
@@ -205,7 +197,7 @@ export default function MemberForm({
         )}
       </Field>
 
-      <Field label="Year of Study" error={errors.year_of_study}>
+      <Field label="Academic Year" error={errors.year_of_study}>
         <select
           value={value.year_of_study}
           onChange={(e) => {
@@ -218,7 +210,6 @@ export default function MemberForm({
               updates.nu_id_document = null;
               updates.university_other = "";
             } else if (value.university === "TEENS") {
-              // If leaving TEENS year, reset university
               updates.university = "NU";
             }
             onChange({ ...value, ...updates });
@@ -235,7 +226,7 @@ export default function MemberForm({
       </Field>
 
       {value.university === "OTHER" && (
-        <Field label="University Name" error={errors.university_other}>
+        <Field label="Institution Name" error={errors.university_other}>
           <input
             value={value.university_other}
             onChange={(e) => onChange({ ...value, university_other: e.target.value })}
@@ -246,17 +237,17 @@ export default function MemberForm({
         </Field>
       )}
 
-      <Field label={value.nationality === "EG" ? "National ID" : "Passport ID"} error={errors.national_id}>
+      <Field label={value.nationality === "EG" ? "National ID" : "Passport No."} error={errors.national_id}>
         <input
           value={value.national_id}
           onChange={(e) => onChange({ ...value, national_id: e.target.value })}
           onBlur={() => onBlurField("national_id")}
           className="input-modern"
-          placeholder={value.nationality === "EG" ? "299xxxxxxxxxxx" : "Passport number"}
+          placeholder={value.nationality === "EG" ? "299xxxxxxxxxxx" : "A12345678"}
         />
       </Field>
 
-      <Field label="Date of Birth" error={errors.birth_date}>
+      <Field label="Birth Date" error={errors.birth_date}>
         <input
           type="date"
           value={value.birth_date}
@@ -267,7 +258,7 @@ export default function MemberForm({
           max="2011-12-31"
         />
         <p className="mt-1 text-[10px] text-muted font-medium italic">
-          Must be born between 1999 and 2011 (Ages 14-26)
+          Age range: 14–26
         </p>
       </Field>
 
@@ -279,11 +270,11 @@ export default function MemberForm({
               onChange={(e) => onChange({ ...value, nu_id: e.target.value.replace(/\D/g, '') })}
               onBlur={() => onBlurField("nu_id")}
               className="input-modern"
-              placeholder="e.g. 22100xxxx"
+              placeholder="22100xxxx"
             />
           </Field>
 
-          <Field label="NU ID Document" error={errors.nu_id_document}>
+          <Field label="NU ID Proof" error={errors.nu_id_document}>
             <div className="relative">
               <input
                 type="file"
@@ -298,14 +289,14 @@ export default function MemberForm({
             ) : isEditing && value.existing_nu_id_url ? (
               <div className="mt-1 flex items-center gap-2">
                 <p className="text-xs text-muted">Currently:</p>
-                <DocumentButton url={value.existing_nu_id_url} label="View existing NU ID ↗" />
+                <DocumentButton url={value.existing_nu_id_url} label="View ↗" />
               </div>
             ) : null}
           </Field>
         </>
       )}
 
-      <Field label="ID Document" error={errors.id_document}>
+      <Field label="National ID Proof" error={errors.id_document}>
         <div className="relative">
           <input
             type="file"
@@ -320,7 +311,7 @@ export default function MemberForm({
         ) : isEditing && value.existing_id_url ? (
           <div className="mt-1 flex items-center gap-2">
             <p className="text-xs text-muted">Currently:</p>
-            <DocumentButton url={value.existing_id_url} label="View existing document ↗" />
+            <DocumentButton url={value.existing_id_url} label="View ↗" />
           </div>
         ) : null}
       </Field>
@@ -362,7 +353,7 @@ function DocumentButton({ url, label }: { url: string | null | undefined, label:
       disabled={loading}
       className="text-xs text-teal hover:underline font-bold disabled:opacity-50"
     >
-      {loading ? "OPENING..." : label}
+      {loading ? "LOADING..." : label}
     </button>
   );
 }
