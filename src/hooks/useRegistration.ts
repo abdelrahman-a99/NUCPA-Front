@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MemberDraft, TeamDetails } from "@/lib/registration-data";
 import { PHONE_CODES } from "@/lib/phone-data";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
@@ -26,7 +26,7 @@ export function useRegistration() {
   ]);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  const handleSuccess = useMemo(() => () => checkTeam(), []);
+  const handleSuccess = useCallback(() => checkTeam(), []);
   const { login: startGoogleLogin, isLoading: isGoogleLoading, error: googleError } = useGoogleLogin({
     onSuccess: handleSuccess,
   });
