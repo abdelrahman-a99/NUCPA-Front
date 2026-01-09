@@ -49,14 +49,14 @@ export default function RegistrationPage() {
                   <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: "3s" }} />
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Challenger!</h2>
+                  <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Contestant!</h2>
                   <p className="text-muted max-w-md mx-auto font-medium">
-                    To assume your position in the arena, please authenticate with your Google account.
+                    To assume your position in the NUCPA Arena, please authenticate with your Google account.
                   </p>
                 </div>
                 <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
                   <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
-                    {isGoogleLoading ? "CONNECTING..." : "LOGIN WITH GOOGLE"}
+                    {isGoogleLoading ? "CONNECTING..." : "GOOGLE LOGIN"}
                   </PixelButton>
                   <PixelButton href="/" variant="outline-red" size="sm">
                     RETURN HOME
@@ -68,7 +68,7 @@ export default function RegistrationPage() {
             {phase === "checking" && (
               <div className="flex flex-col items-center justify-center py-20 gap-4">
                 <div className="w-16 h-16 border-4 border-teal-bright border-t-transparent rounded-full animate-spin"></div>
-                <p className="text-ink font-pixel animate-pulse">Retrieving Data...</p>
+                <p className="text-ink font-pixel animate-pulse">ACCESSING CONTEST RECORDS...</p>
               </div>
             )}
 
@@ -120,13 +120,13 @@ export default function RegistrationPage() {
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
-        title="DELETE TEAM?"
-        message="Are you sure you want to delete your team? This will remove all your data and you will need to register again."
+        title="WITHDRAW REGISTRATION?"
+        message="Are you sure you want to withdraw your registration? This will remove all your data and you will need to register again."
         onConfirm={() => {
           setIsDeleteModalOpen(false);
           deleteTeam();
         }}
-        confirmText="YES, DELETE"
+        confirmText="YES, WITHDRAW"
         cancelText="KEEP TEAM"
       />
 

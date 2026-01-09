@@ -54,7 +54,7 @@ export default function RulesModal({ isOpen, onClose, onAccept }: RulesModalProp
                                 className="mt-1 w-5 h-5 rounded border-2 border-line text-teal focus:ring-teal cursor-pointer accent-teal checkbox-pixel"
                             />
                             <span className="text-sm font-bold text-ink">
-                                I acknowledge and accept the NUCPA & ICPC contest rules. * <span className="text-red-500">*</span>
+                                I acknowledge and accept the NUCPA & ICPC contest rules. <span className="text-red-500">*</span>
                             </span>
                         </label>
                     </div>

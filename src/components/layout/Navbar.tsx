@@ -104,7 +104,7 @@ export default function Navbar({
                   : "bg-teal text-white border-transparent hover:opacity-90 active:scale-95"
               )}
             >
-              {isLoggedIn ? "LOGOUT" : "SIGN IN"}
+              {isLoggedIn ? "LOGOUT" : "LO"}
             </button>
           )}
         </nav>
@@ -120,7 +120,7 @@ export default function Navbar({
                   : "bg-teal text-white"
               )}
             >
-              {isLoggedIn ? "LOGOUT" : "SIGN IN"}
+              {isLoggedIn ? "LOGOUT" : "LOGIN"}
             </button>
           )}
           <button
