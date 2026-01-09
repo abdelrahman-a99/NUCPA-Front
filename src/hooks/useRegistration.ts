@@ -25,6 +25,8 @@ export function useRegistration() {
     },
   ]);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [dataSharingConsent, setDataSharingConsent] = useState(false);
+  const [rulesAccepted, setRulesAccepted] = useState(false);
 
   const handleSuccess = useCallback(() => checkTeam(), []);
   const { login: startGoogleLogin, isLoading: isGoogleLoading, error: googleError } = useGoogleLogin({
@@ -587,9 +589,6 @@ export function useRegistration() {
     setPhase("idle");
     setError(null);
   }
-
-  const [dataSharingConsent, setDataSharingConsent] = useState(false);
-  const [rulesAccepted, setRulesAccepted] = useState(false);
 
   return {
     phase, setPhase, error, team, teamName, setTeamName, members, setMembers, fieldErrors,
