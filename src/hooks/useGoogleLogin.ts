@@ -27,7 +27,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }, []);
 
   function cleanup() {
-    console.log("[useGoogleLogin] Cleanup triggered.");
     if (pollTimerRef.current) {
       clearInterval(pollTimerRef.current);
       pollTimerRef.current = null;
@@ -47,7 +46,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }
 
   function handleSuccess() {
-    console.log("[useGoogleLogin] Login SUCCESS detected.");
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
@@ -55,7 +53,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }
 
   function handleError(msg: string) {
-    console.error("[useGoogleLogin] Login ERROR detected:", msg);
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
@@ -79,7 +76,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
 
   function handleMessage(event: MessageEvent) {
     if (event.data?.type === "NUCPA_AUTH_SUCCESS" || event.data?.type === "NUCPA_AUTH") {
-      console.log("[useGoogleLogin] Received success signal via postMessage.");
       handleSuccess();
     }
   }
@@ -94,8 +90,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
     const successUrl = `/registration/auth/google/success/?mode=popup&frontend=${encodeURIComponent(window.location.origin)}`;
     const encodedSuccessUrl = encodeURIComponent(successUrl);
     const url = `${backendBase}/accounts/google/login/?next=${encodedSuccessUrl}`;
-
-    console.log("[useGoogleLogin] Opening popup:", url);
 
     const w = 520;
     const h = 680;
@@ -121,7 +115,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
       channelRef.current = new BroadcastChannel("nucpa_auth_channel");
       channelRef.current.onmessage = (event) => {
         if (event.data?.type === "NUCPA_AUTH_SUCCESS") {
-          console.log("[useGoogleLogin] Received success signal via BroadcastChannel.");
           handleSuccess();
         }
       };
@@ -136,32 +129,18 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
         try {
           const signal = JSON.parse(signalRaw);
           if (signal.type === "success") {
-            console.log("[useGoogleLogin] Polling found SUCCESS signal.");
             handleSuccess();
             return;
           } else if (signal.type === "error") {
-            // ... error handling
+            handleError(signal.message);
           }
         } catch (e) {
-          // ignore
+          console.error("[useGoogleLogin] Failed to parse storage signal:", e);
         }
       }
 
       if (authPopupRef.current && authPopupRef.current.closed) {
-        console.log("[useGoogleLogin] Popup closed. Checking for final signal...");
-        // Give a small grace period or check one last time?
-        // We already checked above. If no signal led yet, we assume user closed it manually OR
-        // the callback wrote the signal but we missed the event.
-
-        // Let's do a double check with a slight delay before giving up? 
-        // Or just fail.
-
-        // Use a counter or timestamp to wait a bit after closure? 
-        // For now, let's just cleanup if we really didn't see anything.
-
-        if (!isLoading) return; // already handled
-
-        console.log("[useGoogleLogin] Popup closed without signal (or handled elsewhere).");
+        if (!isLoading) return;
         cleanup();
         setIsLoading(false);
       }

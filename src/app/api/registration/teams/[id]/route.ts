@@ -95,8 +95,6 @@ export async function PATCH(req: Request, ctx: { params: { id: string } }) {
 }
 
 export async function DELETE(req: Request, ctx: { params: { id: string } }) {
-  console.log(`[Proxy] DELETE request for team ${ctx.params.id}`);
   const res = await forward(req, "DELETE", ctx.params.id);
-  console.log(`[Proxy] DELETE response status: ${res.status}`);
   return res;
 }

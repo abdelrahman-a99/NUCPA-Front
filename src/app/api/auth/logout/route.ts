@@ -24,7 +24,6 @@ export async function POST(req: Request) {
       method: "POST",
       headers
     });
-    console.log(`[Logout Proxy] Backend logout response: ${resBack.status}`);
   } catch (e) {
     console.error("[Logout Proxy] Backend logout failed:", e);
   }
