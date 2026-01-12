@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { MemberDraft, TeamDetails } from "@/lib/registration-data";
 import { PHONE_CODES } from "@/lib/phone-data";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
+import { parseErrorMessage } from "@/utils/errorHelpers";
 
 export function useRegistration() {
   const [phase, setPhase] = useState<
@@ -61,7 +62,7 @@ export function useRegistration() {
         setPhase("noTeam");
       }
     } catch (e: any) {
-      setError(e?.message || "Something went wrong.");
+      setError(parseErrorMessage(e));
       setPhase("error");
     }
   }
@@ -468,13 +469,7 @@ export function useRegistration() {
       // Handle rate limiting (429)
       if (res.status === 429) {
         const data = await res.json().catch(() => ({}));
-        const waitTime = data.detail?.match(/(\d+)\s*seconds/)?.[1];
-        if (waitTime) {
-          const minutes = Math.ceil(parseInt(waitTime) / 60);
-          setError(`⏳ Too many registration attempts. Please wait ${minutes} minute(s) and try again.`);
-        } else {
-          setError("⏳ Too many registration attempts. Please wait a few minutes and try again.");
-        }
+        setError(parseErrorMessage(data));
         setPhase(phase === "editing" ? "editing" : "noTeam");
         return;
       }
@@ -512,23 +507,7 @@ export function useRegistration() {
           }
 
           // Handle specific error fields with friendly messages
-          if (data.error) {
-            setError(data.error);
-          } else if (data.detail) {
-            // Make "detail" messages more user-friendly
-            const detail = data.detail;
-            if (detail.includes("throttled")) {
-              setError("⏳ Too many requests. Please wait a moment and try again.");
-            } else if (detail.includes("not found")) {
-              setError("❌ Resource not found. Please refresh the page.");
-            } else if (detail.includes("permission")) {
-              setError("🔒 You don't have permission to perform this action.");
-            } else {
-              setError(detail);
-            }
-          } else if (data.non_field_errors) {
-            setError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors);
-          }
+          setError(parseErrorMessage(data));
 
           if (Object.keys(newErrors).length > 0) {
             setFieldErrors((prev) => ({ ...prev, ...newErrors }));
@@ -544,7 +523,7 @@ export function useRegistration() {
       }
       await checkTeam();
     } catch (e: any) {
-      setError(e?.message || "Registration failed.");
+      setError(parseErrorMessage(e));
       setPhase(phase === "editing" ? "editing" : "noTeam");
     }
   }
@@ -563,7 +542,7 @@ export function useRegistration() {
         { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", id_document: null, nu_id_document: null },
       ]);
     } catch (e: any) {
-      setError(e?.message || "Failed to cancel team");
+      setError(parseErrorMessage(e));
       setPhase("error");
     }
   }

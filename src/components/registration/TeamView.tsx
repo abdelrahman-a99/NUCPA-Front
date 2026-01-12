@@ -3,6 +3,7 @@ import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
 import PixelButton from "@/components/ui/PixelButton";
 import InfoRow from "./InfoRow";
 import HandleBadge from "./HandleBadge";
+import { parseErrorMessage } from "@/utils/errorHelpers";
 
 export default function TeamView({
   team,
@@ -190,7 +191,7 @@ function DocumentButton({ url, label }: { url: string | null, label: string }) {
       setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
     } catch (e) {
       console.error(e);
-      alert("Could not load document.");
+      alert(parseErrorMessage(e));
     } finally {
       setLoading(false);
     }

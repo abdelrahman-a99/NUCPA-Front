@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { parseErrorMessage } from "@/utils/errorHelpers";
 
 function getBackendBaseUrl() {
-  return process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "http://127.0.0.1:8000";
+  return process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
 }
 
 type UseGoogleLoginProps = {
@@ -56,7 +57,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
-    setError(msg);
+    setError(parseErrorMessage(msg));
   }
 
   function handleStorageEvent(event: StorageEvent) {
