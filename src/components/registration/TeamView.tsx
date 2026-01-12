@@ -104,7 +104,7 @@ export default function TeamView({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {team.members.map((m, i) => (
             <div key={m.id} className="group relative rounded-2xl border border-line bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-teal/30">
-              <div className="absolute top-4 right-4 text-xs font-bold text-teal/10 group-hover:text-teal/30 pointer-events-none text-4xl font-pixel">
+              <div className="absolute top-4 right-4 text-xs font-bold text-teal group-hover:text-teal/30 pointer-events-none text-4xl font-pixel">
                 {i === 0 ? "A" : "B"}
               </div>
 
