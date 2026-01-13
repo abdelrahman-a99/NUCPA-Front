@@ -476,6 +476,7 @@ export function useRegistration() {
         method = "PUT";
       }
       const res = await fetch(url, { method, body: fd });
+      console.log(`[useRegistration] submitRegistration response: ${res.status}`);
       if (res.status === 401) {
         setPhase("idle");
         setError("Your session expired. Please login again.");
@@ -492,13 +493,23 @@ export function useRegistration() {
 
       // Handle server errors (500)
       if (res.status >= 500) {
-        setError("🔧 Server error. Our team has been notified. Please try again in a few minutes.");
+        const text = await res.text();
+        console.error(`[useRegistration] Server Error 500+: ${text}`);
+        setError("🔧 Server error. Our team has been notified. Please try again in a few minutes." + (text ? ` (${text.substring(0, 50)}...)` : ""));
         setPhase(phase === "editing" ? "editing" : "noTeam");
         return;
       }
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
+        const text = await res.text();
+        console.error(`[useRegistration] Error Response Body: ${text}`);
+        let data: any = {};
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          console.error("[useRegistration] Failed to parse error JSON:", e);
+        }
+
         if (typeof data === 'object' && data !== null) {
           const newErrors: Record<string, string> = {};
           if (data.team_name) newErrors["team_name"] = Array.isArray(data.team_name) ? data.team_name[0] : data.team_name;
@@ -539,6 +550,7 @@ export function useRegistration() {
       }
       await checkTeam();
     } catch (e: any) {
+      console.error("[useRegistration] Exception:", e);
       setError(parseErrorMessage(e));
       setPhase(phase === "editing" ? "editing" : "noTeam");
     }
