@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
                     </form>
 
                     <p className="mt-8 text-center text-xs text-muted font-bold uppercase tracking-widest opacity-50">
-                        &copy; 2026 Nile University Coding Arena
+                        &copy; 2026 Nile University Competitive Programming Arena
                     </p>
                 </div>
             </main>

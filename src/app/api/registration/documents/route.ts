@@ -35,14 +35,7 @@ export async function GET(req: Request) {
 
     // Security check: ensure the target URL belongs to our backend
     const base = backendBase();
-    // Simple check: startswith
-    // Note: targetUrl might be http vs https if backendBase differs, so be careful.
-    // Ideally we inspect the path.
-    // If targetUrl comes from our serializer, it matches backendBase usually.
-
-    if (!targetUrl.startsWith(base) && !targetUrl.includes("127.0.0.1") && !targetUrl.includes("railway.app")) {
-        // fallback lax check to avoid issues if backendBase env var is slightly different
-        // e.g. trailing slash
+    if (!targetUrl.startsWith(base)) {
         return new NextResponse("Invalid target URL", { status: 400 });
     }
 

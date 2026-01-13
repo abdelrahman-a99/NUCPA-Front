@@ -2,11 +2,11 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "NUCPA - Join the Coding Arena",
+  title: "NUCPA - Join the Competitive Programming Arena",
   description: "Egypt's largest student-led problem-solving competition. Join 300+ teams and compete for glory at Nile University.",
   keywords: ["NUCPA", "Competitive Programming", "Egypt", "Nile University", "Coding Contest", "ICPC"],
   openGraph: {
-    title: "NUCPA - Join the Coding Arena",
+    title: "NUCPA - Join the Competitive Programming Arena",
     description: "Egypt's largest student-led problem-solving competition.",
     url: "https://nucpa.org",
     siteName: "NUCPA",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NUCPA - Join the Coding Arena",
+    title: "NUCPA - Join the Competitive Programming Arena",
     description: "Egypt's largest student-led problem-solving competition.",
     images: ["/assets/logo.png"],
   },

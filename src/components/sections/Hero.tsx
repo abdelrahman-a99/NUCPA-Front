@@ -53,7 +53,7 @@ export default function Hero() {
               JOIN THE
             </h1>
             <h1 className="font-pixel text-4xl lg:text-7xl pt-4 lg:pt-6 text-teal-bright pixel-outline">
-              CODING ARENA
+              COMPETITIVE PROGRAMMING ARENA
             </h1>
 
             <p className="mt-4 text-base lg:text-lg font-semibold tracking-widest max-w-md mx-auto lg:mx-0">
