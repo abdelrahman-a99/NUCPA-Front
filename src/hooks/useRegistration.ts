@@ -297,7 +297,7 @@ export function useRegistration() {
         const val = m.codeforces_handle?.trim() || "";
         if (val) {
           if (/ /.test(val)) return "Codeforces handle cannot contain spaces.";
-          if (!/^[a-zA-Z0-9_.#-]+$/.test(val)) return "Codeforces handle can only contain letters, numbers, underscores, dots, hash signs, and hyphens.";
+          if (!/^[a-zA-Z0-9_.-]+$/.test(val)) return "Codeforces handle can only contain letters, numbers, underscores, dots, and hyphens.";
           if (val.length < 3) return "Codeforces handle must be at least 3 characters.";
           if (val.length > 24) return "Codeforces handle cannot exceed 24 characters.";
         }
