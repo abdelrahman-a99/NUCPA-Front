@@ -38,10 +38,22 @@ export function useRegistration() {
     setError(null);
     setPhase("checking");
     try {
-      const res = await fetch("/api/registration/teams", { method: "GET" });
+      // Add timeout to prevent infinite loading if backend is down
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+      const res = await fetch("/api/registration/teams", {
+        method: "GET",
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
       if (res.status === 401) {
         setPhase("idle");
         return;
+      }
+      if (res.status === 502) {
+        throw new Error("Could not connect to the registration server. Please try again in a moment.");
       }
       if (!res.ok) {
         const text = await res.text();
@@ -62,7 +74,11 @@ export function useRegistration() {
         setPhase("noTeam");
       }
     } catch (e: any) {
-      setError(parseErrorMessage(e));
+      if (e.name === "AbortError") {
+        setError("Connection timed out. The server may be starting up - please try again.");
+      } else {
+        setError(parseErrorMessage(e));
+      }
       setPhase("error");
     }
   }

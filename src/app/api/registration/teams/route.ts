@@ -10,7 +10,9 @@ function backendBase() {
   if (process.env.NODE_ENV === "development") {
     return "http://127.0.0.1:8000";
   }
-  return process.env.NUCPA_API_BASE_URL || process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
+  const url = process.env.NUCPA_API_BASE_URL || process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
+  console.log("[Teams API] Backend URL:", url || "NOT SET!");
+  return url;
 }
 
 async function refreshAccess(refresh: string) {
@@ -41,6 +43,7 @@ async function forward(req: Request, method: string) {
   const { searchParams } = new URL(req.url);
   const queryString = searchParams.toString();
   const url = `${backendBase()}/registration/teams/${queryString ? `?${queryString}` : ""}`;
+  console.log("[Teams API] Fetching:", url);
 
   // Read body if needed
   let reqBody: any = undefined;
@@ -91,9 +94,25 @@ async function forward(req: Request, method: string) {
 }
 
 export async function GET(req: Request) {
-  return forward(req, "GET");
+  try {
+    return await forward(req, "GET");
+  } catch (error: any) {
+    console.error("[Teams API GET] Error:", error.message || error);
+    return new NextResponse(
+      JSON.stringify({ error: "Backend connection failed", details: error.message }),
+      { status: 502, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }
 
 export async function POST(req: Request) {
-  return forward(req, "POST");
+  try {
+    return await forward(req, "POST");
+  } catch (error: any) {
+    console.error("[Teams API POST] Error:", error.message || error);
+    return new NextResponse(
+      JSON.stringify({ error: "Backend connection failed", details: error.message }),
+      { status: 502, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }

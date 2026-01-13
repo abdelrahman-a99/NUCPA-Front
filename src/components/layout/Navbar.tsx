@@ -206,7 +206,7 @@ export default function Navbar({
           <div className="mt-auto pb-6 text-left shrink-0">
             <div className="h-px w-12 bg-line mr-auto mb-6 opacity-50" />
             <p className="text-muted text-[11px] font-bold uppercase tracking-widest leading-relaxed">
-              Nile University<br />Competitive Programming Arena
+              Nile University<br />Coding Arena
             </p>
           </div>
         </div>
