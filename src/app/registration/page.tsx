@@ -51,7 +51,7 @@ export default function RegistrationPage() {
                 <div className="space-y-4">
                   <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Contestant!</h2>
                   <p className="text-muted max-w-md mx-auto font-medium">
-                    To assume your position in the NUCPA Arena, please authenticate with your Google account.
+                    To assume your position in the NUCPA, please authenticate with your Google account.
                   </p>
                 </div>
                 <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
