@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     siteName: "NUCPA",
     images: [
       {
-        url: "/assets/logo.png",
+        url: "/assets/logo_2.png",
         width: 1200,
         height: 630,
         alt: "NUCPA Hero Image",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NUCPA - Join the Competitive Programming Arena",
     description: "Egypt's largest student-led problem-solving competition.",
-    images: ["/assets/logo.png"],
+    images: ["/assets/logo_2.png"],
   },
 };
 
