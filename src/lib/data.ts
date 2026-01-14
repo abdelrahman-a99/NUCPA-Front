@@ -128,29 +128,29 @@ export const PRIZES = {
     {
       title: "1st PLACE (NU):",
       caption: "Gift",
-      images: ["/assets/trophy.png", "/assets/gift.png"],
+      images: ["/assets/gift.png"],
     },
     {
       title: "2nd PLACE (NU):",
       caption: "Gift",
-      images: ["/assets/trophy.png", "/assets/gift.png"],
+      images: ["/assets/gift.png"],
     },
     {
       title: "3rd PLACE (NU):",
       caption: "Gift",
-      images: ["/assets/trophy.png", "/assets/gift.png"],
+      images: ["/assets/gift.png"],
     },
   ],
   hs: [
     {
       title: "1st PLACE (HS):",
       caption: "Gift",
-      images: ["/assets/trophy.png", "/assets/gift.png"],
+      images: ["/assets/gift.png"],
     },
     {
       title: "2nd PLACE (HS):",
       caption: "Gift",
-      images: ["/assets/trophy.png", "/assets/gift.png"],
+      images: ["/assets/gift.png"],
     },
   ],
   first: [
