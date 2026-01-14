@@ -10,7 +10,7 @@ export const CARDS = [
   {
     key: "format",
     title: "CONTEST FORMAT & JUDGING",
-    body: "NUCPA 2026 is held in two stages. The online qualification round takes place on Saturday, February 14th, 2026, and is free to participate.Ranking follows ICPC-style rules; teams are ranked by the number of solved problems, then by penalty time (the total summation of the minutes of accepted submissions plus 20 minutes for each wrong attempt before acceptance). Qualified teams advance to the onsite final round on Friday, April 17th, 2026, which follows the same judging rules.",
+    body: "NUCPA 2026 is held in two stages. The online qualification round takes place on Saturday, February 14th, 2026, and is free to participate. Ranking follows ICPC-style rules; teams are ranked by the number of solved problems, then by penalty time (the total summation of the minutes of accepted submissions plus 20 minutes for each wrong attempt before acceptance). Qualified teams advance to the onsite final round on Friday, April 17th, 2026, which follows the same judging rules.",
     tone: "teal",
   },
   {
