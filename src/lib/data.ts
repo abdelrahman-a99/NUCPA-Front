@@ -76,7 +76,7 @@ export const CARDS = [
 ] as const;
 
 export const TIMELINE_ITEMS = [
-  { title: "Applications Open", date: "February 13th, 2026" },
+  { title: "Applications Open", date: "January 14th, 2026" },
   { title: "Applications Close", date: "February 10th, 2026" },
   { title: "First Stage (Online)", date: "February 14th, 2026" },
   { title: "Qualified Teams", date: "February 25th, 2026" },
