@@ -4,6 +4,7 @@ import PixelButton from "@/components/ui/PixelButton";
 import Field from "./Field";
 import MemberForm from "./MemberForm";
 import RulesModal from "./RulesModal";
+import { Mail } from "lucide-react";
 
 export default function RegistrationForm({
   isEditing = false,
@@ -141,6 +142,22 @@ export default function RegistrationForm({
           >
             {isEditing ? "RESUBMIT" : "SUBMIT"}
           </PixelButton>
+        </div>
+      </div>
+
+      {/* Support Contact Section */}
+      <div className="mt-8 text-center py-4 px-6 bg-bg/50 rounded-xl border border-line/40">
+        <div className="flex items-center justify-center gap-2 text-muted">
+          <Mail className="w-4 h-4" />
+          <span className="text-sm">
+            Need any support? Contact us at{" "}
+            <a
+              href="mailto:contactnucpa@gmail.com"
+              className="text-teal hover:text-teal-dark font-semibold underline underline-offset-2 transition-colors"
+            >
+              contactnucpa@gmail.com
+            </a>
+          </span>
         </div>
       </div>
     </div>
