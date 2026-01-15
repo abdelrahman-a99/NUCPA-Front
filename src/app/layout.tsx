@@ -5,9 +5,7 @@ export const metadata: Metadata = {
   title: "NUCPA - Join the Competitive Programming Arena",
   description: "Egypt's largest student-led problem-solving competition. Join 300+ teams and compete for glory at Nile University.",
   keywords: ["NUCPA", "Competitive Programming", "Egypt", "Nile University", "Coding Contest", "ICPC"],
-  icons: {
-    icon: "/assets/logo_2.png",
-  },
+  keywords: ["NUCPA", "Competitive Programming", "Egypt", "Nile University", "Coding Contest", "ICPC"],
   openGraph: {
     title: "NUCPA - Join the Competitive Programming Arena",
     description: "Egypt's largest student-led problem-solving competition.",
