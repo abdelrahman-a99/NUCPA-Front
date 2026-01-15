@@ -332,6 +332,16 @@ export function useRegistration() {
           if (m.id_document.size > 5 * 1024 * 1024) return "ID document too large (Max 5MB).";
           const ext = m.id_document.name.split('.').pop()?.toLowerCase();
           if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported ID format. Use JPG, PNG, or PDF.";
+          // Check for non-ASCII (Arabic) filename
+          try {
+            const encoder = new TextEncoder();
+            const fileName = m.id_document.name;
+            for (let i = 0; i < fileName.length; i++) {
+              if (fileName.charCodeAt(i) > 127) {
+                return "File name contains Arabic/special characters. Please rename using English letters only. (يرجى إعادة تسمية الملف بأحرف إنجليزية)";
+              }
+            }
+          } catch (e) { }
         }
         if (phase !== "editing" && !m.id_document) return "Personal ID/Passport document is required.";
         if (phase === "editing" && !m.id_document && !m.existing_id_url) return "Personal ID/Passport document is required.";
@@ -349,6 +359,15 @@ export function useRegistration() {
             if (m.nu_id_document.size > 5 * 1024 * 1024) return "NU ID document too large (Max 5MB).";
             const ext = m.nu_id_document.name.split('.').pop()?.toLowerCase();
             if (!ext || !['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) return "Unsupported NU ID format. Use JPG, PNG, or PDF.";
+            // Check for non-ASCII (Arabic) filename
+            try {
+              const fileName = m.nu_id_document.name;
+              for (let i = 0; i < fileName.length; i++) {
+                if (fileName.charCodeAt(i) > 127) {
+                  return "File name contains Arabic/special characters. Please rename using English letters only. (يرجى إعادة تسمية الملف بأحرف إنجليزية)";
+                }
+              }
+            } catch (e) { }
           }
           if (phase !== "editing" && !m.nu_id_document) return "NU Student ID document is required.";
           if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID document is required.";
