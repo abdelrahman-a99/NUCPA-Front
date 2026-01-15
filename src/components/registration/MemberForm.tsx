@@ -258,7 +258,7 @@ export default function MemberForm({
           max="2011-12-31"
         />
         <p className="mt-1 text-[10px] text-muted font-medium italic">
-          Age range: 14–26
+          Age range: 12–25
         </p>
       </Field>
 

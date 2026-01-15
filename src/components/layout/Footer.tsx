@@ -38,7 +38,7 @@ export default function Footer() {
             <a href="https://www.facebook.com/profile.php?id=61585629425649" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:opacity-100">
               <img src="/assets/icon-facebook.svg" alt="" className="h-6 lg:h-8 w-6 lg:w-8" />
             </a>
-            <a href="https://www.linkedin.com/company/nu-icpc/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-100">
+            <a href="https://www.linkedin.com/showcase/nucpa/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-100">
               <img src="/assets/icon-linkedin.svg" alt="" className="h-6 lg:h-8 w-6 lg:w-8" />
             </a>
             <a href="https://www.instagram.com/nucpacompetition/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:opacity-100">
