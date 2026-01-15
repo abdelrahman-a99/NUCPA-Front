@@ -254,11 +254,11 @@ export default function MemberForm({
           onChange={(e) => onChange({ ...value, birth_date: e.target.value })}
           onBlur={() => onBlurField("birth_date")}
           className="input-modern cursor-text"
-          min="1999-01-01"
-          max="2011-12-31"
+          min="2001-02-01"
+          max="2014-02-01"
         />
         <p className="mt-1 text-[10px] text-muted font-medium italic">
-          Age range: 12–25
+          Age range: 12–25 (Born Feb 2001 – Feb 2014)
         </p>
       </Field>
 
