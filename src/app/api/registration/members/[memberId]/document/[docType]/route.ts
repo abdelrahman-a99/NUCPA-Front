@@ -1,8 +1,12 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const COOKIE_ACCESS = "nucpa_access";
-const COOKIE_REFRESH = "nucpa_refresh";
+// User cookies
+const COOKIE_ACCESS_USER = "nucpa_access";
+const COOKIE_REFRESH_USER = "nucpa_refresh";
+// Admin cookies
+const COOKIE_ACCESS_ADMIN = "nucpa_admin_access";
+const COOKIE_REFRESH_ADMIN = "nucpa_admin_refresh";
 
 function backendBase() {
     if (process.env.NODE_ENV === "development") {
@@ -23,14 +27,27 @@ async function refreshAccess(refresh: string) {
     return data as { access: string; refresh?: string };
 }
 
+function getAuthCookies(req: Request) {
+    const useAdmin = req.headers.get("X-Admin-Access") === "true";
+    const COOKIE_ACCESS = useAdmin ? COOKIE_ACCESS_ADMIN : COOKIE_ACCESS_USER;
+    const COOKIE_REFRESH = useAdmin ? COOKIE_REFRESH_ADMIN : COOKIE_REFRESH_USER;
+
+    const c = cookies();
+    return {
+        access: c.get(COOKIE_ACCESS)?.value,
+        refresh: c.get(COOKIE_REFRESH)?.value,
+        COOKIE_ACCESS,
+        COOKIE_REFRESH
+    };
+}
+
 export async function GET(
     req: Request,
     { params }: { params: { memberId: string; docType: string } }
 ) {
     const { memberId, docType } = params;
-    const c = cookies();
-    const access = c.get(COOKIE_ACCESS)?.value;
-    const refresh = c.get(COOKIE_REFRESH)?.value;
+    const { access, refresh, COOKIE_ACCESS, COOKIE_REFRESH } = getAuthCookies(req);
+
 
     if (!access && !refresh) {
         return new NextResponse("Unauthenticated", { status: 401 });
@@ -99,13 +116,12 @@ export async function DELETE(
     { params }: { params: { memberId: string; docType: string } }
 ) {
     const { memberId, docType } = params;
-    const c = cookies();
-    const access = c.get(COOKIE_ACCESS)?.value;
-    const refresh = c.get(COOKIE_REFRESH)?.value;
+    const { access, refresh, COOKIE_ACCESS, COOKIE_REFRESH } = getAuthCookies(req);
 
     if (!access && !refresh) {
         return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
     }
+
 
     const url = `${backendBase()}/registration/members/${memberId}/document/${docType}/`;
 
