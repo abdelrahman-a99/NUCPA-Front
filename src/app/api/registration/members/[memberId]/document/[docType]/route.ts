@@ -90,3 +90,62 @@ export async function GET(
         }
     });
 }
+
+/**
+ * DELETE handler - Deletes a member's document (admin only)
+ */
+export async function DELETE(
+    req: Request,
+    { params }: { params: { memberId: string; docType: string } }
+) {
+    const { memberId, docType } = params;
+    const c = cookies();
+    const access = c.get(COOKIE_ACCESS)?.value;
+    const refresh = c.get(COOKIE_REFRESH)?.value;
+
+    if (!access && !refresh) {
+        return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
+    }
+
+    const url = `${backendBase()}/registration/members/${memberId}/document/${docType}/`;
+
+    const makeRequest = async (accessToken?: string) => {
+        const headers = new Headers();
+        if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
+        return fetch(url, { method: "DELETE", headers });
+    };
+
+    let res = await makeRequest(access);
+
+    // Auto-refresh on 401
+    if (res.status === 401 && refresh) {
+        const tokens = await refreshAccess(refresh);
+        if (!tokens) return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
+
+        res = await makeRequest(tokens.access);
+
+        const data = await res.json().catch(() => ({}));
+        const out = NextResponse.json(data, { status: res.status });
+
+        // Update cookies
+        out.cookies.set(COOKIE_ACCESS, tokens.access, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/"
+        });
+        if (tokens.refresh) {
+            out.cookies.set(COOKIE_REFRESH, tokens.refresh, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                path: "/"
+            });
+        }
+        return out;
+    }
+
+    const data = await res.json().catch(() => ({}));
+    return NextResponse.json(data, { status: res.status });
+}
+

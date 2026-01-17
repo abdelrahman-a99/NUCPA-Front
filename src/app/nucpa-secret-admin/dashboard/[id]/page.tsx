@@ -241,11 +241,26 @@ export default function AdminTeamDetailPage() {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 mt-6 border-t border-line/30">
-                                        <DocumentButton url={m.id_document || null} label="📄 National ID/Passport" />
-                                        {m.nu_student && m.nu_id_document && (
-                                            <DocumentButton url={m.nu_id_document || null} label="🎓 NU Student ID" />
-                                        )}
+                                    <div className="pt-6 mt-6 border-t border-line/30">
+                                        <p className="text-[10px] text-muted font-bold uppercase tracking-wider mb-3">Documents</p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <DocumentButton
+                                                url={m.id_document || null}
+                                                label="📄 National ID/Passport"
+                                                memberId={m.id}
+                                                docType="id_document"
+                                                onDeleted={fetchTeamDetails}
+                                            />
+                                            {m.nu_student && (
+                                                <DocumentButton
+                                                    url={m.nu_id_document || null}
+                                                    label="🎓 NU Student ID"
+                                                    memberId={m.id}
+                                                    docType="nu_id_document"
+                                                    onDeleted={fetchTeamDetails}
+                                                />
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -258,8 +273,22 @@ export default function AdminTeamDetailPage() {
     );
 }
 
-function DocumentButton({ url, label }: { url: string | null, label: string }) {
+function DocumentButton({
+    url,
+    label,
+    memberId,
+    docType,
+    onDeleted
+}: {
+    url: string | null;
+    label: string;
+    memberId: number;
+    docType: "id_document" | "nu_id_document";
+    onDeleted: () => void;
+}) {
     const [loading, setLoading] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const handleView = async () => {
         if (!url) return;
@@ -287,15 +316,86 @@ function DocumentButton({ url, label }: { url: string | null, label: string }) {
         }
     };
 
-    if (!url) return null;
+    const handleDelete = async () => {
+        setShowDeleteConfirm(false);
+        setDeleting(true);
+        try {
+            const res = await fetch(`/api/registration/members/${memberId}/document/${docType}`, {
+                method: "DELETE",
+                headers: { "X-Admin-Access": "true" }
+            });
+
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.error || "Failed to delete document");
+            }
+
+            alert("Document deleted successfully. Member will need to re-upload.");
+            onDeleted(); // Refresh team data
+        } catch (e: any) {
+            console.error(e);
+            alert(e.message || "Could not delete document.");
+        } finally {
+            setDeleting(false);
+        }
+    };
+
+    // Show "No Document" state if no URL
+    if (!url) {
+        return (
+            <div className="flex items-center justify-center gap-2 py-3 bg-red-50 border-2 border-red-200 rounded-xl text-xs font-bold text-red-600 uppercase">
+                ❌ {label.replace("📄 ", "").replace("🎓 ", "")} - MISSING
+            </div>
+        );
+    }
 
     return (
-        <button
-            onClick={handleView}
-            disabled={loading}
-            className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase disabled:opacity-50"
-        >
-            {loading ? "OPENING..." : `${label} ↗`}
-        </button>
+        <div className="flex flex-col gap-2">
+            {/* Delete Confirmation */}
+            {showDeleteConfirm && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-2xl p-6 max-w-sm mx-4 shadow-2xl">
+                        <h3 className="font-pixel text-lg text-red-600 mb-2">DELETE DOCUMENT?</h3>
+                        <p className="text-sm text-muted mb-4">
+                            This will permanently delete the document. The member will need to log in and re-upload.
+                        </p>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setShowDeleteConfirm(false)}
+                                className="flex-1 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink hover:bg-gray-100 transition-all"
+                            >
+                                CANCEL
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                disabled={deleting}
+                                className="flex-1 py-2 bg-red-600 border-2 border-red-700 rounded-xl text-xs font-bold text-white hover:bg-red-700 transition-all disabled:opacity-50"
+                            >
+                                {deleting ? "DELETING..." : "DELETE"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* View Button */}
+            <button
+                onClick={handleView}
+                disabled={loading}
+                className="flex items-center justify-center gap-2 py-3 bg-bg hover:bg-teal/10 border-2 border-line hover:border-teal/30 rounded-xl text-xs font-bold text-ink transition-all uppercase disabled:opacity-50"
+            >
+                {loading ? "OPENING..." : `${label} ↗`}
+            </button>
+
+            {/* Delete Button */}
+            <button
+                onClick={() => setShowDeleteConfirm(true)}
+                disabled={deleting}
+                className="flex items-center justify-center gap-2 py-2 bg-red-50 hover:bg-red-100 border-2 border-red-200 hover:border-red-300 rounded-xl text-[10px] font-bold text-red-600 transition-all uppercase disabled:opacity-50"
+            >
+                🗑️ DELETE & REQUEST RE-UPLOAD
+            </button>
+        </div>
     );
 }
+
