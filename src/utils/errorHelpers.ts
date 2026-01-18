@@ -89,7 +89,11 @@ export function parseErrorMessage(error: unknown): string {
             // Just take the first error for simplicity in a toast/alert
             const firstKey = keys[0];
             const val = errObj[firstKey];
-            const msg = Array.isArray(val) ? val[0] : String(val);
+            const msg = Array.isArray(val)
+                ? val[0]
+                : (typeof val === 'object' && val !== null)
+                    ? JSON.stringify(val)  // Better than "[object Object]"
+                    : String(val);
             // Capitalize field name
             const field = firstKey.charAt(0).toUpperCase() + firstKey.slice(1).replace(/_/g, ' ');
             return `${field}: ${msg}`;
