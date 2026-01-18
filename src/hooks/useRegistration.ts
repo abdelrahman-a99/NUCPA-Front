@@ -353,8 +353,9 @@ export function useRegistration() {
             }
           } catch (e) { }
         }
+        // Only require files for new registrations, not during edits
+        // During edits, teams can upload new files if admin deleted old ones
         if (phase !== "editing" && !m.id_document) return "Personal ID/Passport document is required.";
-        if (phase === "editing" && !m.id_document && !m.existing_id_url) return "Personal ID/Passport document is required.";
       }
       if (key === "nu_id") {
         if (m.university === "NU") {
@@ -379,8 +380,8 @@ export function useRegistration() {
               }
             } catch (e) { }
           }
+          // Only require files for new registrations, not during edits
           if (phase !== "editing" && !m.nu_id_document) return "NU Student ID document is required.";
-          if (phase === "editing" && !m.nu_id_document && !m.existing_nu_id_url) return "NU Student ID document is required.";
         }
       }
 
