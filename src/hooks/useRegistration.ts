@@ -185,6 +185,7 @@ export function useRegistration() {
       if (trimmed.length < 3) return "Team name must be at least 3 characters.";
       if (trimmed.length > 40) return "Team name cannot exceed 40 characters.";
       if (!/^[A-Za-z0-9]/.test(trimmed)) return "Team name must start with a letter or number.";
+      if (!/^[a-zA-Z0-9 _-]+$/.test(trimmed)) return "Team name must only contain English letters, numbers, spaces, hyphens, or underscores.";
       return undefined;
     }
 
