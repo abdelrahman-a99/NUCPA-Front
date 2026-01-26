@@ -5,9 +5,11 @@ import Footer from "@/components/layout/Footer";
 import PixelButton from "@/components/ui/PixelButton";
 import TeamView from "@/components/registration/TeamView";
 import RegistrationForm from "@/components/registration/RegistrationForm";
+import RegistrationMaintenance, { MAINTENANCE_MODE } from "@/components/MaintenanceWrapper";
 import { useRegistration } from "@/hooks/useRegistration";
 import { useState } from "react";
 import ConfirmationModal from "@/components/ui/ConfirmationModal";
+
 
 export default function RegistrationPage() {
   const {
@@ -44,25 +46,29 @@ export default function RegistrationPage() {
 
           <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-5 sm:p-12">
             {phase === "idle" && (
-              <div className="flex flex-col items-center gap-8 text-center py-8">
-                <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
-                  <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: "3s" }} />
+              MAINTENANCE_MODE ? (
+                <RegistrationMaintenance />
+              ) : (
+                <div className="flex flex-col items-center gap-8 text-center py-8">
+                  <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
+                    <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: "3s" }} />
+                  </div>
+                  <div className="space-y-4">
+                    <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Contestant!</h2>
+                    <p className="text-muted max-w-md mx-auto font-medium">
+                      To assume your position in the NUCPA, please authenticate with your Google account.
+                    </p>
+                  </div>
+                  <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
+                    <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
+                      {isGoogleLoading ? "CONNECTING..." : "GOOGLE LOGIN"}
+                    </PixelButton>
+                    <PixelButton href="/" variant="outline-red" size="sm">
+                      RETURN HOME
+                    </PixelButton>
+                  </div>
                 </div>
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Contestant!</h2>
-                  <p className="text-muted max-w-md mx-auto font-medium">
-                    To assume your position in the NUCPA, please authenticate with your Google account.
-                  </p>
-                </div>
-                <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
-                  <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
-                    {isGoogleLoading ? "CONNECTING..." : "GOOGLE LOGIN"}
-                  </PixelButton>
-                  <PixelButton href="/" variant="outline-red" size="sm">
-                    RETURN HOME
-                  </PixelButton>
-                </div>
-              </div>
+              )
             )}
 
             {phase === "checking" && (
