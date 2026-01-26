@@ -22,6 +22,33 @@ export default function RegistrationPage() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const isLoggedIn = phase !== "idle" && phase !== "checking" && phase !== "error";
 
+  // If maintenance mode is on, show maintenance page for ALL states
+  if (MAINTENANCE_MODE) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar
+          isLoggedIn={false}
+          showAuthButton={false}
+          onSignIn={startGoogleLogin}
+        />
+        <main className="flex-grow bg-dots-about relative overflow-hidden">
+          <div className="container-lg py-12 relative z-10 px-4">
+            <header className="text-center mb-10">
+              <h1 className="font-pixel text-4xl sm:text-6xl text-teal-bright pixel-outline drop-shadow-sm">
+                REGISTRATION
+              </h1>
+              <div className="h-1 w-24 bg-teal-bright mx-auto mt-4 rounded-full opacity-60"></div>
+            </header>
+            <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-5 sm:p-12">
+              <RegistrationMaintenance />
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar
@@ -46,29 +73,25 @@ export default function RegistrationPage() {
 
           <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-5 sm:p-12">
             {phase === "idle" && (
-              MAINTENANCE_MODE ? (
-                <RegistrationMaintenance />
-              ) : (
-                <div className="flex flex-col items-center gap-8 text-center py-8">
-                  <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
-                    <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: "3s" }} />
-                  </div>
-                  <div className="space-y-4">
-                    <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Contestant!</h2>
-                    <p className="text-muted max-w-md mx-auto font-medium">
-                      To assume your position in the NUCPA, please authenticate with your Google account.
-                    </p>
-                  </div>
-                  <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
-                    <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
-                      {isGoogleLoading ? "CONNECTING..." : "GOOGLE LOGIN"}
-                    </PixelButton>
-                    <PixelButton href="/" variant="outline-red" size="sm">
-                      RETURN HOME
-                    </PixelButton>
-                  </div>
+              <div className="flex flex-col items-center gap-8 text-center py-8">
+                <div className="bg-teal-bright/10 p-6 rounded-full mb-2">
+                  <div className="w-12 h-12 rounded-full bg-teal-bright animate-bounce" style={{ animationDuration: "3s" }} />
                 </div>
-              )
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-bold text-ink font-pixel">Welcome, Contestant!</h2>
+                  <p className="text-muted max-w-md mx-auto font-medium">
+                    To assume your position in the NUCPA, please authenticate with your Google account.
+                  </p>
+                </div>
+                <div className="flex flex-row flex-wrap justify-center gap-4 mt-2">
+                  <PixelButton onClick={startGoogleLogin} variant="primary" size="sm">
+                    {isGoogleLoading ? "CONNECTING..." : "GOOGLE LOGIN"}
+                  </PixelButton>
+                  <PixelButton href="/" variant="outline-red" size="sm">
+                    RETURN HOME
+                  </PixelButton>
+                </div>
+              </div>
             )}
 
             {phase === "checking" && (
