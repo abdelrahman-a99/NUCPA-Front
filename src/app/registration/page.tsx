@@ -13,7 +13,7 @@ import ConfirmationModal from "@/components/ui/ConfirmationModal";
 
 export default function RegistrationPage() {
   const {
-    phase, setPhase, error, team, teamName, setTeamName, members, setMembers, fieldErrors,
+    phase, setPhase, error, serverError, team, teamName, setTeamName, members, setMembers, fieldErrors,
     startGoogleLogin, isGoogleLoading, googleError, checkTeam, submitRegistration,
     deleteTeam, startEditing, logout, handleBlur,
     dataSharingConsent, setDataSharingConsent, rulesAccepted, setRulesAccepted
@@ -22,8 +22,13 @@ export default function RegistrationPage() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const isLoggedIn = phase !== "idle" && phase !== "checking" && phase !== "error";
 
+  // Show maintenance page if:
+  // 1. MAINTENANCE_MODE flag is true (manual toggle)
+  // 2. Server returned 503 (maintenance) or 500+ (server error)
+  const showMaintenancePage = MAINTENANCE_MODE || serverError !== null;
+
   // If maintenance mode is on, show maintenance page for ALL states
-  if (MAINTENANCE_MODE) {
+  if (showMaintenancePage) {
     return (
       <div className="flex flex-col min-h-screen">
         <Navbar
@@ -41,6 +46,17 @@ export default function RegistrationPage() {
             </header>
             <div className="rounded-xl2 border border-line/60 bg-white shadow-soft transition-all duration-300 hover:shadow-lg p-5 sm:p-12">
               <RegistrationMaintenance />
+              {/* Show retry button if it's a server error (not manual maintenance) */}
+              {serverError && !MAINTENANCE_MODE && (
+                <div className="mt-6 text-center">
+                  <button
+                    onClick={checkTeam}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-teal-bright text-white font-pixel text-sm rounded-lg hover:bg-teal-600 transition-colors"
+                  >
+                    TRY AGAIN
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </main>

@@ -9,6 +9,7 @@ export function useRegistration() {
     "idle" | "checking" | "hasTeam" | "noTeam" | "editing" | "error"
   >("idle");
   const [error, setError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<"maintenance" | "server_error" | null>(null);
   const [team, setTeam] = useState<TeamDetails | null>(null);
   const [teamName, setTeamName] = useState("");
   const [members, setMembers] = useState<MemberDraft[]>(() => [
@@ -52,8 +53,16 @@ export function useRegistration() {
         setPhase("idle");
         return;
       }
-      if (res.status === 502) {
-        throw new Error("Could not connect to the registration server. Please try again in a moment.");
+      // Detect maintenance mode (503) or server errors (500+)
+      if (res.status === 503) {
+        setServerError("maintenance");
+        setPhase("error");
+        return;
+      }
+      if (res.status >= 500) {
+        setServerError("server_error");
+        setPhase("error");
+        return;
       }
       if (!res.ok) {
         const text = await res.text();
@@ -522,12 +531,26 @@ export function useRegistration() {
         return;
       }
 
-      // Handle server errors (500)
+      // Detect maintenance mode (503)
+      if (res.status === 503) {
+        const data = await res.json().catch(() => ({}));
+        if (data.maintenance || data.code === "MAINTENANCE_MODE") {
+          setServerError("maintenance");
+        } else {
+          setServerError("server_error");
+        }
+        setError(data.error || "System is under maintenance. Please try again later.");
+        setPhase("error");
+        return;
+      }
+
+      // Handle server errors (500+)
       if (res.status >= 500) {
         const text = await res.text();
         console.error(`[useRegistration] Server Error 500+: ${text}`);
-        setError("🔧 Server error. Our team has been notified. Please try again in a few minutes." + (text ? ` (${text.substring(0, 50)}...)` : ""));
-        setPhase(phase === "editing" ? "editing" : "noTeam");
+        setServerError("server_error");
+        setError("🔧 Server error. Our team has been notified. Please try again in a few minutes.");
+        setPhase("error");
         return;
       }
 
@@ -629,7 +652,7 @@ export function useRegistration() {
   }
 
   return {
-    phase, setPhase, error, team, teamName, setTeamName, members, setMembers, fieldErrors,
+    phase, setPhase, error, serverError, team, teamName, setTeamName, members, setMembers, fieldErrors,
     startGoogleLogin, isGoogleLoading, googleError, checkTeam, submitRegistration,
     deleteTeam, startEditing, logout, handleBlur,
     dataSharingConsent, setDataSharingConsent, rulesAccepted, setRulesAccepted
