@@ -162,7 +162,8 @@ export default function MemberForm({
             onChange({ ...value, ...updates });
           }}
           onBlur={() => onBlurField("university")}
-          className="input-modern bg-transparent"
+          disabled={isApproved}
+          className={`input-modern bg-transparent ${restrictedClass}`}
         >
           {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
             <option key={u.value} value={u.value}>

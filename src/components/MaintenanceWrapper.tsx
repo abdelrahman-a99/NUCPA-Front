@@ -5,7 +5,7 @@
 // Set this to true to enable maintenance mode
 // Set to false to disable maintenance mode
 // =====================================================
-export const MAINTENANCE_MODE = true;
+export const MAINTENANCE_MODE = false;
 // =====================================================
 
 export default function RegistrationMaintenance() {
