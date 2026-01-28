@@ -129,6 +129,7 @@ export default function RegistrationPage() {
             {(phase === "noTeam" || phase === "editing") && (
               <RegistrationForm
                 isEditing={phase === "editing"}
+                applicationStatus={team?.application_status}
                 teamName={teamName}
                 setTeamName={setTeamName}
                 members={members}

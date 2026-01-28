@@ -10,6 +10,7 @@ export default function MemberForm({
   onChange,
   errors,
   isEditing,
+  isApproved = false,
   onBlurField,
   index = 0,
 }: {
@@ -17,9 +18,11 @@ export default function MemberForm({
   onChange: (v: MemberDraft) => void;
   errors: Record<string, string | undefined>;
   isEditing?: boolean;
+  isApproved?: boolean;
   onBlurField: (name: string) => void;
   index?: number;
 }) {
+  const restrictedClass = isApproved ? "opacity-60 bg-bg cursor-not-allowed" : "";
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
       <Field label="Contestant Name" error={errors.name}>
@@ -27,7 +30,8 @@ export default function MemberForm({
           value={value.name}
           onChange={(e) => onChange({ ...value, name: e.target.value })}
           onBlur={() => onBlurField("name")}
-          className="input-modern"
+          disabled={isApproved}
+          className={`input-modern ${restrictedClass}`}
           placeholder={index === 1 ? "Omar Ayman Morshedy" : "Adham Ahmed Hammoda"}
         />
       </Field>
@@ -125,7 +129,8 @@ export default function MemberForm({
           value={value.nationality}
           onChange={(e) => onChange({ ...value, nationality: e.target.value })}
           onBlur={() => onBlurField("nationality")}
-          className="input-modern bg-transparent"
+          disabled={isApproved}
+          className={`input-modern bg-transparent ${restrictedClass}`}
         >
           {COUNTRIES.map((c) => (
             <option key={c.value} value={c.value}>
@@ -242,7 +247,8 @@ export default function MemberForm({
           value={value.national_id}
           onChange={(e) => onChange({ ...value, national_id: e.target.value })}
           onBlur={() => onBlurField("national_id")}
-          className="input-modern"
+          disabled={isApproved}
+          className={`input-modern ${restrictedClass}`}
           placeholder={value.nationality === "EG" ? "299xxxxxxxxxxx" : "A12345678"}
         />
       </Field>
@@ -253,7 +259,8 @@ export default function MemberForm({
           value={value.birth_date}
           onChange={(e) => onChange({ ...value, birth_date: e.target.value })}
           onBlur={() => onBlurField("birth_date")}
-          className="input-modern cursor-text"
+          disabled={isApproved}
+          className={`input-modern cursor-text ${restrictedClass}`}
           min="2001-02-01"
           max="2014-02-01"
         />
@@ -269,18 +276,20 @@ export default function MemberForm({
               value={value.nu_id}
               onChange={(e) => onChange({ ...value, nu_id: e.target.value.replace(/\D/g, '') })}
               onBlur={() => onBlurField("nu_id")}
-              className="input-modern"
+              disabled={isApproved}
+              className={`input-modern ${restrictedClass}`}
               placeholder="22100xxxx"
             />
           </Field>
 
           <Field label="NU ID Proof" error={errors.nu_id_document}>
-            <div className="relative">
+            <div className={`relative ${isApproved ? 'pointer-events-none grayscale opacity-50' : ''}`}>
               <input
                 type="file"
                 accept="image/*,application/pdf"
                 onChange={(e) => onChange({ ...value, nu_id_document: e.target.files?.[0] || null })}
                 onBlur={() => onBlurField("nu_id_document")}
+                disabled={isApproved}
                 className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
               />
             </div>
@@ -297,12 +306,13 @@ export default function MemberForm({
       )}
 
       <Field label="National ID Proof" error={errors.id_document}>
-        <div className="relative">
+        <div className={`relative ${isApproved ? 'pointer-events-none grayscale opacity-50' : ''}`}>
           <input
             type="file"
             accept="image/*,application/pdf"
             onChange={(e) => onChange({ ...value, id_document: e.target.files?.[0] || null })}
             onBlur={() => onBlurField("id_document")}
+            disabled={isApproved}
             className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
           />
         </div>

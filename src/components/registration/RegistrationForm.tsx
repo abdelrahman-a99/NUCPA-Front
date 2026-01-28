@@ -8,6 +8,7 @@ import { Mail } from "lucide-react";
 
 export default function RegistrationForm({
   isEditing = false,
+  applicationStatus = 'PENDING',
   teamName,
   setTeamName,
   members,
@@ -23,6 +24,7 @@ export default function RegistrationForm({
   setDataSharingConsent
 }: {
   isEditing?: boolean;
+  applicationStatus?: string;
   teamName: string;
   setTeamName: (v: string) => void;
   members: MemberDraft[];
@@ -38,6 +40,7 @@ export default function RegistrationForm({
   setDataSharingConsent: (v: boolean) => void;
 }) {
   const [isRulesModalOpen, setIsRulesModalOpen] = React.useState(false);
+  const isApproved = applicationStatus === 'APPROVED';
 
   return (
     <div className="animate-in fade-in zoom-in-95 duration-300">
@@ -61,6 +64,11 @@ export default function RegistrationForm({
               ? "Update your team details below."
               : "Team size constraint: exactly 2 members"}
           </p>
+          {isApproved && (
+            <p className="mt-2 text-xs text-teal-dark bg-teal-50 border border-teal/20 p-2 rounded-lg inline-block">
+              ℹ️ Your team is <strong>APPROVED</strong>. Identity details are locked, but contact and academic records remain editable.
+            </p>
+          )}
         </div>
         <div className="flex gap-2">
           {onCancel && (
@@ -77,7 +85,8 @@ export default function RegistrationForm({
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
             onBlur={() => onBlurField("team_name")}
-            className="w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-pixel text-sm"
+            disabled={isApproved}
+            className={`w-full h-12 rounded-xl border border-line bg-bg/50 px-4 transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 focus:bg-white outline-none font-pixel text-sm ${isApproved ? 'opacity-60 bg-bg cursor-not-allowed' : ''}`}
             placeholder="4aklna 8er2na ya 3mo samy"
           />
         </Field>
@@ -101,6 +110,7 @@ export default function RegistrationForm({
                 .filter((k) => k.startsWith(`member${i}_`))
                 .reduce((acc, k) => ({ ...acc, [k.replace(`member${i}_`, "")]: fieldErrors[k] }), {})}
               isEditing={isEditing}
+              isApproved={isApproved}
               onBlurField={(sub) => onBlurField(`member${i}_${sub}`)}
             />
           </div>

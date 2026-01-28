@@ -27,14 +27,16 @@ export default function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          {(team.application_status === 'PENDING' || team.application_status === 'REJECTED') && (
+          {(team.application_status === 'PENDING' || team.application_status === 'REJECTED' || team.application_status === 'APPROVED') && (
             <>
               <PixelButton onClick={onEdit} variant="primary" size="sm">
                 EDIT REGISTRATION
               </PixelButton>
-              <PixelButton onClick={onDelete} variant="outline-red" size="sm">
-                WITHDRAW TEAM
-              </PixelButton>
+              {(team.application_status === 'PENDING' || team.application_status === 'REJECTED') && (
+                <PixelButton onClick={onDelete} variant="outline-red" size="sm">
+                  WITHDRAW TEAM
+                </PixelButton>
+              )}
             </>
           )}
         </div>
