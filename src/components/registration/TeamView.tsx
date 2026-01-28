@@ -154,13 +154,17 @@ export default function TeamView({
                 {m.id_document && (
                   <div className="flex justify-between items-center py-1">
                     <span className="text-xs text-muted">ID Document</span>
-                    <DocumentButton url={m.id_document} label="View ID ↗" />
+                    <span className="text-xs text-teal font-bold flex items-center gap-1">
+                      ✅ FILE UPLOADED
+                    </span>
                   </div>
                 )}
                 {m.nu_id_document && (
                   <div className="flex justify-between items-center py-1 border-t border-line/30">
                     <span className="text-xs text-muted">NU ID Document</span>
-                    <DocumentButton url={m.nu_id_document} label="View NU ID ↗" />
+                    <span className="text-xs text-teal font-bold flex items-center gap-1">
+                      ✅ FILE UPLOADED
+                    </span>
                   </div>
                 )}
               </div>
