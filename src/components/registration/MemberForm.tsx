@@ -282,7 +282,7 @@ export default function MemberForm({
           </Field>
 
           <Field label="NU ID Proof" error={errors.nu_id_document}>
-            <div className={`relative`}>
+            <div className={`relative ${isApproved ? 'pointer-events-none grayscale opacity-50' : ''}`}>
               <input
                 type="file"
                 accept="image/*,application/pdf"

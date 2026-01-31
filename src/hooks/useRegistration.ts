@@ -480,7 +480,10 @@ export function useRegistration() {
   async function submitRegistration() {
     setError(null);
     setFieldErrors({});
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      setError("Please fix the errors in the form before submitting.");
+      return;
+    }
     setPhase("checking");
     try {
       const fd = new FormData();
