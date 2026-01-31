@@ -162,8 +162,7 @@ export default function MemberForm({
             onChange({ ...value, ...updates });
           }}
           onBlur={() => onBlurField("university")}
-          disabled={isApproved}
-          className={`input-modern bg-transparent ${restrictedClass}`}
+          className={`input-modern bg-transparent`}
         >
           {UNIVERSITY_CHOICES.map((u: UniversityChoice) => (
             <option key={u.value} value={u.value}>
@@ -277,20 +276,18 @@ export default function MemberForm({
               value={value.nu_id}
               onChange={(e) => onChange({ ...value, nu_id: e.target.value.replace(/\D/g, '') })}
               onBlur={() => onBlurField("nu_id")}
-              disabled={isApproved}
-              className={`input-modern ${restrictedClass}`}
+              className={`input-modern`}
               placeholder="22100xxxx"
             />
           </Field>
 
           <Field label="NU ID Proof" error={errors.nu_id_document}>
-            <div className={`relative ${isApproved ? 'pointer-events-none grayscale opacity-50' : ''}`}>
+            <div className={`relative`}>
               <input
                 type="file"
                 accept="image/*,application/pdf"
                 onChange={(e) => onChange({ ...value, nu_id_document: e.target.files?.[0] || null })}
                 onBlur={() => onBlurField("nu_id_document")}
-                disabled={isApproved}
                 className="w-full text-sm text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-bright/10 file:text-teal-bright hover:file:bg-teal-bright/20 cursor-pointer"
               />
             </div>
