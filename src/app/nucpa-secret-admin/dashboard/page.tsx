@@ -198,13 +198,13 @@ export default function AdminDashboardPage() {
         const approvedTeams = teams.filter(t => t.application_status === 'APPROVED').length;
         const paidTeams = teams.filter(t => t.onsite_status === 'QUALIFIED_PAID').length;
         const readyTeams = teams.filter(t => t.online_status === 'ELIGIBLE').length;
-        const foreignTeams = teams.filter(t => (t as any).has_foreigners === true).length;
-        const incompleteDocsTeams = teams.filter(t => (t as any).documents_complete === false).length;
+        const foreignTeams = teams.filter(t => t.has_foreigners === true).length;
+        const incompleteDocsTeams = teams.filter(t => t.documents_complete === false).length;
 
         // Count unique universities that actually have teams
         const allUniversities = new Set<string>();
         teams.forEach(t => {
-            const unis = (t as any).universities;
+            const unis = t.universities;
             if (Array.isArray(unis)) {
                 unis.forEach((u: string) => allUniversities.add(u));
             }
@@ -219,9 +219,8 @@ export default function AdminDashboardPage() {
         const uniCount: Record<string, number> = {};
         let mixedCount = 0;
 
-        // Step 1: Assign each team to a primary university or "Mixed"
         teams.forEach(t => {
-            const unis = (t as any).universities;
+            const unis = t.universities;
             if (Array.isArray(unis) && unis.length > 0) {
                 const teamUniMap: Record<string, number> = {};
                 unis.forEach(u => {
