@@ -164,6 +164,11 @@ export type TeamDetails = {
   team_name: string;
   member_count?: number;
   created_at: string;
+  // Enhanced admin fields
+  universities?: string[];
+  has_foreigners?: boolean;
+  documents_complete?: boolean;
+  nationalities?: string[];
   members: Array<{
     id: number;
     name: string;
