@@ -74,6 +74,9 @@ export function useAdmin() {
             university?: string,
             has_foreigners?: boolean,
             is_nu_team?: boolean,
+            documents_complete?: string,
+            created_at_after?: string,
+            created_at_before?: string,
             ordering?: string
         }
     ) => {
@@ -88,6 +91,9 @@ export function useAdmin() {
             if (filters?.university) params.append("university", filters.university);
             if (filters?.has_foreigners) params.append("has_foreigners", "true");
             if (filters?.is_nu_team) params.append("is_nu_team", "true");
+            if (filters?.documents_complete) params.append("documents_complete", filters.documents_complete);
+            if (filters?.created_at_after) params.append("created_at_after", filters.created_at_after);
+            if (filters?.created_at_before) params.append("created_at_before", filters.created_at_before);
             if (filters?.ordering) params.append("ordering", filters.ordering);
 
             const query = params.toString() ? `?${params.toString()}` : "";
