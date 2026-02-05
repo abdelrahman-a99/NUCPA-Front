@@ -62,6 +62,11 @@ export default function AdminDashboardPage() {
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [batchRejectNote, setBatchRejectNote] = useState("");
 
+    // New Filters
+    const [docsStatus, setDocsStatus] = useState("all");
+    const [dateFrom, setDateFrom] = useState("");
+    const [dateTo, setDateTo] = useState("");
+
     // Charts Modal State
     const [showChartsModal, setShowChartsModal] = useState(false);
 
@@ -91,6 +96,9 @@ export default function AdminDashboardPage() {
             university: university || undefined,
             has_foreigners: hasForeigners || undefined,
             is_nu_team: isNUTeam || undefined,
+            documents_complete: docsStatus === "all" ? undefined : docsStatus === "complete" ? "true" : "false",
+            created_at_after: dateFrom || undefined,
+            created_at_before: dateTo || undefined,
             ordering
         });
     };
@@ -105,11 +113,14 @@ export default function AdminDashboardPage() {
                 university: university || undefined,
                 has_foreigners: hasForeigners || undefined,
                 is_nu_team: isNUTeam || undefined,
+                documents_complete: docsStatus === "all" ? undefined : docsStatus === "complete" ? "true" : "false",
+                created_at_after: dateFrom || undefined,
+                created_at_before: dateTo || undefined,
                 ordering
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appStatus, onlineStatus, onsiteStatus, university, hasForeigners, isNUTeam, ordering]);
+    }, [appStatus, onlineStatus, onsiteStatus, university, hasForeigners, isNUTeam, docsStatus, dateFrom, dateTo, ordering]);
 
     // Stat card click handlers - filter the team list
     const handleStatClick = (statType: string) => {
@@ -118,6 +129,9 @@ export default function AdminDashboardPage() {
         setUniversity("");
         setHasForeigners(false);
         setIsNUTeam(false);
+        setDocsStatus("all");
+        setDateFrom("");
+        setDateTo("");
 
         // Set active filter for highlighting
         if (activeStatFilter === statType) {
@@ -126,6 +140,7 @@ export default function AdminDashboardPage() {
             setAppStatus("");
             setOnlineStatus("");
             setOnsiteStatus("");
+            setDocsStatus("all");
             return;
         }
 
@@ -157,6 +172,12 @@ export default function AdminDashboardPage() {
                 setOnlineStatus("");
                 setOnsiteStatus("");
                 setHasForeigners(true);
+                break;
+            case "missing_docs":
+                setAppStatus("");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+                setDocsStatus("missing");
                 break;
             case "ready":
                 setAppStatus("");
@@ -193,21 +214,44 @@ export default function AdminDashboardPage() {
         return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount };
     }, [teams]);
 
-    // Chart data: University distribution (top 10)
+    // Chart data: University distribution (listing all > 1, others grouped)
     const universityChartData = useMemo(() => {
         const uniCount: Record<string, number> = {};
+        let totalUnis = 0;
+
         teams.forEach(t => {
             const unis = (t as any).universities;
             if (Array.isArray(unis)) {
                 unis.forEach((u: string) => {
                     uniCount[u] = (uniCount[u] || 0) + 1;
+                    totalUnis++;
                 });
             }
         });
-        return Object.entries(uniCount)
-            .map(([name, value]) => ({ name: name.length > 20 ? name.slice(0, 20) + "..." : name, value, fullName: name }))
-            .sort((a, b) => b.value - a.value)
-            .slice(0, 10);
+
+        const sortedEntries = Object.entries(uniCount).sort((a, b) => b[1] - a[1]);
+
+        const mainData = sortedEntries
+            .filter(([_, value]) => value > 1)
+            .map(([name, value]) => ({
+                name: name,
+                value,
+                percentage: ((value / totalUnis) * 100).toFixed(1)
+            }));
+
+        const othersCount = sortedEntries
+            .filter(([_, value]) => value === 1)
+            .reduce((acc, [_, value]) => acc + value, 0);
+
+        if (othersCount > 0) {
+            mainData.push({
+                name: "Others (1 member)",
+                value: othersCount,
+                percentage: ((othersCount / totalUnis) * 100).toFixed(1)
+            });
+        }
+
+        return mainData;
     }, [teams]);
 
     // Chart data: Registration timeline (last 14 days)
@@ -445,13 +489,19 @@ export default function AdminDashboardPage() {
                             </div>
                             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">🌍</div>
                         </button>
-                        <div className="bg-white border-2 border-orange-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-orange-400 transition-colors">
+                        <button
+                            onClick={() => handleStatClick("missing_docs")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "missing_docs" ? "border-orange-500 ring-4 ring-orange-200" : "border-orange-200 hover:border-orange-400"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Missing Docs</p>
                                 <p className="font-pixel text-3xl text-orange-600">{stats.incompleteDocsTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-lg">📄</div>
-                        </div>
+                        </button>
                         <button
                             onClick={() => handleStatClick("ready")}
                             className={cn(
@@ -547,6 +597,37 @@ export default function AdminDashboardPage() {
                                 ))}
                             </select>
 
+                            {/* Docs Filter */}
+                            <select
+                                value={docsStatus}
+                                onChange={(e) => { setDocsStatus(e.target.value); setActiveStatFilter(null); }}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="all">📄 All Documents</option>
+                                <option value="complete">✅ Complete</option>
+                                <option value="missing">❌ Missing</option>
+                            </select>
+
+                            {/* Date Range */}
+                            <div className="flex items-center gap-2 bg-white rounded-lg border border-line px-2 py-1">
+                                <span className="text-xs font-bold text-muted">FROM:</span>
+                                <input
+                                    type="date"
+                                    value={dateFrom}
+                                    onChange={(e) => { setDateFrom(e.target.value); setActiveStatFilter(null); }}
+                                    className="text-xs font-bold text-ink2 outline-none bg-transparent"
+                                />
+                            </div>
+                            <div className="flex items-center gap-2 bg-white rounded-lg border border-line px-2 py-1">
+                                <span className="text-xs font-bold text-muted">TO:</span>
+                                <input
+                                    type="date"
+                                    value={dateTo}
+                                    onChange={(e) => { setDateTo(e.target.value); setActiveStatFilter(null); }}
+                                    className="text-xs font-bold text-ink2 outline-none bg-transparent"
+                                />
+                            </div>
+
                             {/* Toggles */}
                             <label className="flex items-center gap-2 px-3 py-2 rounded-lg border border-line bg-white cursor-pointer select-none hover:border-teal/50 transition-colors">
                                 <input
@@ -568,7 +649,7 @@ export default function AdminDashboardPage() {
                                 <span className="text-sm font-bold text-ink2">🏫 NU Teams</span>
                             </label>
 
-                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam || activeStatFilter) && (
+                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam || docsStatus !== "all" || dateFrom || dateTo || activeStatFilter) && (
                                 <button
                                     onClick={() => {
                                         setAppStatus("");
@@ -577,6 +658,9 @@ export default function AdminDashboardPage() {
                                         setUniversity("");
                                         setHasForeigners(false);
                                         setIsNUTeam(false);
+                                        setDocsStatus("all");
+                                        setDateFrom("");
+                                        setDateTo("");
                                         setOrdering("-created_at");
                                         setActiveStatFilter(null);
                                     }}
@@ -786,36 +870,47 @@ export default function AdminDashboardPage() {
                             </div>
 
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-12">
-                                {/* University Distribution Pie Chart */}
+                                {/* University Distribution Bar Chart */}
                                 <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
                                     <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
-                                        🏫 Top Universities
-                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Top 10</span>
+                                        🏫 Universities Distribution
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">All with &gt;1 Member</span>
                                     </h4>
-                                    <div className="h-96">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <PieChart>
-                                                <Pie
-                                                    data={universityChartData}
-                                                    cx="50%"
-                                                    cy="50%"
-                                                    outerRadius={120}
-                                                    innerRadius={60}
-                                                    paddingAngle={2}
-                                                    fill="#8884d8"
+                                    <div className="h-[500px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-line">
+                                        <ResponsiveContainer width="100%" height={Math.max(400, universityChartData.length * 40)}>
+                                            <BarChart
+                                                data={universityChartData}
+                                                layout="vertical"
+                                                margin={{ left: 20, right: 30, top: 10, bottom: 10 }}
+                                            >
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} vertical={true} />
+                                                <XAxis type="number" hide />
+                                                <YAxis
+                                                    dataKey="name"
+                                                    type="category"
+                                                    tick={{ fontSize: 11, fontWeight: 600, fill: '#334155' }}
+                                                    width={150}
+                                                    axisLine={false}
+                                                    tickLine={false}
+                                                />
+                                                <Tooltip
+                                                    cursor={{ fill: '#f1f5f9' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value, name, props) => [`${value} Teams (${props.payload.percentage}%)`, "Count"]}
+                                                />
+                                                <Bar
                                                     dataKey="value"
-                                                    label={({ percent }: any) => `${(percent * 100).toFixed(0)}%`}
+                                                    radius={[0, 4, 4, 0]}
+                                                    animationDuration={1000}
                                                 >
                                                     {universityChartData.map((entry, index) => (
-                                                        <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} strokeWidth={2} />
+                                                        <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={entry.name.startsWith("Others") ? "#94a3b8" : CHART_COLORS[index % CHART_COLORS.length]}
+                                                        />
                                                     ))}
-                                                </Pie>
-                                                <Tooltip
-                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                                                    formatter={(value, name, props) => [value, props.payload.fullName]}
-                                                />
-                                                <Legend verticalAlign="bottom" height={36} iconType="circle" />
-                                            </PieChart>
+                                                </Bar>
+                                            </BarChart>
                                         </ResponsiveContainer>
                                     </div>
                                 </div>
