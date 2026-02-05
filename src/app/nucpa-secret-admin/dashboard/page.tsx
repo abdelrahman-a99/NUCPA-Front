@@ -214,21 +214,20 @@ export default function AdminDashboardPage() {
         return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount };
     }, [teams]);
 
-    // Chart data: University distribution (New logic: categorizing TEAMS)
+    // Chart data: University distribution (Final logic: categorizing TEAMS)
     const universityChartData = useMemo(() => {
         const uniCount: Record<string, number> = {};
         let mixedCount = 0;
 
+        // Step 1: Assign each team to a primary university or "Mixed"
         teams.forEach(t => {
             const unis = (t as any).universities;
             if (Array.isArray(unis) && unis.length > 0) {
-                // Find frequency of each university in this team
                 const teamUniMap: Record<string, number> = {};
                 unis.forEach(u => {
                     teamUniMap[u] = (teamUniMap[u] || 0) + 1;
                 });
 
-                // Find if any uni has >= 2 members
                 const topUniEntry = Object.entries(teamUniMap).find(([_, count]) => count >= 2);
 
                 if (topUniEntry) {
@@ -242,7 +241,18 @@ export default function AdminDashboardPage() {
             }
         });
 
-        const mainData = Object.entries(uniCount)
+        // Step 2: Group universities that only have ONE team into "Mixed"
+        const finalUniCount: Record<string, number> = {};
+        Object.entries(uniCount).forEach(([name, count]) => {
+            if (count > 1) {
+                finalUniCount[name] = count;
+            } else {
+                mixedCount += count;
+            }
+        });
+
+        // Step 3: Format for chart
+        const mainData = Object.entries(finalUniCount)
             .map(([name, value]) => ({
                 name,
                 value,
