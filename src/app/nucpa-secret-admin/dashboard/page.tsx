@@ -767,78 +767,121 @@ export default function AdminDashboardPage() {
 
             {/* Charts Modal */}
             {showChartsModal && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
-                    <div className="bg-white rounded-2xl p-6 w-full max-w-6xl shadow-2xl my-8">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="font-pixel text-2xl text-ink2">📊 Analytics Dashboard</h3>
-                            <button
-                                onClick={() => setShowChartsModal(false)}
-                                className="w-10 h-10 rounded-full bg-bg hover:bg-gray-200 flex items-center justify-center text-lg transition-colors"
-                            >
-                                ✕
-                            </button>
-                        </div>
-
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            {/* University Distribution Pie Chart */}
-                            <div className="bg-bg border-2 border-line rounded-2xl p-6">
-                                <h4 className="font-pixel text-lg text-ink2 mb-4">🏫 Top Universities</h4>
-                                <div className="h-64">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <PieChart>
-                                            <Pie
-                                                data={universityChartData}
-                                                cx="50%"
-                                                cy="50%"
-                                                outerRadius={80}
-                                                fill="#8884d8"
-                                                dataKey="value"
-                                                label={({ value }) => `${value}`}
-                                            >
-                                                {universityChartData.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                                                ))}
-                                            </Pie>
-                                            <Tooltip formatter={(value, name, props) => [value, props.payload.fullName]} />
-                                            <Legend />
-                                        </PieChart>
-                                    </ResponsiveContainer>
+                <div className="fixed inset-0 bg-bg z-50 overflow-y-auto animate-in fade-in duration-200">
+                    <div className="min-h-screen w-full p-4 md:p-8">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="flex items-center justify-between mb-8 sticky top-0 bg-bg/95 backdrop-blur-sm py-4 z-10 border-b border-line">
+                                <div>
+                                    <h3 className="font-pixel text-3xl text-ink2">📊 Analytics Dashboard</h3>
+                                    <p className="text-muted text-sm font-bold uppercase tracking-widest mt-1">
+                                        Full-screen Data Visualization
+                                    </p>
                                 </div>
+                                <button
+                                    onClick={() => setShowChartsModal(false)}
+                                    className="w-12 h-12 rounded-xl bg-white border-2 border-line hover:border-red-400 hover:bg-red-50 hover:text-red-500 flex items-center justify-center text-xl transition-all shadow-sm"
+                                >
+                                    ✕
+                                </button>
                             </div>
 
-                            {/* Registration Timeline Bar Chart */}
-                            <div className="bg-bg border-2 border-line rounded-2xl p-6">
-                                <h4 className="font-pixel text-lg text-ink2 mb-4">📅 Registrations (14 Days)</h4>
-                                <div className="h-64">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={registrationChartData}>
-                                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                            <XAxis dataKey="date" tick={{ fontSize: 10 }} />
-                                            <YAxis tick={{ fontSize: 10 }} allowDecimals={false} />
-                                            <Tooltip />
-                                            <Bar dataKey="count" fill="#14b8a6" radius={[4, 4, 0, 0]} />
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-12">
+                                {/* University Distribution Pie Chart */}
+                                <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                                    <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
+                                        🏫 Top Universities
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Top 10</span>
+                                    </h4>
+                                    <div className="h-96">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <PieChart>
+                                                <Pie
+                                                    data={universityChartData}
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    outerRadius={120}
+                                                    innerRadius={60}
+                                                    paddingAngle={2}
+                                                    fill="#8884d8"
+                                                    dataKey="value"
+                                                    label={({ percent }: any) => `${(percent * 100).toFixed(0)}%`}
+                                                >
+                                                    {universityChartData.map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} strokeWidth={2} />
+                                                    ))}
+                                                </Pie>
+                                                <Tooltip
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value, name, props) => [value, props.payload.fullName]}
+                                                />
+                                                <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                                            </PieChart>
+                                        </ResponsiveContainer>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Status Funnel */}
-                            <div className="bg-bg border-2 border-line rounded-2xl p-6">
-                                <h4 className="font-pixel text-lg text-ink2 mb-4">📊 Status Pipeline</h4>
-                                <div className="h-64">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={statusFunnelData} layout="vertical">
-                                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                            <XAxis type="number" tick={{ fontSize: 10 }} allowDecimals={false} />
-                                            <YAxis dataKey="name" type="category" tick={{ fontSize: 11 }} width={70} />
-                                            <Tooltip />
-                                            <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                                                {statusFunnelData.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                                ))}
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                                {/* Registration Timeline Bar Chart */}
+                                <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                                    <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
+                                        📅 Registrations
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Last 14 Days</span>
+                                    </h4>
+                                    <div className="h-96">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <BarChart data={registrationChartData} barSize={32}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                                                <XAxis
+                                                    dataKey="date"
+                                                    tick={{ fontSize: 12, fill: '#64748b' }}
+                                                    axisLine={false}
+                                                    tickLine={false}
+                                                    dy={10}
+                                                />
+                                                <YAxis
+                                                    tick={{ fontSize: 12, fill: '#64748b' }}
+                                                    allowDecimals={false}
+                                                    axisLine={false}
+                                                    tickLine={false}
+                                                    dx={-10}
+                                                />
+                                                <Tooltip
+                                                    cursor={{ fill: '#f1f5f9' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                />
+                                                <Bar dataKey="count" fill="#14b8a6" radius={[6, 6, 0, 0]} animationDuration={1000} />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </div>
+
+                                {/* Status Funnel - Spans Full Width */}
+                                <div className="lg:col-span-2 bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                                    <h4 className="font-pixel text-xl text-ink2 mb-6">📊 Status Pipeline</h4>
+                                    <div className="h-96">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <BarChart data={statusFunnelData} layout="vertical" barSize={48}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={true} vertical={true} />
+                                                <XAxis type="number" tick={{ fontSize: 12, fill: '#64748b' }} allowDecimals={false} axisLine={false} tickLine={false} />
+                                                <YAxis
+                                                    dataKey="name"
+                                                    type="category"
+                                                    tick={{ fontSize: 14, fontWeight: 600, fill: '#334155' }}
+                                                    width={100}
+                                                    axisLine={false}
+                                                    tickLine={false}
+                                                />
+                                                <Tooltip
+                                                    cursor={{ fill: '#f1f5f9' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                />
+                                                <Bar dataKey="value" radius={[0, 8, 8, 0]} animationDuration={1000} label={{ position: 'right', fill: '#64748b', fontSize: 14 }}>
+                                                    {statusFunnelData.map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                                    ))}
+                                                </Bar>
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
                                 </div>
                             </div>
                         </div>
