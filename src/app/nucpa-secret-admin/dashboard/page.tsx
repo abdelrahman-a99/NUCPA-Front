@@ -214,56 +214,43 @@ export default function AdminDashboardPage() {
         return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount };
     }, [teams]);
 
-    // Chart data: University distribution (Final logic: categorizing TEAMS)
+    // Chart data: University distribution (Metric: Member Count)
     const universityChartData = useMemo(() => {
         const uniCount: Record<string, number> = {};
-        let mixedCount = 0;
+        let totalMembers = 0;
 
         teams.forEach(t => {
             const unis = t.universities;
-            if (Array.isArray(unis) && unis.length > 0) {
-                const teamUniMap: Record<string, number> = {};
+            if (Array.isArray(unis)) {
                 unis.forEach(u => {
-                    teamUniMap[u] = (teamUniMap[u] || 0) + 1;
+                    uniCount[u] = (uniCount[u] || 0) + 1;
+                    totalMembers++;
                 });
-
-                const topUniEntry = Object.entries(teamUniMap).find(([_, count]) => count >= 2);
-
-                if (topUniEntry) {
-                    const uniName = topUniEntry[0];
-                    uniCount[uniName] = (uniCount[uniName] || 0) + 1;
-                } else {
-                    mixedCount++;
-                }
-            } else {
-                mixedCount++;
             }
         });
 
-        // Step 2: Group universities that only have ONE team into "Mixed"
-        const finalUniCount: Record<string, number> = {};
-        Object.entries(uniCount).forEach(([name, count]) => {
-            if (count > 1) {
-                finalUniCount[name] = count;
+        const sortedUnis = Object.entries(uniCount).sort((a, b) => b[1] - a[1]);
+
+        const mainData: { name: string; value: number; percentage: string }[] = [];
+        let otherCount = 0;
+
+        sortedUnis.forEach(([name, value]) => {
+            if (value >= 5) {
+                mainData.push({
+                    name,
+                    value,
+                    percentage: totalMembers > 0 ? ((value / totalMembers) * 100).toFixed(1) : "0"
+                });
             } else {
-                mixedCount += count;
+                otherCount += value;
             }
         });
 
-        // Step 3: Format for chart
-        const mainData = Object.entries(finalUniCount)
-            .map(([name, value]) => ({
-                name,
-                value,
-                percentage: teams.length > 0 ? ((value / teams.length) * 100).toFixed(1) : "0"
-            }))
-            .sort((a, b) => b.value - a.value);
-
-        if (mixedCount > 0) {
+        if (otherCount > 0) {
             mainData.push({
-                name: "Mixed Universities",
-                value: mixedCount,
-                percentage: teams.length > 0 ? ((mixedCount / teams.length) * 100).toFixed(1) : "0"
+                name: "Other Universities",
+                value: otherCount,
+                percentage: totalMembers > 0 ? ((otherCount / totalMembers) * 100).toFixed(1) : "0"
             });
         }
 
@@ -292,12 +279,38 @@ export default function AdminDashboardPage() {
         return days;
     }, [teams]);
 
-    // Chart data: Status funnel
-    const statusFunnelData = useMemo(() => [
-        { name: "Pending", value: stats.pendingTeams, color: "#f59e0b" },
+    // Chart data: Codeforces Skill Distribution
+    const cfSkillData = useMemo(() => {
+        const buckets = [
+            { name: "Newbie (<1200)", range: [0, 1199], count: 0, color: "#808080" },
+            { name: "Pupil (1200-1399)", range: [1200, 1399], count: 0, color: "#008000" },
+            { name: "Specialist (1400-1599)", range: [1400, 1599], count: 0, color: "#03a89e" },
+            { name: "Expert (1600-1899)", range: [1600, 1899], count: 0, color: "#0000ff" },
+            { name: "Master+ (1900+)", range: [1900, 9999], count: 0, color: "#ff8c00" },
+            { name: "Unrated", range: [-1, -1], count: 0, color: "#9ca3af" },
+        ];
+
+        teams.forEach(t => {
+            t.members?.forEach(m => {
+                const rating = m.codeforces_info?.rating;
+                if (typeof rating === 'number' && rating >= 0) {
+                    const bucket = buckets.find(b => rating >= b.range[0] && rating <= b.range[1]);
+                    if (bucket) bucket.count++;
+                } else {
+                    buckets[buckets.length - 1].count++;
+                }
+            });
+        });
+
+        return buckets.map(({ name, count, color }) => ({ name: name.split(" (")[0], fullCount: count, color }));
+    }, [teams]);
+
+    // Enhanced Status Funnel Data (Operation Decision Making)
+    const funnelChartData = useMemo(() => [
+        { name: "Registered", value: stats.totalTeams, color: "#94a3b8" },
         { name: "Approved", value: stats.approvedTeams, color: "#14b8a6" },
         { name: "Eligible", value: stats.readyTeams, color: "#8b5cf6" },
-        { name: "Paid", value: stats.paidTeams, color: "#10b981" },
+        { name: "Paid/Final", value: stats.paidTeams, color: "#10b981" },
     ], [stats]);
 
     // Batch selection handlers
@@ -890,7 +903,7 @@ export default function AdminDashboardPage() {
                                 <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
                                     <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
                                         🏫 University Affiliation
-                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Teams by Uni (&gt;= 2 Members)</span>
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Total Members</span>
                                     </h4>
                                     <div className="h-[500px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-line">
                                         <ResponsiveContainer width="100%" height={Math.max(400, universityChartData.length * 40)}>
@@ -912,7 +925,7 @@ export default function AdminDashboardPage() {
                                                 <Tooltip
                                                     cursor={{ fill: '#f1f5f9' }}
                                                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                                                    formatter={(value, name, props) => [`${value} Teams (${props.payload.percentage}%)`, "Count"]}
+                                                    formatter={(value, name, props) => [`${value} Members (${props.payload.percentage}%)`, "Count"]}
                                                 />
                                                 <Bar
                                                     dataKey="value"
@@ -922,7 +935,7 @@ export default function AdminDashboardPage() {
                                                     {universityChartData.map((entry, index) => (
                                                         <Cell
                                                             key={`cell-${index}`}
-                                                            fill={entry.name === "Mixed Universities" ? "#94a3b8" : CHART_COLORS[index % CHART_COLORS.length]}
+                                                            fill={entry.name === "Other Universities" ? "#94a3b8" : CHART_COLORS[index % CHART_COLORS.length]}
                                                         />
                                                     ))}
                                                 </Bar>
@@ -965,18 +978,21 @@ export default function AdminDashboardPage() {
                                     </div>
                                 </div>
 
-                                {/* Status Funnel - Spans Full Width */}
-                                <div className="lg:col-span-2 bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
-                                    <h4 className="font-pixel text-xl text-ink2 mb-6">📊 Status Pipeline</h4>
-                                    <div className="h-96">
+                                {/* Registration Funnel - Operational Insights */}
+                                <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                                    <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
+                                        📊 Registration Funnel
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Conversion Drop-off</span>
+                                    </h4>
+                                    <div className="h-80">
                                         <ResponsiveContainer width="100%" height="100%">
-                                            <BarChart data={statusFunnelData} layout="vertical" barSize={48}>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={true} vertical={true} />
-                                                <XAxis type="number" tick={{ fontSize: 12, fill: '#64748b' }} allowDecimals={false} axisLine={false} tickLine={false} />
+                                            <BarChart data={funnelChartData} layout="vertical" barSize={32}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} vertical={true} />
+                                                <XAxis type="number" hide />
                                                 <YAxis
                                                     dataKey="name"
                                                     type="category"
-                                                    tick={{ fontSize: 14, fontWeight: 600, fill: '#334155' }}
+                                                    tick={{ fontSize: 12, fontWeight: 600, fill: '#64748b' }}
                                                     width={100}
                                                     axisLine={false}
                                                     tickLine={false}
@@ -984,15 +1000,51 @@ export default function AdminDashboardPage() {
                                                 <Tooltip
                                                     cursor={{ fill: '#f1f5f9' }}
                                                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value) => [`${value} Teams`, "Count"]}
                                                 />
-                                                <Bar dataKey="value" radius={[0, 8, 8, 0]} animationDuration={1000} label={{ position: 'right', fill: '#64748b', fontSize: 14 }}>
-                                                    {statusFunnelData.map((entry, index) => (
+                                                <Bar dataKey="value" radius={[0, 6, 6, 0]} animationDuration={1000} label={{ position: 'right', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}>
+                                                    {funnelChartData.map((entry, index) => (
                                                         <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
                                                 </Bar>
                                             </BarChart>
                                         </ResponsiveContainer>
                                     </div>
+                                    <p className="text-[10px] text-muted font-bold uppercase mt-4 text-center">Identifies where teams need encouragement</p>
+                                </div>
+
+                                {/* Codeforces Skill Distribution - Academic Insights */}
+                                <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                                    <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
+                                        🚀 CF Skill Level
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Problem-Setters guide</span>
+                                    </h4>
+                                    <div className="h-80">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <BarChart data={cfSkillData}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                                                <XAxis
+                                                    dataKey="name"
+                                                    tick={{ fontSize: 10, fill: '#64748b', fontWeight: 600 }}
+                                                    axisLine={false}
+                                                    tickLine={false}
+                                                    interval={0}
+                                                />
+                                                <YAxis tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} />
+                                                <Tooltip
+                                                    cursor={{ fill: '#f1f5f9' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value) => [`${value} Members`, "Count"]}
+                                                />
+                                                <Bar dataKey="fullCount" radius={[6, 6, 0, 0]} animationDuration={1000}>
+                                                    {cfSkillData.map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                                    ))}
+                                                </Bar>
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                    <p className="text-[10px] text-muted font-bold uppercase mt-4 text-center">Helps balance problem difficulty</p>
                                 </div>
                             </div>
                         </div>
