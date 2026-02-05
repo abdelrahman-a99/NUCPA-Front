@@ -279,30 +279,38 @@ export default function AdminDashboardPage() {
         return days;
     }, [teams]);
 
-    // Chart data: Codeforces Skill Distribution
+    // Chart data: Codeforces Skill Distribution (Metric: Member Skill)
     const cfSkillData = useMemo(() => {
         const buckets = [
-            { name: "Newbie (<1200)", range: [0, 1199], count: 0, color: "#808080" },
+            { name: "Newbie (<1200)", range: [1, 1199], count: 0, color: "#808080" },
             { name: "Pupil (1200-1399)", range: [1200, 1399], count: 0, color: "#008000" },
             { name: "Specialist (1400-1599)", range: [1400, 1599], count: 0, color: "#03a89e" },
             { name: "Expert (1600-1899)", range: [1600, 1899], count: 0, color: "#0000ff" },
             { name: "Master+ (1900+)", range: [1900, 9999], count: 0, color: "#ff8c00" },
-            { name: "Unrated", range: [-1, -1], count: 0, color: "#9ca3af" },
+            { name: "Unrated", range: [0, 0], count: 0, color: "#9ca3af" },
         ];
 
         teams.forEach(t => {
-            t.members?.forEach(m => {
-                const rating = m.codeforces_info?.rating;
-                if (typeof rating === 'number' && rating >= 0) {
-                    const bucket = buckets.find(b => rating >= b.range[0] && rating <= b.range[1]);
-                    if (bucket) bucket.count++;
-                } else {
-                    buckets[buckets.length - 1].count++;
-                }
-            });
+            const teamMembers = (t as any).members;
+            if (Array.isArray(teamMembers)) {
+                teamMembers.forEach((m: any) => {
+                    const rating = m.codeforces_info?.rating;
+                    if (typeof rating === 'number' && rating > 0) {
+                        const bucket = buckets.find(b => rating >= b.range[0] && rating <= b.range[1]);
+                        if (bucket) bucket.count++;
+                    } else {
+                        // Rating is 0, null, or undefined -> Unrated
+                        buckets[buckets.length - 1].count++;
+                    }
+                });
+            }
         });
 
-        return buckets.map(({ name, count, color }) => ({ name: name.split(" (")[0], fullCount: count, color }));
+        return buckets.map(({ name, count, color }) => ({
+            name: name.split(" (")[0],
+            fullCount: count,
+            color
+        }));
     }, [teams]);
 
     // Enhanced Status Funnel Data (Operation Decision Making)
