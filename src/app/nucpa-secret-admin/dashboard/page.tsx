@@ -9,6 +9,16 @@ import PixelButton from "@/components/ui/PixelButton";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { UNIVERSITY_CHOICES } from "@/lib/registration-data";
+import {
+    PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid
+} from "recharts";
+
+// Chart colors
+const CHART_COLORS = [
+    "#14b8a6", "#8b5cf6", "#f59e0b", "#ec4899", "#3b82f6",
+    "#10b981", "#f97316", "#6366f1", "#84cc16", "#06b6d4"
+];
 
 // Country code to flag emoji helper
 const getFlagEmoji = (countryCode: string) => {
@@ -105,7 +115,7 @@ export default function AdminDashboardPage() {
         const foreignTeams = teams.filter(t => (t as any).has_foreigners === true).length;
         const incompleteDocsTeams = teams.filter(t => (t as any).documents_complete === false).length;
 
-        // Count unique universities
+        // Count unique universities that actually have teams
         const allUniversities = new Set<string>();
         teams.forEach(t => {
             const unis = (t as any).universities;
@@ -117,6 +127,53 @@ export default function AdminDashboardPage() {
 
         return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount };
     }, [teams]);
+
+    // Chart data: University distribution (top 10)
+    const universityChartData = useMemo(() => {
+        const uniCount: Record<string, number> = {};
+        teams.forEach(t => {
+            const unis = (t as any).universities;
+            if (Array.isArray(unis)) {
+                unis.forEach((u: string) => {
+                    uniCount[u] = (uniCount[u] || 0) + 1;
+                });
+            }
+        });
+        return Object.entries(uniCount)
+            .map(([name, value]) => ({ name: name.length > 20 ? name.slice(0, 20) + "..." : name, value, fullName: name }))
+            .sort((a, b) => b.value - a.value)
+            .slice(0, 10);
+    }, [teams]);
+
+    // Chart data: Registration timeline (last 14 days)
+    const registrationChartData = useMemo(() => {
+        const now = new Date();
+        const days: { date: string; count: number }[] = [];
+        for (let i = 13; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(d.getDate() - i);
+            const dateStr = d.toISOString().slice(0, 10);
+            days.push({ date: d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" }), count: 0 });
+        }
+        teams.forEach(t => {
+            const regDate = new Date(t.created_at).toISOString().slice(0, 10);
+            const idx = days.findIndex((d, i) => {
+                const checkDate = new Date();
+                checkDate.setDate(checkDate.getDate() - (13 - i));
+                return checkDate.toISOString().slice(0, 10) === regDate;
+            });
+            if (idx >= 0) days[idx].count++;
+        });
+        return days;
+    }, [teams]);
+
+    // Chart data: Status funnel
+    const statusFunnelData = useMemo(() => [
+        { name: "Pending", value: stats.pendingTeams, color: "#f59e0b" },
+        { name: "Approved", value: stats.approvedTeams, color: "#14b8a6" },
+        { name: "Eligible", value: stats.readyTeams, color: "#8b5cf6" },
+        { name: "Paid", value: stats.paidTeams, color: "#10b981" },
+    ], [stats]);
 
     // Batch selection handlers
     const toggleTeamSelection = (teamId: number) => {
@@ -301,6 +358,71 @@ export default function AdminDashboardPage() {
                         </div>
                     </div>
 
+                    {/* Charts Section */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        {/* University Distribution Pie Chart */}
+                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm">
+                            <h3 className="font-pixel text-lg text-ink2 mb-4">🏫 Top Universities</h3>
+                            <div className="h-64">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={universityChartData}
+                                            cx="50%"
+                                            cy="50%"
+                                            outerRadius={80}
+                                            fill="#8884d8"
+                                            dataKey="value"
+                                            label={({ name, value }) => `${value}`}
+                                        >
+                                            {universityChartData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip formatter={(value, name, props) => [value, props.payload.fullName]} />
+                                        <Legend />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        {/* Registration Timeline Bar Chart */}
+                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm">
+                            <h3 className="font-pixel text-lg text-ink2 mb-4">📅 Registrations (14 Days)</h3>
+                            <div className="h-64">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={registrationChartData}>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                        <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+                                        <YAxis tick={{ fontSize: 10 }} allowDecimals={false} />
+                                        <Tooltip />
+                                        <Bar dataKey="count" fill="#14b8a6" radius={[4, 4, 0, 0]} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        {/* Status Funnel */}
+                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm">
+                            <h3 className="font-pixel text-lg text-ink2 mb-4">📊 Status Pipeline</h3>
+                            <div className="h-64">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={statusFunnelData} layout="vertical">
+                                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                        <XAxis type="number" tick={{ fontSize: 10 }} allowDecimals={false} />
+                                        <YAxis dataKey="name" type="category" tick={{ fontSize: 11 }} width={70} />
+                                        <Tooltip />
+                                        <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                                            {statusFunnelData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="flex flex-col gap-4 mb-6">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                             <h3 className="font-pixel text-xl text-ink2">TEAM LIST</h3>
@@ -367,7 +489,7 @@ export default function AdminDashboardPage() {
                                 <option value="QUALIFIED_PAID">QUALIFIED (PAID)</option>
                             </select>
 
-                            {/* Fixed University Filter - Using correct database values */}
+                            {/* Fixed University Filter */}
                             <select
                                 value={university}
                                 onChange={(e) => setUniversity(e.target.value)}
@@ -519,12 +641,18 @@ export default function AdminDashboardPage() {
                                                         </div>
                                                     </td>
                                                     <td className="px-4 py-4">
-                                                        <div className="text-sm font-bold text-ink2 truncate max-w-[150px]" title={universities.join(", ")}>
-                                                            {universities[0] || "—"}
+                                                        {/* Show all universities, not just first one */}
+                                                        <div className="flex flex-col gap-0.5">
+                                                            {universities.length === 0 ? (
+                                                                <span className="text-sm text-muted">—</span>
+                                                            ) : (
+                                                                universities.map((uni: string, idx: number) => (
+                                                                    <div key={idx} className="text-sm font-bold text-ink2 truncate max-w-[180px]" title={uni}>
+                                                                        {uni}
+                                                                    </div>
+                                                                ))
+                                                            )}
                                                         </div>
-                                                        {universities.length > 1 && (
-                                                            <div className="text-[10px] text-muted">+{universities.length - 1} more</div>
-                                                        )}
                                                     </td>
                                                     <td className="px-4 py-4">
                                                         <div className="text-sm text-ink2">{formatDate(team.created_at)}</div>
