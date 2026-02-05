@@ -214,40 +214,47 @@ export default function AdminDashboardPage() {
         return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount };
     }, [teams]);
 
-    // Chart data: University distribution (listing all > 1, others grouped)
+    // Chart data: University distribution (New logic: categorizing TEAMS)
     const universityChartData = useMemo(() => {
         const uniCount: Record<string, number> = {};
-        let totalUnis = 0;
+        let mixedCount = 0;
 
         teams.forEach(t => {
             const unis = (t as any).universities;
-            if (Array.isArray(unis)) {
-                unis.forEach((u: string) => {
-                    uniCount[u] = (uniCount[u] || 0) + 1;
-                    totalUnis++;
+            if (Array.isArray(unis) && unis.length > 0) {
+                // Find frequency of each university in this team
+                const teamUniMap: Record<string, number> = {};
+                unis.forEach(u => {
+                    teamUniMap[u] = (teamUniMap[u] || 0) + 1;
                 });
+
+                // Find if any uni has >= 2 members
+                const topUniEntry = Object.entries(teamUniMap).find(([_, count]) => count >= 2);
+
+                if (topUniEntry) {
+                    const uniName = topUniEntry[0];
+                    uniCount[uniName] = (uniCount[uniName] || 0) + 1;
+                } else {
+                    mixedCount++;
+                }
+            } else {
+                mixedCount++;
             }
         });
 
-        const sortedEntries = Object.entries(uniCount).sort((a, b) => b[1] - a[1]);
-
-        const mainData = sortedEntries
-            .filter(([_, value]) => value > 1)
+        const mainData = Object.entries(uniCount)
             .map(([name, value]) => ({
-                name: name,
+                name,
                 value,
-                percentage: ((value / totalUnis) * 100).toFixed(1)
-            }));
+                percentage: teams.length > 0 ? ((value / teams.length) * 100).toFixed(1) : "0"
+            }))
+            .sort((a, b) => b.value - a.value);
 
-        const othersCount = sortedEntries
-            .filter(([_, value]) => value === 1)
-            .reduce((acc, [_, value]) => acc + value, 0);
-
-        if (othersCount > 0) {
+        if (mixedCount > 0) {
             mainData.push({
-                name: "Others (1 member)",
-                value: othersCount,
-                percentage: ((othersCount / totalUnis) * 100).toFixed(1)
+                name: "Mixed Universities",
+                value: mixedCount,
+                percentage: teams.length > 0 ? ((mixedCount / teams.length) * 100).toFixed(1) : "0"
             });
         }
 
@@ -873,8 +880,8 @@ export default function AdminDashboardPage() {
                                 {/* University Distribution Bar Chart */}
                                 <div className="bg-white border-2 border-line rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
                                     <h4 className="font-pixel text-xl text-ink2 mb-6 flex items-center gap-2">
-                                        🏫 Universities Distribution
-                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">All with &gt;1 Member</span>
+                                        🏫 University Affiliation
+                                        <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Teams by Uni (&gt;= 2 Members)</span>
                                     </h4>
                                     <div className="h-[500px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-line">
                                         <ResponsiveContainer width="100%" height={Math.max(400, universityChartData.length * 40)}>
@@ -906,7 +913,7 @@ export default function AdminDashboardPage() {
                                                     {universityChartData.map((entry, index) => (
                                                         <Cell
                                                             key={`cell-${index}`}
-                                                            fill={entry.name.startsWith("Others") ? "#94a3b8" : CHART_COLORS[index % CHART_COLORS.length]}
+                                                            fill={entry.name === "Mixed Universities" ? "#94a3b8" : CHART_COLORS[index % CHART_COLORS.length]}
                                                         />
                                                     ))}
                                                 </Bar>
