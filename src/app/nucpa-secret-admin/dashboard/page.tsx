@@ -282,34 +282,33 @@ export default function AdminDashboardPage() {
     // Chart data: Codeforces Skill Distribution (Metric: Member Skill)
     const cfSkillData = useMemo(() => {
         const buckets = [
-            { name: "Newbie (<1200)", range: [1, 1199], count: 0, color: "#808080" },
-            { name: "Pupil (1200-1399)", range: [1200, 1399], count: 0, color: "#008000" },
-            { name: "Specialist (1400-1599)", range: [1400, 1599], count: 0, color: "#03a89e" },
-            { name: "Expert (1600-1899)", range: [1600, 1899], count: 0, color: "#0000ff" },
-            { name: "Master+ (1900+)", range: [1900, 9999], count: 0, color: "#ff8c00" },
-            { name: "Unrated", range: [0, 0], count: 0, color: "#9ca3af" },
+            { id: "newbie", name: "Newbie", range: [1, 1199], count: 0, color: "#808080" },
+            { id: "pupil", name: "Pupil", range: [1200, 1399], count: 0, color: "#008000" },
+            { id: "specialist", name: "Specialist", range: [1400, 1599], count: 0, color: "#03a89e" },
+            { id: "expert", name: "Expert", range: [1600, 1899], count: 0, color: "#0000ff" },
+            { id: "master", name: "Master+", range: [1900, 9999], count: 0, color: "#ff8c00" },
+            { id: "unrated", name: "Unrated", range: [0, 0], count: 0, color: "#9ca3af" },
         ];
 
         teams.forEach(t => {
-            const teamMembers = (t as any).members;
+            const teamMembers = t.members;
             if (Array.isArray(teamMembers)) {
-                teamMembers.forEach((m: any) => {
+                teamMembers.forEach(m => {
                     const rating = m.codeforces_info?.rating;
                     if (typeof rating === 'number' && rating > 0) {
                         const bucket = buckets.find(b => rating >= b.range[0] && rating <= b.range[1]);
                         if (bucket) bucket.count++;
                     } else {
-                        // Rating is 0, null, or undefined -> Unrated
                         buckets[buckets.length - 1].count++;
                     }
                 });
             }
         });
 
-        return buckets.map(({ name, count, color }) => ({
-            name: name.split(" (")[0],
-            fullCount: count,
-            color
+        return buckets.map(b => ({
+            name: b.name,
+            value: b.count,
+            color: b.color
         }));
     }, [teams]);
 
@@ -914,11 +913,12 @@ export default function AdminDashboardPage() {
                                         <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Total Members</span>
                                     </h4>
                                     <div className="h-[500px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-line">
-                                        <ResponsiveContainer width="100%" height={Math.max(400, universityChartData.length * 40)}>
+                                        <ResponsiveContainer width="100%" height={Math.max(400, universityChartData.length * 40)} id="uni-dist-container">
                                             <BarChart
                                                 data={universityChartData}
                                                 layout="vertical"
                                                 margin={{ left: 20, right: 30, top: 10, bottom: 10 }}
+                                                id="uni-dist-chart"
                                             >
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} vertical={true} />
                                                 <XAxis type="number" hide />
@@ -959,8 +959,8 @@ export default function AdminDashboardPage() {
                                         <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Last 14 Days</span>
                                     </h4>
                                     <div className="h-96">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <BarChart data={registrationChartData} barSize={32}>
+                                        <ResponsiveContainer width="100%" height="100%" id="reg-timeline-container">
+                                            <BarChart data={registrationChartData} barSize={32} id="reg-timeline-chart">
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                                                 <XAxis
                                                     dataKey="date"
@@ -979,6 +979,7 @@ export default function AdminDashboardPage() {
                                                 <Tooltip
                                                     cursor={{ fill: '#f1f5f9' }}
                                                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value) => [`${value} Registrations`, "Count"]}
                                                 />
                                                 <Bar dataKey="count" fill="#14b8a6" radius={[6, 6, 0, 0]} animationDuration={1000} />
                                             </BarChart>
@@ -993,8 +994,8 @@ export default function AdminDashboardPage() {
                                         <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Conversion Drop-off</span>
                                     </h4>
                                     <div className="h-80">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <BarChart data={funnelChartData} layout="vertical" barSize={32}>
+                                        <ResponsiveContainer width="100%" height="100%" id="reg-funnel-container">
+                                            <BarChart data={funnelChartData} layout="vertical" barSize={32} id="reg-funnel-chart">
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} vertical={true} />
                                                 <XAxis type="number" hide />
                                                 <YAxis
@@ -1028,8 +1029,8 @@ export default function AdminDashboardPage() {
                                         <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Problem-Setters guide</span>
                                     </h4>
                                     <div className="h-80">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <BarChart data={cfSkillData}>
+                                        <ResponsiveContainer width="100%" height="100%" id="cf-skill-container">
+                                            <BarChart data={cfSkillData} id="cf-skill-chart">
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                                                 <XAxis
                                                     dataKey="name"
@@ -1044,7 +1045,7 @@ export default function AdminDashboardPage() {
                                                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                                                     formatter={(value) => [`${value} Members`, "Count"]}
                                                 />
-                                                <Bar dataKey="fullCount" radius={[6, 6, 0, 0]} animationDuration={1000}>
+                                                <Bar dataKey="value" radius={[6, 6, 0, 0]} animationDuration={1000}>
                                                     {cfSkillData.map((entry, index) => (
                                                         <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
