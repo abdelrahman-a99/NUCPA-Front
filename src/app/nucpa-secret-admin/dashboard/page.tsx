@@ -62,6 +62,12 @@ export default function AdminDashboardPage() {
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [batchRejectNote, setBatchRejectNote] = useState("");
 
+    // Charts Modal State
+    const [showChartsModal, setShowChartsModal] = useState(false);
+
+    // Active stat filter (for highlighting)
+    const [activeStatFilter, setActiveStatFilter] = useState<string | null>(null);
+
     const router = useRouter();
 
     useEffect(() => {
@@ -104,6 +110,65 @@ export default function AdminDashboardPage() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appStatus, onlineStatus, onsiteStatus, university, hasForeigners, isNUTeam, ordering]);
+
+    // Stat card click handlers - filter the team list
+    const handleStatClick = (statType: string) => {
+        // Clear all filters first
+        setSearch("");
+        setUniversity("");
+        setHasForeigners(false);
+        setIsNUTeam(false);
+
+        // Set active filter for highlighting
+        if (activeStatFilter === statType) {
+            // Clicking same filter clears it
+            setActiveStatFilter(null);
+            setAppStatus("");
+            setOnlineStatus("");
+            setOnsiteStatus("");
+            return;
+        }
+
+        setActiveStatFilter(statType);
+
+        switch (statType) {
+            case "total":
+                setAppStatus("");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+                break;
+            case "pending":
+                setAppStatus("PENDING");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+                break;
+            case "approved":
+                setAppStatus("APPROVED");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+                break;
+            case "paid":
+                setAppStatus("");
+                setOnlineStatus("");
+                setOnsiteStatus("QUALIFIED_PAID");
+                break;
+            case "foreign":
+                setAppStatus("");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+                setHasForeigners(true);
+                break;
+            case "ready":
+                setAppStatus("");
+                setOnlineStatus("ELIGIBLE");
+                setOnsiteStatus("");
+                break;
+            default:
+                setAppStatus("");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+        }
+    };
 
     // Enhanced Stats with useMemo for performance
     const stats = useMemo(() => {
@@ -292,42 +357,74 @@ export default function AdminDashboardPage() {
                         </div>
 
                         <div className="flex gap-4">
+                            <PixelButton
+                                onClick={() => setShowChartsModal(true)}
+                                variant="ghost"
+                                size="sm"
+                                className="hidden md:flex"
+                            >
+                                📊 VIEW CHARTS
+                            </PixelButton>
                             <PixelButton onClick={handleExportCSV} variant="ghost" size="sm" className="hidden md:flex" disabled={isExporting}>
                                 {isExporting ? "⏳ DOWNLOADING..." : "⬇ EXPORT CSV"}
                             </PixelButton>
                         </div>
                     </div>
 
-                    {/* Enhanced Stats Grid - 2 rows */}
+                    {/* Clickable Stats Grid - 2 rows */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div className="bg-white border-2 border-line rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-teal/30 transition-colors">
+                        <button
+                            onClick={() => handleStatClick("total")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "total" ? "border-teal ring-4 ring-teal/20" : "border-line hover:border-teal/30"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Total Teams</p>
                                 <p className="font-pixel text-3xl text-ink">{stats.totalTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-bg flex items-center justify-center text-lg">👥</div>
-                        </div>
-                        <div className="bg-white border-2 border-yellow-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-yellow-400 transition-colors">
+                        </button>
+                        <button
+                            onClick={() => handleStatClick("pending")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "pending" ? "border-yellow-500 ring-4 ring-yellow-200" : "border-yellow-200 hover:border-yellow-400"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Pending Review</p>
                                 <p className="font-pixel text-3xl text-yellow-600">{stats.pendingTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center text-lg">⏳</div>
-                        </div>
-                        <div className="bg-white border-2 border-teal/20 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-teal/50 transition-colors">
+                        </button>
+                        <button
+                            onClick={() => handleStatClick("approved")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "approved" ? "border-teal ring-4 ring-teal/20" : "border-teal/20 hover:border-teal/50"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Approved</p>
                                 <p className="font-pixel text-3xl text-teal">{stats.approvedTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-lg">✅</div>
-                        </div>
-                        <div className="bg-white border-2 border-green-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-green-400 transition-colors">
+                        </button>
+                        <button
+                            onClick={() => handleStatClick("paid")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "paid" ? "border-green-500 ring-4 ring-green-200" : "border-green-200 hover:border-green-400"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Paid & Ready</p>
                                 <p className="font-pixel text-3xl text-green-600">{stats.paidTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-lg">💰</div>
-                        </div>
+                        </button>
                         <div className="bg-white border-2 border-purple-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-purple-400 transition-colors">
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Universities</p>
@@ -335,13 +432,19 @@ export default function AdminDashboardPage() {
                             </div>
                             <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-lg">🏫</div>
                         </div>
-                        <div className="bg-white border-2 border-blue-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-blue-400 transition-colors">
+                        <button
+                            onClick={() => handleStatClick("foreign")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "foreign" ? "border-blue-500 ring-4 ring-blue-200" : "border-blue-200 hover:border-blue-400"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Foreign Teams</p>
                                 <p className="font-pixel text-3xl text-blue-600">{stats.foreignTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">🌍</div>
-                        </div>
+                        </button>
                         <div className="bg-white border-2 border-orange-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-orange-400 transition-colors">
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Missing Docs</p>
@@ -349,78 +452,19 @@ export default function AdminDashboardPage() {
                             </div>
                             <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-lg">📄</div>
                         </div>
-                        <div className="bg-white border-2 border-purple-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-purple-400 transition-colors">
+                        <button
+                            onClick={() => handleStatClick("ready")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "ready" ? "border-purple-500 ring-4 ring-purple-200" : "border-purple-200 hover:border-purple-400"
+                            )}
+                        >
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Online Ready</p>
                                 <p className="font-pixel text-3xl text-purple-600">{stats.readyTeams}</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-lg">🚀</div>
-                        </div>
-                    </div>
-
-                    {/* Charts Section */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                        {/* University Distribution Pie Chart */}
-                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm">
-                            <h3 className="font-pixel text-lg text-ink2 mb-4">🏫 Top Universities</h3>
-                            <div className="h-64">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie
-                                            data={universityChartData}
-                                            cx="50%"
-                                            cy="50%"
-                                            outerRadius={80}
-                                            fill="#8884d8"
-                                            dataKey="value"
-                                            label={({ name, value }) => `${value}`}
-                                        >
-                                            {universityChartData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                                            ))}
-                                        </Pie>
-                                        <Tooltip formatter={(value, name, props) => [value, props.payload.fullName]} />
-                                        <Legend />
-                                    </PieChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-
-                        {/* Registration Timeline Bar Chart */}
-                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm">
-                            <h3 className="font-pixel text-lg text-ink2 mb-4">📅 Registrations (14 Days)</h3>
-                            <div className="h-64">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={registrationChartData}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                        <XAxis dataKey="date" tick={{ fontSize: 10 }} />
-                                        <YAxis tick={{ fontSize: 10 }} allowDecimals={false} />
-                                        <Tooltip />
-                                        <Bar dataKey="count" fill="#14b8a6" radius={[4, 4, 0, 0]} />
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-
-                        {/* Status Funnel */}
-                        <div className="bg-white border-2 border-line rounded-2xl p-6 shadow-sm">
-                            <h3 className="font-pixel text-lg text-ink2 mb-4">📊 Status Pipeline</h3>
-                            <div className="h-64">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={statusFunnelData} layout="vertical">
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                        <XAxis type="number" tick={{ fontSize: 10 }} allowDecimals={false} />
-                                        <YAxis dataKey="name" type="category" tick={{ fontSize: 11 }} width={70} />
-                                        <Tooltip />
-                                        <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                                            {statusFunnelData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.color} />
-                                            ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
+                        </button>
                     </div>
 
                     <div className="flex flex-col gap-4 mb-6">
@@ -459,7 +503,7 @@ export default function AdminDashboardPage() {
 
                             <select
                                 value={appStatus}
-                                onChange={(e) => setAppStatus(e.target.value)}
+                                onChange={(e) => { setAppStatus(e.target.value); setActiveStatFilter(null); }}
                                 className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
                             >
                                 <option value="">ALL STATUSES</option>
@@ -470,7 +514,7 @@ export default function AdminDashboardPage() {
 
                             <select
                                 value={onlineStatus}
-                                onChange={(e) => setOnlineStatus(e.target.value)}
+                                onChange={(e) => { setOnlineStatus(e.target.value); setActiveStatFilter(null); }}
                                 className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
                             >
                                 <option value="">ALL ONLINE ELIGIBILITY</option>
@@ -480,7 +524,7 @@ export default function AdminDashboardPage() {
 
                             <select
                                 value={onsiteStatus}
-                                onChange={(e) => setOnsiteStatus(e.target.value)}
+                                onChange={(e) => { setOnsiteStatus(e.target.value); setActiveStatFilter(null); }}
                                 className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
                             >
                                 <option value="">ALL ONSITE STATUS</option>
@@ -492,7 +536,7 @@ export default function AdminDashboardPage() {
                             {/* Fixed University Filter */}
                             <select
                                 value={university}
-                                onChange={(e) => setUniversity(e.target.value)}
+                                onChange={(e) => { setUniversity(e.target.value); setActiveStatFilter(null); }}
                                 className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer max-w-[200px]"
                             >
                                 <option value="">All Universities</option>
@@ -508,7 +552,7 @@ export default function AdminDashboardPage() {
                                 <input
                                     type="checkbox"
                                     checked={hasForeigners}
-                                    onChange={(e) => setHasForeigners(e.target.checked)}
+                                    onChange={(e) => { setHasForeigners(e.target.checked); setActiveStatFilter(null); }}
                                     className="w-4 h-4 text-teal rounded border-gray-300 focus:ring-teal"
                                 />
                                 <span className="text-sm font-bold text-ink2">🌍 Has Foreigners</span>
@@ -518,13 +562,13 @@ export default function AdminDashboardPage() {
                                 <input
                                     type="checkbox"
                                     checked={isNUTeam}
-                                    onChange={(e) => setIsNUTeam(e.target.checked)}
+                                    onChange={(e) => { setIsNUTeam(e.target.checked); setActiveStatFilter(null); }}
                                     className="w-4 h-4 text-teal rounded border-gray-300 focus:ring-teal"
                                 />
                                 <span className="text-sm font-bold text-ink2">🏫 NU Teams</span>
                             </label>
 
-                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam) && (
+                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam || activeStatFilter) && (
                                 <button
                                     onClick={() => {
                                         setAppStatus("");
@@ -534,6 +578,7 @@ export default function AdminDashboardPage() {
                                         setHasForeigners(false);
                                         setIsNUTeam(false);
                                         setOrdering("-created_at");
+                                        setActiveStatFilter(null);
                                     }}
                                     className="text-xs text-red-500 font-bold hover:underline ml-auto"
                                 >
@@ -641,7 +686,7 @@ export default function AdminDashboardPage() {
                                                         </div>
                                                     </td>
                                                     <td className="px-4 py-4">
-                                                        {/* Show all universities, not just first one */}
+                                                        {/* Show all universities */}
                                                         <div className="flex flex-col gap-0.5">
                                                             {universities.length === 0 ? (
                                                                 <span className="text-sm text-muted">—</span>
@@ -719,6 +764,87 @@ export default function AdminDashboardPage() {
                 </div>
             </main>
             <Footer />
+
+            {/* Charts Modal */}
+            {showChartsModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-6xl shadow-2xl my-8">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="font-pixel text-2xl text-ink2">📊 Analytics Dashboard</h3>
+                            <button
+                                onClick={() => setShowChartsModal(false)}
+                                className="w-10 h-10 rounded-full bg-bg hover:bg-gray-200 flex items-center justify-center text-lg transition-colors"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            {/* University Distribution Pie Chart */}
+                            <div className="bg-bg border-2 border-line rounded-2xl p-6">
+                                <h4 className="font-pixel text-lg text-ink2 mb-4">🏫 Top Universities</h4>
+                                <div className="h-64">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={universityChartData}
+                                                cx="50%"
+                                                cy="50%"
+                                                outerRadius={80}
+                                                fill="#8884d8"
+                                                dataKey="value"
+                                                label={({ value }) => `${value}`}
+                                            >
+                                                {universityChartData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip formatter={(value, name, props) => [value, props.payload.fullName]} />
+                                            <Legend />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+
+                            {/* Registration Timeline Bar Chart */}
+                            <div className="bg-bg border-2 border-line rounded-2xl p-6">
+                                <h4 className="font-pixel text-lg text-ink2 mb-4">📅 Registrations (14 Days)</h4>
+                                <div className="h-64">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={registrationChartData}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                            <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+                                            <YAxis tick={{ fontSize: 10 }} allowDecimals={false} />
+                                            <Tooltip />
+                                            <Bar dataKey="count" fill="#14b8a6" radius={[4, 4, 0, 0]} />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+
+                            {/* Status Funnel */}
+                            <div className="bg-bg border-2 border-line rounded-2xl p-6">
+                                <h4 className="font-pixel text-lg text-ink2 mb-4">📊 Status Pipeline</h4>
+                                <div className="h-64">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={statusFunnelData} layout="vertical">
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                            <XAxis type="number" tick={{ fontSize: 10 }} allowDecimals={false} />
+                                            <YAxis dataKey="name" type="category" tick={{ fontSize: 11 }} width={70} />
+                                            <Tooltip />
+                                            <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                                                {statusFunnelData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Batch Reject Modal */}
             {showRejectModal && (
