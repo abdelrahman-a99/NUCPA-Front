@@ -261,11 +261,11 @@ export default function MemberForm({
           onBlur={() => onBlurField("birth_date")}
           disabled={isApproved}
           className={`input-modern cursor-text ${restrictedClass}`}
-          min="2001-02-01"
+          min="2000-06-01"
           max="2014-02-01"
         />
         <p className="mt-1 text-[10px] text-muted font-medium italic">
-          Age range: 12–25 (Born Feb 2001 – Feb 2014)
+          Age range: 12–25 (Born June 2000 – Feb 2014)
         </p>
       </Field>
 

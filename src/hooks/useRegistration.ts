@@ -335,15 +335,15 @@ export function useRegistration() {
         const bDate = new Date(m.birth_date);
 
         // "Strict up to 25 year before 1 feb 2026 and minimum at 12 years old"
-        // Max Age 25: Born on or after Feb 1, 2001 (2026 - 25 = 2001)
+        // Max Age 25: Born on or after June 1, 2000
         // Min Age 12: Born on or before Feb 1, 2014 (2026 - 12 = 2014)
 
-        const minDate = new Date("2001-02-01");
+        const minDate = new Date("2000-06-01");
         const maxDate = new Date("2014-02-01");
 
         if (isNaN(bDate.getTime())) return "Invalid date.";
 
-        if (bDate < minDate) return "Participant is too old. Must be born on or after Feb 1, 2001 (Max 25 years).";
+        if (bDate < minDate) return "Participant is too old. Must be born on or after June 1, 2000 (Max 25 years).";
         if (bDate > maxDate) return "Participant is too young. Must be born on or before Feb 1, 2014 (Min 12 years).";
       }
       if (key === "id_document") {
