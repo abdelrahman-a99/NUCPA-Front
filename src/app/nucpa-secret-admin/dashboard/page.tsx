@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 import { UNIVERSITY_CHOICES } from "@/lib/registration-data";
 import {
     PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
-    BarChart, Bar, XAxis, YAxis, CartesianGrid
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, LabelList
 } from "recharts";
 
 // Chart colors
@@ -280,14 +280,20 @@ export default function AdminDashboardPage() {
     }, [teams]);
 
     // Chart data: Codeforces Skill Distribution (Metric: Member Skill)
+    // Uses official Codeforces rating tiers with their colors, excludes Unrated
     const cfSkillData = useMemo(() => {
+        // All official Codeforces rating tiers with their colors (excluding Unrated)
         const buckets = [
             { id: "newbie", name: "Newbie", range: [1, 1199], count: 0, color: "#808080" },
             { id: "pupil", name: "Pupil", range: [1200, 1399], count: 0, color: "#008000" },
             { id: "specialist", name: "Specialist", range: [1400, 1599], count: 0, color: "#03a89e" },
             { id: "expert", name: "Expert", range: [1600, 1899], count: 0, color: "#0000ff" },
-            { id: "master", name: "Master+", range: [1900, 9999], count: 0, color: "#ff8c00" },
-            { id: "unrated", name: "Unrated", range: [0, 0], count: 0, color: "#9ca3af" },
+            { id: "cm", name: "Candidate Master", range: [1900, 2099], count: 0, color: "#aa00aa" },
+            { id: "master", name: "Master", range: [2100, 2299], count: 0, color: "#ff8c00" },
+            { id: "im", name: "Int. Master", range: [2300, 2399], count: 0, color: "#ff8c00" },
+            { id: "gm", name: "Grandmaster", range: [2400, 2599], count: 0, color: "#ff0000" },
+            { id: "igm", name: "Int. GM", range: [2600, 2999], count: 0, color: "#ff0000" },
+            { id: "lgm", name: "Legendary GM", range: [3000, 9999], count: 0, color: "#ff0000" },
         ];
 
         teams.forEach(t => {
@@ -295,12 +301,12 @@ export default function AdminDashboardPage() {
             if (Array.isArray(teamMembers)) {
                 teamMembers.forEach(m => {
                     const rating = m.codeforces_info?.rating;
+                    // Only count rated members (rating > 0), skip unrated
                     if (typeof rating === 'number' && rating > 0) {
                         const bucket = buckets.find(b => rating >= b.range[0] && rating <= b.range[1]);
                         if (bucket) bucket.count++;
-                    } else {
-                        buckets[buckets.length - 1].count++;
                     }
+                    // Unrated members are simply not counted
                 });
             }
         });
@@ -1028,16 +1034,19 @@ export default function AdminDashboardPage() {
                                         🚀 CF Skill Level
                                         <span className="text-xs font-sans text-muted font-normal bg-gray-100 px-2 py-1 rounded-full">Problem-Setters guide</span>
                                     </h4>
-                                    <div className="h-80">
+                                    <div className="h-96">
                                         <ResponsiveContainer width="100%" height="100%" id="cf-skill-container">
-                                            <BarChart data={cfSkillData} id="cf-skill-chart">
+                                            <BarChart data={cfSkillData} id="cf-skill-chart" margin={{ top: 20, right: 10, left: 10, bottom: 5 }}>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                                                 <XAxis
                                                     dataKey="name"
-                                                    tick={{ fontSize: 10, fill: '#64748b', fontWeight: 600 }}
+                                                    tick={{ fontSize: 9, fill: '#64748b', fontWeight: 600 }}
                                                     axisLine={false}
                                                     tickLine={false}
                                                     interval={0}
+                                                    angle={-25}
+                                                    textAnchor="end"
+                                                    height={60}
                                                 />
                                                 <YAxis tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} />
                                                 <Tooltip
@@ -1046,6 +1055,12 @@ export default function AdminDashboardPage() {
                                                     formatter={(value) => [`${value} Members`, "Count"]}
                                                 />
                                                 <Bar dataKey="value" radius={[6, 6, 0, 0]} animationDuration={1000}>
+                                                    <LabelList
+                                                        dataKey="value"
+                                                        position="top"
+                                                        style={{ fontSize: 11, fontWeight: 'bold', fill: '#374151' }}
+                                                        formatter={(value) => (typeof value === 'number' && value > 0 ? String(value) : '')}
+                                                    />
                                                     {cfSkillData.map((entry, index) => (
                                                         <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
