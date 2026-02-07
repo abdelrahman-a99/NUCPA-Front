@@ -70,6 +70,10 @@ export default function AdminDashboardPage() {
     // Charts Modal State
     const [showChartsModal, setShowChartsModal] = useState(false);
 
+    // CF Stats from dedicated API endpoint (stable data)
+    const [cfStatsData, setCfStatsData] = useState<{ name: string; value: number; color: string }[] | null>(null);
+    const [cfStatsLoading, setCfStatsLoading] = useState(false);
+
     // Active stat filter (for highlighting)
     const [activeStatFilter, setActiveStatFilter] = useState<string | null>(null);
 
@@ -279,44 +283,35 @@ export default function AdminDashboardPage() {
         return days;
     }, [teams]);
 
-    // Chart data: Codeforces Skill Distribution (Metric: Member Skill)
-    // Uses official Codeforces rating tiers with their colors, excludes Unrated
-    const cfSkillData = useMemo(() => {
-        // All official Codeforces rating tiers with their colors (excluding Unrated)
-        const buckets = [
-            { id: "newbie", name: "Newbie", range: [1, 1199], count: 0, color: "#808080" },
-            { id: "pupil", name: "Pupil", range: [1200, 1399], count: 0, color: "#008000" },
-            { id: "specialist", name: "Specialist", range: [1400, 1599], count: 0, color: "#03a89e" },
-            { id: "expert", name: "Expert", range: [1600, 1899], count: 0, color: "#0000ff" },
-            { id: "cm", name: "Candidate Master", range: [1900, 2099], count: 0, color: "#aa00aa" },
-            { id: "master", name: "Master", range: [2100, 2299], count: 0, color: "#ff8c00" },
-            { id: "im", name: "Int. Master", range: [2300, 2399], count: 0, color: "#ff8c00" },
-            { id: "gm", name: "Grandmaster", range: [2400, 2599], count: 0, color: "#ff0000" },
-            { id: "igm", name: "Int. GM", range: [2600, 2999], count: 0, color: "#ff0000" },
-            { id: "lgm", name: "Legendary GM", range: [3000, 9999], count: 0, color: "#ff0000" },
-        ];
-
-        teams.forEach(t => {
-            const teamMembers = t.members;
-            if (Array.isArray(teamMembers)) {
-                teamMembers.forEach(m => {
-                    const rating = m.codeforces_info?.rating;
-                    // Only count rated members (rating > 0), skip unrated
-                    if (typeof rating === 'number' && rating > 0) {
-                        const bucket = buckets.find(b => rating >= b.range[0] && rating <= b.range[1]);
-                        if (bucket) bucket.count++;
+    // Fetch CF stats from dedicated API endpoint when charts modal opens
+    useEffect(() => {
+        if (showChartsModal && !cfStatsData && !cfStatsLoading) {
+            const fetchCfStats = async () => {
+                setCfStatsLoading(true);
+                try {
+                    const res = await fetch('/api/registration/cf-stats/', {
+                        headers: { "X-Admin-Access": "true" }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        setCfStatsData(data.distribution);
+                    } else {
+                        console.error('Failed to fetch CF stats');
+                        setCfStatsData([]);
                     }
-                    // Unrated members are simply not counted
-                });
-            }
-        });
+                } catch (error) {
+                    console.error('Failed to fetch CF stats:', error);
+                    // Fallback: use empty data
+                    setCfStatsData([]);
+                }
+                setCfStatsLoading(false);
+            };
+            fetchCfStats();
+        }
+    }, [showChartsModal, cfStatsData, cfStatsLoading]);
 
-        return buckets.map(b => ({
-            name: b.name,
-            value: b.count,
-            color: b.color
-        }));
-    }, [teams]);
+    // Chart data: Use the API response if available
+    const cfSkillData = cfStatsData || [];
 
     // Enhanced Status Funnel Data (Operation Decision Making)
     const funnelChartData = useMemo(() => [
