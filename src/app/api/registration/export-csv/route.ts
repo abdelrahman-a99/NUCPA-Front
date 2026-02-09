@@ -32,12 +32,15 @@ export async function GET(req: Request) {
         return new NextResponse("Unauthenticated", { status: 401 });
     }
 
-    const url = `${backendBase()}/registration/export-csv/`;
+    // Forward query parameters to backend
+    const requestUrl = new URL(req.url);
+    const queryParams = requestUrl.searchParams.toString();
+    const backendUrl = `${backendBase()}/registration/export-csv/${queryParams ? `?${queryParams}` : ''}`;
 
     const makeRequest = async (accessToken?: string) => {
         const headers = new Headers();
         if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
-        return fetch(url, { headers });
+        return fetch(backendUrl, { headers });
     };
 
     let res = await makeRequest(access);
@@ -73,3 +76,4 @@ export async function GET(req: Request) {
         }
     });
 }
+

@@ -70,6 +70,12 @@ export default function AdminDashboardPage() {
     // Charts Modal State
     const [showChartsModal, setShowChartsModal] = useState(false);
 
+    // Export Modal State
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [exportStatus, setExportStatus] = useState("");
+    const [exportDateFrom, setExportDateFrom] = useState("");
+    const [exportDateTo, setExportDateTo] = useState("");
+
     // CF Stats from dedicated API endpoint (stable data)
     const [cfStatsData, setCfStatsData] = useState<{ name: string; value: number; color: string }[] | null>(null);
     const [cfStatsLoading, setCfStatsLoading] = useState(false);
@@ -382,11 +388,21 @@ export default function AdminDashboardPage() {
         }
     };
 
-    // Export to CSV from Backend
+    // Export to CSV from Backend with filters
     const handleExportCSV = async () => {
         try {
             setIsExporting(true);
-            const res = await fetch("/api/registration/export-csv/");
+
+            // Build query params
+            const params = new URLSearchParams();
+            if (exportStatus) params.append('status', exportStatus);
+            if (exportDateFrom) params.append('date_from', exportDateFrom);
+            if (exportDateTo) params.append('date_to', exportDateTo);
+
+            const queryString = params.toString();
+            const url = `/api/registration/export-csv/${queryString ? `?${queryString}` : ''}`;
+
+            const res = await fetch(url);
 
             if (!res.ok) {
                 if (res.status === 403) alert("Permission Denied: Admins only.");
@@ -395,14 +411,23 @@ export default function AdminDashboardPage() {
             }
 
             const blob = await res.blob();
-            const url = window.URL.createObjectURL(blob);
+            const blobUrl = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = `nucpa_teams_export_${new Date().toISOString().slice(0, 10)}.csv`;
+            a.href = blobUrl;
+
+            // Build filename with filter info
+            let filename = `nucpa_teams_export_${new Date().toISOString().slice(0, 10)}`;
+            if (exportStatus) filename += `_${exportStatus.toLowerCase()}`;
+            filename += '.csv';
+
+            a.download = filename;
             document.body.appendChild(a);
             a.click();
             a.remove();
-            window.URL.revokeObjectURL(url);
+            window.URL.revokeObjectURL(blobUrl);
+
+            // Close modal after successful export
+            setShowExportModal(false);
         } catch (e) {
             console.error(e);
             alert("An error occurred while exporting.");
@@ -446,8 +471,8 @@ export default function AdminDashboardPage() {
                             >
                                 📊 VIEW CHARTS
                             </PixelButton>
-                            <PixelButton onClick={handleExportCSV} variant="ghost" size="sm" className="hidden md:flex" disabled={isExporting}>
-                                {isExporting ? "⏳ DOWNLOADING..." : "⬇ EXPORT CSV"}
+                            <PixelButton onClick={() => setShowExportModal(true)} variant="ghost" size="sm" className="hidden md:flex" disabled={isExporting}>
+                                ⬇ EXPORT CSV
                             </PixelButton>
                         </div>
                     </div>
@@ -1103,6 +1128,84 @@ export default function AdminDashboardPage() {
                             >
                                 {isBatchProcessing ? "⏳ PROCESSING..." : "❌ REJECT ALL"}
                             </PixelButton>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Export Modal */}
+            {showExportModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                        <h3 className="font-pixel text-xl text-ink2 mb-4">⬇ Export Teams CSV</h3>
+                        <p className="text-sm text-muted mb-6">
+                            Choose filters for your export. Leave empty for full data export.
+                        </p>
+
+                        {/* Status Filter */}
+                        <div className="mb-4">
+                            <label className="block text-xs font-bold uppercase text-muted mb-2">Application Status</label>
+                            <select
+                                value={exportStatus}
+                                onChange={(e) => setExportStatus(e.target.value)}
+                                className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">All Statuses (Full Export)</option>
+                                <option value="APPROVED">Approved Only</option>
+                                <option value="REJECTED">Rejected Only</option>
+                                <option value="PENDING">Pending Only</option>
+                            </select>
+                        </div>
+
+                        {/* Date Range */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label className="block text-xs font-bold uppercase text-muted mb-2">From Date</label>
+                                <input
+                                    type="date"
+                                    value={exportDateFrom}
+                                    onChange={(e) => setExportDateFrom(e.target.value)}
+                                    className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold uppercase text-muted mb-2">To Date</label>
+                                <input
+                                    type="date"
+                                    value={exportDateTo}
+                                    onChange={(e) => setExportDateTo(e.target.value)}
+                                    className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <button
+                                onClick={() => {
+                                    setExportStatus("");
+                                    setExportDateFrom("");
+                                    setExportDateTo("");
+                                }}
+                                className="text-xs text-muted hover:text-ink font-bold"
+                            >
+                                Reset Filters
+                            </button>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => setShowExportModal(false)}
+                                    className="px-4 py-2 text-sm font-bold text-muted hover:text-ink"
+                                >
+                                    Cancel
+                                </button>
+                                <PixelButton
+                                    onClick={handleExportCSV}
+                                    variant="primary"
+                                    size="sm"
+                                    disabled={isExporting}
+                                >
+                                    {isExporting ? "⏳ DOWNLOADING..." : "⬇ DOWNLOAD CSV"}
+                                </PixelButton>
+                            </div>
                         </div>
                     </div>
                 </div>
