@@ -31,7 +31,7 @@ export default function RegistrationPage() {
         const res = await fetch("/api/registration/status");
         if (res.ok) {
           const data = await res.json();
-          if (!data.registration_open && phase !== "hasTeam" && phase !== "editing" && phase !== "checking") {
+          if (!data.registration_open && phase === "noTeam") {
             router.replace("/registration-closed");
           }
         }
