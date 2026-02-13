@@ -15,22 +15,16 @@ export function parseErrorMessage(error: unknown): string {
 
     // 1. Handle string errors directly
     if (typeof error === 'string') {
-        // Translate common technical errors to friendly messages
         const friendlyMessage = translateTechnicalError(error);
         if (friendlyMessage) return friendlyMessage;
 
-        // Check for JSON string "{\"detail\":...}"
         if (error.trim().startsWith('{') && error.includes('detail')) {
             try {
                 const parsed = JSON.parse(error);
                 return parseErrorMessage(parsed);
-            } catch (e) {
-                // Not valid JSON, treat as plain text
-            }
+            } catch (e) { }
         }
 
-        // Check for specific throttle message pattern in the string itself
-        // e.g. "Request was throttled. Expected available in 2838 seconds."
         const throttleMatch = error.match(/Expected available in (\d+) seconds/);
         if (throttleMatch && throttleMatch[1]) {
             const timeStr = formatTimeToken(parseInt(throttleMatch[1], 10));
@@ -40,11 +34,17 @@ export function parseErrorMessage(error: unknown): string {
         return error;
     }
 
-    // 2. Handle object errors (API responses)
-    if (typeof error === 'object') {
+    // 2. Handle native Error objects (can happen if thrown manually or from fetch logic)
+    if (error instanceof Error) {
+        const friendlyMessage = translateTechnicalError(error.message);
+        if (friendlyMessage) return friendlyMessage;
+        return error.message;
+    }
+
+    // 3. Handle object errors (API responses)
+    if (typeof error === 'object' && error !== null) {
         const errObj = error as Record<string, any>;
 
-        // Django DRF standard validation error: { detail: "..." }
         if (errObj.detail) {
             if (typeof errObj.detail === 'string') {
                 const friendlyMessage = translateTechnicalError(errObj.detail);
@@ -60,21 +60,18 @@ export function parseErrorMessage(error: unknown): string {
             return String(errObj.detail);
         }
 
-        // Standard "error" field
         if (errObj.error) {
             const msg = typeof errObj.error === 'string' ? errObj.error : JSON.stringify(errObj.error);
             const friendlyMessage = translateTechnicalError(msg);
             return friendlyMessage || msg;
         }
 
-        // "message" field (common in generic APIs)
         if (errObj.message) {
             const msg = typeof errObj.message === 'string' ? errObj.message : JSON.stringify(errObj.message);
             const friendlyMessage = translateTechnicalError(msg);
             return friendlyMessage || msg;
         }
 
-        // Non-field errors (Django)
         if (errObj.non_field_errors) {
             const msg = Array.isArray(errObj.non_field_errors)
                 ? errObj.non_field_errors[0]
@@ -83,18 +80,15 @@ export function parseErrorMessage(error: unknown): string {
             return friendlyMessage || msg;
         }
 
-        // If it has random keys (field errors), try to join them or show the first one
         const keys = Object.keys(errObj);
         if (keys.length > 0) {
-            // Just take the first error for simplicity in a toast/alert
             const firstKey = keys[0];
             const val = errObj[firstKey];
             const msg = Array.isArray(val)
                 ? val[0]
                 : (typeof val === 'object' && val !== null)
-                    ? JSON.stringify(val)  // Better than "[object Object]"
+                    ? JSON.stringify(val)
                     : String(val);
-            // Capitalize field name
             const field = firstKey.charAt(0).toUpperCase() + firstKey.slice(1).replace(/_/g, ' ');
             return `${field}: ${msg}`;
         }

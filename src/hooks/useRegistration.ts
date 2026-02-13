@@ -565,6 +565,8 @@ export function useRegistration() {
           data = JSON.parse(text);
         } catch (e) {
           console.error("[useRegistration] Failed to parse error JSON:", e);
+          const displayMsg = text && text.length < 200 ? text : `Request failed with status ${res.status}`;
+          throw new Error(displayMsg);
         }
 
         if (typeof data === 'object' && data !== null) {
@@ -591,19 +593,20 @@ export function useRegistration() {
           }
 
           // Handle specific error fields with friendly messages
-          setError(parseErrorMessage(data));
+          const errorMsg = parseErrorMessage(data);
+          setError(errorMsg);
 
           if (Object.keys(newErrors).length > 0) {
             setFieldErrors((prev) => ({ ...prev, ...newErrors }));
             setPhase(phase === "editing" ? "editing" : "noTeam");
             return;
           }
-          if (error || data.error || data.detail || data.non_field_errors) {
+          if (errorMsg || data.error || data.detail || data.non_field_errors) {
             setPhase(phase === "editing" ? "editing" : "noTeam");
             return;
           }
         }
-        throw new Error(data.error || data.detail || `Registration failed. Please check your data and try again.`);
+        throw new Error(data.error || data.detail || `Registration failed (Status ${res.status}). Please check your data and try again.`);
       }
       await checkTeam();
     } catch (e: any) {
