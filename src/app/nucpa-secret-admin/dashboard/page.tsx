@@ -41,7 +41,7 @@ const formatDate = (dateStr: string) => {
 };
 
 export default function AdminDashboardPage() {
-    const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus } = useAdmin();
+    const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus, registrationOpen, fetchRegistrationStatus, toggleRegistration } = useAdmin();
     const [search, setSearch] = useState("");
     const [isExporting, setIsExporting] = useState(false);
 
@@ -96,6 +96,13 @@ export default function AdminDashboardPage() {
             fetchTeams();
         }
     }, [isAdmin, router, fetchTeams]);
+
+    // Fetch registration status when admin is authenticated
+    useEffect(() => {
+        if (isAdmin === true) {
+            fetchRegistrationStatus();
+        }
+    }, [isAdmin, fetchRegistrationStatus]);
 
     const handleSearch = (e?: React.FormEvent) => {
         if (e) e.preventDefault();
@@ -462,7 +469,35 @@ export default function AdminDashboardPage() {
                             </p>
                         </div>
 
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 flex-wrap">
+                            {/* Registration Toggle Button */}
+                            <button
+                                onClick={async () => {
+                                    const action = registrationOpen ? "CLOSE" : "OPEN";
+                                    if (confirm(`Are you sure you want to ${action} registration?`)) {
+                                        await toggleRegistration();
+                                    }
+                                }}
+                                className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-pixel text-xs transition-all duration-200 border-2 ${registrationOpen === null
+                                        ? "border-gray-300 text-gray-400 bg-gray-50"
+                                        : registrationOpen
+                                            ? "border-green-400 text-green-700 bg-green-50 hover:bg-green-100 hover:border-green-500"
+                                            : "border-red-400 text-red-700 bg-red-50 hover:bg-red-100 hover:border-red-500"
+                                    }`}
+                                disabled={registrationOpen === null}
+                            >
+                                <span className="relative flex h-2.5 w-2.5">
+                                    {registrationOpen ? (
+                                        <>
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                                        </>
+                                    ) : (
+                                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+                                    )}
+                                </span>
+                                {registrationOpen === null ? "LOADING..." : registrationOpen ? "REG OPEN" : "REG CLOSED"}
+                            </button>
                             <PixelButton
                                 onClick={() => setShowChartsModal(true)}
                                 variant="ghost"

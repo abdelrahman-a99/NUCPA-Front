@@ -7,7 +7,8 @@ import TeamView from "@/components/registration/TeamView";
 import RegistrationForm from "@/components/registration/RegistrationForm";
 import RegistrationMaintenance, { MAINTENANCE_MODE } from "@/components/MaintenanceWrapper";
 import { useRegistration } from "@/hooks/useRegistration";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ConfirmationModal from "@/components/ui/ConfirmationModal";
 
 
@@ -20,7 +21,26 @@ export default function RegistrationPage() {
   } = useRegistration();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const router = useRouter();
   const isLoggedIn = phase !== "idle" && phase !== "checking" && phase !== "error";
+
+  // Check if registration is closed and redirect non-team users
+  useEffect(() => {
+    async function checkRegistrationStatus() {
+      try {
+        const res = await fetch("/api/registration/status");
+        if (res.ok) {
+          const data = await res.json();
+          if (!data.registration_open && phase !== "hasTeam" && phase !== "editing" && phase !== "checking") {
+            router.replace("/registration-closed");
+          }
+        }
+      } catch (e) {
+        // If status check fails, allow access (fail-open)
+      }
+    }
+    checkRegistrationStatus();
+  }, [phase, router]);
 
   // Show maintenance page if:
   // 1. MAINTENANCE_MODE flag is true (manual toggle)

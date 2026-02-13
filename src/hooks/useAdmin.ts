@@ -8,6 +8,7 @@ export function useAdmin() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [teams, setTeams] = useState<TeamDetails[]>([]);
+    const [registrationOpen, setRegistrationOpen] = useState<boolean | null>(null);
 
     const checkAdminStatus = useCallback(async () => {
         setIsLoading(true);
@@ -149,15 +150,45 @@ export function useAdmin() {
         }
     };
 
+    const fetchRegistrationStatus = useCallback(async () => {
+        try {
+            const res = await fetch("/api/registration/status");
+            if (res.ok) {
+                const data = await res.json();
+                setRegistrationOpen(data.registration_open);
+            }
+        } catch (e) {
+            // Fail silently
+        }
+    }, []);
+
+    const toggleRegistration = async () => {
+        try {
+            const res = await fetch("/api/registration/toggle-registration", {
+                method: "POST",
+            });
+            if (!res.ok) throw new Error("Failed to toggle registration");
+            const data = await res.json();
+            setRegistrationOpen(data.registration_open);
+            return data;
+        } catch (e: any) {
+            setError(e.message);
+            return null;
+        }
+    };
+
     return {
         isAdmin,
         isLoading,
         error,
         teams,
+        registrationOpen,
         login,
         checkAdminStatus,
         fetchTeams,
         updateTeamStatus,
         deleteTeam,
+        fetchRegistrationStatus,
+        toggleRegistration,
     };
 }
