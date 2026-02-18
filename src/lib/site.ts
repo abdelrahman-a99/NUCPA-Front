@@ -6,4 +6,4 @@ export const NAV_ITEMS = [
 ] as const;
 
 // Put your real event date here:
-export const EVENT_DATE_ISO = "2026-02-14T20:35:00+02:00"; // Cairo time, 14 Feb, 8:35 PM
+export const EVENT_DATE_ISO = "2026-04-17T09:00:00+02:00"; // Cairo time, 17 Apr, 9:00 AM (Finals)
