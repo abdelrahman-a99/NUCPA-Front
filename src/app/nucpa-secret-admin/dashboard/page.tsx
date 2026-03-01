@@ -479,10 +479,10 @@ export default function AdminDashboardPage() {
                                     }
                                 }}
                                 className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-pixel text-xs transition-all duration-200 border-2 ${registrationOpen === null
-                                        ? "border-gray-300 text-gray-400 bg-gray-50"
-                                        : registrationOpen
-                                            ? "border-green-400 text-green-700 bg-green-50 hover:bg-green-100 hover:border-green-500"
-                                            : "border-red-400 text-red-700 bg-red-50 hover:bg-red-100 hover:border-red-500"
+                                    ? "border-gray-300 text-gray-400 bg-gray-50"
+                                    : registrationOpen
+                                        ? "border-green-400 text-green-700 bg-green-50 hover:bg-green-100 hover:border-green-500"
+                                        : "border-red-400 text-red-700 bg-red-50 hover:bg-red-100 hover:border-red-500"
                                     }`}
                                 disabled={registrationOpen === null}
                             >
@@ -676,6 +676,7 @@ export default function AdminDashboardPage() {
                             >
                                 <option value="">ALL ONSITE STATUS</option>
                                 <option value="NOT_QUALIFIED">NOT QUALIFIED</option>
+                                <option value="WAITING_LIST">WAITING LIST</option>
                                 <option value="QUALIFIED_PENDING">QUALIFIED (PENDING)</option>
                                 <option value="QUALIFIED_PAID">QUALIFIED (PAID)</option>
                             </select>
@@ -914,10 +915,12 @@ export default function AdminDashboardPage() {
                                                             "px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
                                                             team.onsite_status === 'QUALIFIED_PAID' ? "bg-green-50 text-green-600 border-green-200" :
                                                                 team.onsite_status === 'QUALIFIED_PENDING' ? "bg-orange-50 text-orange-600 border-orange-200" :
-                                                                    "bg-gray-100 text-gray-400 border-gray-200"
+                                                                    team.onsite_status === 'WAITING_LIST' ? "bg-blue-50 text-blue-600 border-blue-200" :
+                                                                        "bg-gray-100 text-gray-400 border-gray-200"
                                                         )}>
                                                             {team.onsite_status === 'QUALIFIED_PAID' ? 'PAID' :
-                                                                team.onsite_status === 'QUALIFIED_PENDING' ? 'PENDING' : 'NOT'}
+                                                                team.onsite_status === 'QUALIFIED_PENDING' ? 'PENDING' :
+                                                                    team.onsite_status === 'WAITING_LIST' ? 'WAITLIST' : 'NOT'}
                                                         </span>
                                                     </td>
                                                     <td className="px-4 py-4 text-right">

@@ -182,6 +182,7 @@ export default function AdminTeamDetailPage() {
                                             }}
                                         >
                                             <option value="NOT_QUALIFIED">Not Qualified</option>
+                                            <option value="WAITING_LIST">Waiting List</option>
                                             <option value="QUALIFIED_PENDING">Qualified (Pending Payment)</option>
                                             <option value="QUALIFIED_PAID">Qualified (Paid)</option>
                                         </select>

@@ -113,12 +113,14 @@ export default function TeamView({
           value={
             team.onsite_status === 'QUALIFIED_PAID' ? "QUALIFIED (PAID) 💰" :
               team.onsite_status === 'QUALIFIED_PENDING' ? "QUALIFIED (PAYMENT PENDING)" :
-                "Not Qualified"
+                team.onsite_status === 'WAITING_LIST' ? "WAITING LIST ⏳" :
+                  "Not Qualified"
           }
           variant={
             team.onsite_status === 'QUALIFIED_PAID' ? 'success' :
               team.onsite_status === 'QUALIFIED_PENDING' ? 'warning' :
-                'info'
+                team.onsite_status === 'WAITING_LIST' ? 'info' :
+                  'info'
           }
         />
 
