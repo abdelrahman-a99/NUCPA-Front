@@ -27,8 +27,8 @@ export const CARDS = [
   },
   {
     key: "registration",
-    title: "REGISTRATION, FEES & MERCHANDISE",
-    body: "Registration closes on Tuesday, February 10th, 2026, via the official link. The online round is completely free for all registered teams. The onsite final round requires a minimal non-refundable participation fee per team to ensure seriousness; payment details will be shared after qualification. T-shirts and merchandise will be available for purchase after Stage 1.",
+    title: "REGISTRATION & MERCHANDISE",
+    body: "Registration closes on Tuesday, February 10th, 2026, via the official link. The online round is completely free for all registered teams. Merchandise packages will be available after Stage 1, with both mandatory and optional options.",
     tone: "teal2",
   },
   {
@@ -79,8 +79,8 @@ export const TIMELINE_ITEMS = [
   { title: "Applications Open", date: "January 14th, 2026" },
   { title: "Applications Close", date: "February 10th, 2026" },
   { title: "First Stage (Online)", date: "February 14th, 2026" },
-  { title: "Qualified Teams", date: "February 25th, 2026" },
-  { title: "Payment Deadline", date: "April 1st, 2026" },
+  { title: "Qualified Teams", date: "March 1st, 2026" },
+  { title: "Last Call for Volunteers", date: "April 1st, 2026" },
   { title: "Final Stage (Offline)", date: "April 17th, 2026" },
 ] as const;
 
