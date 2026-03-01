@@ -143,6 +143,7 @@ export default function RegistrationPage() {
                 onLogout={logout}
                 onEdit={startEditing}
                 onDelete={() => setIsDeleteModalOpen(true)}
+                onRefresh={checkTeam}
               />
             )}
 

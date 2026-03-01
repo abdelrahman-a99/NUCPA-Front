@@ -204,4 +204,8 @@ export type TeamDetails = {
   onsite_status: "NOT_QUALIFIED" | "QUALIFIED_PENDING" | "QUALIFIED_PAID";
   rejection_note?: string;
   data_sharing_consent?: boolean;
+  attendance_confirmed?: boolean | null;
+  registration_package?: string;
+  tshirt_size_1?: string;
+  tshirt_size_2?: string;
 };

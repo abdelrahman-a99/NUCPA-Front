@@ -1,21 +1,38 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
 import PixelButton from "@/components/ui/PixelButton";
 import InfoRow from "./InfoRow";
 import HandleBadge from "./HandleBadge";
 import { parseErrorMessage } from "@/utils/errorHelpers";
+import AttendanceConfirmation from "./AttendanceConfirmation";
+
+const PACKAGE_LABELS: Record<string, string> = {
+  REG_ONLY: "Registration Only – 400 EGP",
+  REG_1_TSHIRT: "Registration + 1 T-Shirt – 650 EGP",
+  REG_2_TSHIRTS: "Registration + 2 T-Shirts – 850 EGP",
+};
 
 export default function TeamView({
   team,
   onLogout,
   onEdit,
-  onDelete
+  onDelete,
+  onRefresh,
 }: {
   team: TeamDetails;
   onLogout: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onRefresh?: () => void;
 }) {
+  const [showAttendance, setShowAttendance] = useState(false);
+
+  const needsAttendanceResponse =
+    team.onsite_status === "QUALIFIED_PENDING" && team.attendance_confirmed == null;
+  const hasConfirmedAttendance =
+    team.onsite_status === "QUALIFIED_PENDING" && team.attendance_confirmed === true;
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-line pb-6 mb-8">
@@ -27,6 +44,16 @@ export default function TeamView({
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
+          {needsAttendanceResponse && (
+            <PixelButton
+              onClick={() => setShowAttendance(!showAttendance)}
+              variant="primary"
+              size="sm"
+              className="animate-pulse hover:animate-none bg-gradient-to-r from-teal to-teal-bright"
+            >
+              {showAttendance ? "HIDE CONFIRMATION" : "🏆 CONFIRM ATTENDANCE"}
+            </PixelButton>
+          )}
           {(team.application_status === 'PENDING' || team.application_status === 'REJECTED' || team.application_status === 'APPROVED') && (
             <>
               <PixelButton onClick={onEdit} variant="primary" size="sm">
@@ -101,6 +128,35 @@ export default function TeamView({
           }
         />
       </div>
+
+      {/* Attendance Confirmed Summary */}
+      {hasConfirmedAttendance && team.registration_package && (
+        <div className="mb-8 p-5 bg-gradient-to-r from-teal/5 to-teal-bright/5 border-2 border-teal/20 rounded-2xl animate-in fade-in duration-500">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="text-2xl">✅</div>
+            <h4 className="font-pixel text-lg text-teal">ATTENDANCE CONFIRMED</h4>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <InfoRow label="Package" value={PACKAGE_LABELS[team.registration_package] || team.registration_package} compact />
+            {team.tshirt_size_1 && <InfoRow label="T-Shirt Size 1" value={team.tshirt_size_1} compact />}
+            {team.tshirt_size_2 && <InfoRow label="T-Shirt Size 2" value={team.tshirt_size_2} compact />}
+          </div>
+          <p className="text-xs text-muted mt-3">Complete the payment to secure your spot. The admin will update your status to QUALIFIED (Paid).</p>
+        </div>
+      )}
+
+      {/* Attendance Confirmation Panel */}
+      {showAttendance && needsAttendanceResponse && (
+        <div className="mb-8 p-6 bg-white border-2 border-teal/20 rounded-2xl shadow-lg">
+          <AttendanceConfirmation
+            team={team}
+            onConfirmed={() => {
+              setShowAttendance(false);
+              if (onRefresh) onRefresh();
+            }}
+          />
+        </div>
+      )}
 
       <div>
         <h3 className="font-pixel text-xl text-ink2 mb-6">TEAM ROSTER</h3>
