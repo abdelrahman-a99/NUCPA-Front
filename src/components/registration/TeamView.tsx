@@ -14,6 +14,12 @@ const PACKAGE_LABELS: Record<string, string> = {
   REG_2_TSHIRTS: "Registration + 2 T-Shirts – 850 EGP",
 };
 
+function getOrdinalSuffix(n: number): string {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+}
+
 export default function TeamView({
   team,
   onLogout,
@@ -54,18 +60,6 @@ export default function TeamView({
               {showAttendance ? "HIDE CONFIRMATION" : "🏆 CONFIRM ATTENDANCE"}
             </PixelButton>
           )}
-          {(team.application_status === 'PENDING' || team.application_status === 'REJECTED' || team.application_status === 'APPROVED') && (
-            <>
-              <PixelButton onClick={onEdit} variant="primary" size="sm">
-                EDIT REGISTRATION
-              </PixelButton>
-              {(team.application_status === 'PENDING' || team.application_status === 'REJECTED') && (
-                <PixelButton onClick={onDelete} variant="outline-red" size="sm">
-                  WITHDRAW TEAM
-                </PixelButton>
-              )}
-            </>
-          )}
         </div>
       </div>
 
@@ -95,7 +89,7 @@ export default function TeamView({
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-6 mb-10 bg-bg/50 p-6 rounded-2xl border border-line/50">
         <InfoRow label="Team Name" value={team.team_name} large />
 
         <InfoRow
@@ -126,6 +120,12 @@ export default function TeamView({
               team.onsite_status === 'QUALIFIED_PENDING' ? 'warning' :
                 'info'
           }
+        />
+
+        <InfoRow
+          label="Rank"
+          value={team.rank ? `#${team.rank}${getOrdinalSuffix(team.rank)} 🏅` : "Not Ranked Yet"}
+          variant={team.rank ? 'success' : 'info'}
         />
       </div>
 

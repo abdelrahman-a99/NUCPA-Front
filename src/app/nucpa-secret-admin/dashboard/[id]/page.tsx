@@ -58,7 +58,8 @@ export default function AdminTeamDetailPage() {
             application_status: team.application_status,
             online_status: team.online_status,
             onsite_status: team.onsite_status,
-            rejection_note: team.rejection_note
+            rejection_note: team.rejection_note,
+            rank: team.rank ?? null
         });
 
         if (success) {
@@ -184,6 +185,21 @@ export default function AdminTeamDetailPage() {
                                             <option value="QUALIFIED_PENDING">Qualified (Pending Payment)</option>
                                             <option value="QUALIFIED_PAID">Qualified (Paid)</option>
                                         </select>
+                                    </div>
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Rank</label>
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            placeholder="Not ranked"
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all"
+                                            value={team.rank ?? ""}
+                                            onChange={(e) => {
+                                                const val = e.target.value ? parseInt(e.target.value) : null;
+                                                setTeam({ ...team, rank: val });
+                                            }}
+                                        />
                                     </div>
 
                                     <PixelButton

@@ -208,4 +208,5 @@ export type TeamDetails = {
   registration_package?: string;
   tshirt_size_1?: string;
   tshirt_size_2?: string;
+  rank?: number | null;
 };
