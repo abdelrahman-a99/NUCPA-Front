@@ -7,7 +7,7 @@ import { parseErrorMessage } from "@/utils/errorHelpers";
 import Image from "next/image";
 
 type Package = "REG_ONLY" | "REG_1_TSHIRT" | "REG_2_TSHIRTS";
-type Size = "S" | "M" | "L" | "XL" | "XXL";
+type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "4XL";
 
 const PACKAGES: { value: Package; label: string; price: string; description: string }[] = [
     { value: "REG_ONLY", label: "Registration Only", price: "400 EGP", description: "Contest entry for your team" },
@@ -15,7 +15,7 @@ const PACKAGES: { value: Package; label: string; price: string; description: str
     { value: "REG_2_TSHIRTS", label: "Registration + 2 T-Shirts", price: "850 EGP", description: "Contest entry + two official contestant t-shirts" },
 ];
 
-const SIZES: Size[] = ["S", "M", "L", "XL", "XXL"];
+const SIZES: Size[] = ["S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
 export default function AttendanceConfirmation({
     team,
@@ -129,8 +129,8 @@ export default function AttendanceConfirmation({
                             setAckWaitlist(false);
                         }}
                         className={`relative p-6 rounded-2xl border-2 text-left transition-all duration-200 ${attending === true
-                                ? "border-teal bg-teal/5 shadow-md ring-4 ring-teal/20"
-                                : "border-line bg-white hover:border-teal/50 hover:shadow-sm"
+                            ? "border-teal bg-teal/5 shadow-md ring-4 ring-teal/20"
+                            : "border-line bg-white hover:border-teal/50 hover:shadow-sm"
                             }`}
                     >
                         <div className="text-3xl mb-2">✅</div>
@@ -152,8 +152,8 @@ export default function AttendanceConfirmation({
                             setAckNoShow(false);
                         }}
                         className={`relative p-6 rounded-2xl border-2 text-left transition-all duration-200 ${attending === false
-                                ? "border-red bg-red/5 shadow-md ring-4 ring-red/20"
-                                : "border-line bg-white hover:border-red/30 hover:shadow-sm"
+                            ? "border-red bg-red/5 shadow-md ring-4 ring-red/20"
+                            : "border-line bg-white hover:border-red/30 hover:shadow-sm"
                             }`}
                     >
                         <div className="text-3xl mb-2">❌</div>
@@ -186,8 +186,8 @@ export default function AttendanceConfirmation({
                                     }
                                 }}
                                 className={`relative p-6 rounded-2xl border-2 text-left transition-all duration-200 ${selectedPackage === pkg.value
-                                        ? "border-teal bg-teal/5 shadow-lg ring-4 ring-teal/20"
-                                        : "border-line bg-white hover:border-teal/30 hover:shadow-sm"
+                                    ? "border-teal bg-teal/5 shadow-lg ring-4 ring-teal/20"
+                                    : "border-line bg-white hover:border-teal/30 hover:shadow-sm"
                                     }`}
                             >
                                 <div className="mb-3">
@@ -208,7 +208,7 @@ export default function AttendanceConfirmation({
                         <div className="mb-8 animate-in fade-in duration-300">
                             <h4 className="font-pixel text-lg text-ink2 mb-4">T-SHIRT DESIGN</h4>
                             <div className="p-4 bg-white border-2 border-line rounded-2xl shadow-sm">
-                                <div className="relative w-full max-w-md mx-auto aspect-[4/3] rounded-xl overflow-hidden">
+                                <div className="relative w-full max-w-lg mx-auto aspect-[16/9] rounded-xl overflow-hidden">
                                     <Image
                                         src="/tshirt-design.png"
                                         alt="NUCPA 2026 Contestant T-Shirt Design"
@@ -217,6 +217,42 @@ export default function AttendanceConfirmation({
                                         priority
                                     />
                                 </div>
+                                <p className="text-xs text-muted text-center mt-3 font-medium">
+                                    ✍️ Write your name/handle with a marker on the back!
+                                </p>
+                            </div>
+
+                            {/* Size Chart */}
+                            <h4 className="font-pixel text-lg text-ink2 mt-6 mb-4">SIZE CHART</h4>
+                            <div className="p-4 bg-white border-2 border-line rounded-2xl shadow-sm overflow-x-auto">
+                                <table className="w-full text-sm text-center border-collapse">
+                                    <thead>
+                                        <tr className="bg-purple-700 text-white">
+                                            <th className="px-4 py-3 rounded-tl-xl font-pixel text-xs">Size</th>
+                                            <th className="px-4 py-3 font-pixel text-xs">Length (cm)</th>
+                                            <th className="px-4 py-3 font-pixel text-xs">Width (cm)</th>
+                                            <th className="px-4 py-3 rounded-tr-xl font-pixel text-xs">Weight (kg)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {[
+                                            { size: "S", length: 68, width: 52, weight: 60 },
+                                            { size: "M", length: 70, width: 54, weight: 70 },
+                                            { size: "L", length: 72, width: 56, weight: 80 },
+                                            { size: "XL", length: 74, width: 58, weight: 90 },
+                                            { size: "2XL", length: 76, width: 60, weight: 100 },
+                                            { size: "3XL", length: 78, width: 62, weight: 110 },
+                                            { size: "4XL", length: 80, width: 64, weight: 120 },
+                                        ].map((row, i) => (
+                                            <tr key={row.size} className={i % 2 === 0 ? "bg-purple-50/50" : "bg-white"}>
+                                                <td className="px-4 py-2.5 font-bold text-purple-700">{row.size}</td>
+                                                <td className="px-4 py-2.5 text-ink2 font-medium">{row.length}</td>
+                                                <td className="px-4 py-2.5 text-ink2 font-medium">{row.width}</td>
+                                                <td className="px-4 py-2.5 text-ink2 font-medium">{row.weight}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     )}
@@ -236,8 +272,8 @@ export default function AttendanceConfirmation({
                                                 key={`s1-${size}`}
                                                 onClick={() => setTshirtSize1(size)}
                                                 className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${tshirtSize1 === size
-                                                        ? "bg-teal text-white shadow-md"
-                                                        : "bg-white border-2 border-line text-ink2 hover:border-teal/50"
+                                                    ? "bg-teal text-white shadow-md"
+                                                    : "bg-white border-2 border-line text-ink2 hover:border-teal/50"
                                                     }`}
                                             >
                                                 {size}
@@ -257,8 +293,8 @@ export default function AttendanceConfirmation({
                                                     key={`s2-${size}`}
                                                     onClick={() => setTshirtSize2(size)}
                                                     className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${tshirtSize2 === size
-                                                            ? "bg-teal text-white shadow-md"
-                                                            : "bg-white border-2 border-line text-ink2 hover:border-teal/50"
+                                                        ? "bg-teal text-white shadow-md"
+                                                        : "bg-white border-2 border-line text-ink2 hover:border-teal/50"
                                                         }`}
                                                 >
                                                     {size}
