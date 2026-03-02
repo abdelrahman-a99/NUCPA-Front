@@ -66,6 +66,8 @@ export default function AdminDashboardPage() {
     const [docsStatus, setDocsStatus] = useState("all");
     const [dateFrom, setDateFrom] = useState("");
     const [dateTo, setDateTo] = useState("");
+    const [attendanceFilter, setAttendanceFilter] = useState("");
+    const [packageFilter, setPackageFilter] = useState("");
 
     // Charts Modal State
     const [showChartsModal, setShowChartsModal] = useState(false);
@@ -116,7 +118,9 @@ export default function AdminDashboardPage() {
             documents_complete: docsStatus === "all" ? undefined : docsStatus === "complete" ? "true" : "false",
             created_at_after: dateFrom || undefined,
             created_at_before: dateTo || undefined,
-            ordering
+            ordering,
+            attendance_confirmed: attendanceFilter || undefined,
+            registration_package: packageFilter || undefined,
         });
     };
 
@@ -133,11 +137,13 @@ export default function AdminDashboardPage() {
                 documents_complete: docsStatus === "all" ? undefined : docsStatus === "complete" ? "true" : "false",
                 created_at_after: dateFrom || undefined,
                 created_at_before: dateTo || undefined,
-                ordering
+                ordering,
+                attendance_confirmed: attendanceFilter || undefined,
+                registration_package: packageFilter || undefined,
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appStatus, onlineStatus, onsiteStatus, university, hasForeigners, isNUTeam, docsStatus, dateFrom, dateTo, ordering]);
+    }, [appStatus, onlineStatus, onsiteStatus, university, hasForeigners, isNUTeam, docsStatus, dateFrom, dateTo, ordering, attendanceFilter, packageFilter]);
 
     // Stat card click handlers - filter the team list
     const handleStatClick = (statType: string) => {
@@ -146,6 +152,8 @@ export default function AdminDashboardPage() {
         setUniversity("");
         setHasForeigners(false);
         setIsNUTeam(false);
+        setAttendanceFilter("");
+        setPackageFilter("");
         setDocsStatus("all");
         setDateFrom("");
         setDateTo("");
@@ -158,6 +166,8 @@ export default function AdminDashboardPage() {
             setOnlineStatus("");
             setOnsiteStatus("");
             setDocsStatus("all");
+            setAttendanceFilter("");
+            setPackageFilter("");
             return;
         }
 
@@ -201,6 +211,12 @@ export default function AdminDashboardPage() {
                 setOnlineStatus("ELIGIBLE");
                 setOnsiteStatus("");
                 break;
+            case "confirmed":
+                setAppStatus("");
+                setOnlineStatus("");
+                setOnsiteStatus("");
+                setAttendanceFilter("confirmed");
+                break;
             default:
                 setAppStatus("");
                 setOnlineStatus("");
@@ -217,6 +233,8 @@ export default function AdminDashboardPage() {
         const readyTeams = teams.filter(t => t.online_status === 'ELIGIBLE').length;
         const foreignTeams = teams.filter(t => t.has_foreigners === true).length;
         const incompleteDocsTeams = teams.filter(t => t.documents_complete === false).length;
+        const confirmedTeams = teams.filter(t => (t as any).attendance_confirmed === true).length;
+        const declinedTeams = teams.filter(t => (t as any).attendance_confirmed === false).length;
 
         // Count unique universities that actually have teams
         const allUniversities = new Set<string>();
@@ -228,7 +246,7 @@ export default function AdminDashboardPage() {
         });
         const universitiesCount = allUniversities.size;
 
-        return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount };
+        return { totalTeams, pendingTeams, approvedTeams, paidTeams, readyTeams, foreignTeams, incompleteDocsTeams, universitiesCount, confirmedTeams, declinedTeams };
     }, [teams]);
 
     // Chart data: University distribution (Metric: Member Count)
@@ -566,6 +584,19 @@ export default function AdminDashboardPage() {
                             </div>
                             <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-lg">💰</div>
                         </button>
+                        <button
+                            onClick={() => handleStatClick("confirmed")}
+                            className={cn(
+                                "bg-white border-2 rounded-2xl p-5 shadow-sm flex items-center justify-between group transition-all text-left",
+                                activeStatFilter === "confirmed" ? "border-emerald-500 ring-4 ring-emerald-200" : "border-emerald-200 hover:border-emerald-400"
+                            )}
+                        >
+                            <div>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Confirmed</p>
+                                <p className="font-pixel text-3xl text-emerald-600">{stats.confirmedTeams}</p>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-lg">🎫</div>
+                        </button>
                         <div className="bg-white border-2 border-purple-200 rounded-2xl p-5 shadow-sm flex items-center justify-between group hover:border-purple-400 transition-colors">
                             <div>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-1">Universities</p>
@@ -681,6 +712,28 @@ export default function AdminDashboardPage() {
                                 <option value="QUALIFIED_PAID">QUALIFIED (PAID)</option>
                             </select>
 
+                            <select
+                                value={attendanceFilter}
+                                onChange={(e) => { setAttendanceFilter(e.target.value); setActiveStatFilter(null); }}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">ALL ATTENDANCE</option>
+                                <option value="confirmed">✅ Confirmed</option>
+                                <option value="declined">❌ Declined</option>
+                                <option value="pending">⏳ Not Responded</option>
+                            </select>
+
+                            <select
+                                value={packageFilter}
+                                onChange={(e) => { setPackageFilter(e.target.value); setActiveStatFilter(null); }}
+                                className="px-3 py-2 rounded-lg border border-line bg-white text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">ALL PACKAGES</option>
+                                <option value="REG_ONLY">Reg Only</option>
+                                <option value="REG_1_TSHIRT">Reg + 1 Shirt</option>
+                                <option value="REG_2_TSHIRTS">Reg + 2 Shirts</option>
+                            </select>
+
                             {/* Fixed University Filter */}
                             <select
                                 value={university}
@@ -747,7 +800,7 @@ export default function AdminDashboardPage() {
                                 <span className="text-sm font-bold text-ink2">🏫 NU Teams</span>
                             </label>
 
-                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam || docsStatus !== "all" || dateFrom || dateTo || activeStatFilter) && (
+                            {(appStatus || onlineStatus || onsiteStatus || university || hasForeigners || isNUTeam || docsStatus !== "all" || dateFrom || dateTo || activeStatFilter || attendanceFilter || packageFilter) && (
                                 <button
                                     onClick={() => {
                                         setAppStatus("");
@@ -761,6 +814,8 @@ export default function AdminDashboardPage() {
                                         setDateTo("");
                                         setOrdering("-created_at");
                                         setActiveStatFilter(null);
+                                        setAttendanceFilter("");
+                                        setPackageFilter("");
                                     }}
                                     className="text-xs text-red-500 font-bold hover:underline ml-auto"
                                 >
@@ -824,13 +879,15 @@ export default function AdminDashboardPage() {
                                         <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">App</th>
                                         <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Online</th>
                                         <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Onsite</th>
+                                        <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Attend</th>
+                                        <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-center">Pkg</th>
                                         <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-widest text-muted text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-line/50">
                                     {teams.length === 0 ? (
                                         <tr>
-                                            <td colSpan={9} className="px-6 py-20 text-center text-muted font-pixel text-sm">
+                                            <td colSpan={11} className="px-6 py-20 text-center text-muted font-pixel text-sm">
                                                 NO TEAMS FOUND IN THE ARENA
                                             </td>
                                         </tr>
@@ -922,6 +979,30 @@ export default function AdminDashboardPage() {
                                                                 team.onsite_status === 'QUALIFIED_PENDING' ? 'PENDING' :
                                                                     team.onsite_status === 'WAITING_LIST' ? 'WAITLIST' : 'NOT'}
                                                         </span>
+                                                    </td>
+                                                    <td className="px-4 py-4 text-center">
+                                                        {teamAny.attendance_confirmed === true ? (
+                                                            <span className="text-lg" title="Confirmed">✅</span>
+                                                        ) : teamAny.attendance_confirmed === false ? (
+                                                            <span className="text-lg" title="Declined">❌</span>
+                                                        ) : (
+                                                            <span className="text-lg text-gray-300" title="Not responded">—</span>
+                                                        )}
+                                                    </td>
+                                                    <td className="px-4 py-4 text-center">
+                                                        {teamAny.registration_package ? (
+                                                            <span className={cn(
+                                                                "px-2 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border",
+                                                                teamAny.registration_package === 'REG_ONLY' ? "bg-gray-100 text-gray-600 border-gray-200" :
+                                                                    teamAny.registration_package === 'REG_1_TSHIRT' ? "bg-purple-50 text-purple-600 border-purple-200" :
+                                                                        "bg-indigo-50 text-indigo-600 border-indigo-200"
+                                                            )}>
+                                                                {teamAny.registration_package === 'REG_ONLY' ? 'REG' :
+                                                                    teamAny.registration_package === 'REG_1_TSHIRT' ? '1 TEE' : '2 TEES'}
+                                                            </span>
+                                                        ) : (
+                                                            <span className="text-sm text-gray-300">—</span>
+                                                        )}
                                                     </td>
                                                     <td className="px-4 py-4 text-right">
                                                         <div className="flex justify-end gap-2">

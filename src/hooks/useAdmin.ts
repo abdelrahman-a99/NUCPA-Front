@@ -78,7 +78,9 @@ export function useAdmin() {
             documents_complete?: string,
             created_at_after?: string,
             created_at_before?: string,
-            ordering?: string
+            ordering?: string,
+            attendance_confirmed?: string,
+            registration_package?: string,
         }
     ) => {
         setIsLoading(true);
@@ -96,6 +98,8 @@ export function useAdmin() {
             if (filters?.created_at_after) params.append("created_at_after", filters.created_at_after);
             if (filters?.created_at_before) params.append("created_at_before", filters.created_at_before);
             if (filters?.ordering) params.append("ordering", filters.ordering);
+            if (filters?.attendance_confirmed) params.append("attendance_confirmed", filters.attendance_confirmed);
+            if (filters?.registration_package) params.append("registration_package", filters.registration_package);
 
             const query = params.toString() ? `?${params.toString()}` : "";
             const res = await fetch(`/api/registration/teams/${query}`, {
