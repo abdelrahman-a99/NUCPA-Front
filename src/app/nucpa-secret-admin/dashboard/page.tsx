@@ -477,7 +477,7 @@ export default function AdminDashboardPage() {
         <div className="flex flex-col min-h-screen bg-bg">
             <Navbar />
             <main className="flex-grow py-12 px-4 sm:px-8">
-                <div className="container-max">
+                <div className="mx-auto w-full max-w-[1600px]">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
                         <div>
                             <h1 className="font-pixel text-3xl sm:text-5xl text-ink2 mb-2">ADMIN CONSOLE</h1>
@@ -860,7 +860,7 @@ export default function AdminDashboardPage() {
 
                     <div className="bg-white border-2 border-line rounded-[2rem] shadow-xl overflow-hidden">
                         <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
+                            <table className="w-full min-w-[1400px] text-left border-collapse">
                                 <thead>
                                     <tr className="bg-bg/50 border-b-2 border-line">
                                         <th className="px-4 py-5 text-center">
