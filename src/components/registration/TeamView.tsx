@@ -8,10 +8,20 @@ import HandleBadge from "./HandleBadge";
 import { parseErrorMessage } from "@/utils/errorHelpers";
 import AttendanceConfirmation from "./AttendanceConfirmation";
 
-const PACKAGE_LABELS: Record<string, string> = {
-  REG_ONLY: "Registration Only – 400 EGP",
-  REG_1_TSHIRT: "Registration + 1 T-Shirt – 650 EGP",
-  REG_2_TSHIRTS: "Registration + 2 T-Shirts – 850 EGP",
+const getPackageLabel = (pkg: string, nuCount: number): string => {
+  const discount = nuCount * 200;
+  const prices: Record<string, number> = {
+    REG_ONLY: 400 - discount,
+    REG_1_TSHIRT: 650 - discount,
+    REG_2_TSHIRTS: 850 - discount,
+  };
+  const price = prices[pkg] ?? 0;
+  const labels: Record<string, string> = {
+    REG_ONLY: price === 0 ? "Registration Only – FREE" : `Registration Only – ${price} EGP`,
+    REG_1_TSHIRT: `Registration + 1 T-Shirt – ${price} EGP`,
+    REG_2_TSHIRTS: `Registration + 2 T-Shirts – ${price} EGP`,
+  };
+  return labels[pkg] || pkg;
 };
 
 function getOrdinalSuffix(n: number): string {
@@ -139,7 +149,7 @@ export default function TeamView({
             <h4 className="font-pixel text-lg text-teal">ATTENDANCE CONFIRMED</h4>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <InfoRow label="Package" value={PACKAGE_LABELS[team.registration_package] || team.registration_package} compact />
+            <InfoRow label="Package" value={getPackageLabel(team.registration_package, team.members.filter(m => m.nu_student).length)} compact />
             {team.tshirt_size_1 && <InfoRow label="T-Shirt Size 1" value={team.tshirt_size_1} compact />}
             {team.tshirt_size_2 && <InfoRow label="T-Shirt Size 2" value={team.tshirt_size_2} compact />}
           </div>

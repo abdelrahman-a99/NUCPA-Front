@@ -9,11 +9,43 @@ import Image from "next/image";
 type Package = "REG_ONLY" | "REG_1_TSHIRT" | "REG_2_TSHIRTS";
 type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "4XL";
 
-const PACKAGES: { value: Package; label: string; price: string; description: string }[] = [
-    { value: "REG_ONLY", label: "Registration Only", price: "400 EGP", description: "Contest entry for your team" },
-    { value: "REG_1_TSHIRT", label: "Registration + 1 T-Shirt", price: "650 EGP", description: "Contest entry + one official contestant t-shirt" },
-    { value: "REG_2_TSHIRTS", label: "Registration + 2 T-Shirts", price: "850 EGP", description: "Contest entry + two official contestant t-shirts" },
-];
+// Pricing tiers based on NU student count
+// 2 NU members: 0 / 250 / 450
+// 1 NU member:  200 / 450 / 650
+// 0 NU members: 400 / 650 / 850
+function getPackages(nuMemberCount: number): { value: Package; label: string; price: string; priceNum: number; description: string; originalPrice?: string }[] {
+    const discount = nuMemberCount * 200; // 200 EGP discount per NU student
+    const regOnly = 400 - discount;
+    const reg1Shirt = 650 - discount;
+    const reg2Shirts = 850 - discount;
+
+    return [
+        {
+            value: "REG_ONLY",
+            label: regOnly === 0 ? "Registration Only (FREE)" : "Registration Only",
+            price: regOnly === 0 ? "FREE" : `${regOnly} EGP`,
+            priceNum: regOnly,
+            description: "Contest entry for your team",
+            originalPrice: discount > 0 ? "400 EGP" : undefined,
+        },
+        {
+            value: "REG_1_TSHIRT",
+            label: "Registration + 1 T-Shirt",
+            price: `${reg1Shirt} EGP`,
+            priceNum: reg1Shirt,
+            description: "Contest entry + one official contestant t-shirt",
+            originalPrice: discount > 0 ? "650 EGP" : undefined,
+        },
+        {
+            value: "REG_2_TSHIRTS",
+            label: "Registration + 2 T-Shirts",
+            price: `${reg2Shirts} EGP`,
+            priceNum: reg2Shirts,
+            description: "Contest entry + two official contestant t-shirts",
+            originalPrice: discount > 0 ? "850 EGP" : undefined,
+        },
+    ];
+}
 
 const SIZES: Size[] = ["S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
@@ -24,6 +56,10 @@ export default function AttendanceConfirmation({
     team: TeamDetails;
     onConfirmed: () => void;
 }) {
+    // Count NU student members
+    const nuMemberCount = team.members.filter(m => m.nu_student).length;
+    const packages = getPackages(nuMemberCount);
+
     const [attending, setAttending] = useState<boolean | null>(null);
     const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
     const [tshirtSize1, setTshirtSize1] = useState<Size | "">("");
@@ -171,8 +207,26 @@ export default function AttendanceConfirmation({
                 <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
                     {/* Package Selection */}
                     <h4 className="font-pixel text-lg text-ink2 mb-4">REGISTRATION PACKAGES</h4>
+
+                    {/* NU Student Discount Banner */}
+                    {nuMemberCount > 0 && (
+                        <div className="mb-4 p-4 bg-gradient-to-r from-teal/10 to-purple-500/10 border-2 border-teal/30 rounded-xl flex items-center gap-3 animate-in fade-in duration-300">
+                            <div className="text-2xl">🎓</div>
+                            <div>
+                                <p className="font-bold text-sm text-teal">
+                                    NU Student Discount Applied! ({nuMemberCount} NU member{nuMemberCount > 1 ? "s" : ""})
+                                </p>
+                                <p className="text-xs text-muted">
+                                    {nuMemberCount === 2
+                                        ? "Both members are NU students — registration is FREE! Only pay for t-shirts."
+                                        : "1 member is an NU student — 200 EGP discount on registration."}
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                        {PACKAGES.map((pkg) => (
+                        {packages.map((pkg) => (
                             <button
                                 key={pkg.value}
                                 onClick={() => {
@@ -191,7 +245,10 @@ export default function AttendanceConfirmation({
                                     }`}
                             >
                                 <div className="mb-3">
-                                    <span className="font-pixel text-2xl text-teal">{pkg.price}</span>
+                                    {pkg.originalPrice && (
+                                        <span className="text-sm text-muted line-through mr-2">{pkg.originalPrice}</span>
+                                    )}
+                                    <span className={`font-pixel text-2xl ${pkg.priceNum === 0 ? "text-green-600" : "text-teal"}`}>{pkg.price}</span>
                                     <span className="text-xs text-muted font-bold ml-1">/ team</span>
                                 </div>
                                 <h5 className="font-bold text-sm text-ink2 mb-1">{pkg.label}</h5>
