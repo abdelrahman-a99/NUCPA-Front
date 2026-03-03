@@ -59,7 +59,11 @@ export default function AdminTeamDetailPage() {
             online_status: team.online_status,
             onsite_status: team.onsite_status,
             rejection_note: team.rejection_note,
-            rank: team.rank ?? null
+            rank: team.rank ?? null,
+            attendance_confirmed: team.attendance_confirmed,
+            registration_package: team.registration_package,
+            tshirt_size_1: team.tshirt_size_1,
+            tshirt_size_2: team.tshirt_size_2
         });
 
         if (success) {
@@ -202,6 +206,79 @@ export default function AdminTeamDetailPage() {
                                             }}
                                         />
                                     </div>
+
+                                    <h3 className="text-xs font-bold text-muted uppercase tracking-widest mt-2 mb-1 border-t border-line/30 pt-3">Attendance & Swag</h3>
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Attendance Confirmation</label>
+                                        <select
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                            value={team.attendance_confirmed === null ? "null" : team.attendance_confirmed?.toString() || "false"}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                let parsedVal: boolean | null = null;
+                                                if (val === "true") parsedVal = true;
+                                                if (val === "false") parsedVal = false;
+                                                setTeam({ ...team, attendance_confirmed: parsedVal });
+                                            }}
+                                        >
+                                            <option value="null">Not Responded</option>
+                                            <option value="true">Confirmed (Attending)</option>
+                                            <option value="false">Declined (Not Attending)</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-[10px] font-bold text-ink2 uppercase">Registration Package</label>
+                                        <select
+                                            className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                            value={team.registration_package || ""}
+                                            onChange={(e) => {
+                                                setTeam({ ...team, registration_package: e.target.value });
+                                            }}
+                                        >
+                                            <option value="">No Package Selected</option>
+                                            <option value="REG_ONLY">Registration Only</option>
+                                            <option value="REG_1_TSHIRT">Registration + 1 T-Shirt</option>
+                                            <option value="REG_2_TSHIRTS">Registration + 2 T-Shirts</option>
+                                        </select>
+                                    </div>
+
+                                    {(team.registration_package === "REG_1_TSHIRT" || team.registration_package === "REG_2_TSHIRTS") && (
+                                        <div className="flex flex-col gap-1">
+                                            <label className="text-[10px] font-bold text-ink2 uppercase">T-Shirt 1 Size</label>
+                                            <select
+                                                className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                                value={team.tshirt_size_1 || ""}
+                                                onChange={(e) => {
+                                                    setTeam({ ...team, tshirt_size_1: e.target.value });
+                                                }}
+                                            >
+                                                <option value="">Select Size</option>
+                                                {["S", "M", "L", "XL", "2XL", "3XL", "4XL"].map(size => (
+                                                    <option key={size} value={size}>{size}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
+
+                                    {team.registration_package === "REG_2_TSHIRTS" && (
+                                        <div className="flex flex-col gap-1">
+                                            <label className="text-[10px] font-bold text-ink2 uppercase">T-Shirt 2 Size</label>
+                                            <select
+                                                className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
+                                                value={team.tshirt_size_2 || ""}
+                                                onChange={(e) => {
+                                                    setTeam({ ...team, tshirt_size_2: e.target.value });
+                                                }}
+                                            >
+                                                <option value="">Select Size</option>
+                                                {["S", "M", "L", "XL", "2XL", "3XL", "4XL"].map(size => (
+                                                    <option key={size} value={size}>{size}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
 
                                     <PixelButton
                                         onClick={() => setShowConfirmModal(true)}

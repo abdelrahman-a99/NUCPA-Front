@@ -115,7 +115,20 @@ export function useAdmin() {
         }
     }, []);
 
-    const updateTeamStatus = async (teamId: number, updates: Record<string, any>) => {
+    const updateTeamStatus = async (
+        teamId: number,
+        updates: {
+            application_status?: "PENDING" | "APPROVED" | "REJECTED",
+            online_status?: "NOT_ELIGIBLE" | "ELIGIBLE",
+            onsite_status?: "NOT_QUALIFIED" | "WAITING_LIST" | "QUALIFIED_PENDING" | "QUALIFIED_PAID",
+            rejection_note?: string,
+            rank?: number | null,
+            attendance_confirmed?: boolean | null,
+            registration_package?: string,
+            tshirt_size_1?: string,
+            tshirt_size_2?: string
+        }
+    ) => {
         try {
             const res = await fetch(`/api/registration/teams/${teamId}/`, {
                 method: "PATCH",
