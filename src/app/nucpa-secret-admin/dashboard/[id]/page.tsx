@@ -255,7 +255,7 @@ export default function AdminTeamDetailPage() {
                                                 }}
                                             >
                                                 <option value="">Select Size</option>
-                                                {["S", "M", "L", "XL", "2XL", "3XL", "4XL"].map(size => (
+                                                {["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL"].map(size => (
                                                     <option key={size} value={size}>{size}</option>
                                                 ))}
                                             </select>
@@ -273,7 +273,7 @@ export default function AdminTeamDetailPage() {
                                                 }}
                                             >
                                                 <option value="">Select Size</option>
-                                                {["S", "M", "L", "XL", "2XL", "3XL", "4XL"].map(size => (
+                                                {["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL"].map(size => (
                                                     <option key={size} value={size}>{size}</option>
                                                 ))}
                                             </select>

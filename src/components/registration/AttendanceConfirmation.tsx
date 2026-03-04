@@ -7,7 +7,7 @@ import { parseErrorMessage } from "@/utils/errorHelpers";
 import Image from "next/image";
 
 type Package = "REG_ONLY" | "REG_1_TSHIRT" | "REG_2_TSHIRTS";
-type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "4XL";
+type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "4XL" | "5XL" | "6XL";
 
 // Pricing tiers based on NU student count
 // 2 NU members: 0 / 250 / 450
@@ -47,7 +47,7 @@ function getPackages(nuMemberCount: number): { value: Package; label: string; pr
     ];
 }
 
-const SIZES: Size[] = ["S", "M", "L", "XL", "2XL", "3XL", "4XL"];
+const SIZES: Size[] = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL"];
 
 export default function AttendanceConfirmation({
     team,
@@ -300,6 +300,8 @@ export default function AttendanceConfirmation({
                                             { size: "2XL", length: 76, width: 60, weight: 100 },
                                             { size: "3XL", length: 78, width: 62, weight: 110 },
                                             { size: "4XL", length: 80, width: 64, weight: 120 },
+                                            { size: "5XL", length: 82, width: 66, weight: 130 },
+                                            { size: "6XL", length: 84, width: 68, weight: 140 },
                                         ].map((row, i) => (
                                             <tr key={row.size} className={i % 2 === 0 ? "bg-purple-50/50" : "bg-white"}>
                                                 <td className="px-4 py-2.5 font-bold text-purple-700">{row.size}</td>
