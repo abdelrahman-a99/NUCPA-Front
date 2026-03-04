@@ -1,80 +1,187 @@
-# NUCPA Landing Page
+# NUCPA Frontend 🎮
 
-This repository contains the front-end code for the **Nile University Competitive Programming Arena (NUCPA)** landing page. It is built with **Next.js**, **Tailwind CSS**, and **TypeScript**.
+> The official frontend for the **Nile University Competitive Programming Arena (NUCPA)** — a Next.js web app featuring a pixel-art themed landing page, team registration portal, attendance confirmation flow, and admin dashboard.
+
+---
+
+## ✨ Key Features
+
+### Landing Page
+- **Pixel-art aesthetic** across headings and buttons.
+- **Hero section** with animated countdown timer to the event date.
+- **About section** with auto-playing image gallery.
+- **Details section** with event information and stats.
+- **Timeline** of contest phases.
+- **Awards section** with tabbed prize categories.
+- **Contact Us** form with email submission.
+- **Responsive design** — optimized for mobile, tablet, and desktop.
+- **SEO optimized** with configured metadata for social sharing.
+
+### Registration Portal (`/registration`)
+- **Google OAuth** login with popup-based flow.
+- **Multi-step registration form** with real-time field validation.
+- **Member forms** — two members per team, with fields for personal info, university, Codeforces/VJudge handles, and document uploads.
+- **Team dashboard** — view and edit registration, track approval status.
+- **Rules modal** with competition guidelines.
+- **Attendance confirmation** — qualified teams can confirm or decline onsite participation.
+- **Registration closed** page — gracefully blocks new signups when admin disables registration, while still allowing existing teams to view their dashboard.
+
+### Admin Dashboard (`/nucpa-secret-admin`)
+- **Protected admin login** with staff-only access verification.
+- **Team management** — view all registered teams with filtering, sorting, and search.
+- **Status management** — approve/reject teams, update online/onsite qualification status.
+- **Codeforces stats** — visualize CF rating distribution with charts (Recharts).
+- **CSV export** — download team data with optional filters.
+- **Toggle controls** — open/close registration and attendance confirmation.
+- **Document viewer** — securely view uploaded ID documents.
+
+### Architecture
+- **Next.js API proxy routes** — all backend requests are proxied through Next.js server routes for secure token handling (tokens stored in HTTP-only cookies, never exposed to the browser).
+- **Custom hooks** — `useRegistration`, `useGoogleLogin`, `useAdmin` encapsulate all business logic.
+- **Maintenance wrapper** — global component that checks registration status and redirects accordingly.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | [Next.js 14](https://nextjs.org/) (App Router) |
+| Language | TypeScript |
+| Styling | [Tailwind CSS 3](https://tailwindcss.com/) + `tailwind-merge` + `clsx` |
+| Charts | [Recharts](https://recharts.org/) |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Fonts | Custom Pixel Font + Geist Sans/Mono |
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or higher recommended)
+- Node.js v18+
 - npm, yarn, or pnpm
 
 ### Installation
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/abdelrahman-a99/NUCPA-Front.git
-    cd nucpa-front
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
-
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
-
-#### Environment variables
-
-Create `.env.local` (or set these in Vercel):
-
 ```bash
-NEXT_PUBLIC_NUCPA_API_BASE_URL=
-NUCPA_API_BASE_URL=
+git clone https://github.com/abdelrahman-a99/NUCPA-Front.git
+cd NUCPA-Front
+
+npm install
 ```
 
-The browser uses `NEXT_PUBLIC_NUCPA_API_BASE_URL` for the Google-login popup, while Next.js server routes use `NUCPA_API_BASE_URL` to proxy requests securely.
+### Environment Variables
 
-4.  **Open the site:**
-    Visit [http://localhost:3000](http://localhost:3000) in your browser.
+Create `.env.local` (or set in Vercel):
 
-## 🛠️ Technologies Used
+```env
+# Used by browser popup (Google login redirect)
+NEXT_PUBLIC_NUCPA_API_BASE_URL=http://127.0.0.1:8000
 
--   **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
--   **Styling:** [Tailwind CSS](https://tailwindcss.com/) + `tailwind-merge`
--   **Icons:** [Lucide React](https://lucide.dev/)
--   **Language:** TypeScript
--   **Fonts:** Custom Pixel Font + Geist Sans/Mono
+# Used by Next.js API routes (server-side proxy to backend)
+NUCPA_API_BASE_URL=http://127.0.0.1:8000
+```
 
-## 📂 Project Structure
+### Run
 
--   `src/app`: App directory containing pages and layouts.
--   `src/components`:
-    -   `layout`: Navbar, Footer.
-    -   `sections`: Individual landing page sections (Hero, About, Details, Timeline, Awards, Contact).
-    -   `ui`: Reusable UI components (PixelButton, SectionHeader).
--   `src/lib`:
-    -   `data.ts`: Centralized content data (Stats, Prizes, Timeline items, Gallery paths).
-    -   `site.ts`: Site configuration constants (Nav items, Event date).
-    -   `cn.ts`: Utility for merging class names.
--   `public/assets`: Static images and assets (including the About Gallery).
+```bash
+npm run dev
+```
 
-## ✨ Key Features
+Visit [http://localhost:3000](http://localhost:3000).
 
--   **Pixel Art Theme:** Consistent pixel-art aesthetic across buttons and headings.
--   **Countdown Timer:** Real-time countdown to the event date.
--   **Image Gallery:** Auto-playing slider in the About section.
--   **Dynamic Awards Section:** Tabbed interface for viewing prizes by category.
--   **Responsive Design:** Fully optimized for mobile, tablet, and desktop.
--   **SEO Optimized:** configured metadata for social sharing.
+---
 
-## 📝 Customization
+## 📁 Project Structure
 
--   **Content:** Edit text and dynamic data in `src/lib/data.ts`.
--   **Images:** Add or replace images in `public/assets`.
--   **Colors:** Modify the color palette in `tailwind.config.ts`.
+```
+src/
+├── app/
+│   ├── page.tsx                   # Landing page (Home)
+│   ├── layout.tsx                 # Root layout + metadata
+│   ├── globals.css                # Global styles
+│   ├── registration/              # Registration page
+│   ├── registration-closed/       # Closed registration page
+│   ├── auth/                      # Auth callback handling
+│   ├── nucpa-secret-admin/        # Admin portal
+│   │   ├── login/                 # Admin login page
+│   │   └── dashboard/             # Admin dashboard
+│   └── api/                       # Next.js API proxy routes
+│       ├── auth/                  # Login, logout, token storage
+│       └── registration/          # Teams, members, documents, CSV, stats
+├── components/
+│   ├── layout/                    # Navbar, Footer
+│   ├── sections/                  # Landing page sections
+│   │   ├── Hero.tsx               # Hero + countdown timer
+│   │   ├── About.tsx              # About + image gallery
+│   │   ├── Details.tsx            # Event details + stats
+│   │   ├── Timeline.tsx           # Contest timeline
+│   │   ├── Awards.tsx             # Prize categories (tabbed)
+│   │   └── Contact.tsx            # Contact form
+│   ├── registration/              # Registration flow components
+│   │   ├── RegistrationForm.tsx   # Main registration wizard
+│   │   ├── MemberForm.tsx         # Individual member form
+│   │   ├── TeamView.tsx           # Team dashboard / status
+│   │   ├── AttendanceConfirmation.tsx
+│   │   ├── RulesModal.tsx
+│   │   ├── HandleBadge.tsx        # CF/VJudge handle display
+│   │   ├── Field.tsx              # Form field wrapper
+│   │   └── InfoRow.tsx            # Info display row
+│   ├── ui/                        # Reusable UI (PixelButton, SectionHeader)
+│   └── MaintenanceWrapper.tsx     # Registration status gate
+├── hooks/
+│   ├── useRegistration.ts         # Team registration logic
+│   ├── useGoogleLogin.ts          # OAuth popup flow
+│   └── useAdmin.ts                # Admin dashboard logic
+├── lib/
+│   ├── data.ts                    # Landing page content (stats, prizes, timeline)
+│   ├── site.ts                    # Nav items, event date constant
+│   ├── registration-data.ts       # University list, form constants
+│   ├── phone-data.ts              # Country phone codes
+│   └── cn.ts                      # Class name merge utility
+├── utils/                         # Misc utilities
+└── public/
+    └── assets/                    # Static images (logo, gallery, sponsors)
+```
+
+---
+
+## 🎨 Customization
+
+| What | Where |
+|------|-------|
+| Landing page text & data | `src/lib/data.ts` |
+| Event date | `src/lib/site.ts` → `EVENT_DATE_ISO` |
+| Navigation items | `src/lib/site.ts` → `NAV_ITEMS` |
+| University list | `src/lib/registration-data.ts` |
+| Colors & theme | `tailwind.config.ts` |
+| Images & assets | `public/assets/` |
+
+---
+
+## 🌍 Deployment
+
+Optimized for **Vercel**:
+
+1. Connect your GitHub repo to Vercel.
+2. Set environment variables (`NEXT_PUBLIC_NUCPA_API_BASE_URL`, `NUCPA_API_BASE_URL`).
+3. Deploy — Vercel handles build & hosting automatically.
+
+For other platforms, run:
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 📜 Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm start` | Start production server |
+| `npm run lint` | Run ESLint |
