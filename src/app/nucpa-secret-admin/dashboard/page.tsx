@@ -681,12 +681,29 @@ export default function AdminDashboardPage() {
 
                         const pkgCounts: Record<string, number> = {};
                         const sizeCounts: Record<string, number> = {};
+                        let totalNuMembers = 0;
+                        let totalNonNuMembers = 0;
+                        let totalFees = 0;
+
+                        const basePrices: Record<string, number> = {
+                            REG_ONLY: 400,
+                            REG_1_TSHIRT: 650,
+                            REG_2_TSHIRTS: 850
+                        };
 
                         confirmedTeams.forEach(t => {
                             const pkg = t.registration_package || "Unknown";
                             pkgCounts[pkg] = (pkgCounts[pkg] || 0) + 1;
                             if (t.tshirt_size_1) sizeCounts[t.tshirt_size_1] = (sizeCounts[t.tshirt_size_1] || 0) + 1;
                             if (t.tshirt_size_2) sizeCounts[t.tshirt_size_2] = (sizeCounts[t.tshirt_size_2] || 0) + 1;
+
+                            const nuCount = t.members?.filter(m => m.nu_student).length || 0;
+                            totalNuMembers += nuCount;
+                            totalNonNuMembers += (t.members?.length || 0) - nuCount;
+
+                            const base = basePrices[pkg] || 0;
+                            const discount = nuCount * 200;
+                            totalFees += Math.max(0, base - discount);
                         });
 
                         const pkgLabels: Record<string, string> = {
@@ -697,7 +714,7 @@ export default function AdminDashboardPage() {
                         const sizeOrder = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL"];
 
                         return (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                                 {/* Package Distribution */}
                                 <div className="bg-white border-2 border-purple-200 rounded-2xl p-6 shadow-sm">
                                     <h3 className="font-pixel text-sm text-purple-700 mb-4 uppercase tracking-widest">📦 Package Distribution ({confirmedTeams.length} confirmed)</h3>
@@ -711,13 +728,32 @@ export default function AdminDashboardPage() {
                                     </div>
                                 </div>
 
+                                {/* NU Student & Fees */}
+                                <div className="bg-white border-2 border-blue-200 rounded-2xl p-6 shadow-sm">
+                                    <h3 className="font-pixel text-sm text-blue-700 mb-4 uppercase tracking-widest">🎓 NU Students & Fees</h3>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-bold text-ink2">NU Members</span>
+                                            <span className="font-pixel text-lg text-blue-600">{totalNuMembers}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-bold text-ink2">Non-NU Members</span>
+                                            <span className="font-pixel text-lg text-blue-600">{totalNonNuMembers}</span>
+                                        </div>
+                                        <div className="border-t border-blue-100 pt-3 flex items-center justify-between">
+                                            <span className="text-xs font-bold text-ink2">Total Expected Fees</span>
+                                            <span className="font-pixel text-lg text-green-600">{totalFees.toLocaleString()} EGP</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* T-Shirt Size Distribution */}
                                 <div className="bg-white border-2 border-teal/20 rounded-2xl p-6 shadow-sm">
                                     <h3 className="font-pixel text-sm text-teal mb-4 uppercase tracking-widest">👕 T-Shirt Size Distribution</h3>
                                     {Object.keys(sizeCounts).length === 0 ? (
                                         <p className="text-xs text-muted">No t-shirt selections yet.</p>
                                     ) : (
-                                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                                        <div className="grid grid-cols-3 sm:grid-cols-3 gap-3">
                                             {sizeOrder.filter(s => sizeCounts[s]).map(size => (
                                                 <div key={size} className="flex flex-col items-center bg-bg rounded-xl p-3 border border-line">
                                                     <span className="font-pixel text-lg text-teal">{sizeCounts[size]}</span>
