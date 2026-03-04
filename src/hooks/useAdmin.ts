@@ -9,6 +9,7 @@ export function useAdmin() {
     const [error, setError] = useState<string | null>(null);
     const [teams, setTeams] = useState<TeamDetails[]>([]);
     const [registrationOpen, setRegistrationOpen] = useState<boolean | null>(null);
+    const [attendanceConfirmationOpen, setAttendanceConfirmationOpen] = useState<boolean | null>(null);
 
     const checkAdminStatus = useCallback(async () => {
         setIsLoading(true);
@@ -173,6 +174,7 @@ export function useAdmin() {
             if (res.ok) {
                 const data = await res.json();
                 setRegistrationOpen(data.registration_open);
+                setAttendanceConfirmationOpen(data.attendance_confirmation_open ?? false);
             }
         } catch (e) {
             // Fail silently
@@ -194,12 +196,28 @@ export function useAdmin() {
         }
     };
 
+    const toggleAttendanceConfirmation = async () => {
+        try {
+            const res = await fetch("/api/registration/toggle-attendance-confirmation", {
+                method: "POST",
+            });
+            if (!res.ok) throw new Error("Failed to toggle attendance confirmation");
+            const data = await res.json();
+            setAttendanceConfirmationOpen(data.attendance_confirmation_open);
+            return data;
+        } catch (e: any) {
+            setError(e.message);
+            return null;
+        }
+    };
+
     return {
         isAdmin,
         isLoading,
         error,
         teams,
         registrationOpen,
+        attendanceConfirmationOpen,
         login,
         checkAdminStatus,
         fetchTeams,
@@ -207,5 +225,6 @@ export function useAdmin() {
         deleteTeam,
         fetchRegistrationStatus,
         toggleRegistration,
+        toggleAttendanceConfirmation,
     };
 }

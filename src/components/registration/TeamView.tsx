@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TeamDetails, COUNTRIES } from "@/lib/registration-data";
 import PixelButton from "@/components/ui/PixelButton";
 import InfoRow from "./InfoRow";
@@ -44,6 +44,14 @@ export default function TeamView({
   onRefresh?: () => void;
 }) {
   const [showAttendance, setShowAttendance] = useState(false);
+  const [attendanceOpen, setAttendanceOpen] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/registration/status")
+      .then(r => r.json())
+      .then(d => setAttendanceOpen(d.attendance_confirmation_open ?? false))
+      .catch(() => setAttendanceOpen(false));
+  }, []);
 
   const needsAttendanceResponse =
     team.onsite_status === "QUALIFIED_PENDING" && team.attendance_confirmed == null;
@@ -158,7 +166,7 @@ export default function TeamView({
       )}
 
       {/* Attendance Confirmation Panel */}
-      {showAttendance && needsAttendanceResponse && (
+      {showAttendance && needsAttendanceResponse && attendanceOpen && (
         <div className="mb-8 p-6 bg-white border-2 border-teal/20 rounded-2xl shadow-lg">
           <AttendanceConfirmation
             team={team}
@@ -167,6 +175,14 @@ export default function TeamView({
               if (onRefresh) onRefresh();
             }}
           />
+        </div>
+      )}
+
+      {/* Attendance Closed Message */}
+      {showAttendance && needsAttendanceResponse && attendanceOpen === false && (
+        <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-2xl shadow-sm text-center">
+          <p className="font-pixel text-lg text-yellow-700 mb-2">⏳ ATTENDANCE CONFIRMATION CLOSED</p>
+          <p className="text-sm text-yellow-600">Attendance confirmation is currently closed. Please check back later.</p>
         </div>
       )}
 

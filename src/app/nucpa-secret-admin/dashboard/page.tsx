@@ -41,7 +41,7 @@ const formatDate = (dateStr: string) => {
 };
 
 export default function AdminDashboardPage() {
-    const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus, registrationOpen, fetchRegistrationStatus, toggleRegistration } = useAdmin();
+    const { isAdmin, isLoading, teams, fetchTeams, updateTeamStatus, deleteTeam, checkAdminStatus, registrationOpen, attendanceConfirmationOpen, fetchRegistrationStatus, toggleRegistration, toggleAttendanceConfirmation } = useAdmin();
     const [search, setSearch] = useState("");
     const [isExporting, setIsExporting] = useState(false);
 
@@ -516,6 +516,35 @@ export default function AdminDashboardPage() {
                                 </span>
                                 {registrationOpen === null ? "LOADING..." : registrationOpen ? "REG OPEN" : "REG CLOSED"}
                             </button>
+
+                            {/* Attendance Confirmation Toggle Button */}
+                            <button
+                                onClick={async () => {
+                                    const action = attendanceConfirmationOpen ? "CLOSE" : "OPEN";
+                                    if (confirm(`Are you sure you want to ${action} attendance confirmation?`)) {
+                                        await toggleAttendanceConfirmation();
+                                    }
+                                }}
+                                className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-pixel text-xs transition-all duration-200 border-2 ${attendanceConfirmationOpen === null
+                                    ? "border-gray-300 text-gray-400 bg-gray-50"
+                                    : attendanceConfirmationOpen
+                                        ? "border-green-400 text-green-700 bg-green-50 hover:bg-green-100 hover:border-green-500"
+                                        : "border-red-400 text-red-700 bg-red-50 hover:bg-red-100 hover:border-red-500"
+                                    }`}
+                                disabled={attendanceConfirmationOpen === null}
+                            >
+                                <span className="relative flex h-2.5 w-2.5">
+                                    {attendanceConfirmationOpen ? (
+                                        <>
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                                        </>
+                                    ) : (
+                                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+                                    )}
+                                </span>
+                                {attendanceConfirmationOpen === null ? "LOADING..." : attendanceConfirmationOpen ? "ATTEND OPEN" : "ATTEND CLOSED"}
+                            </button>
                             <PixelButton
                                 onClick={() => setShowChartsModal(true)}
                                 variant="ghost"
@@ -644,6 +673,63 @@ export default function AdminDashboardPage() {
                             <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-lg">🚀</div>
                         </button>
                     </div>
+
+                    {/* Package & T-Shirt Summary */}
+                    {(() => {
+                        const confirmedTeams = teams.filter(t => t.attendance_confirmed === true);
+                        if (confirmedTeams.length === 0) return null;
+
+                        const pkgCounts: Record<string, number> = {};
+                        const sizeCounts: Record<string, number> = {};
+
+                        confirmedTeams.forEach(t => {
+                            const pkg = t.registration_package || "Unknown";
+                            pkgCounts[pkg] = (pkgCounts[pkg] || 0) + 1;
+                            if (t.tshirt_size_1) sizeCounts[t.tshirt_size_1] = (sizeCounts[t.tshirt_size_1] || 0) + 1;
+                            if (t.tshirt_size_2) sizeCounts[t.tshirt_size_2] = (sizeCounts[t.tshirt_size_2] || 0) + 1;
+                        });
+
+                        const pkgLabels: Record<string, string> = {
+                            REG_ONLY: "Registration Only",
+                            REG_1_TSHIRT: "Reg + 1 T-Shirt",
+                            REG_2_TSHIRTS: "Reg + 2 T-Shirts"
+                        };
+                        const sizeOrder = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL"];
+
+                        return (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                {/* Package Distribution */}
+                                <div className="bg-white border-2 border-purple-200 rounded-2xl p-6 shadow-sm">
+                                    <h3 className="font-pixel text-sm text-purple-700 mb-4 uppercase tracking-widest">📦 Package Distribution ({confirmedTeams.length} confirmed)</h3>
+                                    <div className="space-y-3">
+                                        {Object.entries(pkgCounts).map(([pkg, count]) => (
+                                            <div key={pkg} className="flex items-center justify-between">
+                                                <span className="text-xs font-bold text-ink2">{pkgLabels[pkg] || pkg}</span>
+                                                <span className="font-pixel text-lg text-purple-600">{count}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* T-Shirt Size Distribution */}
+                                <div className="bg-white border-2 border-teal/20 rounded-2xl p-6 shadow-sm">
+                                    <h3 className="font-pixel text-sm text-teal mb-4 uppercase tracking-widest">👕 T-Shirt Size Distribution</h3>
+                                    {Object.keys(sizeCounts).length === 0 ? (
+                                        <p className="text-xs text-muted">No t-shirt selections yet.</p>
+                                    ) : (
+                                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                                            {sizeOrder.filter(s => sizeCounts[s]).map(size => (
+                                                <div key={size} className="flex flex-col items-center bg-bg rounded-xl p-3 border border-line">
+                                                    <span className="font-pixel text-lg text-teal">{sizeCounts[size]}</span>
+                                                    <span className="text-[10px] font-bold text-muted uppercase">{size}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })()}
 
                     <div className="flex flex-col gap-4 mb-6">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
