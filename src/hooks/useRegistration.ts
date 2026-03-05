@@ -626,8 +626,8 @@ export function useRegistration() {
       setPhase("noTeam");
       setTeamName("");
       setMembers([
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", id_document: null, nu_id_document: null },
-        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", id_document: null, nu_id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", codeforces_handle: "", vjudge_handle: "", id_document: null, nu_id_document: null },
+        { name: "", nationality: "EG", email: "", phone_number: "", university: "NU", major: "", year_of_study: "FRESHMAN", university_other: "", national_id: "", birth_date: "", nu_id: "", codeforces_handle: "", vjudge_handle: "", id_document: null, nu_id_document: null },
       ]);
     } catch (e: any) {
       setError(parseErrorMessage(e));
