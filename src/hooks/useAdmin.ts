@@ -85,6 +85,7 @@ export function useAdmin() {
         }
     ) => {
         setIsLoading(true);
+        setError(null);
         try {
             const params = new URLSearchParams();
             if (search) params.append("search", search);
@@ -130,6 +131,7 @@ export function useAdmin() {
             tshirt_size_2?: string
         }
     ) => {
+        setError(null);
         try {
             const res = await fetch(`/api/registration/teams/${teamId}/`, {
                 method: "PATCH",
@@ -141,8 +143,9 @@ export function useAdmin() {
             });
             if (!res.ok) throw new Error("Failed to update team");
 
-            // Update local state by merging updates
-            setTeams(prev => prev.map(t => t.id === teamId ? { ...t, ...updates } : t));
+            // Use actual backend response to capture cascaded status changes
+            const updatedTeam = await res.json();
+            setTeams(prev => prev.map(t => t.id === teamId ? { ...t, ...updatedTeam } : t));
             return true;
         } catch (e: any) {
             setError(e.message);
@@ -153,6 +156,7 @@ export function useAdmin() {
     const deleteTeam = async (teamId: number) => {
         if (!window.confirm("Are you sure you want to PERMANENTLY delete this team? This cannot be undone.")) return;
 
+        setError(null);
         try {
             const res = await fetch(`/api/registration/teams/${teamId}/`, {
                 method: "DELETE",
@@ -182,6 +186,7 @@ export function useAdmin() {
     }, []);
 
     const toggleRegistration = async () => {
+        setError(null);
         try {
             const res = await fetch("/api/registration/toggle-registration", {
                 method: "POST",
@@ -197,6 +202,7 @@ export function useAdmin() {
     };
 
     const toggleAttendanceConfirmation = async () => {
+        setError(null);
         try {
             const res = await fetch("/api/registration/toggle-attendance-confirmation", {
                 method: "POST",
