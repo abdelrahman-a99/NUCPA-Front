@@ -17,6 +17,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   const authPopupRef = useRef<Window | null>(null);
   const pollTimerRef = useRef<NodeJS.Timeout | null>(null);
   const channelRef = useRef<BroadcastChannel | null>(null);
+  const isLoadingRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -50,6 +51,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
+    isLoadingRef.current = false;
     if (onSuccess) onSuccess();
   }
 
@@ -57,6 +59,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
+    isLoadingRef.current = false;
     setError(parseErrorMessage(msg));
   }
 
@@ -84,6 +87,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   function login() {
     setError(null);
     setIsLoading(true);
+    isLoadingRef.current = true;
     localStorage.removeItem("nucpa_auth_signal");
 
     const backendBase = getBackendBaseUrl();
@@ -141,9 +145,10 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
       }
 
       if (authPopupRef.current && authPopupRef.current.closed) {
-        if (!isLoading) return;
+        if (!isLoadingRef.current) return;
         cleanup();
         setIsLoading(false);
+        isLoadingRef.current = false;
       }
     }, 500);
   }
