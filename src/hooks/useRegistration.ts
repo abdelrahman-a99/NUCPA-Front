@@ -147,17 +147,16 @@ export function useRegistration() {
     const cleanHandle = handle.trim();
 
     try {
-      const res = await fetch(`https://codeforces.com/api/user.info?handles=${cleanHandle}`);
-      const data = await res.json();
-
-      if (data.status === "OK") {
-        return undefined; // Handle exists
-      } else {
-        return `Codeforces handle "${cleanHandle}" not found. Please check spelling.`;
+      // Route through backend validation instead of calling codeforces.com directly (avoids CORS issues)
+      const res = await fetch(`/api/registration/validate/?field=codeforces_handle&value=${encodeURIComponent(cleanHandle)}`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        return data.error || `Codeforces handle "${cleanHandle}" not found. Please check spelling.`;
       }
+      return undefined; // Handle is valid
     } catch (e) {
-      console.error("CF API error:", e);
-      return undefined; // Don't block on API errors
+      console.error("CF validation error:", e);
+      return undefined; // Don't block on network errors
     }
   }
 
