@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { MemberDraft, TeamDetails } from "@/lib/registration-data";
 import { PHONE_CODES } from "@/lib/phone-data";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
@@ -30,7 +30,8 @@ export function useRegistration() {
   const [dataSharingConsent, setDataSharingConsent] = useState(false);
   const [rulesAccepted, setRulesAccepted] = useState(false);
 
-  const handleSuccess = useCallback(() => checkTeam(), []);
+  const checkTeamRef = useRef<() => void>(() => { });
+  const handleSuccess = useCallback(() => checkTeamRef.current(), []);
   const { login: startGoogleLogin, isLoading: isGoogleLoading, error: googleError } = useGoogleLogin({
     onSuccess: handleSuccess,
   });
@@ -91,6 +92,8 @@ export function useRegistration() {
       setPhase("error");
     }
   }
+
+  checkTeamRef.current = checkTeam;
 
   useEffect(() => {
     checkTeam();
