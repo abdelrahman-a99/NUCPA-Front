@@ -84,21 +84,8 @@ export default function AuthCallbackPage() {
         const isPopup = urlParams.get("mode") === "popup";
 
         if (isPopup || (window.opener && !window.opener.closed)) {
-          try {
-            if (window.opener && !window.opener.closed) {
-              setTimeout(() => {
-                try {
-                  if (window.opener && !window.opener.closed) {
-                    window.opener.location.href = window.location.origin + "/registration";
-                  }
-                } catch (e) {
-                }
-              }, 500);
-            }
-          } catch (e) {
-            console.warn("[Callback] Opener access error:", e);
-          }
-
+          // Popup mode: just close the popup — the opener's useGoogleLogin hook
+          // handles navigation via onSuccess callback after detecting the auth signal
           setTimeout(() => window.close(), 1000);
         } else {
           router.push("/registration");
