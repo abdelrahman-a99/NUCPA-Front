@@ -3,7 +3,6 @@
 import Image from "next/image";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import PixelButton from "@/components/ui/PixelButton";
 import { EVENT_DATE_ISO } from "@/lib/site";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
@@ -34,11 +33,12 @@ function useCountdown(targetISO: string) {
 
 export default function Hero() {
   const { days, hours, minutes, seconds } = useCountdown(EVENT_DATE_ISO);
-  const router = useRouter();
 
   const handleLoginSuccess = useMemo(() => {
-    return () => router.push("/registration");
-  }, [router]);
+    // Use hard navigation instead of router.push — more reliable after
+    // cross-window auth flow (popup → localStorage signal → callback)
+    return () => { window.location.href = "/registration"; };
+  }, []);
 
   const { login, isLoading } = useGoogleLogin({
     onSuccess: handleLoginSuccess,

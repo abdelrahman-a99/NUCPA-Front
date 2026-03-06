@@ -18,6 +18,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   const pollTimerRef = useRef<NodeJS.Timeout | null>(null);
   const channelRef = useRef<BroadcastChannel | null>(null);
   const isLoadingRef = useRef(false);
+  const successHandledRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -48,6 +49,8 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }
 
   function handleSuccess() {
+    if (successHandledRef.current) return; // prevent double-fire
+    successHandledRef.current = true;
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
@@ -89,6 +92,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
     setIsLoading(true);
     isLoadingRef.current = true;
     localStorage.removeItem("nucpa_auth_signal");
+    successHandledRef.current = false;
 
     const backendBase = getBackendBaseUrl();
     // Pass current origin to backend so it knows where to redirect (handles port 3000 vs 3001)
