@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { parseErrorMessage } from "@/utils/errorHelpers";
 
 function getBackendBaseUrl() {
-  return process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL;
+  return process.env.NEXT_PUBLIC_NUCPA_API_BASE_URL || "http://127.0.0.1:8000";
 }
 
 type UseGoogleLoginProps = {
@@ -17,8 +16,6 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   const authPopupRef = useRef<Window | null>(null);
   const pollTimerRef = useRef<NodeJS.Timeout | null>(null);
   const channelRef = useRef<BroadcastChannel | null>(null);
-  const isLoadingRef = useRef(false);
-  const successHandledRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -30,6 +27,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }, []);
 
   function cleanup() {
+    console.log("[useGoogleLogin] Cleanup triggered.");
     if (pollTimerRef.current) {
       clearInterval(pollTimerRef.current);
       pollTimerRef.current = null;
@@ -49,21 +47,19 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }
 
   function handleSuccess() {
-    if (successHandledRef.current) return; // prevent double-fire
-    successHandledRef.current = true;
+    console.log("[useGoogleLogin] Login SUCCESS detected.");
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
-    isLoadingRef.current = false;
     if (onSuccess) onSuccess();
   }
 
   function handleError(msg: string) {
+    console.error("[useGoogleLogin] Login ERROR detected:", msg);
     localStorage.removeItem("nucpa_auth_signal");
     cleanup();
     setIsLoading(false);
-    isLoadingRef.current = false;
-    setError(parseErrorMessage(msg));
+    setError(msg);
   }
 
   function handleStorageEvent(event: StorageEvent) {
@@ -82,7 +78,8 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   }
 
   function handleMessage(event: MessageEvent) {
-    if (event.data?.type === "NUCPA_AUTH_SUCCESS" || event.data?.type === "NUCPA_AUTH") {
+    if (event.data?.type === "NUCPA_AUTH_SUCCESS") {
+      console.log("[useGoogleLogin] Received success signal via postMessage.");
       handleSuccess();
     }
   }
@@ -90,15 +87,15 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
   function login() {
     setError(null);
     setIsLoading(true);
-    isLoadingRef.current = true;
     localStorage.removeItem("nucpa_auth_signal");
-    successHandledRef.current = false;
 
     const backendBase = getBackendBaseUrl();
     // Pass current origin to backend so it knows where to redirect (handles port 3000 vs 3001)
     const successUrl = `/registration/auth/google/success/?mode=popup&frontend=${encodeURIComponent(window.location.origin)}`;
     const encodedSuccessUrl = encodeURIComponent(successUrl);
     const url = `${backendBase}/accounts/google/login/?next=${encodedSuccessUrl}`;
+
+    console.log("[useGoogleLogin] Opening popup:", url);
 
     const w = 520;
     const h = 680;
@@ -124,6 +121,7 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
       channelRef.current = new BroadcastChannel("nucpa_auth_channel");
       channelRef.current.onmessage = (event) => {
         if (event.data?.type === "NUCPA_AUTH_SUCCESS") {
+          console.log("[useGoogleLogin] Received success signal via BroadcastChannel.");
           handleSuccess();
         }
       };
@@ -138,37 +136,34 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
         try {
           const signal = JSON.parse(signalRaw);
           if (signal.type === "success") {
+            console.log("[useGoogleLogin] Polling found SUCCESS signal.");
             handleSuccess();
             return;
           } else if (signal.type === "error") {
-            handleError(signal.message);
+            // ... error handling
           }
         } catch (e) {
-          console.error("[useGoogleLogin] Failed to parse storage signal:", e);
+          // ignore
         }
       }
 
       if (authPopupRef.current && authPopupRef.current.closed) {
-        if (!isLoadingRef.current) return;
+        console.log("[useGoogleLogin] Popup closed. Checking for final signal...");
+        // Give a small grace period or check one last time?
+        // We already checked above. If no signal led yet, we assume user closed it manually OR
+        // the callback wrote the signal but we missed the event.
 
-        // Popup closed — check localStorage signal one final time
-        // (the popup may have set it just before closing)
-        const finalSignal = localStorage.getItem("nucpa_auth_signal");
-        if (finalSignal) {
-          try {
-            const signal = JSON.parse(finalSignal);
-            if (signal.type === "success") {
-              handleSuccess();
-              return;
-            }
-          } catch (e) {
-            // ignore parse errors
-          }
-        }
+        // Let's do a double check with a slight delay before giving up? 
+        // Or just fail.
 
+        // Use a counter or timestamp to wait a bit after closure? 
+        // For now, let's just cleanup if we really didn't see anything.
+
+        if (!isLoading) return; // already handled
+
+        console.log("[useGoogleLogin] Popup closed without signal (or handled elsewhere).");
         cleanup();
         setIsLoading(false);
-        isLoadingRef.current = false;
       }
     }, 500);
   }

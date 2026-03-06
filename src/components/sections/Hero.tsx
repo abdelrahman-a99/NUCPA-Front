@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import PixelButton from "@/components/ui/PixelButton";
 import { EVENT_DATE_ISO } from "@/lib/site";
 import { useGoogleLogin } from "@/hooks/useGoogleLogin";
@@ -33,12 +34,11 @@ function useCountdown(targetISO: string) {
 
 export default function Hero() {
   const { days, hours, minutes, seconds } = useCountdown(EVENT_DATE_ISO);
+  const router = useRouter();
 
   const handleLoginSuccess = useMemo(() => {
-    // Use hard navigation instead of router.push — more reliable after
-    // cross-window auth flow (popup → localStorage signal → callback)
-    return () => { window.location.href = "/registration"; };
-  }, []);
+    return () => router.push("/registration");
+  }, [router]);
 
   const { login, isLoading } = useGoogleLogin({
     onSuccess: handleLoginSuccess,
@@ -47,47 +47,47 @@ export default function Hero() {
   return (
     <section id="home">
       <div className="container-max">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center text-center lg:text-left mt-4 lg:mt-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
             <h1 className="font-pixel text-4xl lg:text-7xl text-teal-bright pixel-outline">
               JOIN THE
             </h1>
-            <h1 className="font-pixel text-4xl lg:text-7xl pt-4 lg:pt-6 text-teal-bright pixel-outline">
-              Competitive Programming Arena
+            <h1 className="font-pixel text-4xl lg:text-7xl pt-6 text-teal-bright pixel-outline">
+              CODING ARENA
             </h1>
 
-            <p className="mt-4 text-base lg:text-lg font-semibold tracking-widest max-w-md mx-auto lg:mx-0">
+            <p className="mt-4 text-lg font-semibold tracking-widest max-w-md">
               Egypt&apos;s largest student-led
               <br />
               problem-solving competition
             </p>
 
-            <div className="mt-4 lg:mt-6 flex flex-nowrap lg:flex-wrap justify-center lg:justify-start gap-4">
+            <div className="mt-6 flex flex-wrap gap-4">
               <PixelButton onClick={() => login()} variant="primary">
                 {isLoading ? "OPENING..." : "REGISTER NOW"}
               </PixelButton>
-              <PixelButton href="/#about" variant="outline-red">
+              <PixelButton href="#about" variant="outline-red">
                 LEARN MORE
               </PixelButton>
             </div>
           </div>
 
-          <div className="flex items-center justify-center lg:justify-end mt-4 lg:mt-0">
+          <div className="flex items-center justify-end">
             <Image
               src="/assets/Dots_Octopus.png"
               alt="Hero character - Octopus with laptop"
               width={480}
               height={480}
-              className="w-[240px] sm:w-[380px] lg:w-[480px] h-auto select-none"
+              className="w-[300px] sm:w-[380px] lg:w-[480px] h-auto select-none"
               priority
             />
           </div>
         </div>
 
         <div className="text-center">
-          <p className="text-sm sm:text-xl font-semibold">
-            Get ready for the NUCPA 2026 Finals — happening on{" "}
-            <span className="font-bold">APRIL 17TH</span>, at Nile University!
+          <p className="text-xs sm:text-xl font-semibold">
+            NUCPA will take place on{" "}
+            <span className="font-bold">FEBRUARY 13TH 2026</span>
           </p>
 
           <div className="mt-4 flex items-center justify-center gap-8 sm:gap-24">
@@ -106,10 +106,10 @@ function TimeBox({ value, label }: { value: number; label: string }) {
   const display = label === "hours" || label === "min" || label === "sec" ? pad2(value) : String(value);
   return (
     <div className="text-center">
-      <div className="font-pixel text-3xl sm:text-7xl text-ink2 tracking-wider">
+      <div className="font-pixel text-4xl sm:text-7xl text-ink2 tracking-wider">
         {display}
       </div>
-      <div className="mt-1 text-xs sm:text-sm text-muted">{label}</div>
+      <div className="mt-2 text-sm text-muted">{label}</div>
     </div>
   );
 }
