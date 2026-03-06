@@ -146,6 +146,22 @@ export function useGoogleLogin({ onSuccess }: UseGoogleLoginProps = {}) {
 
       if (authPopupRef.current && authPopupRef.current.closed) {
         if (!isLoadingRef.current) return;
+
+        // Popup closed — check localStorage signal one final time
+        // (the popup may have set it just before closing)
+        const finalSignal = localStorage.getItem("nucpa_auth_signal");
+        if (finalSignal) {
+          try {
+            const signal = JSON.parse(finalSignal);
+            if (signal.type === "success") {
+              handleSuccess();
+              return;
+            }
+          } catch (e) {
+            // ignore parse errors
+          }
+        }
+
         cleanup();
         setIsLoading(false);
         isLoadingRef.current = false;
