@@ -75,6 +75,10 @@ export default function AdminDashboardPage() {
     // Export Modal State
     const [showExportModal, setShowExportModal] = useState(false);
     const [exportStatus, setExportStatus] = useState("");
+    const [exportOnsiteStatus, setExportOnsiteStatus] = useState("");
+    const [exportOnlineStatus, setExportOnlineStatus] = useState("");
+    const [exportAttendance, setExportAttendance] = useState("");
+    const [exportPackage, setExportPackage] = useState("");
     const [exportDateFrom, setExportDateFrom] = useState("");
     const [exportDateTo, setExportDateTo] = useState("");
 
@@ -421,6 +425,10 @@ export default function AdminDashboardPage() {
             // Build query params
             const params = new URLSearchParams();
             if (exportStatus) params.append('status', exportStatus);
+            if (exportOnsiteStatus) params.append('onsite_status', exportOnsiteStatus);
+            if (exportOnlineStatus) params.append('online_status', exportOnlineStatus);
+            if (exportAttendance) params.append('attendance_confirmed', exportAttendance);
+            if (exportPackage) params.append('registration_package', exportPackage);
             if (exportDateFrom) params.append('date_from', exportDateFrom);
             if (exportDateTo) params.append('date_to', exportDateTo);
 
@@ -1377,7 +1385,7 @@ export default function AdminDashboardPage() {
             {/* Export Modal */}
             {showExportModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
                         <h3 className="font-pixel text-xl text-ink2 mb-4">⬇ Export Teams CSV</h3>
                         <p className="text-sm text-muted mb-6">
                             Choose filters for your export. Leave empty for full data export.
@@ -1395,6 +1403,66 @@ export default function AdminDashboardPage() {
                                 <option value="APPROVED">Approved Only</option>
                                 <option value="REJECTED">Rejected Only</option>
                                 <option value="PENDING">Pending Only</option>
+                            </select>
+                        </div>
+
+                        {/* Onsite Status Filter */}
+                        <div className="mb-4">
+                            <label className="block text-xs font-bold uppercase text-muted mb-2">Onsite Status</label>
+                            <select
+                                value={exportOnsiteStatus}
+                                onChange={(e) => setExportOnsiteStatus(e.target.value)}
+                                className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">All Onsite Statuses</option>
+                                <option value="NOT_QUALIFIED">Not Qualified</option>
+                                <option value="WAITING_LIST">Waiting List</option>
+                                <option value="QUALIFIED_PENDING">Qualified (Pending Payment)</option>
+                                <option value="QUALIFIED_PAID">Qualified (Paid)</option>
+                            </select>
+                        </div>
+
+                        {/* Online Status Filter */}
+                        <div className="mb-4">
+                            <label className="block text-xs font-bold uppercase text-muted mb-2">Online Status</label>
+                            <select
+                                value={exportOnlineStatus}
+                                onChange={(e) => setExportOnlineStatus(e.target.value)}
+                                className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">All Online Statuses</option>
+                                <option value="ELIGIBLE">Eligible</option>
+                                <option value="NOT_ELIGIBLE">Not Eligible</option>
+                            </select>
+                        </div>
+
+                        {/* Attendance Filter */}
+                        <div className="mb-4">
+                            <label className="block text-xs font-bold uppercase text-muted mb-2">Attendance</label>
+                            <select
+                                value={exportAttendance}
+                                onChange={(e) => setExportAttendance(e.target.value)}
+                                className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">All Attendance</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="declined">Declined</option>
+                                <option value="unknown">Not Responded</option>
+                            </select>
+                        </div>
+
+                        {/* Package Filter */}
+                        <div className="mb-4">
+                            <label className="block text-xs font-bold uppercase text-muted mb-2">Registration Package</label>
+                            <select
+                                value={exportPackage}
+                                onChange={(e) => setExportPackage(e.target.value)}
+                                className="w-full px-4 py-3 border-2 border-line rounded-xl text-sm font-bold text-ink2 outline-none focus:border-teal cursor-pointer"
+                            >
+                                <option value="">All Packages</option>
+                                <option value="REG_ONLY">Registration Only</option>
+                                <option value="REG_1_TSHIRT">Reg + 1 T-Shirt</option>
+                                <option value="REG_2_TSHIRTS">Reg + 2 T-Shirts</option>
                             </select>
                         </div>
 
@@ -1424,6 +1492,10 @@ export default function AdminDashboardPage() {
                             <button
                                 onClick={() => {
                                     setExportStatus("");
+                                    setExportOnsiteStatus("");
+                                    setExportOnlineStatus("");
+                                    setExportAttendance("");
+                                    setExportPackage("");
                                     setExportDateFrom("");
                                     setExportDateTo("");
                                 }}
