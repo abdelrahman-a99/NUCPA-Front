@@ -234,7 +234,13 @@ export default function AdminTeamDetailPage() {
                                             className="px-3 py-2 bg-bg border-2 border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/10 transition-all cursor-pointer"
                                             value={team.registration_package || ""}
                                             onChange={(e) => {
-                                                setTeam({ ...team, registration_package: e.target.value });
+                                                const newPkg = e.target.value;
+                                                setTeam({
+                                                    ...team,
+                                                    registration_package: newPkg,
+                                                    tshirt_size_1: (newPkg === 'REG_1_TSHIRT' || newPkg === 'REG_2_TSHIRTS') ? team.tshirt_size_1 : '',
+                                                    tshirt_size_2: newPkg === 'REG_2_TSHIRTS' ? team.tshirt_size_2 : '',
+                                                });
                                             }}
                                         >
                                             <option value="">No Package Selected</option>

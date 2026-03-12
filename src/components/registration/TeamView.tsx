@@ -56,7 +56,7 @@ export default function TeamView({
   const needsAttendanceResponse =
     team.onsite_status === "QUALIFIED_PENDING" && team.attendance_confirmed == null;
   const hasConfirmedAttendance =
-    team.onsite_status === "QUALIFIED_PENDING" && team.attendance_confirmed === true;
+    (team.onsite_status === "QUALIFIED_PENDING" || team.onsite_status === "QUALIFIED_PAID") && team.attendance_confirmed === true;
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-line pb-6 mb-8">
@@ -151,17 +151,28 @@ export default function TeamView({
 
       {/* Attendance Confirmed Summary */}
       {hasConfirmedAttendance && team.registration_package && (
-        <div className="mb-8 p-5 bg-gradient-to-r from-teal/5 to-teal-bright/5 border-2 border-teal/20 rounded-2xl animate-in fade-in duration-500">
+        <div className={`mb-8 p-5 rounded-2xl animate-in fade-in duration-500 ${
+          team.onsite_status === 'QUALIFIED_PAID'
+            ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200'
+            : 'bg-gradient-to-r from-teal/5 to-teal-bright/5 border-2 border-teal/20'
+        }`}>
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-2xl">✅</div>
-            <h4 className="font-pixel text-lg text-teal">ATTENDANCE CONFIRMED</h4>
+            <div className="text-2xl">{team.onsite_status === 'QUALIFIED_PAID' ? '🎉' : '✅'}</div>
+            <h4 className={`font-pixel text-lg ${team.onsite_status === 'QUALIFIED_PAID' ? 'text-green-700' : 'text-teal'}`}>
+              {team.onsite_status === 'QUALIFIED_PAID' ? 'PAYMENT CONFIRMED — YOU\'RE IN!' : 'ATTENDANCE CONFIRMED'}
+            </h4>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <InfoRow label="Package" value={getPackageLabel(team.registration_package, team.members.filter(m => m.nu_student).length)} compact />
             {team.tshirt_size_1 && <InfoRow label="T-Shirt Size 1" value={team.tshirt_size_1} compact />}
             {team.tshirt_size_2 && <InfoRow label="T-Shirt Size 2" value={team.tshirt_size_2} compact />}
           </div>
-          <p className="text-xs text-muted mt-3">Complete the payment to secure your spot. The admin will update your status to QUALIFIED (Paid).</p>
+          {team.onsite_status === 'QUALIFIED_PENDING' && (
+            <p className="text-xs text-muted mt-3">Complete the payment to secure your spot. The admin will update your status to QUALIFIED (Paid).</p>
+          )}
+          {team.onsite_status === 'QUALIFIED_PAID' && (
+            <p className="text-xs text-green-700 mt-3 font-bold">Your payment has been received. See you at the competition! 🚀</p>
+          )}
         </div>
       )}
 
