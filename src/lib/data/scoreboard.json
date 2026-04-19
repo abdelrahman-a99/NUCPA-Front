@@ -1,0 +1,9420 @@
+[
+  {
+    "rank": 1,
+    "team": "The cat cursed me into 4th place",
+    "solved": 11,
+    "penalty": 861,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 22,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 111,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": 175,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 79,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 155,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 105,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 2,
+    "team": "Medaa 5ataf El Baskot",
+    "solved": 11,
+    "penalty": 1060,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 46,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 85,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": 228,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": 151,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 132,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 55,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 141,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 3,
+    "team": "Hagma Mortada",
+    "solved": 10,
+    "penalty": 795,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 89,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": 159,
+        "tries": 5,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": 181,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "K",
+        "time": 103,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 31,
+        "tries": 2,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 40,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 4,
+    "team": "Nile 2-Sat",
+    "solved": 10,
+    "penalty": 866,
+    "problems": [
+      {
+        "label": "A",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 112,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 202,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 142,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 63,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 100,
+        "tries": 2,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "O",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 5,
+    "team": "Ran out of Prime",
+    "solved": 10,
+    "penalty": 929,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 65,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 181,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 136,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 162,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 57,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 213,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 6,
+    "team": "Submit yaboya bennam badry",
+    "solved": 10,
+    "penalty": 946,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 104,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 173,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 114,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 146,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 59,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 226,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 7,
+    "team": "El Qahra w El Nas",
+    "solved": 10,
+    "penalty": 1012,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 46,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 167,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": 239,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "K",
+        "time": 152,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 160,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 49,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 8,
+    "team": "We Burn the Boats",
+    "solved": 10,
+    "penalty": 1031,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 73,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 173,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "F",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 136,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 168,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 54,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 230,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 9,
+    "team": "Yowai Mo's",
+    "solved": 10,
+    "penalty": 1041,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 111,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "C",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": 192,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "F",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": 234,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "K",
+        "time": 91,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 164,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 46,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "O",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 10,
+    "team": "lowkirkenuinely",
+    "solved": 10,
+    "penalty": 1128,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 83,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 205,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 21,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 125,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 188,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 110,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 233,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 11,
+    "team": "Ballot w 3alkm",
+    "solved": 10,
+    "penalty": 1557,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 186,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": 133,
+        "tries": 13,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 11,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 198,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 95,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 150,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 232,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 12,
+    "team": "Goose Goose Duck",
+    "solved": 9,
+    "penalty": 717,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 101,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 113,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 30,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 96,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 58,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 164,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 13,
+    "team": "EL8DRA",
+    "solved": 9,
+    "penalty": 767,
+    "problems": [
+      {
+        "label": "A",
+        "time": 16,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 74,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 203,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 105,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 127,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 87,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 14,
+    "team": "Yugioh",
+    "solved": 9,
+    "penalty": 787,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 122,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 217,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 35,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 154,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 108,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 15,
+    "team": "Hamed & Wazzan Aady Yaany",
+    "solved": 9,
+    "penalty": 844,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 213,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 50,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 45,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 89,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 132,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 55,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 16,
+    "team": "Two Students",
+    "solved": 9,
+    "penalty": 863,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 72,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 225,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 231,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 127,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 17,
+    "team": "Wa7eed Gambit",
+    "solved": 9,
+    "penalty": 934,
+    "problems": [
+      {
+        "label": "A",
+        "time": 19,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 114,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 175,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 30,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 55,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 229,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 84,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 18,
+    "team": "Do you have suggestions?",
+    "solved": 9,
+    "penalty": 1000,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 184,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": 143,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 89,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 45,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 227,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 19,
+    "team": "Faree2 El-E3saar",
+    "solved": 9,
+    "penalty": 1115,
+    "problems": [
+      {
+        "label": "A",
+        "time": 19,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 134,
+        "tries": 8,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 38,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 233,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 194,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 52,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 157,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 20,
+    "team": "abs(Cinema)",
+    "solved": 9,
+    "penalty": 1257,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 226,
+        "tries": 12,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 28,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 153,
+        "tries": 12,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 62,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 46,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 202,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 21,
+    "team": "Non Deterministically Certain",
+    "solved": 8,
+    "penalty": 547,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 56,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 167,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 137,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 62,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 22,
+    "team": "Captain Pele Wel Coach Jose",
+    "solved": 8,
+    "penalty": 557,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 53,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "C",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 36,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 11,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 84,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 163,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 23,
+    "team": "A3rag Msa7b Mkas7 W By2olo T3ala Netfas7",
+    "solved": 8,
+    "penalty": 557,
+    "problems": [
+      {
+        "label": "A",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 85,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 47,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 164,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 122,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 24,
+    "team": "El Sad El 3aly",
+    "solved": 8,
+    "penalty": 590,
+    "problems": [
+      {
+        "label": "A",
+        "time": 4,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 138,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 146,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 28,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 42,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 131,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 58,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 25,
+    "team": "Say my name",
+    "solved": 8,
+    "penalty": 593,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 69,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 40,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 181,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 195,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 48,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 26,
+    "team": "Mugiwara",
+    "solved": 8,
+    "penalty": 602,
+    "problems": [
+      {
+        "label": "A",
+        "time": 4,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 136,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 41,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 200,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 48,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 27,
+    "team": "10 Gneeh betngan",
+    "solved": 8,
+    "penalty": 652,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 204,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 156,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 69,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 93,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 28,
+    "team": "atlm almt3os 3la 5ayb alrga",
+    "solved": 8,
+    "penalty": 681,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 121,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 216,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 168,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 59,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 29,
+    "team": "Interdependence",
+    "solved": 8,
+    "penalty": 682,
+    "problems": [
+      {
+        "label": "A",
+        "time": 29,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 88,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 183,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 157,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 99,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 30,
+    "team": "3yan w mayet",
+    "solved": 8,
+    "penalty": 702,
+    "problems": [
+      {
+        "label": "A",
+        "time": 17,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 95,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 40,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 162,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 233,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 48,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 31,
+    "team": "The Slow Rush",
+    "solved": 8,
+    "penalty": 703,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": 99,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 43,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 36,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 150,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 230,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 32,
+    "team": "SaadAnium",
+    "solved": 8,
+    "penalty": 734,
+    "problems": [
+      {
+        "label": "A",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 195,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 35,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 75,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 111,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": 219,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 33,
+    "team": "Ya Sa3dy htt7l centriod",
+    "solved": 8,
+    "penalty": 759,
+    "problems": [
+      {
+        "label": "A",
+        "time": 18,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 124,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 200,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 150,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 79,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 34,
+    "team": "PGs",
+    "solved": 8,
+    "penalty": 772,
+    "problems": [
+      {
+        "label": "A",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 103,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 23,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 37,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": 114,
+        "tries": 2,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 213,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 97,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 35,
+    "team": "Kata2ib El-Dafadi3 El-Ba4ariah",
+    "solved": 8,
+    "penalty": 795,
+    "problems": [
+      {
+        "label": "A",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 107,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 27,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 146,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 208,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 46,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 36,
+    "team": "Za2lt W Ba2lt",
+    "solved": 8,
+    "penalty": 815,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 206,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 30,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 177,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 110,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 55,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 37,
+    "team": "Bogy w Tamtam",
+    "solved": 8,
+    "penalty": 916,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 236,
+        "tries": 10,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": 150,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 182,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 71,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 38,
+    "team": "Almany gdan w lsany zebda",
+    "solved": 8,
+    "penalty": 1160,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 187,
+        "tries": 9,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 200,
+        "tries": 9,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 92,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 205,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 39,
+    "team": "2 Expert Ela 1/4",
+    "solved": 7,
+    "penalty": 306,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 50,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 119,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 9,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 69,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 40,
+    "team": "El-Marady Ya 3ly ?",
+    "solved": 7,
+    "penalty": 356,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 136,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 8,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 89,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 37,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 41,
+    "team": "Tired But Not Retired",
+    "solved": 7,
+    "penalty": 454,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 64,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 138,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 46,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 42,
+    "team": "Samakt elbolty al3nyda",
+    "solved": 7,
+    "penalty": 488,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 63,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 108,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 207,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 43,
+    "team": "Awlad El 7ag 3atya -mn gher Elaksher-",
+    "solved": 7,
+    "penalty": 508,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 117,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 204,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 12,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 59,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 44,
+    "team": "Sera3 Agial",
+    "solved": 7,
+    "penalty": 510,
+    "problems": [
+      {
+        "label": "A",
+        "time": 4,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 179,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 145,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 55,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 45,
+    "team": "DLL3 EL ROO7 2BL MA TROO7",
+    "solved": 7,
+    "penalty": 544,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 149,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 174,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 41,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 47,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 46,
+    "team": "E7na bto3 Parallel DSU",
+    "solved": 7,
+    "penalty": 579,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 169,
+        "tries": 13,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 49,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 47,
+    "team": "Franco Haters Club",
+    "solved": 7,
+    "penalty": 607,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 156,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 235,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 22,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 64,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 48,
+    "team": "Just me with expired mentor",
+    "solved": 7,
+    "penalty": 643,
+    "problems": [
+      {
+        "label": "A",
+        "time": 20,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 123,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 33,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 27,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 230,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 59,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 49,
+    "team": "Teer beena ya 3am",
+    "solved": 7,
+    "penalty": 657,
+    "problems": [
+      {
+        "label": "A",
+        "time": 18,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 235,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 193,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 45,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 50,
+    "team": "Rob3yn Expert",
+    "solved": 7,
+    "penalty": 688,
+    "problems": [
+      {
+        "label": "A",
+        "time": 20,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 232,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 82,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 30,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 60,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 164,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 40,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 51,
+    "team": "Eh eldonya",
+    "solved": 7,
+    "penalty": 689,
+    "problems": [
+      {
+        "label": "A",
+        "time": 24,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 224,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 61,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 40,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 169,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 79,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 52,
+    "team": "El 7aramy w el t5en",
+    "solved": 7,
+    "penalty": 743,
+    "problems": [
+      {
+        "label": "A",
+        "time": 16,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 196,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 232,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 55,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 53,
+    "team": "Men\u2019s Search for Meaning",
+    "solved": 7,
+    "penalty": 1064,
+    "problems": [
+      {
+        "label": "A",
+        "time": 50,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 101,
+        "tries": 11,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 115,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 119,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 179,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 196,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 54,
+    "team": "Last Dance",
+    "solved": 6,
+    "penalty": 244,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 134,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 45,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 55,
+    "team": "Snohy w haby",
+    "solved": 6,
+    "penalty": 249,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 119,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 47,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 56,
+    "team": "Hana3tazel bas mesh delwa2ty",
+    "solved": 6,
+    "penalty": 266,
+    "problems": [
+      {
+        "label": "A",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 42,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 109,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 46,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 57,
+    "team": "Azmt ma b3d elta5arog",
+    "solved": 6,
+    "penalty": 272,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 85,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 8,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 35,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 63,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 58,
+    "team": "7ott el aces 3ala ganb",
+    "solved": 6,
+    "penalty": 282,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 36,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 121,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 61,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 59,
+    "team": "3omrna ma hanerga3",
+    "solved": 6,
+    "penalty": 283,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 81,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 28,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 127,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 60,
+    "team": "Tom w Jerry",
+    "solved": 6,
+    "penalty": 286,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 31,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 137,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 61,
+    "team": "Habda Mortada",
+    "solved": 6,
+    "penalty": 302,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 118,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 36,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 71,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 62,
+    "team": "El 7eky  w  El  Meky",
+    "solved": 6,
+    "penalty": 356,
+    "problems": [
+      {
+        "label": "A",
+        "time": 31,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 119,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "C",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 48,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "F",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 63,
+    "team": "Too Old To Participate",
+    "solved": 6,
+    "penalty": 423,
+    "problems": [
+      {
+        "label": "A",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 141,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 42,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 89,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 64,
+    "team": "2l3b 2y 7aga ana kda kda medammen",
+    "solved": 6,
+    "penalty": 448,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 10,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 194,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 92,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 65,
+    "team": "Ewise_Karamella",
+    "solved": 6,
+    "penalty": 449,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 50,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 201,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 70,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 66,
+    "team": "A mathematician and someone",
+    "solved": 6,
+    "penalty": 459,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 210,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 40,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 115,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 67,
+    "team": "Elt5een we Elrofaya3",
+    "solved": 6,
+    "penalty": 468,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 4,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 218,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 133,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 68,
+    "team": "JAWN mn 8er MAX",
+    "solved": 6,
+    "penalty": 505,
+    "problems": [
+      {
+        "label": "A",
+        "time": 17,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 140,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 41,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 54,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 181,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 69,
+    "team": "El-Saffa7 & Samurai",
+    "solved": 6,
+    "penalty": 507,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 23,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 198,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 116,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 70,
+    "team": "OK Computer",
+    "solved": 6,
+    "penalty": 509,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 152,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 21,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 8,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 111,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 71,
+    "team": "Duck Duck Goose",
+    "solved": 6,
+    "penalty": 523,
+    "problems": [
+      {
+        "label": "A",
+        "time": 18,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 10,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 27,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 202,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 118,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 72,
+    "team": "2hwa msh coffee",
+    "solved": 6,
+    "penalty": 584,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 175,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 35,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 104,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 45,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 90,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 73,
+    "team": "Compile or Cry",
+    "solved": 6,
+    "penalty": 612,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 187,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 30,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 63,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 230,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 74,
+    "team": "905 km 34an nwrong w nrao7 -_-",
+    "solved": 6,
+    "penalty": 629,
+    "problems": [
+      {
+        "label": "A",
+        "time": 22,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 187,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 71,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 55,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 117,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 75,
+    "team": "Sheafification of V",
+    "solved": 6,
+    "penalty": 640,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 38,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 225,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 129,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 76,
+    "team": "For a5dar",
+    "solved": 6,
+    "penalty": 665,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 26,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 75,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 48,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": 215,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 232,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 77,
+    "team": "elsayed we nageh, nageh we elsayed",
+    "solved": 6,
+    "penalty": 786,
+    "problems": [
+      {
+        "label": "A",
+        "time": 17,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 41,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": 201,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "L",
+        "time": 177,
+        "tries": 10,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 78,
+    "team": "Enzl Ya Mtdl3",
+    "solved": 5,
+    "penalty": 121,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 31,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 60,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 79,
+    "team": "United Saudi Egyptian",
+    "solved": 5,
+    "penalty": 191,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 118,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 80,
+    "team": "Naym Men 3 Seasons",
+    "solved": 5,
+    "penalty": 198,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 12,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 19,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 41,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 89,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 81,
+    "team": "cry b cry eddeha wahda try",
+    "solved": 5,
+    "penalty": 203,
+    "problems": [
+      {
+        "label": "A",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 46,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 28,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 67,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 82,
+    "team": "No Running Back",
+    "solved": 5,
+    "penalty": 218,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 28,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "H",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 42,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 72,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 83,
+    "team": "Elh2 w Elm2",
+    "solved": 5,
+    "penalty": 221,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 36,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 115,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 84,
+    "team": "Eltaw7eed w Elnoor",
+    "solved": 5,
+    "penalty": 223,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 38,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 106,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 85,
+    "team": "El A3ma w El A3wr",
+    "solved": 5,
+    "penalty": 230,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 9,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 37,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 16,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 86,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 86,
+    "team": "Lion Hurt",
+    "solved": 5,
+    "penalty": 241,
+    "problems": [
+      {
+        "label": "A",
+        "time": 38,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 108,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 87,
+    "team": "DPression",
+    "solved": 5,
+    "penalty": 242,
+    "problems": [
+      {
+        "label": "A",
+        "time": 29,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 85,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 10,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 14,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 88,
+    "team": "ElRay2a W ElMeday2a",
+    "solved": 5,
+    "penalty": 242,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 67,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 120,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 89,
+    "team": "Submit and Pray",
+    "solved": 5,
+    "penalty": 245,
+    "problems": [
+      {
+        "label": "A",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 52,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 90,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 90,
+    "team": "lo8d Maged El Gedwany",
+    "solved": 5,
+    "penalty": 255,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 136,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 91,
+    "team": "Didn\u2019t I See This Bug Before?",
+    "solved": 5,
+    "penalty": 266,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 29,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 36,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 151,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 92,
+    "team": "7salet Magzara 3shan el-fra5 msh mt7mara",
+    "solved": 5,
+    "penalty": 293,
+    "problems": [
+      {
+        "label": "A",
+        "time": 16,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 33,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 136,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 93,
+    "team": "ISA ACC",
+    "solved": 5,
+    "penalty": 316,
+    "problems": [
+      {
+        "label": "A",
+        "time": 31,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 45,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 24,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 48,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 68,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 94,
+    "team": "It is NUCPA not NAKBA",
+    "solved": 5,
+    "penalty": 330,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 204,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 10,
+        "tries": 1,
+        "status": "first",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 95,
+    "team": "Fahlen EL Code",
+    "solved": 5,
+    "penalty": 340,
+    "problems": [
+      {
+        "label": "A",
+        "time": 16,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 49,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 28,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 184,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 96,
+    "team": "El DP El Roussy",
+    "solved": 5,
+    "penalty": 361,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 137,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 36,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 104,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 97,
+    "team": "HALAWA_TAHINIA",
+    "solved": 5,
+    "penalty": 388,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 23,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 73,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 91,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 56,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 80,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 98,
+    "team": "Ana Rayeh Akol Wamshy",
+    "solved": 5,
+    "penalty": 391,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 30,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 239,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 99,
+    "team": "Shambk w Lambk",
+    "solved": 5,
+    "penalty": 393,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 62,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 94,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 8,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 137,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 100,
+    "team": "Ray7een w Rag3een fi toktok",
+    "solved": 5,
+    "penalty": 398,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 45,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 16,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 230,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 101,
+    "team": "shefo w ellol 3lkol",
+    "solved": 5,
+    "penalty": 423,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 41,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 221,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 102,
+    "team": "Mobrmgeen el Aryaf",
+    "solved": 5,
+    "penalty": 424,
+    "problems": [
+      {
+        "label": "A",
+        "time": 20,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 49,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 47,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": 214,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 103,
+    "team": "The two TLE specialists",
+    "solved": 5,
+    "penalty": 431,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 83,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 105,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 21,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 129,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 104,
+    "team": "umbrella for edge cases",
+    "solved": 5,
+    "penalty": 473,
+    "problems": [
+      {
+        "label": "A",
+        "time": 21,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 63,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 89,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 167,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 105,
+    "team": "Zeyad",
+    "solved": 5,
+    "penalty": 483,
+    "problems": [
+      {
+        "label": "A",
+        "time": 37,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 107,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 80,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 192,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 106,
+    "team": "El fastIO 5ad eltime fe 7eta tanya 5ales",
+    "solved": 5,
+    "penalty": 502,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": 199,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 40,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 99,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 49,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 107,
+    "team": "A Wla Eh!",
+    "solved": 5,
+    "penalty": 585,
+    "problems": [
+      {
+        "label": "A",
+        "time": 48,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 151,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 57,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": 185,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 108,
+    "team": "2stor ya judge",
+    "solved": 5,
+    "penalty": 592,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": 214,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 115,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 14,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 109,
+    "team": "EL_7arifa",
+    "solved": 4,
+    "penalty": 93,
+    "problems": [
+      {
+        "label": "A",
+        "time": 7,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 110,
+    "team": "Midnight Solvers",
+    "solved": 4,
+    "penalty": 98,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 111,
+    "team": "Ana Gaylak mn Tanta",
+    "solved": 4,
+    "penalty": 120,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 42,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 27,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 112,
+    "team": "Na3eman.wait()",
+    "solved": 4,
+    "penalty": 126,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 56,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 30,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 113,
+    "team": "Samna Balady",
+    "solved": 4,
+    "penalty": 132,
+    "problems": [
+      {
+        "label": "A",
+        "time": 14,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 114,
+    "team": "Abdo w Zoma_Zoma w Elgoal",
+    "solved": 4,
+    "penalty": 144,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 8,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 54,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 31,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 115,
+    "team": "shay blbn mn 8er lbn",
+    "solved": 4,
+    "penalty": 153,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 44,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 56,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 116,
+    "team": "Code it or Leave it",
+    "solved": 4,
+    "penalty": 158,
+    "problems": [
+      {
+        "label": "A",
+        "time": 28,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 37,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 10,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "L",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 117,
+    "team": "Nefsy araga3 ana wel far7a le ba3d",
+    "solved": 4,
+    "penalty": 158,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 46,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 118,
+    "team": "MST-Mostly Still TLE-",
+    "solved": 4,
+    "penalty": 164,
+    "problems": [
+      {
+        "label": "A",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 35,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 41,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 50,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 119,
+    "team": "ElBase_Case_Feen!!.....El7a2oonaaaaaaa",
+    "solved": 4,
+    "penalty": 169,
+    "problems": [
+      {
+        "label": "A",
+        "time": 23,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 48,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 120,
+    "team": "El 4akeb w El Rakeb",
+    "solved": 4,
+    "penalty": 170,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 25,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 52,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 121,
+    "team": "Sabe2 W La7e2",
+    "solved": 4,
+    "penalty": 175,
+    "problems": [
+      {
+        "label": "A",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 42,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 47,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 52,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 122,
+    "team": "Fenak Ya Saqr",
+    "solved": 4,
+    "penalty": 181,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 77,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 18,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 123,
+    "team": "Labes w Malbos",
+    "solved": 4,
+    "penalty": 193,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 54,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 41,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 124,
+    "team": "K3D's Shadow",
+    "solved": 4,
+    "penalty": 209,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 9,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 50,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 55,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 58,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 125,
+    "team": "htzbt elmrady",
+    "solved": 4,
+    "penalty": 215,
+    "problems": [
+      {
+        "label": "A",
+        "time": 28,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 62,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 36,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 49,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 126,
+    "team": "Masheen Belbarka",
+    "solved": 4,
+    "penalty": 222,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 85,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 72,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 8,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "O",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 127,
+    "team": "Avocado",
+    "solved": 4,
+    "penalty": 228,
+    "problems": [
+      {
+        "label": "A",
+        "time": 16,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 103,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 30,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 128,
+    "team": "la yas m3 al7yah w la 7yah lmn tnady",
+    "solved": 4,
+    "penalty": 240,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 58,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 50,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 20,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 129,
+    "team": "Code Mn Wara Masna3 ElKarasi",
+    "solved": 4,
+    "penalty": 251,
+    "problems": [
+      {
+        "label": "A",
+        "time": 23,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 41,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 51,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 36,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 130,
+    "team": "E5terem Nafshak",
+    "solved": 4,
+    "penalty": 251,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 94,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "F",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 25,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 131,
+    "team": "Ra4id el mizan",
+    "solved": 4,
+    "penalty": 260,
+    "problems": [
+      {
+        "label": "A",
+        "time": 9,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 35,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 112,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 132,
+    "team": "hadret el sagan",
+    "solved": 4,
+    "penalty": 265,
+    "problems": [
+      {
+        "label": "A",
+        "time": 23,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 72,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 39,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 91,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 133,
+    "team": "LeviOOsa Not LevioSSA",
+    "solved": 4,
+    "penalty": 314,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 96,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 26,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 57,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 134,
+    "team": "Em4ytla3bara",
+    "solved": 4,
+    "penalty": 316,
+    "problems": [
+      {
+        "label": "A",
+        "time": 35,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 54,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 103,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 44,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 135,
+    "team": "AC Ya Rab",
+    "solved": 4,
+    "penalty": 343,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 80,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 104,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 33,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "J",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "K",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "N",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "O",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 136,
+    "team": "Kmasha jr",
+    "solved": 4,
+    "penalty": 359,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 151,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 22,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 54,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 137,
+    "team": "Enta khasran kol 7aga",
+    "solved": 4,
+    "penalty": 374,
+    "problems": [
+      {
+        "label": "A",
+        "time": 70,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 33,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 123,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 48,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 138,
+    "team": "EOI - Stainless S-Team",
+    "solved": 4,
+    "penalty": 400,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 78,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 186,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 24,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 139,
+    "team": "eeh el RETURN de ya BENZ?",
+    "solved": 4,
+    "penalty": 409,
+    "problems": [
+      {
+        "label": "A",
+        "time": 42,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 34,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 217,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 56,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 140,
+    "team": "ELMazarita",
+    "solved": 4,
+    "penalty": 418,
+    "problems": [
+      {
+        "label": "A",
+        "time": 21,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "D",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 60,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 64,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 193,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 141,
+    "team": "ragab 7oosh ms2ltk 3ni",
+    "solved": 4,
+    "penalty": 460,
+    "problems": [
+      {
+        "label": "A",
+        "time": 25,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 197,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": 52,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 46,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 142,
+    "team": "Fokaha 3lena ya rab",
+    "solved": 4,
+    "penalty": 465,
+    "problems": [
+      {
+        "label": "A",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 111,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 172,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 125,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 143,
+    "team": "W b3deen y3ny",
+    "solved": 4,
+    "penalty": 469,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 64,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 215,
+        "tries": 6,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 85,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 144,
+    "team": "Harry Potter We Hany Potter",
+    "solved": 4,
+    "penalty": 526,
+    "problems": [
+      {
+        "label": "A",
+        "time": 6,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 198,
+        "tries": 8,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 119,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 145,
+    "team": "m5 msm7en elly sara2 esmna (Qa3 elHamur)",
+    "solved": 4,
+    "penalty": 582,
+    "problems": [
+      {
+        "label": "A",
+        "time": 24,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 37,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": 216,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 165,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 146,
+    "team": "ATM",
+    "solved": 3,
+    "penalty": 108,
+    "problems": [
+      {
+        "label": "A",
+        "time": 12,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 44,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 32,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 147,
+    "team": "Dakhlen 34an morshedy ybtal znnnn",
+    "solved": 3,
+    "penalty": 178,
+    "problems": [
+      {
+        "label": "A",
+        "time": 23,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 58,
+        "tries": 3,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 17,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 148,
+    "team": "Reem Bet-Debug w Nassar Bye-struggle",
+    "solved": 3,
+    "penalty": 233,
+    "problems": [
+      {
+        "label": "A",
+        "time": 23,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 155,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 55,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 149,
+    "team": "El3yan w Elmayet",
+    "solved": 3,
+    "penalty": 276,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 164,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 19,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 150,
+    "team": "zay ma tegy tegy",
+    "solved": 3,
+    "penalty": 338,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 113,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 200,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 151,
+    "team": "scare face",
+    "solved": 3,
+    "penalty": 345,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 198,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 116,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 7,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 152,
+    "team": "Weshak w elcode",
+    "solved": 3,
+    "penalty": 352,
+    "problems": [
+      {
+        "label": "A",
+        "time": 104,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": null,
+        "tries": 14,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": 43,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 85,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 153,
+    "team": "Chai b habib",
+    "solved": 3,
+    "penalty": 352,
+    "problems": [
+      {
+        "label": "A",
+        "time": 57,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 99,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 116,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 8,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 154,
+    "team": "Gamid gidan",
+    "solved": 3,
+    "penalty": 356,
+    "problems": [
+      {
+        "label": "A",
+        "time": 11,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 179,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 106,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 155,
+    "team": "Bn7el Adhoc Bas",
+    "solved": 3,
+    "penalty": 361,
+    "problems": [
+      {
+        "label": "A",
+        "time": 22,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 118,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 181,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 156,
+    "team": "Elteet w Elshreet",
+    "solved": 3,
+    "penalty": 366,
+    "problems": [
+      {
+        "label": "A",
+        "time": 13,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 107,
+        "tries": 2,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 226,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 157,
+    "team": "Konafa w basbousa",
+    "solved": 3,
+    "penalty": 416,
+    "problems": [
+      {
+        "label": "A",
+        "time": 37,
+        "tries": 4,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 101,
+        "tries": 9,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 58,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 158,
+    "team": "Batareek md84kr",
+    "solved": 3,
+    "penalty": 450,
+    "problems": [
+      {
+        "label": "A",
+        "time": 8,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": 220,
+        "tries": 5,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": 142,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 159,
+    "team": "Richard Watterson Solution",
+    "solved": 2,
+    "penalty": 181,
+    "problems": [
+      {
+        "label": "A",
+        "time": 10,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": null,
+        "tries": 3,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 171,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 160,
+    "team": "New Style Philadelphia",
+    "solved": 2,
+    "penalty": 218,
+    "problems": [
+      {
+        "label": "A",
+        "time": 5,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": null,
+        "tries": 5,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "I",
+        "time": 213,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "M",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 161,
+    "team": "Badnaa nroo2",
+    "solved": 2,
+    "penalty": 301,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "B",
+        "time": null,
+        "tries": 14,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": 146,
+        "tries": 8,
+        "status": "solved",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 162,
+    "team": "El atehad El sobyaty",
+    "solved": 1,
+    "penalty": 15,
+    "problems": [
+      {
+        "label": "A",
+        "time": 15,
+        "tries": 1,
+        "status": "solved",
+        "afterFreeze": false
+      },
+      {
+        "label": "E",
+        "time": null,
+        "tries": 1,
+        "status": "incorrect",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 6,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 163,
+    "team": "Almasfo3en men ( F) we( R)",
+    "solved": 1,
+    "penalty": 350,
+    "problems": [
+      {
+        "label": "A",
+        "time": 230,
+        "tries": 7,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "E",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 2,
+        "status": "incorrect",
+        "afterFreeze": false
+      }
+    ]
+  },
+  {
+    "rank": 164,
+    "team": "We Hate WA",
+    "solved": 1,
+    "penalty": 642,
+    "problems": [
+      {
+        "label": "A",
+        "time": 222,
+        "tries": 22,
+        "status": "solved",
+        "afterFreeze": true
+      },
+      {
+        "label": "G",
+        "time": null,
+        "tries": 8,
+        "status": "incorrect",
+        "afterFreeze": false
+      },
+      {
+        "label": "I",
+        "time": null,
+        "tries": 4,
+        "status": "incorrect",
+        "afterFreeze": true
+      }
+    ]
+  },
+  {
+    "rank": 165,
+    "team": "3bden w Elmo7amen",
+    "solved": 0,
+    "penalty": 0,
+    "problems": []
+  }
+]

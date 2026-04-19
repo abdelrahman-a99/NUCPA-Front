@@ -1,5 +1,6 @@
 export const NAV_ITEMS = [
   { label: "HOME", href: "#home" },
+  { label: "SCOREBOARD", href: "/scoreboard" },
   { label: "ABOUT NUCPA", href: "#about" },
   { label: "DETAILS", href: "#details" },
   { label: "CONTACT US", href: "#contact" },
