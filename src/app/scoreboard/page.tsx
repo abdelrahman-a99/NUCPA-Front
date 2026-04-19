@@ -29,7 +29,7 @@ const ScoreboardPage = () => {
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#1daa1d] rounded-sm" />
-                <span>Solved First</span>
+                <span>First to Solve</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#60e760] rounded-sm" />
@@ -37,11 +37,11 @@ const ScoreboardPage = () => {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#e87272] rounded-sm" />
-                <span>Tried, Incorrect</span>
+                <span>Attempted</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#6666ff] rounded-sm" />
-                <span>Pending / Frozen</span>
+                <span>Frozen</span>
               </div>
             </div>
           </header>
